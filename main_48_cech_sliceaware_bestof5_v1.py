@@ -1,0 +1,880 @@
+"""
+Slice-aware extension of main_48_cech.py focused only on Best of 5 matches.
+
+Idea:
+  - add endurance features for long-distance matches,
+  - add Best of 5 serve/return quality features,
+  - keep those features gated to Best of 5 so they do not dominate Best of 3.
+"""
+
+from __future__ import annotations
+
+import contextlib
+import io
+import os
+import runpy
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+
+BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+HISTORY_FILES = [
+    "sample_data/2018.csv",
+    "sample_data/2019.csv",
+    "sample_data/2020.csv",
+    "sample_data/2021.csv",
+    "sample_data/2022.csv",
+    "sample_data/2023.csv",
+]
+EXTRA_CONTEXT_COLUMNS = ["minutes"]
+TOURNEY_LEVEL_STRENGTH = {
+    "G": 1.00,
+    "M": 0.92,
+    "F": 0.88,
+    "A": 0.84,
+    "500": 0.78,
+    "250": 0.68,
+    "D": 0.58,
+    "O": 0.50,
+}
+
+TARGETED_FEATURES = [
+    "is_best_of5",
+    "tourney_level_strength",
+    "best_of5_level_pressure",
+    "p1_best_of5_form",
+    "p2_best_of5_form",
+    "best_of5_form_diff",
+    "p1_best_of5_surface_form",
+    "p2_best_of5_surface_form",
+    "best_of5_surface_form_diff",
+    "p1_best_of5_vs_top30_form",
+    "p2_best_of5_vs_top30_form",
+    "best_of5_vs_top30_form_diff",
+    "p1_best_of5_experience",
+    "p2_best_of5_experience",
+    "best_of5_experience_diff",
+    "p1_best_of5_avg_minutes",
+    "p2_best_of5_avg_minutes",
+    "best_of5_avg_minutes_diff",
+    "p1_long_match_form",
+    "p2_long_match_form",
+    "long_match_form_diff",
+    "p1_long_match_experience",
+    "p2_long_match_experience",
+    "long_match_experience_diff",
+    "p1_best_of5_serve_score",
+    "p2_best_of5_serve_score",
+    "best_of5_serve_score_diff",
+    "p1_best_of5_return_score",
+    "p2_best_of5_return_score",
+    "best_of5_return_score_diff",
+    "p1_best_of5_serve_stability",
+    "p2_best_of5_serve_stability",
+    "best_of5_serve_stability_diff",
+    "p1_pressure_serve_score",
+    "p2_pressure_serve_score",
+    "pressure_serve_score_diff",
+    "p1_endurance_score",
+    "p2_endurance_score",
+    "endurance_score_diff",
+]
+
+SYMMETRIC_FEATURE_SPECS = [
+    ("best_of5_form", "best_of5_form_diff"),
+    ("best_of5_surface_form", "best_of5_surface_form_diff"),
+    ("best_of5_vs_top30_form", "best_of5_vs_top30_form_diff"),
+    ("best_of5_experience", "best_of5_experience_diff"),
+    ("best_of5_avg_minutes", "best_of5_avg_minutes_diff"),
+    ("long_match_form", "long_match_form_diff"),
+    ("long_match_experience", "long_match_experience_diff"),
+    ("best_of5_serve_score", "best_of5_serve_score_diff"),
+    ("best_of5_return_score", "best_of5_return_score_diff"),
+    ("best_of5_serve_stability", "best_of5_serve_stability_diff"),
+    ("pressure_serve_score", "pressure_serve_score_diff"),
+    ("endurance_score", "endurance_score_diff"),
+]
+
+
+def execute_base_pipeline_quietly() -> dict:
+    original_cwd = os.getcwd()
+    captured_stdout = io.StringIO()
+    os.chdir(BASE_SCRIPT.parent)
+    try:
+        with contextlib.redirect_stdout(captured_stdout):
+            return runpy.run_path(str(BASE_SCRIPT))
+    finally:
+        os.chdir(original_cwd)
+
+
+def unique_columns(columns: list[str]) -> list[str]:
+    return list(dict.fromkeys(columns))
+
+
+def load_context_frame(csv_path: str, base_cols: list[str]) -> pd.DataFrame:
+    df = pd.read_csv(csv_path)
+    df["tourney_date"] = pd.to_datetime(df["tourney_date"], format="%Y%m%d")
+    df = df.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
+    keep_columns = unique_columns(base_cols + EXTRA_CONTEXT_COLUMNS)
+    return df[keep_columns].dropna(subset=base_cols).reset_index(drop=True)
+
+
+def load_context_data(
+    base_cols: list[str],
+    train_len: int,
+    val_len: int,
+    test_len: int,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    df_2024 = load_context_frame("sample_data/2024.csv", base_cols)
+    expected_len = train_len + val_len + test_len
+    if len(df_2024) != expected_len:
+        raise ValueError(
+            "Niespojnosc przy ladowaniu danych kontekstowych 2024: "
+            f"{len(df_2024)} vs expected {expected_len}."
+        )
+
+    history_parts = [load_context_frame(path, base_cols) for path in HISTORY_FILES]
+    history_context = pd.concat(history_parts, ignore_index=True)
+
+    train_context = df_2024.iloc[:train_len].reset_index(drop=True)
+    val_context = df_2024.iloc[train_len:train_len + val_len].reset_index(drop=True)
+    test_context = df_2024.iloc[train_len + val_len:].reset_index(drop=True)
+
+    for frame in (train_context, val_context, test_context):
+        frame["match_id"] = range(len(frame))
+
+    return history_context, train_context, val_context, test_context
+
+
+def attach_context_columns(raw_split: pd.DataFrame, context_split: pd.DataFrame) -> pd.DataFrame:
+    return raw_split.merge(
+        context_split[["match_id"] + EXTRA_CONTEXT_COLUMNS],
+        on="match_id",
+        how="left",
+        validate="one_to_one",
+    )
+
+
+def get_player_history(player_name: str, history: pd.DataFrame) -> pd.DataFrame:
+    return history[
+        (history["winner_name"] == player_name) |
+        (history["loser_name"] == player_name)
+    ]
+
+
+def filter_player_history(
+    player_name: str,
+    history: pd.DataFrame,
+    *,
+    best_of: int | None = None,
+    surface: str | None = None,
+    opponent_rank_max: int | None = None,
+    minutes_min: float | None = None,
+) -> pd.DataFrame:
+    player_history = get_player_history(player_name, history)
+
+    if best_of is not None:
+        player_history = player_history[player_history["best_of"] == best_of]
+
+    if surface is not None:
+        player_history = player_history[player_history["surface"] == surface]
+
+    if opponent_rank_max is not None:
+        top_opp_mask = (
+            ((player_history["winner_name"] == player_name) & (player_history["loser_rank"] <= opponent_rank_max)) |
+            ((player_history["loser_name"] == player_name) & (player_history["winner_rank"] <= opponent_rank_max))
+        )
+        player_history = player_history[top_opp_mask]
+
+    if minutes_min is not None:
+        match_minutes = pd.to_numeric(player_history["minutes"], errors="coerce")
+        player_history = player_history[match_minutes >= minutes_min]
+
+    return player_history
+
+
+def calculate_context_form(
+    player_name: str,
+    history: pd.DataFrame,
+    *,
+    best_of: int | None = None,
+    surface: str | None = None,
+    opponent_rank_max: int | None = None,
+    minutes_min: float | None = None,
+    window: int = 12,
+    min_matches: int = 3,
+    fallback: float = 0.5,
+) -> float:
+    player_history = filter_player_history(
+        player_name,
+        history,
+        best_of=best_of,
+        surface=surface,
+        opponent_rank_max=opponent_rank_max,
+        minutes_min=minutes_min,
+    ).tail(window)
+
+    if len(player_history) < min_matches:
+        return fallback
+
+    wins = (player_history["winner_name"] == player_name).sum()
+    return float(wins / len(player_history))
+
+
+def calculate_context_experience(
+    player_name: str,
+    history: pd.DataFrame,
+    *,
+    best_of: int | None = None,
+    minutes_min: float | None = None,
+    window: int = 24,
+    scale: int = 8,
+) -> float:
+    player_history = filter_player_history(
+        player_name,
+        history,
+        best_of=best_of,
+        minutes_min=minutes_min,
+    )
+    matches_in_context = len(player_history.tail(window))
+    return float(min(matches_in_context / scale, 1.0))
+
+
+def calculate_context_average_numeric(
+    player_name: str,
+    history: pd.DataFrame,
+    *,
+    column_name: str,
+    best_of: int | None = None,
+    minutes_min: float | None = None,
+    window: int = 12,
+    min_matches: int = 3,
+    fallback: float = 0.0,
+) -> float:
+    player_history = filter_player_history(
+        player_name,
+        history,
+        best_of=best_of,
+        minutes_min=minutes_min,
+    ).tail(window)
+    if len(player_history) < min_matches:
+        return fallback
+
+    values = pd.to_numeric(player_history[column_name], errors="coerce").dropna()
+    if len(values) < min_matches:
+        return fallback
+    return float(values.mean())
+
+
+def safe_ratio(numerator: float, denominator: float, default: float = 0.0) -> float:
+    return float(numerator / denominator) if denominator > 0 else default
+
+
+def extract_player_match_serve_metrics(match: pd.Series, player_name: str) -> dict[str, float]:
+    is_winner = match["winner_name"] == player_name
+
+    if is_winner:
+        svpt = float(match["w_svpt"])
+        ace = float(match["w_ace"])
+        df = float(match["w_df"])
+        first_in = float(match["w_1stIn"])
+        first_won = float(match["w_1stWon"])
+        second_won = float(match["w_2ndWon"])
+        sv_gms = float(match["w_SvGms"])
+        bp_saved = float(match["w_bpSaved"])
+        bp_faced = float(match["w_bpFaced"])
+        opp_svpt = float(match["l_svpt"])
+        opp_first_won = float(match["l_1stWon"])
+        opp_second_won = float(match["l_2ndWon"])
+    else:
+        svpt = float(match["l_svpt"])
+        ace = float(match["l_ace"])
+        df = float(match["l_df"])
+        first_in = float(match["l_1stIn"])
+        first_won = float(match["l_1stWon"])
+        second_won = float(match["l_2ndWon"])
+        sv_gms = float(match["l_SvGms"])
+        bp_saved = float(match["l_bpSaved"])
+        bp_faced = float(match["l_bpFaced"])
+        opp_svpt = float(match["w_svpt"])
+        opp_first_won = float(match["w_1stWon"])
+        opp_second_won = float(match["w_2ndWon"])
+
+    second_serve_points = max(svpt - first_in, 0.0)
+    return {
+        "ace_rate": safe_ratio(ace, svpt, 0.08),
+        "df_rate": safe_ratio(df, svpt, 0.03),
+        "first_in_pct": safe_ratio(first_in, svpt, 0.60),
+        "first_won_pct": safe_ratio(first_won, first_in, 0.70),
+        "second_won_pct": safe_ratio(second_won, second_serve_points, 0.50),
+        "bp_save_pct": safe_ratio(bp_saved, bp_faced, 0.60),
+        "bp_faced_per_game": safe_ratio(bp_faced, sv_gms, 0.40),
+        "return_pts_won": safe_ratio(
+            opp_svpt - opp_first_won - opp_second_won,
+            opp_svpt,
+            0.35,
+        ),
+    }
+
+
+def compose_serve_score(stats: dict[str, float]) -> float:
+    ace_component = min(stats["ace_rate"] / 0.15, 1.5)
+    df_component = min(stats["df_rate"] / 0.08, 1.5)
+    bp_faced_component = min(stats["bp_faced_per_game"] / 0.80, 1.5)
+    return float(
+        0.10 * ace_component
+        + 0.18 * stats["first_in_pct"]
+        + 0.24 * stats["first_won_pct"]
+        + 0.22 * stats["second_won_pct"]
+        + 0.14 * stats["bp_save_pct"]
+        + 0.12 * stats["return_pts_won"]
+        - 0.08 * df_component
+        - 0.08 * bp_faced_component
+    )
+
+
+def build_fallback_serve_profile(row: pd.Series, prefix: str) -> dict[str, float]:
+    stats = {
+        "ace_rate": float(row[f"{prefix}_ace_rate"]),
+        "df_rate": float(row[f"{prefix}_df_rate"]),
+        "first_in_pct": float(row[f"{prefix}_first_in_pct"]),
+        "first_won_pct": float(row[f"{prefix}_first_won_pct"]),
+        "second_won_pct": float(row[f"{prefix}_second_won_pct"]),
+        "bp_save_pct": float(row[f"{prefix}_bp_save_pct"]),
+        "bp_faced_per_game": float(row[f"{prefix}_bp_faced_per_game"]),
+        "return_pts_won": float(row[f"{prefix}_return_pts_won"]),
+    }
+    return {
+        "serve_score": compose_serve_score(stats),
+        "return_score": stats["return_pts_won"],
+        "stability": 0.50,
+    }
+
+
+def calculate_context_serve_profile(
+    player_name: str,
+    history: pd.DataFrame,
+    *,
+    best_of: int | None = None,
+    surface: str | None = None,
+    opponent_rank_max: int | None = None,
+    window: int = 10,
+    min_matches: int = 2,
+    fallback: dict[str, float] | None = None,
+) -> dict[str, float]:
+    if fallback is None:
+        fallback = {"serve_score": 0.55, "return_score": 0.35, "stability": 0.50}
+
+    player_history = filter_player_history(
+        player_name,
+        history,
+        best_of=best_of,
+        surface=surface,
+        opponent_rank_max=opponent_rank_max,
+    ).tail(window)
+
+    if len(player_history) < min_matches:
+        return fallback
+
+    match_metrics = [
+        extract_player_match_serve_metrics(match, player_name)
+        for _, match in player_history.iterrows()
+    ]
+    serve_scores = [compose_serve_score(metrics) for metrics in match_metrics]
+
+    return {
+        "serve_score": float(np.mean(serve_scores)),
+        "return_score": float(np.mean([metrics["return_pts_won"] for metrics in match_metrics])),
+        "stability": float(1.0 / (1.0 + np.std(serve_scores))),
+    }
+
+
+def tournament_level_strength(level: str) -> float:
+    return float(TOURNEY_LEVEL_STRENGTH.get(level, 0.60))
+
+
+def build_endurance_score(
+    *,
+    best_of5_form: float,
+    long_match_form: float,
+    best_of5_experience: float,
+    long_match_experience: float,
+    best_of5_avg_minutes: float,
+    best_of5_serve_stability: float,
+) -> float:
+    minutes_component = float(np.clip((best_of5_avg_minutes - 90.0) / 120.0, 0.0, 1.0))
+    return float(
+        0.25 * best_of5_form
+        + 0.20 * long_match_form
+        + 0.15 * best_of5_experience
+        + 0.10 * long_match_experience
+        + 0.15 * minutes_component
+        + 0.15 * best_of5_serve_stability
+    )
+
+
+def pressure_serve_profile(
+    player_name: str,
+    row: pd.Series,
+    history: pd.DataFrame,
+    fallback: dict[str, float],
+) -> dict[str, float]:
+    if int(row["best_of"]) == 5:
+        return calculate_context_serve_profile(
+            player_name,
+            history,
+            best_of=5,
+            window=8,
+            min_matches=2,
+            fallback=fallback,
+        )
+    return fallback
+
+
+def add_targeted_slice_features(
+    df_subset: pd.DataFrame,
+    historical_data: pd.DataFrame,
+    context_base_cols: list[str],
+) -> pd.DataFrame:
+    df_subset = df_subset.copy()
+
+    full_sequence = pd.concat(
+        [historical_data[context_base_cols], df_subset[context_base_cols]],
+        ignore_index=True,
+    )
+    start_idx = len(historical_data)
+
+    feature_rows: list[dict[str, float]] = []
+    for i in range(len(df_subset)):
+        row = df_subset.iloc[i]
+        past_matches = full_sequence.iloc[:start_idx + i]
+
+        winner_name = row["winner_name"]
+        loser_name = row["loser_name"]
+        surface = row["surface"]
+        level_strength = tournament_level_strength(row["tourney_level"])
+        winner_form = float(row["w_form"])
+        loser_form = float(row["l_form"])
+        winner_surface_form = float(row["w_surface_form"])
+        loser_surface_form = float(row["l_surface_form"])
+
+        winner_general_minutes = calculate_context_average_numeric(
+            winner_name,
+            past_matches,
+            column_name="minutes",
+            window=12,
+            min_matches=3,
+            fallback=110.0,
+        )
+        loser_general_minutes = calculate_context_average_numeric(
+            loser_name,
+            past_matches,
+            column_name="minutes",
+            window=12,
+            min_matches=3,
+            fallback=110.0,
+        )
+
+        winner_best_of5_form = calculate_context_form(
+            winner_name,
+            past_matches,
+            best_of=5,
+            window=8,
+            min_matches=2,
+            fallback=winner_form,
+        )
+        loser_best_of5_form = calculate_context_form(
+            loser_name,
+            past_matches,
+            best_of=5,
+            window=8,
+            min_matches=2,
+            fallback=loser_form,
+        )
+
+        winner_best_of5_surface_form = calculate_context_form(
+            winner_name,
+            past_matches,
+            best_of=5,
+            surface=surface,
+            window=6,
+            min_matches=1,
+            fallback=winner_surface_form,
+        )
+        loser_best_of5_surface_form = calculate_context_form(
+            loser_name,
+            past_matches,
+            best_of=5,
+            surface=surface,
+            window=6,
+            min_matches=1,
+            fallback=loser_surface_form,
+        )
+
+        winner_best_of5_vs_top30_form = calculate_context_form(
+            winner_name,
+            past_matches,
+            best_of=5,
+            opponent_rank_max=30,
+            window=6,
+            min_matches=1,
+            fallback=winner_best_of5_form,
+        )
+        loser_best_of5_vs_top30_form = calculate_context_form(
+            loser_name,
+            past_matches,
+            best_of=5,
+            opponent_rank_max=30,
+            window=6,
+            min_matches=1,
+            fallback=loser_best_of5_form,
+        )
+
+        winner_best_of5_experience = calculate_context_experience(
+            winner_name,
+            past_matches,
+            best_of=5,
+            window=20,
+            scale=6,
+        )
+        loser_best_of5_experience = calculate_context_experience(
+            loser_name,
+            past_matches,
+            best_of=5,
+            window=20,
+            scale=6,
+        )
+
+        winner_best_of5_avg_minutes = calculate_context_average_numeric(
+            winner_name,
+            past_matches,
+            column_name="minutes",
+            best_of=5,
+            window=8,
+            min_matches=2,
+            fallback=winner_general_minutes,
+        )
+        loser_best_of5_avg_minutes = calculate_context_average_numeric(
+            loser_name,
+            past_matches,
+            column_name="minutes",
+            best_of=5,
+            window=8,
+            min_matches=2,
+            fallback=loser_general_minutes,
+        )
+
+        winner_long_match_form = calculate_context_form(
+            winner_name,
+            past_matches,
+            minutes_min=150.0,
+            window=10,
+            min_matches=2,
+            fallback=winner_form,
+        )
+        loser_long_match_form = calculate_context_form(
+            loser_name,
+            past_matches,
+            minutes_min=150.0,
+            window=10,
+            min_matches=2,
+            fallback=loser_form,
+        )
+
+        winner_long_match_experience = calculate_context_experience(
+            winner_name,
+            past_matches,
+            minutes_min=150.0,
+            window=20,
+            scale=6,
+        )
+        loser_long_match_experience = calculate_context_experience(
+            loser_name,
+            past_matches,
+            minutes_min=150.0,
+            window=20,
+            scale=6,
+        )
+
+        winner_fallback_serve = build_fallback_serve_profile(row, "w")
+        loser_fallback_serve = build_fallback_serve_profile(row, "l")
+
+        winner_best_of5_serve = calculate_context_serve_profile(
+            winner_name,
+            past_matches,
+            best_of=5,
+            window=8,
+            min_matches=2,
+            fallback=winner_fallback_serve,
+        )
+        loser_best_of5_serve = calculate_context_serve_profile(
+            loser_name,
+            past_matches,
+            best_of=5,
+            window=8,
+            min_matches=2,
+            fallback=loser_fallback_serve,
+        )
+
+        winner_pressure_serve = pressure_serve_profile(
+            winner_name,
+            row,
+            past_matches,
+            winner_best_of5_serve,
+        )
+        loser_pressure_serve = pressure_serve_profile(
+            loser_name,
+            row,
+            past_matches,
+            loser_best_of5_serve,
+        )
+
+        winner_endurance_score = build_endurance_score(
+            best_of5_form=winner_best_of5_form,
+            long_match_form=winner_long_match_form,
+            best_of5_experience=winner_best_of5_experience,
+            long_match_experience=winner_long_match_experience,
+            best_of5_avg_minutes=winner_best_of5_avg_minutes,
+            best_of5_serve_stability=winner_best_of5_serve["stability"],
+        )
+        loser_endurance_score = build_endurance_score(
+            best_of5_form=loser_best_of5_form,
+            long_match_form=loser_long_match_form,
+            best_of5_experience=loser_best_of5_experience,
+            long_match_experience=loser_long_match_experience,
+            best_of5_avg_minutes=loser_best_of5_avg_minutes,
+            best_of5_serve_stability=loser_best_of5_serve["stability"],
+        )
+
+        feature_rows.append(
+            {
+                "w_best_of5_form": winner_best_of5_form,
+                "l_best_of5_form": loser_best_of5_form,
+                "w_best_of5_surface_form": winner_best_of5_surface_form,
+                "l_best_of5_surface_form": loser_best_of5_surface_form,
+                "w_best_of5_vs_top30_form": winner_best_of5_vs_top30_form,
+                "l_best_of5_vs_top30_form": loser_best_of5_vs_top30_form,
+                "w_best_of5_experience": winner_best_of5_experience,
+                "l_best_of5_experience": loser_best_of5_experience,
+                "w_best_of5_avg_minutes": winner_best_of5_avg_minutes,
+                "l_best_of5_avg_minutes": loser_best_of5_avg_minutes,
+                "w_long_match_form": winner_long_match_form,
+                "l_long_match_form": loser_long_match_form,
+                "w_long_match_experience": winner_long_match_experience,
+                "l_long_match_experience": loser_long_match_experience,
+                "w_best_of5_serve_score": winner_best_of5_serve["serve_score"],
+                "l_best_of5_serve_score": loser_best_of5_serve["serve_score"],
+                "w_best_of5_return_score": winner_best_of5_serve["return_score"],
+                "l_best_of5_return_score": loser_best_of5_serve["return_score"],
+                "w_best_of5_serve_stability": winner_best_of5_serve["stability"],
+                "l_best_of5_serve_stability": loser_best_of5_serve["stability"],
+                "w_pressure_serve_score": winner_pressure_serve["serve_score"],
+                "l_pressure_serve_score": loser_pressure_serve["serve_score"],
+                "w_endurance_score": winner_endurance_score,
+                "l_endurance_score": loser_endurance_score,
+                "tourney_level_raw": row["tourney_level"],
+            }
+        )
+
+    feature_frame = pd.DataFrame(feature_rows)
+    return pd.concat([df_subset.reset_index(drop=True), feature_frame], axis=1)
+
+
+def attach_targeted_features(
+    symmetrized_data: pd.DataFrame,
+    raw_data: pd.DataFrame,
+) -> pd.DataFrame:
+    helper_columns = ["match_id", "tourney_level_raw"]
+    for feature_name, _ in SYMMETRIC_FEATURE_SPECS:
+        helper_columns.extend([f"w_{feature_name}", f"l_{feature_name}"])
+
+    enriched = symmetrized_data.merge(
+        raw_data[helper_columns],
+        on="match_id",
+        how="left",
+        validate="many_to_one",
+    )
+
+    winner_perspective_mask = enriched["y"] == 1
+    enriched["is_best_of5"] = (enriched["best_of"] == 5).astype(int)
+    enriched["tourney_level_strength"] = (
+        enriched["tourney_level_raw"].map(TOURNEY_LEVEL_STRENGTH).fillna(0.60).astype(float)
+    )
+    enriched["best_of5_level_pressure"] = enriched["is_best_of5"] * enriched["tourney_level_strength"]
+
+    for feature_name, diff_name in SYMMETRIC_FEATURE_SPECS:
+        winner_column = f"w_{feature_name}"
+        loser_column = f"l_{feature_name}"
+        p1_column = f"p1_{feature_name}"
+        p2_column = f"p2_{feature_name}"
+
+        enriched[p1_column] = np.where(
+            winner_perspective_mask,
+            enriched[winner_column],
+            enriched[loser_column],
+        )
+        enriched[p2_column] = np.where(
+            winner_perspective_mask,
+            enriched[loser_column],
+            enriched[winner_column],
+        )
+        enriched[diff_name] = enriched[p1_column] - enriched[p2_column]
+
+        enriched[p1_column] = enriched[p1_column] * enriched["is_best_of5"]
+        enriched[p2_column] = enriched[p2_column] * enriched["is_best_of5"]
+        enriched[diff_name] = enriched[diff_name] * enriched["is_best_of5"]
+
+    drop_columns = ["tourney_level_raw"]
+    for feature_name, _ in SYMMETRIC_FEATURE_SPECS:
+        drop_columns.extend([f"w_{feature_name}", f"l_{feature_name}"])
+    return enriched.drop(columns=drop_columns)
+
+
+def print_metric_delta(name: str, baseline_value: float, new_value: float) -> None:
+    delta = new_value - baseline_value
+    print(
+        f"{name:<18} baseline={baseline_value:.4f} | bestof5-v1={new_value:.4f} "
+        f"| delta={delta:+.4f}"
+    )
+
+
+def run_bestof5_variant() -> None:
+    global search
+    global features
+    global best_rf
+    global df_train_raw
+    global df_val_raw
+    global df_test_raw
+    global val_data
+    global test_data
+    global winner_perspective
+    global match_accuracy
+    global val_acc
+    global test_acc
+    global feature_importance
+
+    namespace = execute_base_pipeline_quietly()
+    base_cols = list(namespace["cols_base"])
+    context_base_cols = unique_columns(base_cols + EXTRA_CONTEXT_COLUMNS)
+    symmetrize_data = namespace["symmetrize_data"]
+    baseline_search = namespace["search"]
+
+    baseline_val_acc = float(namespace["val_acc"])
+    baseline_test_acc = float(namespace["test_acc"])
+    baseline_match_accuracy = float(namespace["match_accuracy"])
+
+    history_context, train_context, val_context, test_context = load_context_data(
+        base_cols,
+        train_len=len(namespace["df_train_raw"]),
+        val_len=len(namespace["df_val_raw"]),
+        test_len=len(namespace["df_test_raw"]),
+    )
+
+    df_train_raw = attach_context_columns(namespace["df_train_raw"].copy(), train_context)
+    df_val_raw = attach_context_columns(namespace["df_val_raw"].copy(), val_context)
+    df_test_raw = attach_context_columns(namespace["df_test_raw"].copy(), test_context)
+
+    df_train_raw = add_targeted_slice_features(df_train_raw, history_context, context_base_cols)
+
+    history_val = pd.concat([history_context, df_train_raw[context_base_cols]], ignore_index=True)
+    df_val_raw = add_targeted_slice_features(df_val_raw, history_val, context_base_cols)
+
+    history_test = pd.concat(
+        [history_context, df_train_raw[context_base_cols], df_val_raw[context_base_cols]],
+        ignore_index=True,
+    )
+    df_test_raw = add_targeted_slice_features(df_test_raw, history_test, context_base_cols)
+
+    train_data_final = attach_targeted_features(symmetrize_data(df_train_raw, shuffle=True), df_train_raw)
+    val_data = attach_targeted_features(symmetrize_data(df_val_raw, shuffle=True), df_val_raw)
+    test_data = attach_targeted_features(symmetrize_data(df_test_raw, shuffle=True), df_test_raw)
+
+    features = list(namespace["features"]) + TARGETED_FEATURES
+
+    X_train_final = train_data_final[features]
+    y_train_final = train_data_final["y"]
+    X_val = val_data[features]
+    y_val = val_data["y"]
+    X_test = test_data[features]
+    y_test = test_data["y"]
+
+    best_rf = RandomForestClassifier(
+        **baseline_search.best_params_,
+        n_jobs=-1,
+        random_state=namespace["RANDOM_STATE"],
+    )
+
+    print("=" * 70)
+    print("SLICE-AWARE FEATURE EXTENSION: BEST OF 5 V1")
+    print("=" * 70)
+    print("Nowe cechy: endurance, avg minutes, long-match form oraz serve/return quality w Best of 5.")
+    print("Model uzywa tych samych tuned hyperparameters co baseline.")
+    print(f"Liczba cech: {len(features)} (baseline: {len(namespace['features'])})")
+    print()
+
+    best_rf.fit(X_train_final, y_train_final)
+
+    val_pred = best_rf.predict(X_val)
+    val_acc = accuracy_score(y_val, val_pred)
+    print("=== WALIDACJA ===")
+    print(f"Accuracy: {val_acc:.4f}")
+    print(classification_report(y_val, val_pred, target_names=["Gracz 2 wygrywa", "Gracz 1 wygrywa"]))
+    print("Macierz pomylek:")
+    print(confusion_matrix(y_val, val_pred))
+    print()
+
+    test_pred = best_rf.predict(X_test)
+    test_pred_proba = best_rf.predict_proba(X_test)
+    test_acc = accuracy_score(y_test, test_pred)
+    print("=== TEST ===")
+    print(f"Accuracy: {test_acc:.4f}")
+    print(classification_report(y_test, test_pred, target_names=["Gracz 2 wygrywa", "Gracz 1 wygrywa"]))
+    print("Macierz pomylek:")
+    print(confusion_matrix(y_test, test_pred))
+    print()
+
+    test_data["p1_win_probability"] = test_pred_proba[:, 1]
+    winner_perspective = test_data[test_data["y"] == 1].copy()
+    winner_perspective["predicted_winner"] = winner_perspective.apply(
+        lambda row: row["p1_name"] if row["p1_win_probability"] > 0.5 else row["p2_name"],
+        axis=1,
+    )
+    winner_perspective["correct_prediction"] = winner_perspective["p1_win_probability"] > 0.5
+    match_accuracy = float(winner_perspective["correct_prediction"].mean())
+
+    print("=== MATCH-LEVEL ===")
+    print(f"Accuracy przewidywania zwyciezcow: {match_accuracy:.4f} ({match_accuracy * 100:.2f}%)")
+    print(
+        f"Poprawnie przewidziane: {int(winner_perspective['correct_prediction'].sum())} / "
+        f"{len(winner_perspective)} meczow"
+    )
+    print()
+
+    print("=== POROWNANIE Z BASELINE ===")
+    print_metric_delta("Validation", baseline_val_acc, val_acc)
+    print_metric_delta("Test", baseline_test_acc, test_acc)
+    print_metric_delta("Match-level", baseline_match_accuracy, match_accuracy)
+    print()
+
+    feature_importance = pd.DataFrame(
+        {
+            "feature": features,
+            "importance": best_rf.feature_importances_,
+        }
+    ).sort_values("importance", ascending=False)
+
+    print("=== NOWE CECHY: WAZNOSC ===")
+    print(
+        feature_importance[
+            feature_importance["feature"].isin(TARGETED_FEATURES)
+        ].to_string(index=False)
+    )
+
+    search = baseline_search
+
+
+run_bestof5_variant()
