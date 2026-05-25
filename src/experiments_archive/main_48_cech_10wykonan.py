@@ -11,6 +11,8 @@ Ziarno wpływa wyłącznie na: RandomizedSearchCV, symetryzację (shuffle), Rand
 import os
 os.environ['PYTHONWARNINGS'] = 'ignore'
 
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
@@ -21,6 +23,10 @@ import warnings
 warnings.filterwarnings('ignore')
 import time
 
+# Plik lezy w src/experiments_archive/, wiec parents[2] = katalog projektu.
+BASE_DIR = Path(__file__).resolve().parents[2]
+DATA_DIR = BASE_DIR / "data" / "sample_data"
+
 N_RUNS = 10
 SEEDS = list(range(1, N_RUNS + 1))  # Ziarna: 1, 2, ..., 10
 
@@ -29,7 +35,7 @@ SEEDS = list(range(1, N_RUNS + 1))  # Ziarna: 1, 2, ..., 10
 # ETAP 1–5: PRZYGOTOWANIE DANYCH (jednorazowe — niezależne od ziarna)
 # =============================================================================
 
-df = pd.read_csv('sample_data/2024.csv')
+df = pd.read_csv(DATA_DIR / "2024.csv")
 df['tourney_date'] = pd.to_datetime(df['tourney_date'], format='%Y%m%d')
 df = df.sort_values(['tourney_date', 'match_num']).reset_index(drop=True)
 
@@ -57,8 +63,7 @@ df_base['round_encoded'] = df_base['round'].map(ROUND_ORDER).fillna(3)
 print(f"Dane główne (2024): {len(df_base)} meczów")
 
 # Historia
-history_files = ['sample_data/2018.csv', 'sample_data/2019.csv', 'sample_data/2020.csv',
-                 'sample_data/2021.csv', 'sample_data/2022.csv', 'sample_data/2023.csv']
+history_files = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
 history_parts = []
 for filepath in history_files:
     try:

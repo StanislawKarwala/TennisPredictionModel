@@ -15,10 +15,12 @@ Targeted weak slices:
 
 from __future__ import annotations
 
+import bisect
 import contextlib
 import io
 import os
 import runpy
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
@@ -79,11 +81,76 @@ def execute_base_pipeline_quietly() -> dict:
         os.chdir(original_cwd)
 
 
+def build_player_index(full_sequence: pd.DataFrame) -> dict[str, list[int]]:
+    """
+    player_name -> posortowana lista absolutnych indeksow wierszy gracza
+    w full_sequence. Pozwala dla cutoff i robic bisect_left zamiast skanowac
+    cala historie. Per-mecz zysk: ~19k -> ~100-200 wierszy do filtrowania
+    przez best_of/surface/opponent_hand.
+    """
+    winners = full_sequence["winner_name"].to_numpy()
+    losers = full_sequence["loser_name"].to_numpy()
+    indices: dict[str, list[int]] = defaultdict(list)
+    for idx in range(len(full_sequence)):
+        indices[winners[idx]].append(idx)
+        if losers[idx] != winners[idx]:
+            indices[losers[idx]].append(idx)
+    return indices
+
+
+def get_player_history_via_index(
+    player_name: str,
+    full_sequence: pd.DataFrame,
+    player_index: dict[str, list[int]],
+    cutoff: int,
+) -> pd.DataFrame:
+    """
+    Zwraca slice full_sequence dla wszystkich meczow gracza o absolutnym
+    indeksie < cutoff. Bisect daje pozycje pierwszego indeksu >= cutoff.
+    """
+    all_indices = player_index.get(player_name, [])
+    if not all_indices:
+        return full_sequence.iloc[[]]
+    end = bisect.bisect_left(all_indices, cutoff)
+    if end == 0:
+        return full_sequence.iloc[[]]
+    return full_sequence.iloc[all_indices[:end]]
+
+
 def get_player_history(player_name: str, history: pd.DataFrame) -> pd.DataFrame:
+    """Kept for backward compatibility -- legacy callers without precomputed index."""
     return history[
         (history["winner_name"] == player_name) |
         (history["loser_name"] == player_name)
     ]
+
+
+def _apply_context_filters(
+    player_history: pd.DataFrame,
+    player_name: str,
+    *,
+    best_of: int | None,
+    rounds: set[str] | None,
+    surface: str | None,
+    opponent_hand: str | None,
+) -> pd.DataFrame:
+    """
+    Stosuje filtry kontekstowe na juz-przefiltrowanym subsecie gracza.
+    Wyniesione zeby uniknac duplikacji miedzy form/experience/balance.
+    """
+    if best_of is not None:
+        player_history = player_history[player_history["best_of"] == best_of]
+    if rounds is not None:
+        player_history = player_history[player_history["round"].isin(rounds)]
+    if surface is not None:
+        player_history = player_history[player_history["surface"] == surface]
+    if opponent_hand is not None:
+        versus_hand_mask = (
+            ((player_history["winner_name"] == player_name) & (player_history["loser_hand"] == opponent_hand)) |
+            ((player_history["loser_name"] == player_name) & (player_history["winner_hand"] == opponent_hand))
+        )
+        player_history = player_history[versus_hand_mask]
+    return player_history
 
 
 def calculate_context_form(
@@ -98,25 +165,18 @@ def calculate_context_form(
     min_matches: int = 3,
     fallback: float = 0.5,
 ) -> float:
-    player_history = get_player_history(player_name, history)
-
-    if best_of is not None:
-        player_history = player_history[player_history["best_of"] == best_of]
-
-    if rounds is not None:
-        player_history = player_history[player_history["round"].isin(rounds)]
-
-    if surface is not None:
-        player_history = player_history[player_history["surface"] == surface]
-
-    if opponent_hand is not None:
-        versus_hand_mask = (
-            ((player_history["winner_name"] == player_name) & (player_history["loser_hand"] == opponent_hand)) |
-            ((player_history["loser_name"] == player_name) & (player_history["winner_hand"] == opponent_hand))
-        )
-        player_history = player_history[versus_hand_mask]
-
-    player_history = player_history.tail(window)
+    """
+    `history` to juz przefiltrowany subset gracza (przez get_player_history_via_index).
+    Pozostale filtry stosowane sa lokalnie.
+    """
+    player_history = _apply_context_filters(
+        history,
+        player_name,
+        best_of=best_of,
+        rounds=rounds,
+        surface=surface,
+        opponent_hand=opponent_hand,
+    ).tail(window)
     if len(player_history) < min_matches:
         return fallback
 
@@ -134,17 +194,14 @@ def calculate_context_experience(
     window: int = 30,
     scale: int = 8,
 ) -> float:
-    player_history = get_player_history(player_name, history)
-
-    if best_of is not None:
-        player_history = player_history[player_history["best_of"] == best_of]
-
-    if rounds is not None:
-        player_history = player_history[player_history["round"].isin(rounds)]
-
-    if surface is not None:
-        player_history = player_history[player_history["surface"] == surface]
-
+    player_history = _apply_context_filters(
+        history,
+        player_name,
+        best_of=best_of,
+        rounds=rounds,
+        surface=surface,
+        opponent_hand=None,
+    )
     matches_in_context = len(player_history.tail(window))
     return float(min(matches_in_context / scale, 1.0))
 
@@ -158,12 +215,14 @@ def calculate_context_balance(
     min_matches: int = 3,
     fallback: float = 0.0,
 ) -> float:
-    player_history = get_player_history(player_name, history)
-    versus_hand_mask = (
-        ((player_history["winner_name"] == player_name) & (player_history["loser_hand"] == opponent_hand)) |
-        ((player_history["loser_name"] == player_name) & (player_history["winner_hand"] == opponent_hand))
-    )
-    player_history = player_history[versus_hand_mask].tail(window)
+    player_history = _apply_context_filters(
+        history,
+        player_name,
+        best_of=None,
+        rounds=None,
+        surface=None,
+        opponent_hand=opponent_hand,
+    ).tail(window)
 
     if len(player_history) < min_matches:
         return fallback
@@ -186,6 +245,7 @@ def add_targeted_slice_features(
         ignore_index=True,
     )
     start_idx = len(historical_data)
+    player_index = build_player_index(full_sequence)
 
     w_best_of5_form_list = []
     l_best_of5_form_list = []
@@ -210,7 +270,7 @@ def add_targeted_slice_features(
 
     for i in range(len(df_subset)):
         row = df_subset.iloc[i]
-        past_matches = full_sequence.iloc[:start_idx + i]
+        cutoff = start_idx + i
 
         winner_name = row["winner_name"]
         loser_name = row["loser_name"]
@@ -220,10 +280,17 @@ def add_targeted_slice_features(
         winner_surface_form = float(row["w_surface_form"])
         loser_surface_form = float(row["l_surface_form"])
 
+        winner_history = get_player_history_via_index(
+            winner_name, full_sequence, player_index, cutoff
+        )
+        loser_history = get_player_history_via_index(
+            loser_name, full_sequence, player_index, cutoff
+        )
+
         w_best_of5_form_list.append(
             calculate_context_form(
                 winner_name,
-                past_matches,
+                winner_history,
                 best_of=5,
                 window=8,
                 min_matches=2,
@@ -233,7 +300,7 @@ def add_targeted_slice_features(
         l_best_of5_form_list.append(
             calculate_context_form(
                 loser_name,
-                past_matches,
+                loser_history,
                 best_of=5,
                 window=8,
                 min_matches=2,
@@ -244,7 +311,7 @@ def add_targeted_slice_features(
         w_late_round_form_list.append(
             calculate_context_form(
                 winner_name,
-                past_matches,
+                winner_history,
                 rounds=LATE_ROUNDS,
                 window=8,
                 min_matches=2,
@@ -254,7 +321,7 @@ def add_targeted_slice_features(
         l_late_round_form_list.append(
             calculate_context_form(
                 loser_name,
-                past_matches,
+                loser_history,
                 rounds=LATE_ROUNDS,
                 window=8,
                 min_matches=2,
@@ -265,7 +332,7 @@ def add_targeted_slice_features(
         w_best_of5_experience_list.append(
             calculate_context_experience(
                 winner_name,
-                past_matches,
+                winner_history,
                 best_of=5,
                 window=20,
                 scale=6,
@@ -274,7 +341,7 @@ def add_targeted_slice_features(
         l_best_of5_experience_list.append(
             calculate_context_experience(
                 loser_name,
-                past_matches,
+                loser_history,
                 best_of=5,
                 window=20,
                 scale=6,
@@ -284,7 +351,7 @@ def add_targeted_slice_features(
         w_late_round_experience_list.append(
             calculate_context_experience(
                 winner_name,
-                past_matches,
+                winner_history,
                 rounds=LATE_ROUNDS,
                 window=20,
                 scale=6,
@@ -293,7 +360,7 @@ def add_targeted_slice_features(
         l_late_round_experience_list.append(
             calculate_context_experience(
                 loser_name,
-                past_matches,
+                loser_history,
                 rounds=LATE_ROUNDS,
                 window=20,
                 scale=6,
@@ -303,7 +370,7 @@ def add_targeted_slice_features(
         w_vs_opp_hand_form_list.append(
             calculate_context_form(
                 winner_name,
-                past_matches,
+                winner_history,
                 opponent_hand=row["loser_hand"],
                 window=12,
                 min_matches=3,
@@ -313,7 +380,7 @@ def add_targeted_slice_features(
         l_vs_opp_hand_form_list.append(
             calculate_context_form(
                 loser_name,
-                past_matches,
+                loser_history,
                 opponent_hand=row["winner_hand"],
                 window=12,
                 min_matches=3,
@@ -324,7 +391,7 @@ def add_targeted_slice_features(
         w_qf_form_list.append(
             calculate_context_form(
                 winner_name,
-                past_matches,
+                winner_history,
                 rounds={"QF"},
                 window=6,
                 min_matches=1,
@@ -334,7 +401,7 @@ def add_targeted_slice_features(
         l_qf_form_list.append(
             calculate_context_form(
                 loser_name,
-                past_matches,
+                loser_history,
                 rounds={"QF"},
                 window=6,
                 min_matches=1,
@@ -345,7 +412,7 @@ def add_targeted_slice_features(
         w_qf_experience_list.append(
             calculate_context_experience(
                 winner_name,
-                past_matches,
+                winner_history,
                 rounds={"QF"},
                 window=16,
                 scale=4,
@@ -354,7 +421,7 @@ def add_targeted_slice_features(
         l_qf_experience_list.append(
             calculate_context_experience(
                 loser_name,
-                past_matches,
+                loser_history,
                 rounds={"QF"},
                 window=16,
                 scale=4,
@@ -364,7 +431,7 @@ def add_targeted_slice_features(
         w_qf_surface_form_list.append(
             calculate_context_form(
                 winner_name,
-                past_matches,
+                winner_history,
                 rounds={"QF"},
                 surface=surface,
                 window=4,
@@ -375,7 +442,7 @@ def add_targeted_slice_features(
         l_qf_surface_form_list.append(
             calculate_context_form(
                 loser_name,
-                past_matches,
+                loser_history,
                 rounds={"QF"},
                 surface=surface,
                 window=4,
@@ -387,7 +454,7 @@ def add_targeted_slice_features(
         w_vs_opp_hand_surface_form_list.append(
             calculate_context_form(
                 winner_name,
-                past_matches,
+                winner_history,
                 surface=surface,
                 opponent_hand=row["loser_hand"],
                 window=8,
@@ -398,7 +465,7 @@ def add_targeted_slice_features(
         l_vs_opp_hand_surface_form_list.append(
             calculate_context_form(
                 loser_name,
-                past_matches,
+                loser_history,
                 surface=surface,
                 opponent_hand=row["winner_hand"],
                 window=8,
@@ -410,7 +477,7 @@ def add_targeted_slice_features(
         w_vs_opp_hand_balance_list.append(
             calculate_context_balance(
                 winner_name,
-                past_matches,
+                winner_history,
                 opponent_hand=row["loser_hand"],
                 window=20,
                 min_matches=3,
@@ -420,7 +487,7 @@ def add_targeted_slice_features(
         l_vs_opp_hand_balance_list.append(
             calculate_context_balance(
                 loser_name,
-                past_matches,
+                loser_history,
                 opponent_hand=row["winner_hand"],
                 window=20,
                 min_matches=3,

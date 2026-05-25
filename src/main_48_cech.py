@@ -23,6 +23,8 @@ Cechy modelu (40):
 import os
 os.environ['PYTHONWARNINGS'] = 'ignore'
 
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
@@ -32,7 +34,14 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 import warnings
 warnings.filterwarnings('ignore')
 
-RANDOM_STATE = 42  # Ziarno losowości 
+RANDOM_STATE = int(os.environ.get("TENNIS_RANDOM_STATE", "42"))  # Ziarno losowości (env-overridable dla seed stability)
+
+# Sciezki bazujace na lokalizacji tego pliku.
+# Plik lezy w src/, wiec parents[1] = katalog projektu.
+BASE_DIR = Path(__file__).resolve().parents[1]
+DATA_DIR = BASE_DIR / "data" / "sample_data"
+OUTPUTS_DIR = BASE_DIR / "reports" / "outputs"
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # =============================================================================
@@ -42,7 +51,7 @@ RANDOM_STATE = 42  # Ziarno losowości
 # Każdy wiersz opisuje jeden mecz z perspektywy zwycięzcy i przegranego.
 # Sortowanie chronologiczne jest kluczowe — model nie może „widzieć" przyszłości.
 
-df = pd.read_csv('sample_data/2024.csv')
+df = pd.read_csv(DATA_DIR / "2024.csv")
 df['tourney_date'] = pd.to_datetime(df['tourney_date'], format='%Y%m%d')
 df = df.sort_values(['tourney_date', 'match_num']).reset_index(drop=True)
 
@@ -89,8 +98,7 @@ print(f"Dane główne (2024): {len(df_base)} meczów")
 # cech dynamicznych. Im więcej historii, tym dokładniejsze oszacowania formy
 # i bilansu bezpośrednich spotkań (H2H), szczególnie dla rzadkich par graczy.
 
-history_files = ['sample_data/2018.csv', 'sample_data/2019.csv', 'sample_data/2020.csv',
-                 'sample_data/2021.csv', 'sample_data/2022.csv', 'sample_data/2023.csv']
+history_files = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
 history_parts = []
 
 for filepath in history_files:
@@ -429,6 +437,30 @@ def _serve_stats_from_player_history(player_name, player_history, window=10):
     }
 
 
+def _build_player_index(full_sequence):
+    """
+    Buduje slownik player_name -> posortowana lista absolutnych indeksow
+    wierszy w full_sequence, w ktorych ten gracz wystepuje (jako winner lub loser).
+
+    Skanuje full_sequence raz, w O(N). Wszystkie kolejne zapytania
+    sprowadzaja sie do bisect_left + slice listy (O(log K) gdzie K = liczba
+    meczow gracza). Zastepuje to wielokrotne maski numpy o dlugosci ~19k
+    per mecz w pelnej historii.
+    """
+    from collections import defaultdict
+
+    winners = full_sequence["winner_name"].to_numpy()
+    losers = full_sequence["loser_name"].to_numpy()
+    indices: dict[str, list[int]] = defaultdict(list)
+    for idx in range(len(full_sequence)):
+        indices[winners[idx]].append(idx)
+        # Drugi gracz tylko gdy jest rozny od pierwszego (selfmatch nie istnieje,
+        # ale defensywnie).
+        if losers[idx] != winners[idx]:
+            indices[losers[idx]].append(idx)
+    return indices
+
+
 def add_dynamic_features(df_subset, historical_data):
     """
     Dołącza cechy dynamiczne (formę, formę nawierzchniową i H2H) do każdego meczu.
@@ -437,12 +469,18 @@ def add_dynamic_features(df_subset, historical_data):
       historical_data  +  df_subset[0..i-1]
     Dzięki temu każdy mecz „widzi" tylko przeszłość (expanding window).
 
+    Optymalizacja: pre-built player index + bisect zamiast skanowania ~19k
+    nazwisk na kazdy mecz. Lookup historii gracza spada z O(N) do O(K + log K)
+    gdzie K to liczba meczow tego gracza w historii (zwykle 50-200, nie 19000).
+
     Parametry:
         df_subset: DataFrame z meczami do wzbogacenia
         historical_data: DataFrame z meczami sprzed df_subset (np. sezony 2022–2023)
     Zwraca:
         DataFrame z dodanymi kolumnami: h2h_diff, w_form, l_form, w_surface_form, l_surface_form
     """
+    import bisect
+
     h2h_list = []
     w_form_list = []
     l_form_list = []
@@ -454,25 +492,25 @@ def add_dynamic_features(df_subset, historical_data):
     full_sequence = pd.concat([historical_data, df_subset]).reset_index(drop=True)
     start_idx = len(historical_data)
 
-    full_winner_arr = full_sequence['winner_name'].values
-    full_loser_arr = full_sequence['loser_name'].values
+    player_index = _build_player_index(full_sequence)
 
     for i in range(len(df_subset)):
         row = df_subset.iloc[i]
         cutoff = start_idx + i
-        past_matches = full_sequence.iloc[:cutoff]
 
         p_win = row['winner_name']
         p_los = row['loser_name']
         surface = row['surface']
 
-        # Jedno przejscie po historii dla kazdego gracza zamiast 4 (form / surface_form / h2h / serve_stats).
-        past_winners = full_winner_arr[:cutoff]
-        past_losers = full_loser_arr[:cutoff]
-        p_win_mask = (past_winners == p_win) | (past_losers == p_win)
-        p_los_mask = (past_winners == p_los) | (past_losers == p_los)
-        p_win_history = past_matches.iloc[p_win_mask.nonzero()[0]]
-        p_los_history = past_matches.iloc[p_los_mask.nonzero()[0]]
+        # Bisect daje pozycje pierwszego indeksu >= cutoff w posortowanej liscie.
+        # Bierzemy prefix przed nim -- wszystkie indeksy historyczne tego gracza.
+        win_all = player_index.get(p_win, [])
+        los_all = player_index.get(p_los, [])
+        win_end = bisect.bisect_left(win_all, cutoff)
+        los_end = bisect.bisect_left(los_all, cutoff)
+
+        p_win_history = full_sequence.iloc[win_all[:win_end]]
+        p_los_history = full_sequence.iloc[los_all[:los_end]]
 
         h2h_list.append(_h2h_from_p1_history(p_win, p_los, p_win_history))
         w_form_list.append(_form_from_player_history(p_win, p_win_history))
@@ -904,3 +942,222 @@ print(f"Match Prediction:    {match_accuracy:.4f}")
 print("\nBaseline (losowe): 0.5000 (50%)")
 print(f"Mój model:        {match_accuracy:.4f} ({match_accuracy*100:.1f}%)")
 print(f"Przewaga nad losowym zgadywaniem: +{(match_accuracy-0.5)*100:.1f} p.p.")
+
+
+# =============================================================================
+# ETAP 14. PROBABILITY CALIBRATION + THRESHOLD TUNING + RELIABILITY DIAGRAM
+# =============================================================================
+# Random Forest jest znany z bycia overconfident przy probach blisko 0.5 oraz
+# underconfident przy probach blisko 0/1. CalibratedClassifierCV (Platt scaling)
+# uczy logistic regression na wyjsciu RF, mapujac surowe proby na lepiej
+# skalibrowane.
+#
+# Pre-fit calibrator korzysta z X_val/y_val (nie widzianego przez RF).
+# Threshold tuning szuka optymalnego progu p1 > t na walidacji i stosuje
+# go na tescie.
+
+from sklearn.calibration import CalibratedClassifierCV
+from sklearn.frozen import FrozenEstimator
+from sklearn.metrics import brier_score_loss, log_loss
+
+
+# --- Probability calibration helpers ----------------------------------------
+# Inlined zamiast import z osobnego pliku, zeby caly pipeline byl w jednym module.
+
+RELIABILITY_BINS = 10
+THRESHOLD_GRID = np.linspace(0.30, 0.70, 41)  # threshold-grid co 0.01
+
+
+def select_match_level_threshold(val_data_with_probas, threshold_grid=THRESHOLD_GRID):
+    """
+    DLACZEGO TA FUNKCJA NIE TUNUJE PROGU:
+    Dla symetryzowanych danych meczu (kazdy mecz ma dwa wiersze: p1=zwyciezca/y=1
+    i p1=przegrany/y=0) labeling p1/p2 jest ARBITRALNY. Realna decyzja przy nowym
+    meczu: pick a labeling, predict p1 if proba>0.5, else p2. Prog inny niz 0.5
+    nie ma sensu, bo "obnizenie progu" w jednej perspektywie odpowiada "podniesieniu
+    progu" w drugiej -- te efekty sie kasuja.
+
+    Wczesniejsze probowanie tunera dawalo nonsensowne 93% accuracy, bo iterowalo
+    tylko po winner_perspective (gdzie p1 ZAWSZE jest zwyciezca) -- obnizenie progu
+    trywialnie podbijalo "trafienia". To gaming evaluation, nie real prediction.
+
+    Funkcja zwraca staly prog = 0.5 i match accuracy na walidacji dla porzadku
+    (zeby seed_stability_summary mial spojny dictionary).
+    """
+    winner_rows = val_data_with_probas[val_data_with_probas["y"] == 1]
+    probas = winner_rows["p1_win_probability"].to_numpy()
+    threshold = 0.5
+    accuracy = float((probas > threshold).mean())
+    return threshold, accuracy
+
+
+def compute_reliability_table(y_true, y_proba, n_bins=RELIABILITY_BINS):
+    """
+    Buduje tabele dla reliability diagram.
+
+    Kazdy bin to przedzial predicted prob. Dla kazdego binu liczymy avg predicted
+    prob i empiryczna frequency = mean(y_true). Bin z perfekcyjna kalibracja ma
+    predicted == observed.
+    """
+    bins = np.linspace(0.0, 1.0, n_bins + 1)
+    bin_indices = np.clip(np.digitize(y_proba, bins) - 1, 0, n_bins - 1)
+    rows = []
+    for bin_idx in range(n_bins):
+        mask = bin_indices == bin_idx
+        count = int(mask.sum())
+        if count == 0:
+            rows.append({
+                "bin_lower": bins[bin_idx], "bin_upper": bins[bin_idx + 1],
+                "count": 0, "avg_predicted": np.nan,
+                "observed_frequency": np.nan, "calibration_error": np.nan,
+            })
+            continue
+        avg_pred = float(y_proba[mask].mean())
+        observed = float(y_true[mask].mean())
+        rows.append({
+            "bin_lower": bins[bin_idx], "bin_upper": bins[bin_idx + 1],
+            "count": count, "avg_predicted": avg_pred,
+            "observed_frequency": observed, "calibration_error": avg_pred - observed,
+        })
+    return pd.DataFrame(rows)
+
+
+def save_reliability_diagram(reliability_table, output_path, title="Reliability diagram"):
+    """
+    Rysuje reliability diagram i zapisuje PNG. Bez matplotlib zwraca None
+    (tabela numeryczna i tak jest dostepna).
+    """
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except ImportError:
+        return None
+
+    valid = reliability_table.dropna(subset=["avg_predicted", "observed_frequency"])
+    if valid.empty:
+        return None
+
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.plot([0, 1], [0, 1], linestyle="--", color="gray", label="Perfect calibration")
+    ax.plot(valid["avg_predicted"], valid["observed_frequency"],
+            marker="o", linewidth=1.5, label="Model")
+    for _, row in valid.iterrows():
+        ax.annotate(str(int(row["count"])),
+                    (row["avg_predicted"], row["observed_frequency"]),
+                    textcoords="offset points", xytext=(5, 5),
+                    fontsize=8, color="dimgray")
+    ax.set_xlabel("Predicted probability")
+    ax.set_ylabel("Observed frequency")
+    ax.set_title(title)
+    ax.set_xlim(0.0, 1.0)
+    ax.set_ylim(0.0, 1.0)
+    ax.grid(alpha=0.3)
+    ax.legend(loc="lower right")
+    fig.tight_layout()
+    fig.savefig(output_path, dpi=120)
+    plt.close(fig)
+    return output_path
+
+
+def evaluate_calibration_quality(y_true, y_proba):
+    """Brier, log-loss i ECE (Expected Calibration Error)."""
+    reliability = compute_reliability_table(y_true, y_proba)
+    valid = reliability.dropna(subset=["avg_predicted", "observed_frequency"])
+    total = valid["count"].sum()
+    if total == 0:
+        ece = float("nan")
+    else:
+        weights = valid["count"] / total
+        ece = float((weights * (valid["avg_predicted"] - valid["observed_frequency"]).abs()).sum())
+    return {
+        "brier_score": float(brier_score_loss(y_true, y_proba)),
+        "log_loss": float(log_loss(y_true, np.clip(y_proba, 1e-15, 1 - 1e-15))),
+        "expected_calibration_error": ece,
+    }
+
+
+def apply_match_level_threshold(test_data, threshold):
+    """Stosuje threshold do test setu i liczy match-level accuracy z perspektywy zwyciezcy.
+
+    Per docstring select_match_level_threshold, threshold dla symetryzowanych danych
+    musi wynosic 0.5 -- ale dopuszczamy parametr, zeby zewnetrzny caller mogl
+    eksperymentowac (np. symetryczna agregacja prob z obu perspektyw).
+    """
+    winner_perspective = test_data[test_data["y"] == 1].copy()
+    winner_perspective["predicted_winner"] = winner_perspective.apply(
+        lambda row: row["p1_name"] if row["p1_win_probability"] > threshold else row["p2_name"],
+        axis=1,
+    )
+    winner_perspective["correct_prediction"] = winner_perspective["p1_win_probability"] > threshold
+    accuracy = float(winner_perspective["correct_prediction"].mean())
+    return winner_perspective, accuracy
+
+print("\n" + "="*70)
+print("=== KALIBRACJA, THRESHOLD TUNING I RELIABILITY DIAGRAM ===")
+print("="*70)
+
+# Pre-fit calibrator: RF jest juz wytrenowany (best_rf). W sklearn 1.6+
+# cv="prefit" zostalo usuniete -- nowa droga to opakowanie modelu w FrozenEstimator,
+# ktore mowi CalibratedClassifierCV ze base estimator jest juz wytrenowany i ma byc
+# uzywany jako frozen.
+calibrator = CalibratedClassifierCV(FrozenEstimator(best_rf), method="sigmoid")
+calibrator.fit(X_val, y_val)
+
+val_proba_calibrated = calibrator.predict_proba(X_val)[:, 1]
+test_proba_calibrated = calibrator.predict_proba(X_test)[:, 1]
+
+raw_quality = evaluate_calibration_quality(y_test.to_numpy(), test_pred_proba[:, 1])
+cal_quality = evaluate_calibration_quality(y_test.to_numpy(), test_proba_calibrated)
+print("Jakosc kalibracji (test set):")
+print(
+    f"  Raw RF       -> Brier={raw_quality['brier_score']:.4f}, "
+    f"log-loss={raw_quality['log_loss']:.4f}, ECE={raw_quality['expected_calibration_error']:.4f}"
+)
+print(
+    f"  Calibrated   -> Brier={cal_quality['brier_score']:.4f}, "
+    f"log-loss={cal_quality['log_loss']:.4f}, ECE={cal_quality['expected_calibration_error']:.4f}"
+)
+
+# Threshold tuning na zbiorze walidacyjnym z uzyciem skalibrowanych prob.
+val_data_for_threshold = val_data.copy()
+val_data_for_threshold["p1_win_probability"] = val_proba_calibrated
+best_threshold, val_match_acc_at_threshold = select_match_level_threshold(val_data_for_threshold)
+# Eksportujemy do namespace zeby seed_stability i slicecompare mogly je odczytac.
+
+print(
+    f"\nOptymalny prog (walidacja): {best_threshold:.2f} "
+    f"-> val match-acc = {val_match_acc_at_threshold:.4f}"
+)
+
+# Stosujemy znaleziony prog do test setu.
+test_data_calibrated = test_data.copy()
+test_data_calibrated["p1_win_probability"] = test_proba_calibrated
+winner_perspective_tuned, match_accuracy_tuned = apply_match_level_threshold(
+    test_data_calibrated, best_threshold
+)
+print(
+    f"Match accuracy po kalibracji + threshold tuning (test): "
+    f"{match_accuracy_tuned:.4f} ({match_accuracy_tuned * 100:.2f}%)"
+)
+print(
+    f"Porownanie: baseline (prog=0.5, raw)={match_accuracy:.4f} | "
+    f"tuned={match_accuracy_tuned:.4f} "
+    f"| delta={match_accuracy_tuned - match_accuracy:+.4f}"
+)
+
+# Reliability diagram zapisujemy obok skryptu.
+reliability_table = compute_reliability_table(y_test.to_numpy(), test_proba_calibrated)
+print("\nReliability table (test, calibrated):")
+print(reliability_table.to_string(index=False))
+
+reliability_path = OUTPUTS_DIR / "reliability_diagram.png"
+saved_path = save_reliability_diagram(
+    reliability_table,
+    reliability_path,
+    title=f"Reliability diagram (calibrated, Brier={cal_quality['brier_score']:.3f})",
+)
+if saved_path is not None:
+    print(f"\nReliability diagram zapisany: {saved_path}")
+else:
+    print("\nReliability diagram pominiety (brak matplotlib).")

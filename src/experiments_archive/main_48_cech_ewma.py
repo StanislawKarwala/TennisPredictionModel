@@ -35,6 +35,8 @@ Cechy modelu (48):
 import os
 os.environ['PYTHONWARNINGS'] = 'ignore'
 
+from pathlib import Path
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
@@ -43,6 +45,10 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 import warnings
 warnings.filterwarnings('ignore')
+
+# Plik lezy w src/experiments_archive/, wiec parents[2] = katalog projektu.
+BASE_DIR = Path(__file__).resolve().parents[2]
+DATA_DIR = BASE_DIR / "data" / "sample_data"
 
 RANDOM_STATE = 42
 
@@ -88,7 +94,7 @@ SERVE_STAT_NAMES = [
 # ETAP 1. WCZYTANIE I PRZYGOTOWANIE DANYCH
 # =============================================================================
 
-df = pd.read_csv('sample_data/2024.csv')
+df = pd.read_csv(DATA_DIR / "2024.csv")
 df['tourney_date'] = pd.to_datetime(df['tourney_date'], format='%Y%m%d')
 df = df.sort_values(['tourney_date', 'match_num']).reset_index(drop=True)
 
@@ -121,8 +127,7 @@ print(f"Dane główne (2024): {len(df_base)} meczów")
 # =============================================================================
 # Im więcej historii, tym dokładniejsze stany EWMA na starcie sezonu 2024.
 
-history_files = ['sample_data/2018.csv', 'sample_data/2019.csv', 'sample_data/2020.csv',
-                 'sample_data/2021.csv', 'sample_data/2022.csv', 'sample_data/2023.csv']
+history_files = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
 history_parts = []
 
 for filepath in history_files:

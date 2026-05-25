@@ -164,6 +164,33 @@ def slice_description(columns: tuple[str, ...], values: tuple[object, ...]) -> s
     return " & ".join(f"{column}={value}" for column, value in zip(columns, values))
 
 
+WILSON_Z = 1.96  # 95% confidence interval
+LOG_EPS = 1e-15  # zabezpieczenie przed log(0)
+
+
+def wilson_confidence_interval(
+    successes: int,
+    n: int,
+    z: float = WILSON_Z,
+) -> tuple[float, float]:
+    """
+    Wilson score interval dla proporcji.
+
+    Wiarygodniejszy od normal approximation (Wald) dla malych n
+    lub p blisko 0/1 -- czyli takich slice'ow jak support=5-20.
+    """
+    if n <= 0:
+        return (0.0, 1.0)
+    phat = successes / n
+    z2 = z * z
+    denom = 1.0 + z2 / n
+    center = phat + z2 / (2.0 * n)
+    margin = z * np.sqrt(phat * (1.0 - phat) / n + z2 / (4.0 * n * n))
+    lower = max(0.0, (center - margin) / denom)
+    upper = min(1.0, (center + margin) / denom)
+    return float(lower), float(upper)
+
+
 def compute_model_slices(
     match_slice_frame: pd.DataFrame,
     slice_columns: list[str],
@@ -185,9 +212,23 @@ def compute_model_slices(
                 if support < min_support:
                     continue
 
-                accuracy = float(group_df["correct_prediction"].mean())
+                correct_count = int(group_df["correct_prediction"].sum())
+                accuracy = float(correct_count / support)
                 error_rate = 1.0 - accuracy
-                avg_true_winner_probability = float(group_df["p1_win_probability"].mean())
+                true_winner_proba = group_df["p1_win_probability"].astype(float)
+                avg_true_winner_probability = float(true_winner_proba.mean())
+
+                ci_lower, ci_upper = wilson_confidence_interval(correct_count, support)
+                # Slice jest statystycznie istotnie gorszy niz srednia,
+                # gdy gorny brzeg CI lezy ponizej accuracy ogolnego.
+                statistically_below_overall = ci_upper < overall_accuracy
+
+                # W winner_perspective rzeczywisty zwyciezca to zawsze p1,
+                # czyli y_true=1, a prawdopodobienstwo przypisane prawdziwemu
+                # zwyciezcy = p1_win_probability. Stad wprost:
+                clipped = true_winner_proba.clip(LOG_EPS, 1 - LOG_EPS)
+                brier = float(((1.0 - true_winner_proba) ** 2).mean())
+                log_loss = float(-np.log(clipped).mean())
 
                 row = {
                     "slice_degree": degree,
@@ -197,6 +238,11 @@ def compute_model_slices(
                     "accuracy": accuracy,
                     "error_rate": error_rate,
                     "accuracy_gap_vs_overall": accuracy - overall_accuracy,
+                    "accuracy_ci_lower": ci_lower,
+                    "accuracy_ci_upper": ci_upper,
+                    "statistically_below_overall": statistically_below_overall,
+                    "brier_score": brier,
+                    "log_loss": log_loss,
                     "avg_true_winner_probability": avg_true_winner_probability,
                 }
                 for column, value in zip(combo, group_key):
@@ -213,6 +259,11 @@ def compute_model_slices(
                 "accuracy",
                 "error_rate",
                 "accuracy_gap_vs_overall",
+                "accuracy_ci_lower",
+                "accuracy_ci_upper",
+                "statistically_below_overall",
+                "brier_score",
+                "log_loss",
                 "avg_true_winner_probability",
             ]
         )
@@ -249,7 +300,12 @@ def print_slice_table(
         "support",
         "support_pct",
         "accuracy",
+        "accuracy_ci_lower",
+        "accuracy_ci_upper",
+        "statistically_below_overall",
         "accuracy_gap_vs_overall",
+        "brier_score",
+        "log_loss",
         "avg_true_winner_probability",
     ]
     print(
@@ -258,7 +314,12 @@ def print_slice_table(
             formatters={
                 "support_pct": lambda value: f"{100 * value:5.1f}%",
                 "accuracy": lambda value: f"{100 * value:5.1f}%",
+                "accuracy_ci_lower": lambda value: f"{100 * value:5.1f}%",
+                "accuracy_ci_upper": lambda value: f"{100 * value:5.1f}%",
+                "statistically_below_overall": lambda value: "TAK" if value else "  ",
                 "accuracy_gap_vs_overall": lambda value: f"{100 * value:+5.1f} p.p.",
+                "brier_score": lambda value: f"{value:.3f}",
+                "log_loss": lambda value: f"{value:.3f}",
                 "avg_true_winner_probability": lambda value: f"{value:.3f}",
             },
         )

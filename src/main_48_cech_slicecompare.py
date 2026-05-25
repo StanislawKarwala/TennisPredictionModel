@@ -28,7 +28,10 @@ from main_48_cech_modelslice import (
 
 
 WORKDIR = Path(__file__).resolve().parent
-OUTPUT_XLSX = WORKDIR / "slice_comparison_all_variants.xlsx"
+BASE_DIR = WORKDIR.parent
+OUTPUTS_DIR = BASE_DIR / "reports" / "outputs"
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_XLSX = OUTPUTS_DIR / "slice_comparison_all_variants.xlsx"
 BASELINE_SCRIPT_PATH = (WORKDIR / "main_48_cech.py").resolve()
 SLICE_COLUMNS = [
     "surface",
