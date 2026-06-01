@@ -24,19 +24,19 @@
 ## CZĘŚĆ A — Zweryfikowane błędy (napraw NAJPIERW)
 
 ### A1. `calculate_tournament_path_stats` liczy cechę na całej karierze, nie na turnieju ✅
-**Plik:** `src/main_48_cech_sliceaware_qfserve_v3.py:558-576` + `get_player_history:269-275`
+**Plik:** `src/tennis_model_sliceaware_qfserve_v3.py:558-576` + `get_player_history:269-275`
 **Problem:** Funkcja ma filtrować mecze tego samego `tourney_id` (droga gracza w bieżącym turnieju), ale ponieważ `get_player_history` używa globalnego `_HISTORY_INDEX`, filtr `same_tournament` jest cicho ignorowany — cechy `tourney_path_opp_strength` i `tourney_path_match_count` liczą się na CAŁEJ historii kariery. To nie leakage (dane są z przeszłości), ale **cecha nie niesie sygnału, który miała nieść**.
 **Fix:** Wewnątrz `calculate_tournament_path_stats` filtrować jawnie po `current_row["tourney_id"]` na przekazanych `past_matches` (nie przez globalny index). Zweryfikowano: poprawienie sprawi, że cechy path zaczną mierzyć realną „trudność drogi".
 **Zysk:** +0.2-0.5 p.p. (cechy `seed_context_diff`/`tourney_path_*` są w top-30 importance, więc realnie używane).
 
 ### A2. `match_accuracy` liczona tylko z perspektywy zwycięzcy ✅
-**Plik:** `src/main_48_cech.py:865-871` + `apply_match_level_threshold:1087-1093`
+**Plik:** `src/tennis_model.py:865-871` + `apply_match_level_threshold:1087-1093`
 **Problem:** Metryka bierze tylko wiersze `y==1` (gdzie p1 = faktyczny zwycięzca) i liczy `mean(p1_prob > 0.5)`. Ignoruje lustrzany wiersz `y==0` tego samego meczu. Model może być niespójny (dla zwycięzcy dać 0.55, dla lustra 0.60 dla przeciwnika — dwie sprzeczne predykcje). To dlatego threshold tuning dawał absurdalne 93%.
 **Fix:** Połączyć obie perspektywy po `match_id`: `P_winner = (proba_y1 + (1 - proba_y0)) / 2`, potem `correct = P_winner > 0.5`. Metryka symetryczna, odporna na arbitralny labeling.
 **Skutek:** Pomiar realniejszy (może spaść 0.5-1.5 p.p.), ale **poprawny i wiarygodny do pracy magisterskiej**.
 
 ### A3. `tail(10)` bez ograniczenia czasowego ✅
-**Plik:** `src/main_48_cech.py` — `calculate_form`, `calculate_serve_stats`, `_serve_stats_from_player_history`
+**Plik:** `src/tennis_model.py` — `calculate_form`, `calculate_serve_stats`, `_serve_stats_from_player_history`
 **Problem:** Forma i serwis biorą ostatnie 10 meczów gracza, ale bez limitu czasu. Dla gracza grającego rzadko (kontuzja, powrót) „ostatnie 10 meczów" może sięgać 3-6 lat wstecz — mecz sprzed 6 lat traktowany jak wczorajszy.
 **Fix:** Dodać okno czasowe (np. tylko mecze z ostatnich 365 dni) ALBO recency weighting (→ patrz D1, EWMA rozwiązuje to elegancko).
 **Zysk:** +0.5-1.5 p.p.
@@ -78,7 +78,7 @@ court_pace_index(turniej) = adjusted ace rate
 
 ### Jak wpiąć (zweryfikowany punkt integracji)
 1. **Darmowy pierwszy krok:** kolumna **`indoor`** (O/I/NaN) **JUŻ JEST w 2024.csv** (2422 outdoor / 408 indoor / 246 NaN) i **nigdzie nieużywana**. Dodaj ją do `EXTRA_CONTEXT_COLUMNS` — natychmiastowa darmowa cecha (korty indoor są szybsze).
-2. Nową kolumnę `court_pace_index` dodać do `EXTRA_CONTEXT_COLUMNS` (`src/main_48_cech_sliceaware_qfserve_v3.py:77`) i `load_context_frame`.
+2. Nową kolumnę `court_pace_index` dodać do `EXTRA_CONTEXT_COLUMNS` (`src/tennis_model_sliceaware_qfserve_v3.py:77`) i `load_context_frame`.
 3. ⚠️ **NIE wpinać przez `symmetrize_data` ani `SYMMETRIC_FEATURE_SPECS`** — to by się wysypało `KeyError` (mechanizm wymaga kolumn `w_*`/`l_*` w raw_data). Wpiąć przez `attach_targeted_features` (merge po `match_id`).
 4. **Kluczowa cecha — interakcja serve × speed** (główne źródło zysku):
    ```
@@ -95,13 +95,13 @@ court_pace_index(turniej) = adjusted ace rate
 ## CZĘŚĆ C — Modelowanie (największy zwrot)
 
 ### C1. HistGradientBoosting / XGBoost zamiast Random Forest ⚠️ NAJWIĘKSZY POJEDYNCZY ZYSK
-**Plik:** `src/main_48_cech.py:780`
+**Plik:** `src/tennis_model.py:780`
 Gradient boosting prawie zawsze przebija RF na danych tabelarycznych. **`HistGradientBoostingClassifier` jest już w sklearn** (zero nowych zależności), ma natywną obsługę kategorii (surface, tourney_level bez encodingu!) i braków danych.
 **Plan:** dodać jako alternatywny estymator, dostroić `learning_rate`, `max_iter`, `max_leaf_nodes`, `l2_regularization`. Porównać uczciwie na tej samej walidacji.
 **Zysk:** +1.5-3 p.p. + lepsza kalibracja.
 
 ### C2. scoring CV: `log_loss`/`roc_auc` zamiast `accuracy` ✅
-**Plik:** `src/main_48_cech.py` (RandomizedSearchCV)
+**Plik:** `src/tennis_model.py` (RandomizedSearchCV)
 `accuracy` jest progowa i szumowa przy doborze hiperparametrów. Dla zadania probabilistycznego `neg_log_loss` lub `roc_auc` daje stabilniejszy wybór. **Najtańsza zmiana** (jeden parametr).
 **Zysk:** +0.3-0.8 p.p. + stabilniejszy wybór HP.
 
@@ -126,7 +126,7 @@ Połączyć `baseline` + `bestof5_v1` + `qfserve_v3`. Dwie opcje:
 
 | Cecha | Skąd policzyć | Zysk | Status |
 |---|---|---|---|
-| **D1. EWMA zamiast SMA** | recency weighting formy/serwisu (α≈0.18 krótki, 0.05 długi); jest gotowy wzorzec w `experiments_archive/main_48_cech_ewma.py` | +1-2 p.p. | ✅ |
+| **D1. EWMA zamiast SMA** | recency weighting formy/serwisu (α≈0.18 krótki, 0.05 długi); jest gotowy wzorzec w `experiments_archive/tennis_model_ewma.py` | +1-2 p.p. | ✅ |
 | **D2. Rest days** | `tourney_date` − data ostatniego meczu gracza | +0.5-1.5 p.p. | ⚠️ |
 | **D3. Minuty w turnieju** | suma `minutes` z wcześniejszych rund tego turnieju (zmęczenie) | +0.5-1 p.p. | ⚠️ |
 | **D4. H2H na nawierzchni** | bilans bezpośredni filtrowany po `surface` + recency H2H | +0.3-0.8 p.p. | ✅ |

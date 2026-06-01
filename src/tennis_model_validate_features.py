@@ -1,5 +1,5 @@
 """
-Walidacja walk-forward zestawow cech na NOWYCH danych (2022-2025)
+Walidacja walk-forward zestawow cech na NOWYCH danych (2020-2025)
 ================================================================
 
 Domyka luki i odswieza wszystkie wyniki cech na nowych danych w jednym, spojnym
@@ -40,7 +40,7 @@ HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
 
 _wf_env = os.environ.get("TENNIS_WF_YEARS")
 TARGET_YEARS = ([int(y) for y in _wf_env.split(",")] if _wf_env
-                else [2022, 2023, 2024, 2025])
+                else [2020, 2021, 2022, 2023, 2024, 2025])
 
 SURFACE_FEATURES = ["court_pace_index", "ace_speed_diff", "first_won_speed_diff"]
 FATIGUE_FEATURES = ["p1_rest_days", "p2_rest_days", "rest_days_diff",
@@ -209,7 +209,7 @@ def main():
     os.environ.pop("TENNIS_TARGET_YEAR", None)
 
     print("\n" + "=" * 74)
-    print("WALK-FORWARD CECH (nowe dane 2022-2025) vs baseline")
+    print("WALK-FORWARD CECH (nowe dane 2020-2025) vs baseline")
     print("=" * 74)
     for name in SETS:
         df = pd.DataFrame(per_year[name])

@@ -13,16 +13,16 @@ TenisPredictionModel/
 ├── .gitignore
 │
 ├── src/                                   # ★ CAŁY KOD MODELI
-│   ├── main_48_cech.py                    # baseline
-│   ├── main_48_cech_modelslice.py         # diagnostyka slicingu
-│   ├── main_48_cech_sliceaware.py         # wariant slice-aware (shotgun)
-│   ├── main_48_cech_sliceaware_bestof5_v1.py  # wariant Bo5 (NAJLEPSZY)
-│   ├── main_48_cech_sliceaware_qfserve_v3.py  # wariant QF + serve
-│   ├── main_48_cech_slicecompare.py       # porównywarka 4 wariantów
-│   ├── main_48_cech_seedstability.py      # test stabilności seedów
+│   ├── tennis_model.py                    # baseline
+│   ├── tennis_model_modelslice.py         # diagnostyka slicingu
+│   ├── tennis_model_sliceaware.py         # wariant slice-aware (shotgun)
+│   ├── tennis_model_sliceaware_bestof5_v1.py  # wariant Bo5 (NAJLEPSZY)
+│   ├── tennis_model_sliceaware_qfserve_v3.py  # wariant QF + serve
+│   ├── tennis_model_slicecompare.py       # porównywarka 4 wariantów
+│   ├── tennis_model_seedstability.py      # test stabilności seedów
 │   └── experiments_archive/               # eksperymenty boczne (nie używane w głównym pipeline)
-│       ├── main_48_cech_10wykonan.py
-│       └── main_48_cech_ewma.py
+│       ├── tennis_model_10wykonan.py
+│       └── tennis_model_ewma.py
 │
 ├── notebooks/                             # ★ JUPYTER NOTEBOOKS
 │   ├── TPM_Experiment_ModelSlice.ipynb
@@ -46,20 +46,20 @@ TenisPredictionModel/
 │
 ├── docs/                                  # ★ DOKUMENTACJA OPISOWA (dla promotora)
 │   ├── ai_model_slice.md                  # główny opis Model Slicing dla promotora
-│   ├── opis_main_48_cech.md               # opis baseline'u
-│   ├── opis_main_48_cech_modelslice.md
-│   ├── opis_main_48_cech_sliceaware.md
-│   ├── opis_main_48_cech_sliceaware_bestof5_v1.md
-│   ├── opis_main_48_cech_sliceaware_qfserve_v3.md
-│   ├── opis_main_48_cech_slicecompare.md
+│   ├── opis_tennis_model.md               # opis baseline'u
+│   ├── opis_tennis_model_modelslice.md
+│   ├── opis_tennis_model_sliceaware.md
+│   ├── opis_tennis_model_sliceaware_bestof5_v1.md
+│   ├── opis_tennis_model_sliceaware_qfserve_v3.md
+│   ├── opis_tennis_model_slicecompare.md
 │   └── papers/                            # ★ literatura, artykuły, prace
 │       ├── GuideAI25_2.pdf                # Model Slicing for Responsible AI
 │       └── dryja_thesis.pdf
 │
 ├── reports/                               # ★ RAPORTY EKSPERYMENTÓW (wyniki, analizy)
-│   ├── RAPORT_main_48_cech_sliceaware_i_slicecompare.md
-│   ├── RAPORT_main_48_cech_vs_modelslice.md
-│   ├── RAPORT_main_48_cech_warianty_slice_podsumowanie.md
+│   ├── RAPORT_tennis_model_sliceaware_i_slicecompare.md
+│   ├── RAPORT_tennis_model_vs_modelslice.md
+│   ├── RAPORT_tennis_model_warianty_slice_podsumowanie.md
 │   └── outputs/                           # ★ wygenerowane raporty (XLSX, CSV, PNG)
 │       ├── slice_comparison_all_variants.xlsx
 │       ├── slice_comparison_baseline_vs_sliceaware.xlsx
@@ -96,8 +96,8 @@ TenisPredictionModel/
 New-Item -ItemType Directory -Force src, src\experiments_archive, notebooks, notebooks\archive, docs, docs\papers, reports, reports\outputs, logs, data | Out-Null
 
 # Przenieś kod
-Move-Item main_48_cech.py, main_48_cech_modelslice.py, main_48_cech_sliceaware.py, main_48_cech_sliceaware_bestof5_v1.py, main_48_cech_sliceaware_qfserve_v3.py, main_48_cech_slicecompare.py, main_48_cech_seedstability.py src\
-Move-Item main_48_cech_10wykonan.py, main_48_cech_ewma.py src\experiments_archive\
+Move-Item tennis_model.py, tennis_model_modelslice.py, tennis_model_sliceaware.py, tennis_model_sliceaware_bestof5_v1.py, tennis_model_sliceaware_qfserve_v3.py, tennis_model_slicecompare.py, tennis_model_seedstability.py src\
+Move-Item tennis_model_10wykonan.py, tennis_model_ewma.py src\experiments_archive\
 
 # Przenieś notebooki
 Move-Item TPM_Experiment_*.ipynb notebooks\
@@ -124,15 +124,15 @@ Remove-Item __pycache__ -Recurse -Force
 
 ## ⚠ Co trzeba pamiętać po przenosinach
 
-1. **Ścieżki w kodzie** — pliki `main_48_cech*.py` używają `pd.read_csv('sample_data/2024.csv')`. Po przeniesieniu do `src/` trzeba albo:
+1. **Ścieżki w kodzie** — pliki `tennis_model*.py` używają `pd.read_csv('sample_data/2024.csv')`. Po przeniesieniu do `src/` trzeba albo:
    - **Opcja A (prostsza)**: zmienić ścieżki na `'../data/sample_data/2024.csv'`
    - **Opcja B (lepsza)**: dodać na początku `BASE_DIR = Path(__file__).resolve().parent.parent` i używać `BASE_DIR / "data" / "sample_data" / "2024.csv"`
 
-2. **Sub-process w `slicecompare.py`** — używa `runpy.run_path("main_48_cech_sliceaware.py")`. Po przeniesieniu wszystkich `.py` do `src/`, ścieżki w `MODELS` dict w slicecompare.py powinny działać (bo wszystkie są w tym samym `src/`).
+2. **Sub-process w `slicecompare.py`** — używa `runpy.run_path("tennis_model_sliceaware.py")`. Po przeniesieniu wszystkich `.py` do `src/`, ścieżki w `MODELS` dict w slicecompare.py powinny działać (bo wszystkie są w tym samym `src/`).
 
-3. **Notebooki** — używają `runpy.run_path("main_48_cech.py")`. Po przeniesieniu, trzeba zmienić na `runpy.run_path("../src/main_48_cech.py")`.
+3. **Notebooki** — używają `runpy.run_path("tennis_model.py")`. Po przeniesieniu, trzeba zmienić na `runpy.run_path("../src/tennis_model.py")`.
 
-4. **Sample data import** — `main_48_cech_seedstability.py` używa `Path(__file__).with_name("main_48_cech.py")` — to ZAWSZE działa, niezależnie od katalogu.
+4. **Sample data import** — `tennis_model_seedstability.py` używa `Path(__file__).with_name("tennis_model.py")` — to ZAWSZE działa, niezależnie od katalogu.
 
 5. **README.md** — warto stworzyć na samej górze, opisujący w 1 stronie co tu jest, jak uruchomić, jakie są wyniki. Nadrzędne narzędzie dla każdego (w tym promotora) wchodzącego do projektu.
 

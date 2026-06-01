@@ -1,4 +1,4 @@
-# Opis pliku `main_48_cech_sliceaware_bestof5_v1.py` — wariant Bo5 (NAJLEPSZY)
+# Opis pliku `tennis_model_sliceaware_bestof5_v1.py` — wariant Bo5 (NAJLEPSZY)
 
 > Wszystkie pojęcia techniczne są szczegółowo wyjaśnione w `SLOWNICZEK_POJEC.md`. Tu są skrócone wytłumaczenia inline.
 

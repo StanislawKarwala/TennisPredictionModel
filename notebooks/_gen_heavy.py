@@ -101,10 +101,12 @@ raz na rok (cache), warianty go reuzywaja."""),
 ("md", "## Uruchomienie (od zera) -- baseline + 3 warianty na kazdy sezon"),
 ("code", "import tennis_model_validate_variants as m\nm.main()"),
 ("md", """## Wnioski
-ZADEN wariant slice-aware nie pobil baseline w sposob istotny (wszystkie McNemar p > 0.18).
-Dawne "spektakularne" wyniki (bestof5 +2.37, qfserve +2.20) na walk-forward spadly do szumu --
-qfserve nawet na minus. **Na wiekszej ilosci danych warianty bestof5 i qfserve okazaly sie slabsze
-od glownego modelu `tennis_model.py`.** To ostateczne potwierdzenie, ze pojedynczy test set klamie."""),
+Na walk-forward (2020-2025, N=3022) ZADEN wariant slice-aware nie rozni sie istotnie od baseline --
+wszystkie McNemar p > 0.05 (najnizsze qfserve p=0.076). Dawne "spektakularne" wyniki z pojedynczego
+testu (bestof5 +2.37, qfserve +2.20 p.p.) rozplywaja sie w szumie: pooled bestof5 +0.56 p.p.
+(nieistotne), qfserve -0.89 p.p. (kierunkowo gorszy), sliceaware -0.26 p.p. **Zaden wariant nie
+pobija glownego modelu `tennis_model.py` w sposob istotny.** Pojedynczy test set klamie -- przewaga
+z jednego sezonu nie utrzymuje sie na wielu."""),
 ]),
 
 "validate_features": ("TPM_Experiment_ValidateFeatures.ipynb", 5400, [
@@ -118,9 +120,10 @@ meczach, parowanie + McNemar."""),
 ("md", "## Uruchomienie (od zera)"),
 ("code", "import tennis_model_validate_features as m\nm.main()"),
 ("md", """## Wnioski
-ZADEN zestaw cech nie jest istotny statystycznie (wszystkie McNemar p > 0.25). Najlepsze sa
-directionally dodatnie (+0.4-0.6 p.p.), ale w granicach szumu. To komplet dowodow, ze nic nie
-przebija baseline -- sufit ~65% jest odporny na nowe cechy."""),
+Na walk-forward (2020-2025, N=3022) ZADEN zestaw cech nie jest istotny statystycznie -- wszystkie
+McNemar p > 0.05 (najnizsze surface p=0.105, elo p=0.173). Pooled delty sa kierunkowo dodatnie, ale
+w granicach szumu: elo +0.76, surface +0.60, enriched +0.20, fatigue +0.03 p.p. To komplet dowodow,
+ze nic nie przebija baseline -- sufit ~65% jest odporny na nowe cechy."""),
 ]),
 }
 

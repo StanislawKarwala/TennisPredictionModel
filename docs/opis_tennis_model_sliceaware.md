@@ -1,9 +1,9 @@
-# Opis pliku `main_48_cech_sliceaware.py` — szeroki wariant slice-aware
+# Opis pliku `tennis_model_sliceaware.py` — szeroki wariant slice-aware
 
 > Wszystkie pojęcia techniczne są szczegółowo wyjaśnione w `SLOWNICZEK_POJEC.md`. Tu są skrócone wytłumaczenia inline.
 
 ## Co ten plik robi w jednym zdaniu
-Bierze baseline z `main_48_cech.py`, dodaje 20 cech kontekstowych mających pomóc w trzech najsłabszych slice'ach naraz (Bo5, QF, leworęczny-vs-praworęczny) i trenuje nowy Random Forest.
+Bierze baseline z `tennis_model.py`, dodaje 20 cech kontekstowych mających pomóc w trzech najsłabszych slice'ach naraz (Bo5, QF, leworęczny-vs-praworęczny) i trenuje nowy Random Forest.
 
 ## Główne założenia
 
@@ -41,7 +41,7 @@ Bierze baseline z `main_48_cech.py`, dodaje 20 cech kontekstowych mających pom�
 
 | Metoda | Co robi |
 |---|---|
-| `execute_base_pipeline_quietly()` | Uruchamia `main_48_cech.py` z wyciszonym outputem (przekierowanie stdout do bufora). Zwraca namespace baseline'u. |
+| `execute_base_pipeline_quietly()` | Uruchamia `tennis_model.py` z wyciszonym outputem (przekierowanie stdout do bufora). Zwraca namespace baseline'u. |
 | `build_player_index(full_sequence)` | Buduje mapę `gracz → sorted lista indeksów wierszy gdzie wystąpił`. Liniowy skan pełnej historii RAZ. |
 | `get_player_history_via_index(player, full_sequence, player_index, cutoff)` | Pobiera mecze gracza ROZEGRANE przed `cutoff` (czyli wcześniej chronologicznie). Używa `bisect_left` na posortowanej liście indeksów. O(log K) zamiast O(N). |
 | `get_player_history(player_name, history)` | Stara, wolna wersja — filtruje całą historię pandasem. Trzymana dla legacy callerów. |
@@ -58,7 +58,7 @@ Bierze baseline z `main_48_cech.py`, dodaje 20 cech kontekstowych mających pom�
 
 | Zmienna | Co oznacza |
 |---|---|
-| `BASE_SCRIPT` | Ścieżka do `main_48_cech.py`. |
+| `BASE_SCRIPT` | Ścieżka do `tennis_model.py`. |
 | `LATE_ROUNDS = {"QF", "SF", "BR", "F"}` | Zbiór „późnych rund turnieju" — gdzie zwykle decydują się tytuły i presja jest największa. |
 | `TARGETED_FEATURES` | Lista 32 nazw nowych cech (z is_best_of5, is_qf, is_lefty_matchup włącznie). Używana do feature importance i jako rozszerzenie `features` baseline'u. |
 | `player_index` | Mapa `nazwa → sorted lista indeksów` dla całej historii. Liczona raz, używana na każde wywołanie. |

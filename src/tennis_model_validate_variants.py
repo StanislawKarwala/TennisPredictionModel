@@ -30,7 +30,7 @@ BASELINE_SCRIPT_PATH = (WORKDIR / "tennis_model.py").resolve()
 
 _wf_env = os.environ.get("TENNIS_WF_YEARS")
 TARGET_YEARS = ([int(y) for y in _wf_env.split(",")] if _wf_env
-                else [2022, 2023, 2024, 2025])
+                else [2020, 2021, 2022, 2023, 2024, 2025])
 
 VARIANTS = {
     "sliceaware": "tennis_model_sliceaware.py",

@@ -1,4 +1,4 @@
-# Opis pliku `main_48_cech.py` — model bazowy
+# Opis pliku `tennis_model.py` — model bazowy
 
 > Wszystkie pojęcia techniczne (CV Accuracy, Brier, log-loss, ECE, kalibracja itd.) są szczegółowo wyjaśnione w `SLOWNICZEK_POJEC.md`. Tu są skrócone wytłumaczenia inline.
 

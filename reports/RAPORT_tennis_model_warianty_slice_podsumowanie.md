@@ -5,7 +5,7 @@
 Najważniejszy wniosek z całego eksperymentu jest taki:
 
 1. sam `model slicing` dobrze wskazał, gdzie model ma problemy,
-2. najlepszym globalnie wariantem okazał się `main_48_cech_sliceaware_qfserve_v3.py`,
+2. najlepszym globalnie wariantem okazał się `tennis_model_sliceaware_qfserve_v3.py`,
 3. największe i najbardziej powtarzalne poprawy pojawiły się w slice'ach typu `L-vs-R`,
 4. slice'y `QF` i `Best of 5` nadal nie zostały rozwiązane w pełni.
 
@@ -14,12 +14,12 @@ Najważniejszy wniosek z całego eksperymentu jest taki:
 
 Cały przepływ pracy wyglądał tak:
 
-1. `main_48_cech.py` buduje model bazowy,
-2. `main_48_cech_modelslice.py` pokazuje, gdzie ten model działa słabiej,
-3. `main_48_cech_sliceaware.py` robi pierwszą próbę poprawy tych słabych miejsc,
-4. `main_48_cech_sliceaware_qfserve_v3.py` robi bardziej dopracowaną próbę poprawy QF i kontekstu serwisowego,
-5. `main_48_cech_sliceaware_bestof5_v1.py` robi specjalny wariant pod mecze `Best of 5`,
-6. `main_48_cech_slicecompare.py` porównuje wszystkie warianty na tych samych slice'ach.
+1. `tennis_model.py` buduje model bazowy,
+2. `tennis_model_modelslice.py` pokazuje, gdzie ten model działa słabiej,
+3. `tennis_model_sliceaware.py` robi pierwszą próbę poprawy tych słabych miejsc,
+4. `tennis_model_sliceaware_qfserve_v3.py` robi bardziej dopracowaną próbę poprawy QF i kontekstu serwisowego,
+5. `tennis_model_sliceaware_bestof5_v1.py` robi specjalny wariant pod mecze `Best of 5`,
+6. `tennis_model_slicecompare.py` porównuje wszystkie warianty na tych samych slice'ach.
 
 To znaczy, że projekt rozwija się metodycznie:
 
@@ -47,27 +47,27 @@ Właśnie dlatego warianty `sliceaware` dodają cechy kontekstowe pod konkretne 
 
 ## 4. Krótkie role poszczególnych modeli
 
-### `main_48_cech.py`
+### `tennis_model.py`
 
 To jest punkt odniesienia, czyli model bazowy.
 
 
-### `main_48_cech_sliceaware.py`
+### `tennis_model_sliceaware.py`
 
 To jest pierwszy ogólny wariant naprawczy. Dodaje cechy pod `Best of 5`, `QF` i `L-vs-R`, ale jeszcze dość szeroko i eksperymentalnie.
 
 
-### `main_48_cech_sliceaware_qfserve_v3.py`
+### `tennis_model_sliceaware_qfserve_v3.py`
 
 To jest najmocniejszy wariant globalny. Łączy lepszy kontekst `QF` z bardziej szczegółowymi cechami serwisu i returnu.
 
 
-### `main_48_cech_sliceaware_bestof5_v1.py`
+### `tennis_model_sliceaware_bestof5_v1.py`
 
 To jest wariant specjalizowany pod `Best of 5`. Skupia się na wytrzymałości, długich meczach i jakości gry w dłuższym formacie.
 
 
-### `main_48_cech_slicecompare.py`
+### `tennis_model_slicecompare.py`
 
 To jest narzędzie porównawcze. Ono nie poprawia modelu, tylko pokazuje, która wersja modelu wygrała na danym slice'ie.
 
@@ -201,4 +201,4 @@ Najważniejsza lekcja z tych eksperymentów jest taka:
 
 ## 11. Końcowy wniosek
 
-Jeżeli spojrzeć na cały projekt jako na serię eksperymentów, to wynik jest spójny. `main_48_cech_modelslice.py` dobrze pokazał, gdzie model ma problemy. `main_48_cech_sliceaware.py` był sensowną pierwszą próbą poprawy tych obszarów, ale jeszcze bez stabilnego zysku globalnego. Najlepszym rozwinięciem okazał się `main_48_cech_sliceaware_qfserve_v3.py`, który poprawił wynik ogólny i wiele slice'ów związanych z `L-vs-R`. Jednocześnie `QF` i `Best of 5` nadal pozostają trudnymi obszarami, więc dalsze prace powinny iść w stronę jeszcze lepszych cech kontekstowych właśnie dla tych dwóch typów meczów.
+Jeżeli spojrzeć na cały projekt jako na serię eksperymentów, to wynik jest spójny. `tennis_model_modelslice.py` dobrze pokazał, gdzie model ma problemy. `tennis_model_sliceaware.py` był sensowną pierwszą próbą poprawy tych obszarów, ale jeszcze bez stabilnego zysku globalnego. Najlepszym rozwinięciem okazał się `tennis_model_sliceaware_qfserve_v3.py`, który poprawił wynik ogólny i wiele slice'ów związanych z `L-vs-R`. Jednocześnie `QF` i `Best of 5` nadal pozostają trudnymi obszarami, więc dalsze prace powinny iść w stronę jeszcze lepszych cech kontekstowych właśnie dla tych dwóch typów meczów.

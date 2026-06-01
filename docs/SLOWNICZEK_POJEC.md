@@ -250,4 +250,4 @@ Klasa sklearn do kalibracji. Owija inny estymator (np. RF) i dodaje warstwę kal
 `subprocess` uruchamia osobny proces Pythona (drogo, ale izolowane). `runpy.run_path` uruchamia skrypt w bieżącym procesie (taniej, ale dzielimy pamięć). Używamy runpy żeby móc cache'ować namespace baseline'u w pamięci.
 
 ### namespace (w kontekście runpy)
-Słownik wszystkich zmiennych globalnych po wykonaniu skryptu. Wynik `runpy.run_path("main_48_cech.py")` to dict z `df_train_raw`, `best_rf`, `match_accuracy` itd. Pozwala importować wyniki bez modyfikowania skryptu na funkcje.
+Słownik wszystkich zmiennych globalnych po wykonaniu skryptu. Wynik `runpy.run_path("tennis_model.py")` to dict z `df_train_raw`, `best_rf`, `match_accuracy` itd. Pozwala importować wyniki bez modyfikowania skryptu na funkcje.

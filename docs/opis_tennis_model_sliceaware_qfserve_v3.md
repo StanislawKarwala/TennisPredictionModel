@@ -1,4 +1,4 @@
-# Opis pliku `main_48_cech_sliceaware_qfserve_v3.py` — wariant QF + warunkowy serwis
+# Opis pliku `tennis_model_sliceaware_qfserve_v3.py` — wariant QF + warunkowy serwis
 
 > Wszystkie pojęcia techniczne są szczegółowo wyjaśnione w `SLOWNICZEK_POJEC.md`. Tu są skrócone wytłumaczenia inline.
 

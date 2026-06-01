@@ -1,4 +1,4 @@
-# Opis pliku `main_48_cech_slicecompare.py` — porównywarka wariantów
+# Opis pliku `tennis_model_slicecompare.py` — porównywarka wariantów
 
 > Wszystkie pojęcia techniczne są szczegółowo wyjaśnione w `SLOWNICZEK_POJEC.md`. Tu są skrócone wytłumaczenia inline.
 
@@ -9,7 +9,7 @@ Uruchamia wszystkie 4 modele (baseline + 3 warianty slice-aware), zbiera ich pre
 
 1. **Wspólne slice'y** — wszystkie 4 modele oceniamy NA TYCH SAMYCH testowych meczach, w tych samych slice'ach. Inaczej porównanie nie miałoby sensu (jabłka vs gruszki).
 
-2. **Cache baseline'u** — każdy z 3 wariantów wewnętrznie wywołuje `runpy.run_path("main_48_cech.py")` (przez `execute_base_pipeline_quietly`). Bez cache: baseline (50-iteracyjny RandomizedSearchCV) uruchamiałby się 4 razy w jednym wywołaniu slicecompare. Z cache: baseline odpala się RAZ, kolejne wywołania dostają ten sam namespace. Oszczędność: ~75% czasu.
+2. **Cache baseline'u** — każdy z 3 wariantów wewnętrznie wywołuje `runpy.run_path("tennis_model.py")` (przez `execute_base_pipeline_quietly`). Bez cache: baseline (50-iteracyjny RandomizedSearchCV) uruchamiałby się 4 razy w jednym wywołaniu slicecompare. Z cache: baseline odpala się RAZ, kolejne wywołania dostają ten sam namespace. Oszczędność: ~75% czasu.
 
 3. **Target slice'y** — wyróżniamy 3 kluczowe wzorce: `best_of=5`, `round=QF`, `handedness_matchup=L-vs-R`. Te dostają flagę `is_target_slice=True` i są sortowane na górze raportu.
 
@@ -45,7 +45,7 @@ Uruchamia wszystkie 4 modele (baseline + 3 warianty slice-aware), zbiera ich pre
 | Metoda | Co robi |
 |---|---|
 | `_cached_run_path(path_or_name, *args, **kwargs)` | Monkey-patch dla `runpy.run_path`. Jeśli ścieżka pokrywa się z `BASELINE_SCRIPT_PATH`, sprawdza czy w cache jest namespace — zwraca go zamiast uruchamiać skrypt. |
-| `execute_model_script(script_name)` | Uruchamia dowolny wariant model script (np. `main_48_cech_sliceaware.py`) z wyciszonym stdout i zwraca jego namespace. |
+| `execute_model_script(script_name)` | Uruchamia dowolny wariant model script (np. `tennis_model_sliceaware.py`) z wyciszonym stdout i zwraca jego namespace. |
 | `collect_slice_results(script_name)` | Dla danego skryptu: uruchamia go, buduje match_slice_frame przez `prepare_match_level_slice_frame` (z modelslice.py), liczy slice'y przez `compute_model_slices`. Zwraca (tabela slice'ów, overall match accuracy). |
 | `build_model_view(slices_df, model_label)` | Zmienia nazwy kolumn slice'a żeby były prefixed nazwą modelu (np. `baseline_accuracy`, `bestof5_v1_accuracy`). Pozwala na join. |
 | `build_comparison_table()` | Główna funkcja — iteruje po wszystkich 4 modelach, zbiera slice'y, mergeuje w jedną dużą tabelę. Dla każdego non-baseline modelu dorzuca kolumny delta: `{model}_accuracy_delta_vs_baseline`, `_gap_delta_vs_baseline`, `_probability_delta_vs_baseline`. Flaguje target slices. Wybiera `best_model_by_accuracy` per slice. |
@@ -63,7 +63,7 @@ Uruchamia wszystkie 4 modele (baseline + 3 warianty slice-aware), zbiera ich pre
 | `WORKDIR` | Katalog projektu (gdzie leży slicecompare.py — czyli `src/`). |
 | `BASE_DIR` | Katalog projektu (parent WORKDIR). |
 | `OUTPUT_XLSX` | Ścieżka docelowa raportu: `reports/outputs/slice_comparison_all_variants.xlsx`. |
-| `BASELINE_SCRIPT_PATH` | Resolved ścieżka do `main_48_cech.py` — używana w cache check. |
+| `BASELINE_SCRIPT_PATH` | Resolved ścieżka do `tennis_model.py` — używana w cache check. |
 | `SLICE_COLUMNS` | 8 atrybutów slicingu (te same co w modelslice.py). |
 | `MODELS` | Dict mapujący label → nazwa pliku. Kolejność ma znaczenie (baseline zawsze pierwszy). |
 | `TARGET_SLICE_PATTERNS` | Lista wzorców target slice'ów (`best_of=5`, `round=QF`, `handedness_matchup=L-vs-R`). Substring match na `slice_definition`. |
@@ -98,7 +98,7 @@ Uruchamia wszystkie 4 modele (baseline + 3 warianty slice-aware), zbiera ich pre
 A: Bo bez wspólnych slice'ów porównanie wariantów to jabłka vs gruszki. Każdy wariant uruchomiony osobno może wygenerować lekko inny zestaw slice'ów (gdy support spadnie poniżej 5 — slice znika z raportu). Slicecompare gwarantuje że porównujemy WSZYSTKIE modele na DOKŁADNIE TYCH SAMYCH slice'ach.
 
 **Q: „Co to jest 'cache baseline'u' i czemu jest ważny?"**
-A: Każdy wariant wewnętrznie uruchamia baseline (`main_48_cech.py`) przez `runpy.run_path` żeby dostać jego dane treningowe/testowe. Bez cache: baseline z RandomizedSearchCV (50 iteracji × 5 fold-ów = 250 fit-ów RF) uruchamiałby się 4 razy w jednym slicecompare — ~30 min. Z cache: 1 raz na początku, kolejne wywołania dostają wynik z pamięci — ~10 min. Oszczędność 75%.
+A: Każdy wariant wewnętrznie uruchamia baseline (`tennis_model.py`) przez `runpy.run_path` żeby dostać jego dane treningowe/testowe. Bez cache: baseline z RandomizedSearchCV (50 iteracji × 5 fold-ów = 250 fit-ów RF) uruchamiałby się 4 razy w jednym slicecompare — ~30 min. Z cache: 1 raz na początku, kolejne wywołania dostają wynik z pamięci — ~10 min. Oszczędność 75%.
 
 **Q: „Co to jest 'monkey patch' i czemu to robicie?"**
 A: Monkey patch = podmiana funkcji bibliotecznej w runtime. Tu podmieniamy `runpy.run_path` na wersję cache'ującą baseline namespace. Globalnie wpływa na WSZYSTKICH callerów `runpy.run_path` w bieżącym procesie. Pragmatyczne ale ryzykowne — jeśli inny pakiet też używa `runpy.run_path`, też zostanie wpływnięty.
@@ -110,7 +110,7 @@ A: Z 28 możliwych slice'ów dla każdego modelu — bierzemy tylko te WSPÓLNE 
 A: Z 28+ slice'ów wyróżniamy 3 jako TARGET — best_of=5, round=QF, handedness_matchup=L-vs-R. Te są podświetlone (flag `is_target_slice=True`) i sortowane na górze raportu, bo to one są celem wariantów slice-aware. Pozostałe slice'y to „efekt uboczny" — chcemy widzieć czy wariant nie zepsuł czegoś innego.
 
 **Q: „Czemu 4 warianty a nie 2 albo 5?"**
-A: 4 = baseline + 3 slice-aware (sliceaware shotgun, bestof5_v1 focused, qfserve_v3 rich). To są SENSOWNE warianty z naszej historii: sliceaware to baseline + 20 cech (nieudany), bo5 to focused (najlepszy), qfserve_v3 to wszystko + seed/path (drugi najlepszy). Dodanie kolejnych wariantów wymagałoby kolejnych plików `main_48_cech_*.py`.
+A: 4 = baseline + 3 slice-aware (sliceaware shotgun, bestof5_v1 focused, qfserve_v3 rich). To są SENSOWNE warianty z naszej historii: sliceaware to baseline + 20 cech (nieudany), bo5 to focused (najlepszy), qfserve_v3 to wszystko + seed/path (drugi najlepszy). Dodanie kolejnych wariantów wymagałoby kolejnych plików `tennis_model_*.py`.
 
 **Q: „Czemu format XLSX a nie CSV?"**
 A: CSV jest plain text, łatwy do parsowania ale brzydki do oglądania. XLSX pozwala na:

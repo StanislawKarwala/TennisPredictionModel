@@ -1,4 +1,4 @@
-# Opis pliku `main_48_cech_multiseason.py` — wielo-sezonowy trening + test boostingu
+# Opis pliku `tennis_model_multiseason.py` — wielo-sezonowy trening + test boostingu
 
 > Pojęcia techniczne (CV, neg_log_loss, Brier, walk-forward, symetryzacja, boosting) są wyjaśnione w `SLOWNICZEK_POJEC.md`. Wyniki liczbowe: `PODSUMOWANIE_KONCOWE.md`.
 
@@ -9,7 +9,7 @@ Zmienia architekturę treningu z „tylko rok docelowy" (~3500 próbek) na **wie
 
 W Sprincie 2 HistGradientBoosting **nie pobił** Random Forest. Ale wtedy model trenował się tylko na jednym roku (~3500 próbek). Hipoteza: boosting (gradient boosting) potrzebuje DUŻO danych, żeby pokazać przewagę — przy małej próbce regularyzuje się do prostego modelu.
 
-**Kluczowy problem architektury bazowej:** w `main_48_cech.py` historia (np. 2001-2024) służy WYŁĄCZNIE do liczenia cech dynamicznych (forma, H2H, serwis), a model trenuje się tylko na 60% roku docelowego. Czyli samo podpięcie więcej danych historycznych **nie powiększa zbioru treningowego** — boosting dalej dostaje ~3500 próbek.
+**Kluczowy problem architektury bazowej:** w `tennis_model.py` historia (np. 2001-2024) służy WYŁĄCZNIE do liczenia cech dynamicznych (forma, H2H, serwis), a model trenuje się tylko na 60% roku docelowego. Czyli samo podpięcie więcej danych historycznych **nie powiększa zbioru treningowego** — boosting dalej dostaje ~3500 próbek.
 
 Ten plik to naprawia: **trenuje na wszystkich meczach z wielu sezonów** (np. 2000-2023), co daje ~140 000 próbek. Dopiero to jest właściwy test hipotezy „więcej danych → boosting wygrywa".
 
@@ -19,7 +19,7 @@ Ten plik to naprawia: **trenuje na wszystkich meczach z wielu sezonów** (np. 20
 
 2. **Trening / walidacja / test rozłączne czasowo** — trening = sezony [TRAIN_START .. VAL_YEAR−1], walidacja = VAL_YEAR (2024), test = TEST_YEAR (2025, cały sezon ~2650 meczów). Zero leakage: testujemy na sezonie, którego model nigdy nie widział.
 
-3. **Te same 40 cech co baseline** — reużywamy funkcje feature-engineering z `main_48_cech.py` przez namespace (`add_dynamic_features`, `symmetrize_data`). Jedyne zmienne to ILOŚĆ danych treningowych i ALGORYTM — czysty ablation.
+3. **Te same 40 cech co baseline** — reużywamy funkcje feature-engineering z `tennis_model.py` przez namespace (`add_dynamic_features`, `symmetrize_data`). Jedyne zmienne to ILOŚĆ danych treningowych i ALGORYTM — czysty ablation.
 
 4. **Rozgrzewka cech (warmup)** — sezony przed TRAIN_START służą tylko do policzenia cech (forma, H2H) dla pierwszych meczów treningowych, ale same nie wchodzą do treningu. Gdy trenujemy od najwcześniejszego sezonu (2000), warmup jest pusty → mecze 2000 mają cold-start (forma=0.5), co jest akceptowalne (mały ułamek danych).
 
@@ -40,7 +40,7 @@ Ten plik to naprawia: **trenuje na wszystkich meczach z wielu sezonów** (np. 20
 | Metoda | Co robi |
 |---|---|
 | `data_file(year)` | Buduje ścieżkę `{TOUR}_matches_{year}.csv` (np. `atp_matches_2010.csv`). Przełącznik `TOUR` (atp/wta). |
-| `run_baseline_quietly()` | Uruchamia `main_48_cech.py` raz z wyciszonym stdout i zwraca namespace — z niego pobieramy funkcje feature-engineering i listę cech. |
+| `run_baseline_quietly()` | Uruchamia `tennis_model.py` raz z wyciszonym stdout i zwraca namespace — z niego pobieramy funkcje feature-engineering i listę cech. |
 | `load_years(years, cols_base)` | Wczytuje wskazane sezony, sortuje chronologicznie, dropna na cols_base, **taguje kolumną `season` = rok pliku**. Zwraca jedną połączoną ramkę. |
 | `add_static_features(df, ROUND_ORDER)` | Dolicza cechy statyczne jak w baseline: log rankingu/punktów, flagi leworęczności, `round_encoded`. (Surface/level kodowane osobno, po treningowym fit.) |
 | `tune_and_eval(name, estimator, param_dist, n_iter, ...)` | Dla danego algorytmu: RandomizedSearchCV (neg_log_loss, TimeSeriesSplit) na treningu, fit najlepszego na pełnym (wymieszanym) treningu, ewaluacja na walidacji i teście (val/test accuracy + symetryczna match accuracy + Brier/log-loss/ECE). Zwraca słownik wyników. |

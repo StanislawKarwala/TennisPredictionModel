@@ -1,12 +1,12 @@
-# Raport wyjaśniający: `main_48_cech_sliceaware.py` i `main_48_cech_slicecompare.py`
+# Raport wyjaśniający: `tennis_model_sliceaware.py` i `tennis_model_slicecompare.py`
 
 ## 1. Cel raportu
 
 Ten dokument ma w prosty, ale dokładny sposób wyjaśnić:
 
-1. po co w projekcie pojawił się plik `main_48_cech_sliceaware.py`,
-2. po co powstał plik `main_48_cech_slicecompare.py`,
-3. czym te pliki różnią się od `main_48_cech.py` i `main_48_cech_modelslice.py`,
+1. po co w projekcie pojawił się plik `tennis_model_sliceaware.py`,
+2. po co powstał plik `tennis_model_slicecompare.py`,
+3. czym te pliki różnią się od `tennis_model.py` i `tennis_model_modelslice.py`,
 4. za co odpowiadają najważniejsze części kodu,
 5. jakie były wyniki i co z nich wynika praktycznie.
 
@@ -17,10 +17,10 @@ Ten raport jest rozwinięciem poprzedniego raportu o `model slicing`.
 
 Najprościej można to ująć tak:
 
-1. `main_48_cech.py` to model bazowy.
-2. `main_48_cech_modelslice.py` nie zmienia modelu, tylko pokazuje, gdzie model działa słabo.
-3. `main_48_cech_sliceaware.py` to pierwsza próba poprawienia modelu dokładnie w tych słabych miejscach.
-4. `main_48_cech_slicecompare.py` to narzędzie porównawcze, które sprawdza, która wersja modelu wygrywa na konkretnych slice'ach.
+1. `tennis_model.py` to model bazowy.
+2. `tennis_model_modelslice.py` nie zmienia modelu, tylko pokazuje, gdzie model działa słabo.
+3. `tennis_model_sliceaware.py` to pierwsza próba poprawienia modelu dokładnie w tych słabych miejscach.
+4. `tennis_model_slicecompare.py` to narzędzie porównawcze, które sprawdza, która wersja modelu wygrywa na konkretnych slice'ach.
 
 Czyli:
 
@@ -33,10 +33,10 @@ Czyli:
 
 W tym projekcie logika rozwoju modelu wygląda tak:
 
-1. najpierw jest model bazowy z `main_48_cech.py`,
-2. potem `main_48_cech_modelslice.py` wykrywa słabe grupy meczów,
-3. potem `main_48_cech_sliceaware.py` dodaje nowe cechy specjalnie pod te słabe grupy,
-4. na końcu `main_48_cech_slicecompare.py` porównuje różne warianty i pokazuje, czy faktycznie coś się poprawiło.
+1. najpierw jest model bazowy z `tennis_model.py`,
+2. potem `tennis_model_modelslice.py` wykrywa słabe grupy meczów,
+3. potem `tennis_model_sliceaware.py` dodaje nowe cechy specjalnie pod te słabe grupy,
+4. na końcu `tennis_model_slicecompare.py` porównuje różne warianty i pokazuje, czy faktycznie coś się poprawiło.
 
 To jest ważne, bo pokazuje metodyczny proces pracy:
 
@@ -46,13 +46,13 @@ To jest ważne, bo pokazuje metodyczny proces pracy:
 4. a potem porównujesz efekty na tych samych grupach meczów.
 
 
-## 4. Co robi `main_48_cech_sliceaware.py`
+## 4. Co robi `tennis_model_sliceaware.py`
 
 Ten plik jest eksperymentalnym wariantem modelu bazowego.
 
 Jego idea jest bardzo prosta:
 
-1. uruchomić tę samą bazową obróbkę danych co w `main_48_cech.py`,
+1. uruchomić tę samą bazową obróbkę danych co w `tennis_model.py`,
 2. zostawić ten sam model `RandomForestClassifier`,
 3. zostawić te same najlepsze hiperparametry znalezione wcześniej,
 4. ale dodać nowe cechy kontekstowe tam, gdzie slicing wykazał problem,
@@ -76,11 +76,11 @@ W tym pliku cechy były projektowane głównie pod trzy problemy wykryte wcześn
 To są dokładnie te obszary, gdzie model bazowy wypadał słabiej niż jego średni wynik ogólny.
 
 
-## 6. Co zostało zmienione względem `main_48_cech.py`
+## 6. Co zostało zmienione względem `tennis_model.py`
 
 Najważniejsze zmiany są takie:
 
-1. model nadal bazuje na wynikach `main_48_cech.py`, bo uruchamia go przez `runpy`,
+1. model nadal bazuje na wynikach `tennis_model.py`, bo uruchamia go przez `runpy`,
 2. stary zestaw 40 cech zostaje zachowany,
 3. do tego dochodzą nowe cechy targetowane pod słabe slice'y,
 4. liczba cech rośnie z `40` do `73`,
@@ -91,11 +91,11 @@ To jest bardzo ważne interpretacyjnie.
 Jeżeli wynik się zmienia, to główny powód jest taki, że model dostał lepszy opis sytuacji meczowej, a nie dlatego, że podmieniono cały algorytm.
 
 
-## 7. Za co odpowiadają najważniejsze części `main_48_cech_sliceaware.py`
+## 7. Za co odpowiadają najważniejsze części `tennis_model_sliceaware.py`
 
 ### 7.1. `execute_base_pipeline_quietly()`
 
-Ta funkcja uruchamia `main_48_cech.py` w tle i pobiera z niego gotowe elementy pipeline'u.
+Ta funkcja uruchamia `tennis_model.py` w tle i pobiera z niego gotowe elementy pipeline'u.
 
 To znaczy, że `sliceaware` nie kopiuje ręcznie całego kodu bazowego, tylko wykorzystuje już istniejący pipeline.
 
@@ -226,7 +226,7 @@ Na przykład:
 To właśnie te cechy próbują uchwycić problem `L-vs-R` bardziej szczegółowo niż zwykła informacja `czy gracz jest leworęczny`.
 
 
-## 9. Aktualne wyniki `main_48_cech_sliceaware.py`
+## 9. Aktualne wyniki `tennis_model_sliceaware.py`
 
 Po uruchomieniu aktualnej wersji tego pliku otrzymano:
 
@@ -276,7 +276,7 @@ To daje praktyczny wniosek:
 modelowi rzeczywiście przydaje się bardziej szczegółowa informacja o matchupie ręki przeciwnika, formie w trudnych kontekstach oraz specyfice późnych rund.
 
 
-## 12. Co robi `main_48_cech_slicecompare.py`
+## 12. Co robi `tennis_model_slicecompare.py`
 
 Ten plik nie tworzy nowego modelu.
 
@@ -300,18 +300,18 @@ Czyli:
 
 W aktualnej konfiguracji plik porównuje trzy modele:
 
-1. `baseline` -> `main_48_cech.py`,
-2. `qfserve_v3` -> `main_48_cech_sliceaware_qfserve_v3.py`,
-3. `bestof5_v1` -> `main_48_cech_sliceaware_bestof5_v1.py`.
+1. `baseline` -> `tennis_model.py`,
+2. `qfserve_v3` -> `tennis_model_sliceaware_qfserve_v3.py`,
+3. `bestof5_v1` -> `tennis_model_sliceaware_bestof5_v1.py`.
 
 To jest ważna uwaga:
 
-obecna wersja `main_48_cech_slicecompare.py` nie porównuje bezpośrednio pliku `main_48_cech_sliceaware.py`.
+obecna wersja `tennis_model_slicecompare.py` nie porównuje bezpośrednio pliku `tennis_model_sliceaware.py`.
 
 Porównuje jego późniejsze eksperymentalne rozwinięcia, czyli warianty bardziej wyspecjalizowane.
 
 
-## 14. Za co odpowiadają najważniejsze części `main_48_cech_slicecompare.py`
+## 14. Za co odpowiadają najważniejsze części `tennis_model_slicecompare.py`
 
 ### 14.1. `MODELS`
 
@@ -500,7 +500,7 @@ Prosta wersja:
 
 ### Wniosek 1
 
-`main_48_cech_sliceaware.py` jest pierwszym eksperymentem, który próbuje poprawić model dokładnie tam, gdzie wcześniejszy slicing pokazał problemy.
+`tennis_model_sliceaware.py` jest pierwszym eksperymentem, który próbuje poprawić model dokładnie tam, gdzie wcześniejszy slicing pokazał problemy.
 
 
 ### Wniosek 2
@@ -515,7 +515,7 @@ Aktualna wersja `sliceaware` poprawia walidację, ale nie daje jeszcze stabilnej
 
 ### Wniosek 4
 
-`main_48_cech_slicecompare.py` jest narzędziem, które pozwala uczciwie porównywać różne wersje modelu na tych samych slice'ach.
+`tennis_model_slicecompare.py` jest narzędziem, które pozwala uczciwie porównywać różne wersje modelu na tych samych slice'ach.
 
 
 ### Wniosek 5
@@ -525,4 +525,4 @@ Aktualne porównania pokazują, że najłatwiej poprawić część slice'ów `L-
 
 ## 22. Końcowe podsumowanie jednym akapitem
 
-Plik `main_48_cech_sliceaware.py` to eksperymentalna wersja modelu, która wykorzystuje wyniki wcześniejszego model slicing i dodaje nowe cechy specjalnie pod słabe grupy meczów, takie jak `Best of 5`, `QF` i `L-vs-R`. Nie zmienia on samego typu modelu, ale wzbogaca opis sytuacji meczowej. Z kolei `main_48_cech_slicecompare.py` nie buduje nowego modelu, tylko porównuje kilka wariantów na dokładnie tych samych slice'ach i zapisuje wynik do wspólnego CSV. Dzięki temu w projekcie widać cały logiczny ciąg pracy: najpierw diagnoza problemu, potem próba jego naprawy, a na końcu twarde porównanie, czy poprawa rzeczywiście zaszła i w których grupach meczów.
+Plik `tennis_model_sliceaware.py` to eksperymentalna wersja modelu, która wykorzystuje wyniki wcześniejszego model slicing i dodaje nowe cechy specjalnie pod słabe grupy meczów, takie jak `Best of 5`, `QF` i `L-vs-R`. Nie zmienia on samego typu modelu, ale wzbogaca opis sytuacji meczowej. Z kolei `tennis_model_slicecompare.py` nie buduje nowego modelu, tylko porównuje kilka wariantów na dokładnie tych samych slice'ach i zapisuje wynik do wspólnego CSV. Dzięki temu w projekcie widać cały logiczny ciąg pracy: najpierw diagnoza problemu, potem próba jego naprawy, a na końcu twarde porównanie, czy poprawa rzeczywiście zaszła i w których grupach meczów.

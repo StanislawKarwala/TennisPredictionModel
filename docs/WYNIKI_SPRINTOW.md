@@ -36,14 +36,14 @@ Przy ~590 meczach testowych przedział ufności dla match_accuracy to ok. **±4 
 - CV: neg_log_loss=-0.6217, accuracy=0.6417, roc_auc raportowane.
 
 ### Pliki zmienione
-`src/main_48_cech.py`, `src/main_48_cech_sliceaware.py`, `src/main_48_cech_sliceaware_bestof5_v1.py`, `src/main_48_cech_sliceaware_qfserve_v3.py`, `src/main_48_cech_seedstability.py`.
+`src/tennis_model.py`, `src/tennis_model_sliceaware.py`, `src/tennis_model_sliceaware_bestof5_v1.py`, `src/tennis_model_sliceaware_qfserve_v3.py`, `src/tennis_model_seedstability.py`.
 
 ---
 
 ## Sprint 2 — HistGradientBoosting ✅ ZAMKNIĘTY (wynik NEGATYWNY)
 
 ### Co zrobione
-Utworzony `src/main_48_cech_hgb.py` — uczciwe porównanie (ablation): te same dane, cechy, split, symetryczna metryka co baseline; jedyna zmiana to algorytm. Dwa warianty HGB: (1) cechy numeryczne jak RF, (2) natywne kategorie (surface/tourney_level jako nominalne — główna przewaga HGB nad RF).
+Utworzony `src/tennis_model_hgb.py` — uczciwe porównanie (ablation): te same dane, cechy, split, symetryczna metryka co baseline; jedyna zmiana to algorytm. Dwa warianty HGB: (1) cechy numeryczne jak RF, (2) natywne kategorie (surface/tourney_level jako nominalne — główna przewaga HGB nad RF).
 
 ### Wyniki
 
@@ -60,12 +60,12 @@ Utworzony `src/main_48_cech_hgb.py` — uczciwe porównanie (ablation): te same 
 - HGB z natywnymi kategoriami daje match +0.34 p.p., ale test -0.34 p.p. — mieszane i w granicach szumu (±4 p.p.).
 - HGB wybrał silnie regularyzowane HP (min_samples_leaf=120, learning_rate=0.02) → ~3500 próbek treningowych to za mało, by boosting rozwinął przewagę.
 
-**Wniosek do pracy:** to wartościowy wynik negatywny — generyczny prior „gradient boosting bije RF na danych tabelarycznych" nie obowiązuje na małych zbiorach. RF pozostaje modelem domyślnym; `main_48_cech_hgb.py` zostaje jako dowód/eksperyment.
+**Wniosek do pracy:** to wartościowy wynik negatywny — generyczny prior „gradient boosting bije RF na danych tabelarycznych" nie obowiązuje na małych zbiorach. RF pozostaje modelem domyślnym; `tennis_model_hgb.py` zostaje jako dowód/eksperyment.
 
 ## Sprint 3 — nowe cechy (w toku)
 
 ### 3a. Surface Speed Index ✅ DZIAŁA (+1.69 p.p.) — pomysł użytkownika
-Plik `src/main_48_cech_surface_speed.py`. Leakage-safe: court_pace liczony tylko z historii 2018-2023.
+Plik `src/tennis_model_surface_speed.py`. Leakage-safe: court_pace liczony tylko z historii 2018-2023.
 
 | Model | val | test | **match** | Brier |
 |---|---|---|---|---|
@@ -78,7 +78,7 @@ Plik `src/main_48_cech_surface_speed.py`. Leakage-safe: court_pace liczony tylko
 **Wniosek:** intuicja użytkownika („szybszy kort faworyzuje mocny serw") potwierdzona danymi. To pierwszy realny zysk z nowej cechy.
 
 ### 3b. Cechy zmęczenia ✅ DZIAŁA (+1.36 p.p.)
-Plik `src/main_48_cech_fatigue.py`. rest_days (dni od ostatniego meczu, cap 60) + tourney_minutes (skumulowane minuty w bieżącym turnieju). Leakage-safe (chronologiczny indeks).
+Plik `src/tennis_model_fatigue.py`. rest_days (dni od ostatniego meczu, cap 60) + tourney_minutes (skumulowane minuty w bieżącym turnieju). Leakage-safe (chronologiczny indeks).
 
 | Model | val | test | **match** | Brier |
 |---|---|---|---|---|
@@ -89,7 +89,7 @@ Plik `src/main_48_cech_fatigue.py`. rest_days (dni od ostatniego meczu, cap 60) 
 Wszystkie 3 metryki w górę spójnie. `tourney_minutes_diff` rank 27/46, `rest_days_diff` rank 33/46 — obie używane.
 
 ### 3d. Model zbiorczy (surface_speed + fatigue) ✅ NAJLEPSZY (+2.03 p.p.)
-Plik `src/main_48_cech_enriched.py`. Łączy 3 cechy speed + 6 fatigue (bez bezużytecznego `is_indoor`).
+Plik `src/tennis_model_enriched.py`. Łączy 3 cechy speed + 6 fatigue (bez bezużytecznego `is_indoor`).
 
 | Model | val | test | **match** | Brier |
 |---|---|---|---|---|
@@ -100,7 +100,7 @@ Plik `src/main_48_cech_enriched.py`. Łączy 3 cechy speed + 6 fatigue (bez bezu
 **Cechy sumują się częściowo** (osobno +1.69 i +1.36 → razem +2.03; nie pełne 3.05, bo sygnały częściowo się pokrywają). **Brak curse of dimensionality** (9 cech, w przeciwieństwie do 33 w nieudanym sliceaware). Najlepszy Brier ze wszystkich eksperymentów. To kandydat na nowy model produkcyjny — **wymaga walidacji w Sprint 4**.
 
 ### 3c. EWMA (recency weighting) ⚠️ SŁABY/NIESPÓJNY (+0.68 p.p., test płaski)
-Plik `src/main_48_cech_ewma_ablation.py` (α=0.18, half-life ~3.5 meczu). Inkrementalna EWMA formy/serwisu/surface_form przez chronologię 2018-2024.
+Plik `src/tennis_model_ewma_ablation.py` (α=0.18, half-life ~3.5 meczu). Inkrementalna EWMA formy/serwisu/surface_form przez chronologię 2018-2024.
 
 | Model | val | test | **match** | Brier |
 |---|---|---|---|---|
@@ -120,12 +120,12 @@ Plik `src/main_48_cech_ewma_ablation.py` (α=0.18, half-life ~3.5 meczu). Inkrem
 | **zbiorczy (speed+fatigue)** | **+2.03** | ✅ wszystkie w górę | **kandydat produkcyjny** |
 | EWMA | +0.68 | ⚠️ test płaski | odrzucona |
 
-Model produkcyjny do walidacji w Sprint 4: **baseline + surface_speed + fatigue** (`main_48_cech_enriched.py`), match 63.05%.
+Model produkcyjny do walidacji w Sprint 4: **baseline + surface_speed + fatigue** (`tennis_model_enriched.py`), match 63.05%.
 
 ## Sprint 4 — walk-forward + ensemble ✅ (wynik KRYTYCZNY)
 
 ### Walidacja walk-forward: pozorny zysk +2.03 p.p. NIE GENERALIZUJE
-Plik `src/main_48_cech_walkforward.py`. Baseline sparametryzowany przez `TENNIS_TARGET_YEAR`. Dla 4 lat docelowych: baseline vs enriched (surface_speed + fatigue) na tych samych meczach + test parowany McNemar.
+Plik `src/tennis_model_walkforward.py`. Baseline sparametryzowany przez `TENNIS_TARGET_YEAR`. Dla 4 lat docelowych: baseline vs enriched (surface_speed + fatigue) na tych samych meczach + test parowany McNemar.
 
 | Rok | n | baseline | enriched | delta |
 |---|---|---|---|---|
@@ -167,7 +167,7 @@ Cały RF bije naiwny ranking o tylko **+0.95 p.p.** pooled — a w 2024 jest *go
 - Ponad ~65% podnoszą **TYLKO**: (a) implied prob z kursów, (b) surface-adjusted Elo. Kolejne cechy serwis/forma to ślepa uliczka — nasz p=0.93 zgadza się z konsensusem.
 - Liczby 75%+ z blogów dotyczą pojedynczych Grand Slamów (więcej faworytów), NIE pełnego sezonu.
 
-### Decyzja: co scalić do `main_48_cech.py`
+### Decyzja: co scalić do `tennis_model.py`
 | Zmiana | typ | rekomendacja |
 |---|---|---|
 | A1 fix tournament_path | bugfix poprawności | **MERGE** (już scalone) |
@@ -177,7 +177,7 @@ Cały RF bije naiwny ranking o tylko **+0.95 p.p.** pooled — a w 2024 jest *go
 | Sprint 3 (surface/fatigue/EWMA) | nowe cechy, brak robust zysku | **zostaw jako eksperyment** (NIE importowane do main) |
 
 ### Salvage (wąskie warianty) ✅ DEFINITYWNIE: brak sygnału
-Plik `src/main_48_cech_salvage.py`, log `logs/salvage_run.log`. Test 4 wariantów na identycznych meczach (parowanie) przez 4 lata.
+Plik `src/tennis_model_salvage.py`, log `logs/salvage_run.log`. Test 4 wariantów na identycznych meczach (parowanie) przez 4 lata.
 
 | Wariant | pooled delta | McNemar p | lata dodatnie |
 |---|---|---|---|

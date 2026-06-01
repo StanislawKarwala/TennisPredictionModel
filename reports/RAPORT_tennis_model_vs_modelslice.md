@@ -1,12 +1,12 @@
-# Raport porównawczy: `main_48_cech.py` vs `main_48_cech_modelslice.py`
+# Raport porównawczy: `tennis_model.py` vs `tennis_model_modelslice.py`
 
 ## 1. Cel raportu
 
 Ten dokument ma w prosty, ale dokładny sposób wyjaśnić:
 
-1. co robi podstawowy model z pliku `main_48_cech.py`,
-2. co dodatkowo robi plik `main_48_cech_modelslice.py`,
-3. czy `main_48_cech_modelslice.py` zmienia sam model,
+1. co robi podstawowy model z pliku `tennis_model.py`,
+2. co dodatkowo robi plik `tennis_model_modelslice.py`,
+3. czy `tennis_model_modelslice.py` zmienia sam model,
 4. jakie są wyniki modelu,
 5. co wynika z analizy `model slicing`,
 6. jak można to sensownie przedstawić promotorowi.
@@ -18,7 +18,7 @@ Ten raport został przygotowany na podstawie rzeczywistego uruchomienia obu plik
 
 Najważniejszy wniosek jest taki:
 
-`main_48_cech_modelslice.py` nie buduje innego modelu niż `main_48_cech.py`.
+`tennis_model_modelslice.py` nie buduje innego modelu niż `tennis_model.py`.
 
 On:
 
@@ -28,13 +28,13 @@ On:
 
 Czyli:
 
-1. `main_48_cech.py` odpowiada na pytanie: "jak dobry jest model ogólnie?"
-2. `main_48_cech_modelslice.py` odpowiada na pytanie: "na jakich typach meczów ten model działa słabo, a na jakich dobrze?"
+1. `tennis_model.py` odpowiada na pytanie: "jak dobry jest model ogólnie?"
+2. `tennis_model_modelslice.py` odpowiada na pytanie: "na jakich typach meczów ten model działa słabo, a na jakich dobrze?"
 
 
-## 3. Co robi `main_48_cech.py`
+## 3. Co robi `tennis_model.py`
 
-Plik `main_48_cech.py` buduje klasyczny model predykcyjny dla meczów ATP.
+Plik `tennis_model.py` buduje klasyczny model predykcyjny dla meczów ATP.
 
 W uproszczeniu działa to tak:
 
@@ -57,7 +57,7 @@ Model korzysta z 40 cech wejściowych. Są tam między innymi:
 8. cechy różnicowe między graczami.
 
 
-## 4. Co robi `main_48_cech_modelslice.py`
+## 4. Co robi `tennis_model_modelslice.py`
 
 Ten plik nie uczy nowego modelu. On uruchamia bazowy model i dopina warstwę diagnostyczną.
 
@@ -116,7 +116,7 @@ Dlaczego?
 
 Bo model jest trenowany na danych symetryzowanych, ale człowieka interesuje finalnie wynik prawdziwego meczu.
 
-Dlatego `main_48_cech_modelslice.py`:
+Dlatego `tennis_model_modelslice.py`:
 
 1. bierze `df_test_raw`, czyli prawdziwe mecze testowe,
 2. bierze `winner_perspective`, czyli ocenę z perspektywy rzeczywistego zwycięzcy,
@@ -155,7 +155,7 @@ To jest sensowne, bo chroni przed nadinterpretacją bardzo małych grup.
 
 ## 8. Porównanie wyników obu plików
 
-### 8.1. Wyniki `main_48_cech.py`
+### 8.1. Wyniki `tennis_model.py`
 
 Po uruchomieniu bazowego modelu otrzymano:
 
@@ -167,9 +167,9 @@ Po uruchomieniu bazowego modelu otrzymano:
 Oznacza to, że model poprawnie przewidział zwycięzcę w `360 z 590` meczów testowych.
 
 
-### 8.2. Wyniki `main_48_cech_modelslice.py`
+### 8.2. Wyniki `tennis_model_modelslice.py`
 
-Po uruchomieniu `main_48_cech_modelslice.py` otrzymano dokładnie te same wyniki modelu:
+Po uruchomieniu `tennis_model_modelslice.py` otrzymano dokładnie te same wyniki modelu:
 
 1. `CV Accuracy`: `0.6478`
 2. `Validation Accuracy`: `0.6331`
@@ -181,7 +181,7 @@ Po uruchomieniu `main_48_cech_modelslice.py` otrzymano dokładnie te same wyniki
 
 To oznacza, że:
 
-1. `main_48_cech_modelslice.py` nie zmienia modelu,
+1. `tennis_model_modelslice.py` nie zmienia modelu,
 2. nie poprawia go i nie pogarsza,
 3. nie zmienia predykcji,
 4. dodaje wyłącznie dodatkową analizę diagnostyczną.
@@ -190,7 +190,7 @@ To jest bardzo ważny punkt do przedstawienia promotorowi.
 
 Można to powiedzieć tak:
 
-`main_48_cech_modelslice.py` jest narzędziem analitycznym nadbudowanym nad bazowym modelem, a nie nowym modelem predykcyjnym.
+`tennis_model_modelslice.py` jest narzędziem analitycznym nadbudowanym nad bazowym modelem, a nie nowym modelem predykcyjnym.
 
 
 ## 9. Dlaczego to porównanie jest ważne
@@ -281,8 +281,8 @@ Inaczej mówiąc:
 
 Prosta wersja:
 
-> Sam model z pliku `main_48_cech.py` daje około 61% skuteczności przewidywania zwycięzcy meczu.
-> Dodatkowy plik `main_48_cech_modelslice.py` nie zmienia modelu, tylko analizuje, w jakich grupach meczów model działa słabiej lub lepiej.
+> Sam model z pliku `tennis_model.py` daje około 61% skuteczności przewidywania zwycięzcy meczu.
+> Dodatkowy plik `tennis_model_modelslice.py` nie zmienia modelu, tylko analizuje, w jakich grupach meczów model działa słabiej lub lepiej.
 > Dzięki temu widać, że model nie myli się losowo, tylko ma konkretne słabe obszary, na przykład mecze `Best of 5`, ćwierćfinały (`QF`) oraz mecze leworęczny kontra praworęczny (`L-vs-R`).
 > To pozwala projektować kolejne cechy już nie "w ciemno", ale dokładnie pod te obszary, gdzie model najbardziej niedomaga.
 
@@ -310,7 +310,7 @@ można powiedzieć:
 
 ### Wniosek 1
 
-`main_48_cech_modelslice.py` nie zmienia modelu z `main_48_cech.py`.
+`tennis_model_modelslice.py` nie zmienia modelu z `tennis_model.py`.
 
 ### Wniosek 2
 
@@ -323,7 +323,7 @@ Oba pliki dają te same podstawowe metryki modelu:
 
 ### Wniosek 3
 
-`main_48_cech_modelslice.py` dodaje warstwę diagnostyczną, która pokazuje, gdzie model działa nierówno.
+`tennis_model_modelslice.py` dodaje warstwę diagnostyczną, która pokazuje, gdzie model działa nierówno.
 
 ### Wniosek 4
 
@@ -341,4 +341,4 @@ Slicing daje bardzo praktyczną wartość: wskazuje, pod jakie grupy meczów war
 
 ## 17. Końcowe podsumowanie jednym akapitem
 
-Plik `main_48_cech.py` buduje i ocenia bazowy model predykcyjny dla meczów ATP. Plik `main_48_cech_modelslice.py` uruchamia ten sam model, ale dodatkowo bada jego zachowanie na konkretnych podgrupach meczów. Dzięki temu wiadomo nie tylko, że model osiąga około `61%` skuteczności, ale także gdzie dokładnie jest słabszy. W tym projekcie analiza pokazała, że szczególnie trudne są mecze `Best of 5`, ćwierćfinały (`QF`) oraz część matchupów `L-vs-R`. Oznacza to, że slicing nie jest nowym modelem, tylko narzędziem diagnostycznym, które pozwala bardziej świadomie rozwijać kolejne wersje modelu.
+Plik `tennis_model.py` buduje i ocenia bazowy model predykcyjny dla meczów ATP. Plik `tennis_model_modelslice.py` uruchamia ten sam model, ale dodatkowo bada jego zachowanie na konkretnych podgrupach meczów. Dzięki temu wiadomo nie tylko, że model osiąga około `61%` skuteczności, ale także gdzie dokładnie jest słabszy. W tym projekcie analiza pokazała, że szczególnie trudne są mecze `Best of 5`, ćwierćfinały (`QF`) oraz część matchupów `L-vs-R`. Oznacza to, że slicing nie jest nowym modelem, tylko narzędziem diagnostycznym, które pozwala bardziej świadomie rozwijać kolejne wersje modelu.

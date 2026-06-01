@@ -6,7 +6,7 @@ Dokument domykający. Szczegóły liczbowe: `WYNIKI_SPRINTOW.md`. Pojęcia: `SLO
 
 Przeszliśmy pełny, rygorystyczny cykl: od naprawy poprawności, przez zmianę algorytmu i nowe cechy, po wieloletnią walidację. **Najcenniejszy wynik jest metodologiczny, nie accuracy.**
 
-### 1. Sprint 1 — poprawki poprawności (SCALONE do `main_48_cech.py`)
+### 1. Sprint 1 — poprawki poprawności (SCALONE do `tennis_model.py`)
 Cztery zmiany, które bronią się niezależnie od accuracy:
 - **A1**: naprawiony bug cechy „drogi w turnieju" (liczona na całej karierze → bieżący turniej).
 - **A2**: metryka match_accuracy z jednostronnej → symetrycznej (uśrednia obie perspektywy). Stara dawała niespójności (threshold tuning → fałszywe 93%).
@@ -56,7 +56,7 @@ Zastrzeżenia: (1) dryf rozkładu — stare mecze (inne korty/technologia) mogą
 **Kolejność: (1) pobierz pełne dane Sackmanna (github.com/JeffSackmann/tennis_atp, od 1968, darmowe), (2) powtórz RF vs boosting na dużym zbiorze, (3) re-tuning HP obowiązkowy.**
 
 ## Surface-adjusted Elo (Sprint 5) — najlepszy kierunek, ale jeszcze nieistotny na tych danych
-Zaimplementowane w `src/main_48_cech_elo.py` z walidacją walk-forward (4 sezony). Elo liczony samodzielnie z danych Sackmanna (leakage-safe), ogólny + per-nawierzchnia, K dynamiczny (538).
+Zaimplementowane w `src/tennis_model_elo.py` z walidacją walk-forward (4 sezony). Elo liczony samodzielnie z danych Sackmanna (leakage-safe), ogólny + per-nawierzchnia, K dynamiczny (538).
 
 | Rok | baseline | +elo | delta |
 |---|---|---|---|
@@ -94,7 +94,7 @@ Historia (2001-2024) służy do liczenia CECH dynamicznych, ale model trenuje si
 - Żeby boosting dostał szansę: trzeba **wielo-sezonowego treningu** (trenuj 2001-2023 ≈ 130k próbek, waliduj 2024, testuj 2025). To osobna, większa zmiana architektury — TODO.
 
 ## Sprint 6: wielo-sezonowy trening + boosting na dużych danych — ROZSTRZYGAJĄCE
-Plik `src/main_48_cech_multiseason.py`. Trening 2010-2023 (**72 582 próbki**, ~20× więcej), walidacja 2024, test = cały sezon 2025 (2647 meczów, CI ~±2 p.p.). Te same 40 cech, RandomizedSearchCV neg_log_loss.
+Plik `src/tennis_model_multiseason.py`. Trening 2010-2023 (**72 582 próbki**, ~20× więcej), walidacja 2024, test = cały sezon 2025 (2647 meczów, CI ~±2 p.p.). Te same 40 cech, RandomizedSearchCV neg_log_loss.
 
 | model | test_match 2025 | Brier | log-loss | ECE |
 |---|---|---|---|---|
@@ -117,10 +117,10 @@ Caveat: tuning był umiarkowany (n_iter 8-12, cv=3) z powodów obliczeniowych. D
 | HistGradBoost | 0.6471 | 0.2172 | 0.6226 |
 | XGBoost | 0.6460 | **0.2167** | **0.6211** |
 
-Nawet przy MAKSIMUM danych (od 2000) boosting nie pobił RF na accuracy (HGB remis, XGBoost −0.15 p.p.) — wszystkie na ~64.7%. **Potwierdzenie sufitu na pełnym zakresie 3.5k → 72k → 128k próbek.** Jedyny efekt większych danych: lekko lepsza KALIBRACJA boostingu (XGBoost Brier vs RF: −0.0008 przy 72k → −0.0015 przy 128k) — pomaga jakości prawdopodobieństw, nie accuracy. Plik opisowy: `opis_main_48_cech_multiseason.md`.
+Nawet przy MAKSIMUM danych (od 2000) boosting nie pobił RF na accuracy (HGB remis, XGBoost −0.15 p.p.) — wszystkie na ~64.7%. **Potwierdzenie sufitu na pełnym zakresie 3.5k → 72k → 128k próbek.** Jedyny efekt większych danych: lekko lepsza KALIBRACJA boostingu (XGBoost Brier vs RF: −0.0008 przy 72k → −0.0015 przy 128k) — pomaga jakości prawdopodobieństw, nie accuracy. Plik opisowy: `opis_tennis_model_multiseason.md`.
 
 ## Pełna walidacja walk-forward (nowe dane 2022-2025) — KOMPLET
-Każdy wariant/zestaw cech sprawdzony walk-forward przez 4 sezony, parowanie per-mecz, McNemar. Pliki: `main_48_cech_validate_variants.py` (warianty slice), `main_48_cech_validate_features.py` (cechy).
+Każdy wariant/zestaw cech sprawdzony walk-forward przez 4 sezony, parowanie per-mecz, McNemar. Pliki: `tennis_model_validate_variants.py` (warianty slice), `tennis_model_validate_features.py` (cechy).
 
 | Rozszerzenie | pooled delta | McNemar p | lata dodatnie | dawny pojedynczy test |
 |---|---|---|---|---|
@@ -132,10 +132,10 @@ Każdy wariant/zestaw cech sprawdzony walk-forward przez 4 sezony, parowanie per
 | bestof5_v1 | +0.63 p.p. | 0.30 | 3/4 | (+2.37) |
 | qfserve_v3 | −0.76 p.p. | 0.19 | 2/4 | (+2.20) |
 
-**ŻADNE rozszerzenie nie jest istotne statystycznie (wszystkie p > 0.18).** Najlepsze są directionally dodatnie (+0.4-0.6 p.p.), ale w granicach szumu. Dawne „spektakularne" pojedyncze testy (bestof5 +2.37, qfserve +2.20) na walk-forward spadły do szumu (a qfserve nawet na minus) — ostateczne potwierdzenie, że pojedynczy test set kłamie. Baseline `main_48_cech.py` jest praktycznie najlepszy.
+**ŻADNE rozszerzenie nie jest istotne statystycznie (wszystkie p > 0.18).** Najlepsze są directionally dodatnie (+0.4-0.6 p.p.), ale w granicach szumu. Dawne „spektakularne" pojedyncze testy (bestof5 +2.37, qfserve +2.20) na walk-forward spadły do szumu (a qfserve nawet na minus) — ostateczne potwierdzenie, że pojedynczy test set kłamie. Baseline `tennis_model.py` jest praktycznie najlepszy.
 
 ## OSTATECZNY WNIOSEK PROJEKTU
 Sufit ~65% match accuracy (pełny sezon ATP) jest **odporny na**: zmianę algorytmu (RF/HGB/XGBoost), 20× więcej danych, nowe cechy (surface_speed/fatigue/Elo). Wszystkie te dźwignie zostały przetestowane uczciwie (walk-forward / wielo-sezonowo) i żadna nie przebiła sufitu. Zgodne z literaturą: bez kursów bukmacherskich ~65-70% to realny zakres dla modeli feature-based. **Realna wartość projektu to rygor metodologiczny** (naprawiona metryka, walk-forward, uczciwe wyniki negatywne), nie pogoń za accuracy.
 
 ## Pliki eksperymentów (zostają jako dowód, NIE importowane do main)
-`main_48_cech_hgb.py` (Sprint 2), `main_48_cech_surface_speed.py` / `main_48_cech_fatigue.py` / `main_48_cech_enriched.py` / `main_48_cech_ewma_ablation.py` (Sprint 3), `main_48_cech_walkforward.py` / `main_48_cech_salvage.py` (Sprint 4).
+`tennis_model_hgb.py` (Sprint 2), `tennis_model_surface_speed.py` / `tennis_model_fatigue.py` / `tennis_model_enriched.py` / `tennis_model_ewma_ablation.py` (Sprint 3), `tennis_model_walkforward.py` / `tennis_model_salvage.py` (Sprint 4).

@@ -1,10 +1,10 @@
 # Model Slicing w modelu predykcji meczów tenisowych
 
-Dokument tłumaczy prostym językiem, o co chodzi w czterech plikach (`main_48_cech_modelslice.py`, `main_48_cech_sliceaware.py`, `main_48_cech_sliceaware_bestof5_v1.py`, `main_48_cech_sliceaware_qfserve_v3.py`) i odpowiadających im notebookach `TPM_Experiment_*.ipynb`. Jest pomyślany jako ściąga przed rozmową z promotorem.
+Dokument tłumaczy prostym językiem, o co chodzi w czterech plikach (`tennis_model_modelslice.py`, `tennis_model_sliceaware.py`, `tennis_model_sliceaware_bestof5_v1.py`, `tennis_model_sliceaware_qfserve_v3.py`) i odpowiadających im notebookach `TPM_Experiment_*.ipynb`. Jest pomyślany jako ściąga przed rozmową z promotorem.
 
 ---
 
-## 1. Punkt wyjścia: o co chodziło z `main_48_cech.py`
+## 1. Punkt wyjścia: o co chodziło z `tennis_model.py`
 
 Model bazowy to **Random Forest** trenowany na meczach z 2024 roku. Predykcja: który z dwóch graczy wygra. Po pełnym pipeline (chronologiczny split 60/20/20, expanding window dla cech dynamicznych, symetryzacja, RandomizedSearchCV) model osiąga:
 
@@ -28,7 +28,7 @@ Bez tej wiedzy nie wiemy, **gdzie warto coś poprawiać**.
 
 ---
 
-## 2. `main_48_cech_modelslice.py` — diagnostyka „gdzie konkretnie model się myli"
+## 2. `tennis_model_modelslice.py` — diagnostyka „gdzie konkretnie model się myli"
 
 **Pomysł** pochodzi z artykułu *Model Slicing for Responsible AI* (Godfrey et al., VLDB 2025, plik `GuideAI25_2.pdf`). Skrót *slice* = „kawałek" — bierzemy testowe mecze i kroimy je na semantyczne podgrupy, np.:
 - wszystkie mecze na trawie,
@@ -39,7 +39,7 @@ Bez tej wiedzy nie wiemy, **gdzie warto coś poprawiać**.
 Dla każdej takiej podgrupy liczymy accuracy. Jeśli ogólne accuracy to 64%, a w slice'ie „Best of 5" wynosi 52%, to mamy konkretny target do poprawy.
 
 ### Co robi ten plik
-1. Uruchamia bazowy pipeline (`main_48_cech.py`) i pobiera wyniki testowe.
+1. Uruchamia bazowy pipeline (`tennis_model.py`) i pobiera wyniki testowe.
 2. Każdemu meczowi przypisuje atrybuty slicingowe (surface, round, best_of, handedness_matchup, rank_gap_bucket, age_gap_bucket, form_gap_bucket, tourney_level).
 3. Generuje **wszystkie kombinacje 1D i 2D atrybutów** (np. `surface=Grass`, albo `surface=Grass & round=QF`).
 4. Dla każdej grupy z support ≥ 5 liczy:
@@ -64,12 +64,12 @@ To są **konkretne targety do poprawy** — i o tym są kolejne pliki.
 ## 3. Trzy warianty „slice-aware" — model uczy się o słabych miejscach
 
 Każdy z trzech plików stosuje tę samą strategię:
-1. Wczytuje baseline (cały pipeline `main_48_cech.py`) bez zmian.
+1. Wczytuje baseline (cały pipeline `tennis_model.py`) bez zmian.
 2. Dla każdego meczu policza **dodatkowe cechy specyficzne dla słabych slice'ów**.
 3. Trenuje **nowy Random Forest na rozszerzonych cechach**, ale z **tymi samymi hyperparams co baseline** (`baseline_search.best_params_`). To kluczowe — porównanie pokazuje wpływ samych cech, a nie tuningu.
 4. Porównuje match accuracy z baseline.
 
-### 3a. `main_48_cech_sliceaware.py` — atak na trzy słabe slice'y naraz
+### 3a. `tennis_model_sliceaware.py` — atak na trzy słabe slice'y naraz
 
 Najprostszy z trójki. Dodaje **20 cech kontekstowych**:
 - **Best of 5 form / experience** — winrate i doświadczenie gracza w meczach Bo5
@@ -88,7 +88,7 @@ Wszystkie liczone z **expanding window** (tylko mecze rozegrane wcześniej niż 
 
 Wniosek: dodanie szerokiego zestawu cech *bez głębokiej walidacji per slice* potrafi przesunąć błędy zamiast je usunąć.
 
-### 3b. `main_48_cech_sliceaware_bestof5_v1.py` — głębokie wejście w Bo5
+### 3b. `tennis_model_sliceaware_bestof5_v1.py` — głębokie wejście w Bo5
 
 Zamiast atakować 3 słabe slice'y po trochu, ten wariant **idzie głębiej tylko w Best of 5**. Dodaje cechy specyficzne dla dystansu pięciosetowego:
 - **Long match form** — winrate w meczach trwających >150 minut
@@ -108,7 +108,7 @@ Wymaga doczytania kolumny `minutes` z 2024.csv (nie ma jej w bazowym cols_base).
 
 Słabe miejsca: `tourney_level=F` (finały) -20 p.p. — model nie ma wystarczająco danych z F (małe support).
 
-### 3c. `main_48_cech_sliceaware_qfserve_v3.py` — najbogatszy, kontekst turniejowy + warunkowy serwis
+### 3c. `tennis_model_sliceaware_qfserve_v3.py` — najbogatszy, kontekst turniejowy + warunkowy serwis
 
 Najambitniejszy wariant. Łączy wszystkie cechy ze SliceAware z dwoma nowymi kierunkami:
 
@@ -146,7 +146,7 @@ Najdroższy obliczeniowo — ~25 wywołań filtrów per mecz.
 
 | Model | Match accuracy | Delta vs baseline |
 |---|---|---|
-| Baseline `main_48_cech.py` | 61.02% | — |
+| Baseline `tennis_model.py` | 61.02% | — |
 | SliceAware (3 słabe slice'y) | 60.85% | -0.17 p.p. |
 | **QFServe v3** (seed + serve) | **63.22%** | **+2.20 p.p.** |
 | **BestOf5 v1** (endurance) | **63.39%** | **+2.37 p.p.** |
@@ -161,7 +161,7 @@ Najważniejsze obserwacje:
 
 ---
 
-## 5. Plik `main_48_cech_slicecompare.py` — porównanie wariantów
+## 5. Plik `tennis_model_slicecompare.py` — porównanie wariantów
 
 Uruchamia wszystkie 4 modele (baseline + 3 slice-aware), buduje **wspólną tabelę slice'ów** i pokazuje delty per slice per model. Wynik zapisuje do `slice_comparison_all_variants.xlsx` z arkuszami:
 - `overall_metrics` — overall accuracy + delta vs baseline dla każdego modelu

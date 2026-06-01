@@ -1,9 +1,9 @@
-# Opis pliku `main_48_cech_modelslice.py` — diagnostyka modelu (Model Slicing)
+# Opis pliku `tennis_model_modelslice.py` — diagnostyka modelu (Model Slicing)
 
 > Wszystkie pojęcia techniczne (Wilson CI, Brier, log-loss, slice, support itd.) są szczegółowo wyjaśnione w `SLOWNICZEK_POJEC.md`. Tu są skrócone wytłumaczenia inline.
 
 ## Co ten plik robi w jednym zdaniu
-Bierze gotowy model z `main_48_cech.py` i sprawdza, w których konkretnych typach meczów (np. „mecze Bo5", „ćwierćfinały", „leworęczny vs praworęczny") model się myli częściej niż średnio — żeby wiedzieć, co poprawiać.
+Bierze gotowy model z `tennis_model.py` i sprawdza, w których konkretnych typach meczów (np. „mecze Bo5", „ćwierćfinały", „leworęczny vs praworęczny") model się myli częściej niż średnio — żeby wiedzieć, co poprawiać.
 
 ## Główne założenia
 
@@ -43,7 +43,7 @@ Bierze gotowy model z `main_48_cech.py` i sprawdza, w których konkretnych typac
 
 | Metoda | Co robi |
 |---|---|
-| `execute_base_pipeline()` | Uruchamia `main_48_cech.py` przez `runpy.run_path` i wyciąga z niego namespace (słownik wszystkich zmiennych po wykonaniu). Dzięki temu reużywamy baseline bez kopiowania kodu — dostajemy `df_test_raw`, `winner_perspective`, `match_accuracy` itd. |
+| `execute_base_pipeline()` | Uruchamia `tennis_model.py` przez `runpy.run_path` i wyciąga z niego namespace (słownik wszystkich zmiennych po wykonaniu). Dzięki temu reużywamy baseline bez kopiowania kodu — dostajemy `df_test_raw`, `winner_perspective`, `match_accuracy` itd. |
 | `require_namespace_items(namespace, names)` | Asercja że baseline zwrócił wszystkie potrzebne zmienne. Jeśli brak, błąd. |
 | `prepare_match_level_slice_frame(namespace)` | Buduje tabelę „jeden wiersz = jeden mecz testowy" z atrybutami do slicingu i wynikiem predykcji. Łączy `df_test_raw` z `winner_perspective` po `match_id`. Sprawdza assertion: accuracy po joinie musi się zgadzać z reported_match_accuracy — sanity check. |
 | `build_handedness_matchup(row)` | Tworzy etykietę typu „L-vs-R" albo „R-vs-R" (sortuje, żeby L-vs-R i R-vs-L było tym samym slicem — bez tego mielibyśmy dwa identyczne slice'y o innej kolejności liter). |
@@ -59,7 +59,7 @@ Bierze gotowy model z `main_48_cech.py` i sprawdza, w których konkretnych typac
 
 | Zmienna | Co oznacza |
 |---|---|
-| `BASE_SCRIPT` | Ścieżka do `main_48_cech.py` (domyślnie, można nadpisać env var TENNIS_MODEL_SLICE_BASE). |
+| `BASE_SCRIPT` | Ścieżka do `tennis_model.py` (domyślnie, można nadpisać env var TENNIS_MODEL_SLICE_BASE). |
 | `MIN_SUPPORT = 5` | Minimalna liczba meczów w slice'ie żeby go w ogóle uwzględnić. Chroni przed niewiarygodnymi statystykami z małych próbek. |
 | `MAX_SLICE_DEGREE = 2` | Maksymalna liczba atrybutów w jednym slice'ie. 1 = pojedyncze atrybuty, 2 = pary atrybutów. |
 | `UNDERPERFORMANCE_GAP = -0.05` | Próg „znaczącej słabości" — slice musi być co najmniej 5 p.p. gorszy od średniej, żeby trafić do raportu. |
