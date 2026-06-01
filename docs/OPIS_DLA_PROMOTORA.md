@@ -22,11 +22,17 @@ kortu (na szybkim korcie mocny serwis daje większą przewagę), zmęczenie grac
 nawierzchni (system oceny siły gracza znany z szachów). Na pojedynczym sezonie
 te cechy wyglądały świetnie — poprawa nawet o 2 punkty procentowe.
 
-I tu doszedłem do **najważniejszego wniosku**. Sprawdziłem te cechy uczciwie,
-trenując model na starszych sezonach i testując na kolejnych, przez kilka lat z
-rzędu (tzw. walidacja walk-forward) z testem istotności statystycznej. Okazało się,
-że ta poprawa **była przypadkiem** — przez kilka sezonów zysk znikał i żadna z cech
-nie poprawiała modelu w sposób istotny statystycznie. To pokazało mi, że na małych
+Testowałem też **warianty modelu wyspecjalizowane pod konkretne typy meczów**
+(slice-aware: `bestof5` dla meczów Grand Slamów do trzech wygranych setów oraz
+`qfserve` skupiony na ćwierćfinałach i jakości serwisu). Na pojedynczym sezonie
+wyglądały lepiej od modelu głównego, ale **na większej ilości danych okazały się
+od niego słabsze** — czyli ich przewaga też była przypadkiem.
+
+I tu doszedłem do **najważniejszego wniosku**. Sprawdziłem te cechy i warianty
+uczciwie, trenując model na starszych sezonach i testując na kolejnych, przez kilka
+lat z rzędu (tzw. walidacja walk-forward) z testem istotności statystycznej. Okazało
+się, że ta poprawa **była przypadkiem** — przez kilka sezonów zysk znikał i nic nie
+poprawiało modelu w sposób istotny statystycznie. To pokazało mi, że na małych
 danych pojedynczy test potrafi „skłamać", a dopiero wieloletnia walidacja mówi prawdę.
 
 Na koniec **dodałem znacznie więcej danych** — cały tenis ATP od 2000 roku, czyli
