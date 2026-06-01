@@ -47,5 +47,32 @@ Wg literatury i naszych testów ponad ranking podnoszą TYLKO dwie rzeczy:
 - Raportuj **log-loss/Brier/ECE** obok accuracy (jakość prawdopodobieństw, kluczowa przy ewentualnym bettingu).
 - Nie porównuj pooled sezonowego (~65%) z liczbami 75%+ z blogów (to pojedyncze Grand Slamy, więcej faworytów).
 
+## Czy więcej danych (od 2000) uzasadni powrót do XGBoost/HGB? TAK
+
+HGB przegrał (Sprint 2), bo miał ~3540 próbek treningowych i wybrał mocno regularyzowane HP — za mało danych, by boosting rozwinął przewagę. Dane od 2000 (~72 000 meczów → ~144 000 wierszy po symetryzacji, ~20-40×) to reżim, w którym boosting zwykle bije RF. **Powrót do testu RF vs HGB vs XGBoost byłby uzasadniony.**
+
+Zastrzeżenia: (1) dryf rozkładu — stare mecze (inne korty/technologia) mogą słabiej przewidywać; rozwiązanie: ważenie czasowe + walk-forward sprawdzający czy stare dane pomagają. (2) Sufit ~70% wciąż obowiązuje — więcej danych pomoże *osiągnąć* ~70%, nie przebić. (3) Więcej danych pomaga WSZYSTKIEMU: kurczy CI walk-forward (25 sezonów zamiast 4 → wykrywalne efekty ±0.5 p.p.), rozgrzewa Elo, daje próbki rzadkim matchupom.
+
+**Kolejność: (1) pobierz pełne dane Sackmanna (github.com/JeffSackmann/tennis_atp, od 1968, darmowe), (2) powtórz RF vs boosting na dużym zbiorze, (3) re-tuning HP obowiązkowy.**
+
+## Surface-adjusted Elo (Sprint 5) — najlepszy kierunek, ale jeszcze nieistotny na tych danych
+Zaimplementowane w `src/main_48_cech_elo.py` z walidacją walk-forward (4 sezony). Elo liczony samodzielnie z danych Sackmanna (leakage-safe), ogólny + per-nawierzchnia, K dynamiczny (538).
+
+| Rok | baseline | +elo | delta |
+|---|---|---|---|
+| 2021 | 0.6724 | 0.6858 | +0.0134 |
+| 2022 | 0.6709 | 0.6673 | −0.0037 |
+| 2023 | 0.6399 | 0.6275 | −0.0125 |
+| 2024 | 0.6102 | 0.6305 | +0.0203 |
+| **POOLED** | **0.6473** | **0.6518** | **+0.0045** |
+
+McNemar p=0.50 (nieistotne), dodatnie 2/4 lat. **ALE cechy Elo dominują ważność**: `elo_diff` średni rank 2.0/44, `elo_win_prob` rank 3.5.
+
+**Kluczowa interpretacja:** Elo to genuinie silny sygnał (top-2 cecha), ale **redundantny z rankingiem, który baseline już ma** (elo_diff ≈ rank_diff koncepcyjnie). Literaturowe „Elo → ~70%" dotyczy Elo jako GŁÓWNEGO sygnału vs sam ranking — nie Elo DODANEGO do modelu z 40 cechami zawierającymi już ranking. Nasz pooled +0.45 p.p. (najlepszy additive wynik cyklu: surface_speed +0.09, fatigue ~0, Elo +0.45) jest w dobrym kierunku, ale w granicach szumu przy 2220 meczach.
+
+**Kiedy Elo zapłaci:** (1) **więcej danych historycznych** — Elo rozgrzewa się przez lata; z danymi od 2000 ratingi byłyby dużo dokładniejsze (14+ lat warmup vs 3-6) i delta mogłaby przekroczyć istotność; (2) jako element modelu MINIMALNEGO (Elo zamiast rankingu) — nie dodatek. To bezpośrednio łączy się z rekomendacją „więcej danych".
+
+**Powtarzający się wzorzec (ważny):** KAŻDA dobra cecha (surface_speed, Elo) daje 2024 dokładnie +0.0203 (oba lądują na 0.6305), a szkodzi w 2022/2023. Bo baseline RF w 2024 był słaby (61.02% < naiwny ranking 61.36%) — każdy rank-podobny sygnał „naprawia" tam ~2 p.p. To regresja do średniej, nie efekt cechy. Potwierdzone na dwóch niezależnych zestawach cech.
+
 ## Pliki eksperymentów (zostają jako dowód, NIE importowane do main)
 `main_48_cech_hgb.py` (Sprint 2), `main_48_cech_surface_speed.py` / `main_48_cech_fatigue.py` / `main_48_cech_enriched.py` / `main_48_cech_ewma_ablation.py` (Sprint 3), `main_48_cech_walkforward.py` / `main_48_cech_salvage.py` (Sprint 4).
