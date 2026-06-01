@@ -110,6 +110,30 @@ Plik `src/main_48_cech_multiseason.py`. Trening 2010-2023 (**72 582 próbki**, ~
 
 Caveat: tuning był umiarkowany (n_iter 8-12, cv=3) z powodów obliczeniowych. Dokładniejszy tuning XGBoost mógłby wycisnąć ~0.5 p.p., ale skoro wszystkie 3 modele są na tym samym suficie, nie zmieni to wniosku.
 
+### Test krańcowy: trening od 2000 (~128 848 próbek, ~36× więcej) — POTWIERDZENIE
+| model | test_match 2025 | Brier | log-loss |
+|---|---|---|---|
+| RandomForest | 0.6475 | 0.2181 | 0.6247 |
+| HistGradBoost | 0.6471 | 0.2172 | 0.6226 |
+| XGBoost | 0.6460 | **0.2167** | **0.6211** |
+
+Nawet przy MAKSIMUM danych (od 2000) boosting nie pobił RF na accuracy (HGB remis, XGBoost −0.15 p.p.) — wszystkie na ~64.7%. **Potwierdzenie sufitu na pełnym zakresie 3.5k → 72k → 128k próbek.** Jedyny efekt większych danych: lekko lepsza KALIBRACJA boostingu (XGBoost Brier vs RF: −0.0008 przy 72k → −0.0015 przy 128k) — pomaga jakości prawdopodobieństw, nie accuracy. Plik opisowy: `opis_main_48_cech_multiseason.md`.
+
+## Pełna walidacja walk-forward (nowe dane 2022-2025) — KOMPLET
+Każdy wariant/zestaw cech sprawdzony walk-forward przez 4 sezony, parowanie per-mecz, McNemar. Pliki: `main_48_cech_validate_variants.py` (warianty slice), `main_48_cech_validate_features.py` (cechy).
+
+| Rozszerzenie | pooled delta | McNemar p | lata dodatnie | dawny pojedynczy test |
+|---|---|---|---|---|
+| surface_speed | +0.49 p.p. | 0.26 | 3/4 | (+1.69) |
+| fatigue | +0.22 p.p. | 0.65 | 3/4 | (+1.36) |
+| enriched (surface+fatigue) | +0.31 p.p. | 0.54 | 3/4 | (+2.03) |
+| Elo (surface-adjusted) | +0.54 p.p. | 0.41 | 2/4 | (+0.45) |
+| sliceaware | −0.27 p.p. | 0.66 | 1/4 | (−0.17) |
+| bestof5_v1 | +0.63 p.p. | 0.30 | 3/4 | (+2.37) |
+| qfserve_v3 | −0.76 p.p. | 0.19 | 2/4 | (+2.20) |
+
+**ŻADNE rozszerzenie nie jest istotne statystycznie (wszystkie p > 0.18).** Najlepsze są directionally dodatnie (+0.4-0.6 p.p.), ale w granicach szumu. Dawne „spektakularne" pojedyncze testy (bestof5 +2.37, qfserve +2.20) na walk-forward spadły do szumu (a qfserve nawet na minus) — ostateczne potwierdzenie, że pojedynczy test set kłamie. Baseline `main_48_cech.py` jest praktycznie najlepszy.
+
 ## OSTATECZNY WNIOSEK PROJEKTU
 Sufit ~65% match accuracy (pełny sezon ATP) jest **odporny na**: zmianę algorytmu (RF/HGB/XGBoost), 20× więcej danych, nowe cechy (surface_speed/fatigue/Elo). Wszystkie te dźwignie zostały przetestowane uczciwie (walk-forward / wielo-sezonowo) i żadna nie przebiła sufitu. Zgodne z literaturą: bez kursów bukmacherskich ~65-70% to realny zakres dla modeli feature-based. **Realna wartość projektu to rygor metodologiczny** (naprawiona metryka, walk-forward, uczciwe wyniki negatywne), nie pogoń za accuracy.
 

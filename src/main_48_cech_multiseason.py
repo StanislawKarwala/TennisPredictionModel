@@ -136,16 +136,21 @@ def main():
     ROUND_ORDER = ns["ROUND_ORDER"]
 
     print(f"Trening {TRAIN_START}-{VAL_YEAR-1} | walidacja {VAL_YEAR} | test {TEST_YEAR}", flush=True)
-    print(f"Warmup cech: {WARMUP_START}-{TRAIN_START-1}", flush=True)
+    warmup_desc = f"{WARMUP_START}-{TRAIN_START-1}" if TRAIN_START > WARMUP_START else "BRAK (trening od najwczesniejszego sezonu)"
+    print(f"Warmup cech: {warmup_desc}", flush=True)
 
-    # Warmup (tylko historia do cech) i zakres z policzonymi cechami.
-    warmup = load_years(range(WARMUP_START, TRAIN_START), cols_base)
-    span = load_years(range(TRAIN_START, TEST_YEAR + 1), cols_base)
-    warmup = add_static_features(warmup, ROUND_ORDER)
-    span = add_static_features(span, ROUND_ORDER)
+    # Jedno wczytanie WARMUP_START..TEST_YEAR, potem podzial po sezonie.
+    # historical = sezony przed TRAIN_START (tylko rozgrzewka cech, moze byc puste);
+    # span = TRAIN_START..TEST_YEAR (cechy liczone). Slice zachowuje kolumny nawet
+    # gdy historical ma 0 wierszy -> add_dynamic_features radzi sobie z pusta historia.
+    full = load_years(range(WARMUP_START, TEST_YEAR + 1), cols_base)
+    full = add_static_features(full, ROUND_ORDER)
+    historical = full[full["season"] < TRAIN_START].reset_index(drop=True)
+    span = full[full["season"] >= TRAIN_START].reset_index(drop=True)
 
-    print(f"Licze cechy dynamiczne dla {len(span)} meczow ({TRAIN_START}-{TEST_YEAR})...", flush=True)
-    span_feat = add_dynamic_features(span, warmup)
+    print(f"Licze cechy dynamiczne dla {len(span)} meczow ({TRAIN_START}-{TEST_YEAR})"
+          f" (rozgrzewka: {len(historical)} meczow)...", flush=True)
+    span_feat = add_dynamic_features(span, historical)
 
     # Label encoding -- fit TYLKO na treningu (sezon < VAL_YEAR), bez wgladu w val/test.
     train_mask = span_feat["season"] < VAL_YEAR
