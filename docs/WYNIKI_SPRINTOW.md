@@ -77,8 +77,19 @@ Plik `src/main_48_cech_surface_speed.py`. Leakage-safe: court_pace liczony tylko
 
 **Wniosek:** intuicja użytkownika („szybszy kort faworyzuje mocny serw") potwierdzona danymi. To pierwszy realny zysk z nowej cechy.
 
-### 3b. Cechy zmęczenia (rest days + minuty w turnieju) — w toku
+### 3b. Cechy zmęczenia ✅ DZIAŁA (+1.36 p.p.)
+Plik `src/main_48_cech_fatigue.py`. rest_days (dni od ostatniego meczu, cap 60) + tourney_minutes (skumulowane minuty w bieżącym turnieju). Leakage-safe (chronologiczny indeks).
+
+| Model | val | test | **match** | Brier |
+|---|---|---|---|---|
+| baseline | 0.6297 | 0.6153 | 0.6102 | 0.2283 |
+| **+ fatigue** | **0.6407** | **0.6237** | **0.6237** | **0.2269** |
+| DELTA | +1.10 | +0.85 | **+1.36 p.p.** | lepiej |
+
+Wszystkie 3 metryki w górę spójnie. `tourney_minutes_diff` rank 27/46, `rest_days_diff` rank 33/46 — obie używane.
 
 ### 3c. EWMA (recency weighting) — oczekuje
+
+### 3d. Model zbiorczy (surface_speed + fatigue) — w toku
 
 ## Sprint 4 — walk-forward + ensemble (oczekuje)
