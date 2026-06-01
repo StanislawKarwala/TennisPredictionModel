@@ -1,5 +1,5 @@
 """
-Slice-aware extension of main_48_cech.py.
+Slice-aware extension of tennis_model.py.
 
 Idea:
   - reuse the same base preprocessing and split as the baseline model,
@@ -29,7 +29,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 
-BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+BASE_SCRIPT = Path(__file__).with_name("tennis_model.py")
 LATE_ROUNDS = {"QF", "SF", "BR", "F"}
 
 TARGETED_FEATURES = [

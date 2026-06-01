@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 sys.path.insert(0, str(Path("../src").resolve()))"""
 
-BASELINE = """BASE = Path("../src/main_48_cech.py").resolve()
+BASELINE = """BASE = Path("../src/tennis_model.py").resolve()
 buf = io.StringIO()
 with contextlib.redirect_stdout(buf):
     ns = runpy.run_path(str(BASE))
@@ -40,7 +40,7 @@ z chronologicznego indeksu): **rest_days** (dni od ostatniego meczu, cap 60) ora
 **tourney_minutes** (minuty zagrane w biezacym turnieju -- skumulowane przez wczesniejsze rundy).
 Symetryzowane do p1/p2 + roznice. Te same tuned HP co baseline (ablation)."""),
 ("code", IMPORTS + """
-from main_48_cech_fatigue import compute_fatigue_for_2024, NEW_FEATURES, data_file, TARGET_YEAR, HISTORY_START_YEAR
+from tennis_model_fatigue import compute_fatigue_for_2024, NEW_FEATURES, data_file, TARGET_YEAR, HISTORY_START_YEAR
 print("Rok docelowy:", TARGET_YEAR, "| nowe cechy:", NEW_FEATURES)"""),
 ("md", "## 1. Reuse baseline pipeline"),
 ("code", BASELINE),
@@ -103,9 +103,9 @@ enriched_cells = [
 Polaczyc dwa wygrywajace (na pojedynczym tescie) zestawy cech: **surface_speed (3) + fatigue (6)**.
 Pytanie: czy zyski sie sumuja, czy uderza nadmiar cech (curse of dimensionality)?"""),
 ("code", IMPORTS + """
-from main_48_cech_surface_speed import build_court_pace_lookup, court_pace_index
-from main_48_cech_fatigue import compute_fatigue_for_2024
-from main_48_cech_enriched import SPEED_FEATURES, FATIGUE_FEATURES, NEW_FEATURES, data_file, TARGET_YEAR
+from tennis_model_surface_speed import build_court_pace_lookup, court_pace_index
+from tennis_model_fatigue import compute_fatigue_for_2024
+from tennis_model_enriched import SPEED_FEATURES, FATIGUE_FEATURES, NEW_FEATURES, data_file, TARGET_YEAR
 print("Nowe cechy:", len(NEW_FEATURES), "=", len(SPEED_FEATURES), "speed +", len(FATIGUE_FEATURES), "fatigue")"""),
 ("md", "## 1. Reuse baseline pipeline"),
 ("code", BASELINE),
@@ -163,7 +163,7 @@ Zamiast prostej sredniej z 10 ostatnich meczow (SMA) uzyc **wykladniczego wazeni
 maleja gladko (alpha=0.18, half-life ~3.5 meczu). Nadpisujemy cechy formy i serwisu (te same nazwy),
 nie dodajemy nowych. To zmiana REPREZENTACJI cech."""),
 ("code", IMPORTS + """
-from main_48_cech_ewma_ablation import compute_ewma_features, OVERWRITE_COLS, ALPHA, data_file, TARGET_YEAR, HISTORY_START_YEAR
+from tennis_model_ewma_ablation import compute_ewma_features, OVERWRITE_COLS, ALPHA, data_file, TARGET_YEAR, HISTORY_START_YEAR
 print("alpha:", ALPHA, "| nadpisywane kolumny:", len(OVERWRITE_COLS))"""),
 ("md", "## 1. Reuse baseline pipeline"),
 ("code", BASELINE + """
@@ -211,7 +211,7 @@ samych cechach i danych. Dwa warianty HGB: numeryczny (jak RF) oraz z **natywnym
 (surface/tourney_level jako nominalne -- glowna przewaga HGB)."""),
 ("code", IMPORTS + """
 from sklearn.ensemble import HistGradientBoostingClassifier
-from main_48_cech_hgb import tune_and_eval_hgb, print_row"""),
+from tennis_model_hgb import tune_and_eval_hgb, print_row"""),
 ("md", """## 1. Reuse baseline pipeline (RF juz policzony)
 Baseline zwraca gotowy RF + dane CV i test. Liczymy jakosc prawdopodobienstw RF do porownania."""),
 ("code", BASELINE + """

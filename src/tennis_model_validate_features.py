@@ -27,14 +27,14 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
-from main_48_cech_surface_speed import build_court_pace_lookup, court_pace_index
-from main_48_cech_fatigue import compute_fatigue_for_2024
-from main_48_cech_elo import build_elo_for_target_full, ELO_COLS
+from tennis_model_surface_speed import build_court_pace_lookup, court_pace_index
+from tennis_model_fatigue import compute_fatigue_for_2024
+from tennis_model_elo import build_elo_for_target_full, ELO_COLS
 
 WORKDIR = Path(__file__).resolve().parent
 BASE_DIR = WORKDIR.parent
 DATA_DIR = BASE_DIR / "data" / "sample_data"
-BASELINE_SCRIPT_PATH = (WORKDIR / "main_48_cech.py").resolve()
+BASELINE_SCRIPT_PATH = (WORKDIR / "tennis_model.py").resolve()
 TOUR = os.environ.get("TENNIS_TOUR", "atp")
 HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
 

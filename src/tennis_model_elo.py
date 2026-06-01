@@ -33,7 +33,7 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
-BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+BASE_SCRIPT = Path(__file__).with_name("tennis_model.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
 TOUR = os.environ.get("TENNIS_TOUR", "atp")
@@ -70,7 +70,7 @@ def k_factor(n_played: int) -> float:
 
 
 def build_elo_for_target_full(year: int) -> pd.DataFrame:
-    """Przetwarza chronologicznie wszystkie mecze 2018..year, zwraca PELNA
+    """Przetwarza chronologicznie wszystkie mecze HISTORY_START_YEAR..year, zwraca PELNA
     (przed dropna) ramke roku docelowego z kolumnami w_elo/l_elo/w_surface_elo/
     l_surface_elo = pre-match Elo (przed aktualizacja tym meczem)."""
     elo: dict[str, float] = {}

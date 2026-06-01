@@ -5,7 +5,7 @@ cells = [
 
 ## Cel
 Sprawdzic pomysl: **szybszy kort faworyzuje graczy z mocniejszym serwem.** Dodajemy
-do baseline (`main_48_cech.py`) trzy nowe cechy i sprawdzamy, czy poprawiaja match accuracy.
+do baseline (`tennis_model.py`) trzy nowe cechy i sprawdzamy, czy poprawiaja match accuracy.
 
 ## Metoda (leakage-safe)
 - `court_pace_index` -- proxy predkosci kortu liczony WYLACZNIE z historii (sezony przed
@@ -22,7 +22,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
 sys.path.insert(0, str(Path("../src").resolve()))
-from main_48_cech_surface_speed import (
+from tennis_model_surface_speed import (
     build_court_pace_lookup, court_pace_index, data_file,
     TARGET_YEAR, HISTORY_START_YEAR, NEW_FEATURES,
 )
@@ -30,10 +30,10 @@ print("Rok docelowy:", TARGET_YEAR, "| historia od:", HISTORY_START_YEAR)
 print("Nowe cechy:", NEW_FEATURES)"""),
 
 ("md", """## 1. Reuse baseline pipeline
-Uruchamiamy `main_48_cech.py` (z wyciszonym outputem) i pobieramy z niego: dane treningowe/testowe,
+Uruchamiamy `tennis_model.py` (z wyciszonym outputem) i pobieramy z niego: dane treningowe/testowe,
 funkcje (`symmetrize_data`, metryke symetryczna, ocene kalibracji), tuned hiperparametry i metryki baseline."""),
 
-("code", """BASE = Path("../src/main_48_cech.py").resolve()
+("code", """BASE = Path("../src/tennis_model.py").resolve()
 buf = io.StringIO()
 with contextlib.redirect_stdout(buf):
     ns = runpy.run_path(str(BASE))

@@ -2,9 +2,11 @@
 Eksperyment Sprint 3d: Model zbiorczy (surface_speed + fatigue)
 ===============================================================
 
-Laczy dwa wygrywajace zestawy cech ze Sprint 3:
-  - surface_speed (court_pace_index + interakcje serve x speed)  -> +1.69 p.p.
-  - fatigue (rest_days + tourney_minutes)                        -> +1.36 p.p.
+Laczy dwa zestawy cech ze Sprint 3:
+  - surface_speed (court_pace_index + interakcje serve x speed)
+  - fatigue (rest_days + tourney_minutes)
+(Delty pojedynczych cech liczone na zywo w ich wlasnych skryptach; na obecnych
+ danych walk-forward nie potwierdzil istotnego zysku -- patrz Sprint 4.)
 
 Pytanie: czy zyski sie SUMUJA, czy uderza curse of dimensionality (jak w
 wariancie sliceaware ze Sprint 1, gdzie 33 cechy naraz daly gorzej)?
@@ -26,11 +28,11 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
-from main_48_cech_surface_speed import build_court_pace_lookup, court_pace_index
-from main_48_cech_fatigue import compute_fatigue_for_2024
+from tennis_model_surface_speed import build_court_pace_lookup, court_pace_index
+from tennis_model_fatigue import compute_fatigue_for_2024
 
 
-BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+BASE_SCRIPT = Path(__file__).with_name("tennis_model.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
 TOUR = os.environ.get("TENNIS_TOUR", "atp")
@@ -178,7 +180,8 @@ def main() -> None:
         f"match={match_acc - baseline_match_acc:+.4f}"
     )
     print()
-    print("Przypomnienie (osobno): surface_speed match +0.0169 | fatigue match +0.0136")
+    print("Pojedyncze cechy (surface_speed, fatigue) ocenione osobno w swoich skryptach;")
+    print("walidacja walk-forward (Sprint 4) nie potwierdzila istotnego zysku -- patrz validate_features.")
     print()
     print("Top 5 nowych cech wg waznosci:")
     new_imp = importance[importance["feature"].isin(NEW_FEATURES)].head(5)

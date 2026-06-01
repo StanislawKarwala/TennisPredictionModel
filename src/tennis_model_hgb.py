@@ -9,7 +9,7 @@ Cel:
   algorytm, wszystko inne (cechy, split, symetryzacja, metryka) bez zmian.
 
 Metodologia:
-  - reuzywamy pipeline z main_48_cech.py (przez runpy) -> te same df_train_raw,
+  - reuzywamy pipeline z tennis_model.py (przez runpy) -> te same df_train_raw,
     val_data, test_data, features, oraz pomocnicze compute_symmetric_match_evaluation
     i evaluate_calibration_quality (metryka symetryczna z Sprint 1),
   - dobor hiperparametrow HGB przez RandomizedSearchCV ze scoringiem neg_log_loss
@@ -36,7 +36,7 @@ from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
 from sklearn.metrics import accuracy_score
 
 
-BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+BASE_SCRIPT = Path(__file__).with_name("tennis_model.py")
 
 
 def execute_base_pipeline_quietly() -> dict:

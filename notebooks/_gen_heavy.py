@@ -28,7 +28,7 @@ leakage-safe. K-factor dynamiczny (FiveThirtyEight). **Walidacja walk-forward** 
 + test parowany McNemar (lekcja: pojedynczy test klamie)."""),
 ("code", SETUP),
 ("md", "## Uruchomienie pelnej walidacji walk-forward (od zera)\nKazdy sezon: baseline + model z Elo na tych samych meczach, parowanie per-mecz."),
-("code", "import main_48_cech_elo as m\nm.main()"),
+("code", "import tennis_model_elo as m\nm.main()"),
 ("md", """## Wnioski
 Cechy Elo **dominuja waznosc** (elo_diff to top-2 cecha) -- model mocno ich uzywa. ALE pooled delta
 jest mala (rzedu +0.5 p.p.) i **nieistotna** (McNemar p >> 0.05). Powod: Elo jest silnym, ale
@@ -47,7 +47,7 @@ walidujemy na 2024, testujemy na calym sezonie 2025 -- i porownujemy Random Fore
 HistGradientBoosting vs XGBoost. Wlasciwy test hipotezy "wiecej danych => boosting wygrywa"."""),
 ("code", SETUP),
 ("md", "## Uruchomienie (od zera): wczytanie wielu sezonow, cechy, strojenie 3 modeli\nUWAGA: dlugi bieg (~60-90 min) -- liczenie cech dla ~45 tys. meczow + trening na ~72 tys. probek."),
-("code", "import main_48_cech_multiseason as m\nm.main()"),
+("code", "import tennis_model_multiseason as m\nm.main()"),
 ("md", """## Wnioski
 Boosting **nie pobil** Random Forest na accuracy nawet na ~72 tys. probek (XGBoost remis, HGB
 minimalnie gorzej) -- wszystkie ~65%. Powtorzono tez na ~130 tys. probek (od 2000) -- ten sam
@@ -66,7 +66,7 @@ sezonie dawaly +2 p.p. Tu sprawdzamy je UCZCIWIE: trening na starszych sezonach,
 przez kilka lat z rzedu, z testem istotnosci McNemar (parowanie per-mecz baseline vs wzbogacony)."""),
 ("code", SETUP),
 ("md", "## Uruchomienie walk-forward (od zera, kilka sezonow)"),
-("code", "import main_48_cech_walkforward as m\nm.main()"),
+("code", "import tennis_model_walkforward as m\nm.main()"),
 ("md", """## Wnioski
 Pozorny zysk +2 p.p. **NIE generalizuje** -- pooled delta blisko zera, McNemar p ~ 0.9 (zero
 istotnosci), delta dodatnia tylko w czesci lat. To kluczowa lekcja: na malych danych pojedynczy
@@ -83,7 +83,7 @@ serve x speed) generalizuje lepiej? Testujemy 4 warianty (full / speed3 / narrow
 identycznych meczach, walk-forward, McNemar."""),
 ("code", SETUP),
 ("md", "## Uruchomienie (od zera)"),
-("code", "import main_48_cech_salvage as m\nm.main()"),
+("code", "import tennis_model_salvage as m\nm.main()"),
 ("md", """## Wnioski
 Zaden wariant -- nawet najwezszy -- nie daje istotnego zysku (wszystkie McNemar p > 0.3). Wezsze
 zestawy sa minimalnie lepsze od pelnego (potwierdza "za duzo cech rozciencza"), ale wciaz w
@@ -99,12 +99,12 @@ Warianty slice-aware byly oceniane tylko na pojedynczym tescie (gdzie bestof5 da
 raz na rok (cache), warianty go reuzywaja."""),
 ("code", SETUP),
 ("md", "## Uruchomienie (od zera) -- baseline + 3 warianty na kazdy sezon"),
-("code", "import main_48_cech_validate_variants as m\nm.main()"),
+("code", "import tennis_model_validate_variants as m\nm.main()"),
 ("md", """## Wnioski
 ZADEN wariant slice-aware nie pobil baseline w sposob istotny (wszystkie McNemar p > 0.18).
 Dawne "spektakularne" wyniki (bestof5 +2.37, qfserve +2.20) na walk-forward spadly do szumu --
 qfserve nawet na minus. **Na wiekszej ilosci danych warianty bestof5 i qfserve okazaly sie slabsze
-od glownego modelu `main_48_cech.py`.** To ostateczne potwierdzenie, ze pojedynczy test set klamie."""),
+od glownego modelu `tennis_model.py`.** To ostateczne potwierdzenie, ze pojedynczy test set klamie."""),
 ]),
 
 "validate_features": ("TPM_Experiment_ValidateFeatures.ipynb", 5400, [
@@ -116,7 +116,7 @@ fatigue, enriched (surface+fatigue), Elo. Per sezon: baseline (cache) + kazdy ze
 meczach, parowanie + McNemar."""),
 ("code", SETUP),
 ("md", "## Uruchomienie (od zera)"),
-("code", "import main_48_cech_validate_features as m\nm.main()"),
+("code", "import tennis_model_validate_features as m\nm.main()"),
 ("md", """## Wnioski
 ZADEN zestaw cech nie jest istotny statystycznie (wszystkie McNemar p > 0.25). Najlepsze sa
 directionally dodatnie (+0.4-0.6 p.p.), ale w granicach szumu. To komplet dowodow, ze nic nie

@@ -1,5 +1,5 @@
 """
-Model slicing dla modelu z main_48_cech.py
+Model slicing dla modelu z tennis_model.py
 =========================================
 
 Cel:
@@ -29,7 +29,7 @@ import pandas as pd
 
 
 BASE_SCRIPT = Path(__file__).with_name(
-    os.environ.get("TENNIS_MODEL_SLICE_BASE", "main_48_cech.py")
+    os.environ.get("TENNIS_MODEL_SLICE_BASE", "tennis_model.py")
 )
 
 # Minimalny support chroni przed nadinterpretacja bardzo malych slice'ow.
@@ -54,7 +54,7 @@ def require_namespace_items(namespace: dict, names: list[str]) -> None:
     if missing:
         joined = ", ".join(missing)
         raise KeyError(
-            "Brakuje wymaganych obiektow po uruchomieniu main_48_cech.py: "
+            "Brakuje wymaganych obiektow po uruchomieniu tennis_model.py: "
             f"{joined}"
         )
 

@@ -1,5 +1,5 @@
 """
-Slice-aware extension of main_48_cech.py focused only on Best of 5 matches.
+Slice-aware extension of tennis_model.py focused only on Best of 5 matches.
 
 Idea:
   - add endurance features for long-distance matches,
@@ -60,7 +60,7 @@ class PlayerHistoryIndex:
         return self._full_sequence.iloc[indices[:cutoff]]
 
 
-BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+BASE_SCRIPT = Path(__file__).with_name("tennis_model.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
 TOUR = os.environ.get("TENNIS_TOUR", "atp")

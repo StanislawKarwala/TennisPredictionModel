@@ -26,16 +26,16 @@ import numpy as np
 import pandas as pd
 
 WORKDIR = Path(__file__).resolve().parent
-BASELINE_SCRIPT_PATH = (WORKDIR / "main_48_cech.py").resolve()
+BASELINE_SCRIPT_PATH = (WORKDIR / "tennis_model.py").resolve()
 
 _wf_env = os.environ.get("TENNIS_WF_YEARS")
 TARGET_YEARS = ([int(y) for y in _wf_env.split(",")] if _wf_env
                 else [2022, 2023, 2024, 2025])
 
 VARIANTS = {
-    "sliceaware": "main_48_cech_sliceaware.py",
-    "bestof5_v1": "main_48_cech_sliceaware_bestof5_v1.py",
-    "qfserve_v3": "main_48_cech_sliceaware_qfserve_v3.py",
+    "sliceaware": "tennis_model_sliceaware.py",
+    "bestof5_v1": "tennis_model_sliceaware_bestof5_v1.py",
+    "qfserve_v3": "tennis_model_sliceaware_qfserve_v3.py",
 }
 
 # --- cache baseline per rok (reset na poczatku kazdego roku) ---
@@ -99,7 +99,7 @@ def main():
         reset_baseline_cache()
 
         # baseline raz (zapelnia cache)
-        base_ns = execute_script("main_48_cech.py")
+        base_ns = execute_script("tennis_model.py")
         base_eval = eval_frame(base_ns)
         base_match = float(base_ns["match_accuracy"])
         print(f"  baseline match={base_match:.4f} (n={len(base_eval)})", flush=True)

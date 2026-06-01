@@ -13,7 +13,7 @@ Testuje cztery WARIANTY wzbogacenia na IDENTYCZNYCH meczach testowych
 Dla kazdego wariantu liczymy: delta per rok, delta pooled, McNemar (parowany),
 oraz korelacje delta vs sila baseline (hipoteza "pomaga gdy baseline slaby").
 
-Reuzywa machinerii z main_48_cech_walkforward (te same splity, te same tuned HP).
+Reuzywa machinerii z tennis_model_walkforward (te same splity, te same tuned HP).
 """
 
 from __future__ import annotations
@@ -29,11 +29,11 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
-from main_48_cech_surface_speed import build_court_pace_lookup, court_pace_index
-from main_48_cech_fatigue import compute_fatigue_for_2024
+from tennis_model_surface_speed import build_court_pace_lookup, court_pace_index
+from tennis_model_fatigue import compute_fatigue_for_2024
 
 
-BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+BASE_SCRIPT = Path(__file__).with_name("tennis_model.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
 TOUR = os.environ.get("TENNIS_TOUR", "atp")

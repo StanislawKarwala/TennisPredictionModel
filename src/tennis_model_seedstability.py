@@ -1,5 +1,5 @@
 """
-Seed stability dla main_48_cech.py.
+Seed stability dla tennis_model.py.
 
 Uruchamia baseline pipeline N razy z roznymi RANDOM_STATE i agreguje wyniki:
 val_acc, test_acc, match_accuracy oraz (jezeli dostepne) match_accuracy_tuned
@@ -10,9 +10,9 @@ ma std=1.5 p.p. a sliceaware-vs-baseline daje delta 0.3 p.p., to delta
 jest w szumie i nie ma sensu interpretowac jej jakosciowo.
 
 Uzycie:
-    python main_48_cech_seedstability.py
+    python tennis_model_seedstability.py
     # albo z customowymi seedami:
-    TENNIS_SEEDS="1,7,13,42,100" python main_48_cech_seedstability.py
+    TENNIS_SEEDS="1,7,13,42,100" python tennis_model_seedstability.py
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ import numpy as np
 import pandas as pd
 
 
-BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
+BASE_SCRIPT = Path(__file__).with_name("tennis_model.py")
 DEFAULT_SEEDS = [13, 42, 99, 100, 123, 256, 777, 1024, 2024, 31337]
 
 
@@ -56,7 +56,7 @@ def run_one_seed(seed: int) -> dict[str, float]:
         else:
             os.environ["TENNIS_RANDOM_STATE"] = original_seed
 
-    # cv_accuracy jest teraz eksportowane osobno przez main_48_cech.py, bo
+    # cv_accuracy jest teraz eksportowane osobno przez tennis_model.py, bo
     # search.best_score_ to neg_log_loss (refit po log-loss, nie accuracy).
     cv_accuracy = namespace.get("cv_accuracy")
     if cv_accuracy is None:

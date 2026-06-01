@@ -19,7 +19,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from main_48_cech_modelslice import (
+from tennis_model_modelslice import (
     MAX_SLICE_DEGREE,
     MIN_SUPPORT,
     compute_model_slices,
@@ -32,7 +32,7 @@ BASE_DIR = WORKDIR.parent
 OUTPUTS_DIR = BASE_DIR / "reports" / "outputs"
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 OUTPUT_XLSX = OUTPUTS_DIR / "slice_comparison_all_variants.xlsx"
-BASELINE_SCRIPT_PATH = (WORKDIR / "main_48_cech.py").resolve()
+BASELINE_SCRIPT_PATH = (WORKDIR / "tennis_model.py").resolve()
 SLICE_COLUMNS = [
     "surface",
     "tourney_level",
@@ -44,10 +44,10 @@ SLICE_COLUMNS = [
     "form_gap_bucket",
 ]
 MODELS = {
-    "baseline": "main_48_cech.py",
-    "sliceaware": "main_48_cech_sliceaware.py",
-    "qfserve_v3": "main_48_cech_sliceaware_qfserve_v3.py",
-    "bestof5_v1": "main_48_cech_sliceaware_bestof5_v1.py",
+    "baseline": "tennis_model.py",
+    "sliceaware": "tennis_model_sliceaware.py",
+    "qfserve_v3": "tennis_model_sliceaware_qfserve_v3.py",
+    "bestof5_v1": "tennis_model_sliceaware_bestof5_v1.py",
 }
 TARGET_SLICE_PATTERNS = [
     "best_of=5",
@@ -56,7 +56,7 @@ TARGET_SLICE_PATTERNS = [
 ]
 
 
-# Wszystkie warianty wewnetrznie wywoluja runpy.run_path na main_48_cech.py
+# Wszystkie warianty wewnetrznie wywoluja runpy.run_path na tennis_model.py
 # (przez execute_base_pipeline_quietly). Bez cache baseline pipeline -- wraz z
 # RandomizedSearchCV -- byl uruchamiany 4 razy w jednym wykonaniu slicecompare.
 # Po patchu uruchamia sie raz, a kolejne wywolania zwracaja ten sam slownik.
