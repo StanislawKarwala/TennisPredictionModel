@@ -35,7 +35,7 @@ SEEDS = list(range(1, N_RUNS + 1))  # Ziarna: 1, 2, ..., 10
 # ETAP 1–5: PRZYGOTOWANIE DANYCH (jednorazowe — niezależne od ziarna)
 # =============================================================================
 
-df = pd.read_csv(DATA_DIR / "2024.csv")
+df = pd.read_csv(DATA_DIR / "atp_matches_2025.csv")
 df['tourney_date'] = pd.to_datetime(df['tourney_date'], format='%Y%m%d')
 df = df.sort_values(['tourney_date', 'match_num']).reset_index(drop=True)
 
@@ -63,7 +63,7 @@ df_base['round_encoded'] = df_base['round'].map(ROUND_ORDER).fillna(3)
 print(f"Dane główne (2024): {len(df_base)} meczów")
 
 # Historia
-history_files = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
+history_files = [DATA_DIR / f"atp_matches_{year}.csv" for year in range(2001, 2025)]
 history_parts = []
 for filepath in history_files:
     try:

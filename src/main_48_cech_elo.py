@@ -36,8 +36,17 @@ from sklearn.ensemble import RandomForestClassifier
 BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
+TOUR = os.environ.get("TENNIS_TOUR", "atp")
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
 
-TARGET_YEARS = [2021, 2022, 2023, 2024]
+
+def data_file(year: int) -> Path:
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
+
+
+_wf_env = os.environ.get("TENNIS_WF_YEARS")
+TARGET_YEARS = ([int(y) for y in _wf_env.split(",")] if _wf_env
+                else [2020, 2021, 2022, 2023, 2024, 2025])
 INIT_ELO = 1500.0
 ELO_FEATURES = ["elo_diff", "surface_elo_diff", "elo_win_prob", "surface_elo_win_prob"]
 
@@ -100,15 +109,15 @@ def build_elo_for_target_full(year: int) -> pd.DataFrame:
 
     use = ["winner_name", "loser_name", "surface", "tourney_date", "match_num"]
     # historia: tylko stan Elo (record=None)
-    for y in range(2018, year):
-        df = pd.read_csv(DATA_DIR / f"{y}.csv", usecols=use)
+    for y in range(HISTORY_START_YEAR, year):
+        df = pd.read_csv(data_file(y), usecols=use)
         df["tourney_date"] = pd.to_datetime(df["tourney_date"], format="%Y%m%d")
         df = df.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
         for r in df.itertuples(index=False):
             update(r.winner_name, r.loser_name, r.surface, None)
 
     # rok docelowy: zapisujemy pre-match Elo
-    target_full = pd.read_csv(DATA_DIR / f"{year}.csv")
+    target_full = pd.read_csv(data_file(year))
     target_full["tourney_date"] = pd.to_datetime(target_full["tourney_date"], format="%Y%m%d")
     target_full = target_full.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
     rec = {c: [] for c in ELO_COLS}

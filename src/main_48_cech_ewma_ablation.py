@@ -34,7 +34,16 @@ from sklearn.metrics import accuracy_score
 BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
-HISTORY_FILES = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
+TOUR = os.environ.get("TENNIS_TOUR", "atp")
+TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2025"))
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
+
+
+def data_file(year: int) -> Path:
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
+
+
+HISTORY_FILES = [data_file(y) for y in range(HISTORY_START_YEAR, TARGET_YEAR)]
 
 ALPHA = 0.18  # ~ "ostatnie 10 meczow", ale z plynnym zanikiem
 
@@ -174,16 +183,16 @@ def main() -> None:
     baseline_test_acc = float(ns["test_acc"])
     baseline_match_acc = float(ns["match_accuracy"])
 
-    full_2024 = pd.read_csv(DATA_DIR / "2024.csv")
-    full_2024["tourney_date"] = pd.to_datetime(full_2024["tourney_date"], format="%Y%m%d")
-    full_2024 = full_2024.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
-    full_2024_base = full_2024[cols_base].dropna(subset=cols_base).reset_index(drop=True)
+    full_target = pd.read_csv(data_file(TARGET_YEAR))
+    full_target["tourney_date"] = pd.to_datetime(full_target["tourney_date"], format="%Y%m%d")
+    full_target = full_target.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
+    full_target_base = full_target[cols_base].dropna(subset=cols_base).reset_index(drop=True)
 
     n_train, n_val, n_test = len(df_train_raw), len(df_val_raw), len(df_test_raw)
-    assert len(full_2024_base) == n_train + n_val + n_test
+    assert len(full_target_base) == n_train + n_val + n_test
 
-    print("Licze cechy EWMA (forma/serwis/surface_form) z chronologii 2018-2024...")
-    ewma = compute_ewma_features(full_2024_base, cols_base)
+    print(f"Licze cechy EWMA (forma/serwis/surface_form) z chronologii {HISTORY_START_YEAR}-{TARGET_YEAR}...")
+    ewma = compute_ewma_features(full_target_base, cols_base)
     e_train = ewma.iloc[:n_train].reset_index(drop=True)
     e_val = ewma.iloc[n_train:n_train + n_val].reset_index(drop=True)
     e_test = ewma.iloc[n_train + n_val:].reset_index(drop=True)

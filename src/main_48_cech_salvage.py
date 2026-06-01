@@ -36,8 +36,17 @@ from main_48_cech_fatigue import compute_fatigue_for_2024
 BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
+TOUR = os.environ.get("TENNIS_TOUR", "atp")
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
 
-TARGET_YEARS = [2021, 2022, 2023, 2024]
+
+def data_file(year: int) -> Path:
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
+
+
+_wf_env = os.environ.get("TENNIS_WF_YEARS")
+TARGET_YEARS = ([int(y) for y in _wf_env.split(",")] if _wf_env
+                else [2020, 2021, 2022, 2023, 2024, 2025])
 
 SPEED_FEATURES = ["court_pace_index", "ace_speed_diff", "first_won_speed_diff"]
 FATIGUE_FEATURES = [
@@ -81,12 +90,12 @@ def build_enriched_splits(ns: dict, year: int):
     df_test_raw = ns["df_test_raw"].copy()
     n_train, n_val, n_test = len(df_train_raw), len(df_val_raw), len(df_test_raw)
 
-    history_files = [DATA_DIR / f"{y}.csv" for y in range(2018, year)]
+    history_files = [data_file(y) for y in range(HISTORY_START_YEAR, year)]
 
-    full = pd.read_csv(DATA_DIR / f"{year}.csv")
+    full = pd.read_csv(data_file(year))
     full["tourney_date"] = pd.to_datetime(full["tourney_date"], format="%Y%m%d")
     full = full.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
-    full_base = full[cols_base + ["tourney_id", "indoor", "minutes"]].dropna(subset=cols_base).reset_index(drop=True)
+    full_base = full[cols_base + ["tourney_id", "minutes"]].dropna(subset=cols_base).reset_index(drop=True)
     assert len(full_base) == n_train + n_val + n_test
 
     lookup = build_court_pace_lookup(history_files=history_files)

@@ -43,11 +43,20 @@ DATA_DIR = BASE_DIR / "data" / "sample_data"
 OUTPUTS_DIR = BASE_DIR / "reports" / "outputs"
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Rok docelowy (sezon ewaluowany) -- domyslnie 2024, nadpisywalny przez env dla
-# walidacji walk-forward (Sprint 4). Historia = wszystkie sezony od 2018 do roku
-# poprzedzajacego docelowy.
-TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2024"))
-HISTORY_YEARS = list(range(2018, TARGET_YEAR))
+# Rok docelowy (sezon ewaluowany) -- domyslnie 2025 (pelny sezon; 2026 to dopiero
+# pol roku, wiec nie wszystkie nawierzchnie rozegrane). Nadpisywalny przez env dla
+# walidacji walk-forward. Historia = sezony od HISTORY_START_YEAR do roku
+# poprzedzajacego docelowy. Dane w formacie atp_matches_{rok}.csv (Jeff Sackmann);
+# prefiks 'atp_' chroni przed pomyleniem z danymi WTA w przyszlosci.
+TOUR = os.environ.get("TENNIS_TOUR", "atp")  # atp / wta -- prefiks plikow danych
+TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2025"))
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
+HISTORY_YEARS = list(range(HISTORY_START_YEAR, TARGET_YEAR))
+
+
+def data_file(year: int) -> Path:
+    """Sciezka do pliku meczow danego sezonu, np. atp_matches_2025.csv."""
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
 
 
 # =============================================================================
@@ -57,7 +66,7 @@ HISTORY_YEARS = list(range(2018, TARGET_YEAR))
 # Każdy wiersz opisuje jeden mecz z perspektywy zwycięzcy i przegranego.
 # Sortowanie chronologiczne jest kluczowe — model nie może „widzieć" przyszłości.
 
-df = pd.read_csv(DATA_DIR / f"{TARGET_YEAR}.csv")
+df = pd.read_csv(data_file(TARGET_YEAR))
 df['tourney_date'] = pd.to_datetime(df['tourney_date'], format='%Y%m%d')
 df = df.sort_values(['tourney_date', 'match_num']).reset_index(drop=True)
 
@@ -107,7 +116,7 @@ print(f"Dane główne ({TARGET_YEAR}): {len(df_base)} meczów")
 # cech dynamicznych. Im więcej historii, tym dokładniejsze oszacowania formy
 # i bilansu bezpośrednich spotkań (H2H), szczególnie dla rzadkich par graczy.
 
-history_files = [DATA_DIR / f"{year}.csv" for year in HISTORY_YEARS]
+history_files = [data_file(year) for year in HISTORY_YEARS]
 history_parts = []
 
 for filepath in history_files:

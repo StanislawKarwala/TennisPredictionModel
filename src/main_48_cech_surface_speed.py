@@ -42,13 +42,23 @@ from sklearn.metrics import accuracy_score
 BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
-HISTORY_FILES = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
+TOUR = os.environ.get("TENNIS_TOUR", "atp")
+TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2025"))
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
+
+
+def data_file(year: int) -> Path:
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
+
+
+HISTORY_FILES = [data_file(y) for y in range(HISTORY_START_YEAR, TARGET_YEAR)]
 YEAR_PREFIX = re.compile(r"^\d{4}-")
 MIN_TOURNEY_SUPPORT = 20  # minimalna liczba meczow turnieju w historii dla wlasnego indeksu
 
+# UWAGA: is_indoor usuniete -- standardowe pliki Sackmanna (atp_matches_*) nie maja
+# kolumny 'indoor', a w testach byla bezuzyteczna (rank 44/44).
 NEW_FEATURES = [
     "court_pace_index",
-    "is_indoor",
     "ace_speed_diff",
     "first_won_speed_diff",
 ]
@@ -138,27 +148,27 @@ def main() -> None:
     baseline_test_acc = float(ns["test_acc"])
     baseline_match_acc = float(ns["match_accuracy"])
 
-    print("Buduje court_pace_index z historii 2018-2023...")
+    print(f"Buduje court_pace_index z historii {HISTORY_START_YEAR}-{TARGET_YEAR-1}...")
     lookup = build_court_pace_lookup()
 
     # df_*_raw maja kolumny tourney_date, surface (z cols_base po Sprint 1).
-    # Potrzebujemy tourney_id i indoor -- doczytujemy z 2024.csv i laczymy
-    # POZYCYJNIE (df_*_raw to kolejne kawalki 2024 w tej samej kolejnosci po
-    # tym samym dropna i sortowaniu co baseline).
-    full_2024 = pd.read_csv(DATA_DIR / "2024.csv")
-    full_2024["tourney_date"] = pd.to_datetime(full_2024["tourney_date"], format="%Y%m%d")
-    full_2024 = full_2024.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
+    # Potrzebujemy tourney_id -- doczytujemy z pliku roku docelowego i laczymy
+    # POZYCYJNIE (df_*_raw to kolejne kawalki roku docelowego w tej samej
+    # kolejnosci po tym samym dropna i sortowaniu co baseline).
+    full_target = pd.read_csv(data_file(TARGET_YEAR))
+    full_target["tourney_date"] = pd.to_datetime(full_target["tourney_date"], format="%Y%m%d")
+    full_target = full_target.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
     cols_base = list(ns["cols_base"])
-    full_2024_base = full_2024[cols_base + ["tourney_id", "indoor"]].dropna(subset=cols_base).reset_index(drop=True)
+    full_target_base = full_target[cols_base + ["tourney_id"]].dropna(subset=cols_base).reset_index(drop=True)
 
     n_train, n_val, n_test = len(df_train_raw), len(df_val_raw), len(df_test_raw)
-    assert len(full_2024_base) == n_train + n_val + n_test, (
-        f"Niespojnosc dlugosci 2024: {len(full_2024_base)} vs "
+    assert len(full_target_base) == n_train + n_val + n_test, (
+        f"Niespojnosc dlugosci {TARGET_YEAR}: {len(full_target_base)} vs "
         f"{n_train + n_val + n_test}"
     )
-    ctx_train = full_2024_base.iloc[:n_train].reset_index(drop=True)
-    ctx_val = full_2024_base.iloc[n_train:n_train + n_val].reset_index(drop=True)
-    ctx_test = full_2024_base.iloc[n_train + n_val:].reset_index(drop=True)
+    ctx_train = full_target_base.iloc[:n_train].reset_index(drop=True)
+    ctx_val = full_target_base.iloc[n_train:n_train + n_val].reset_index(drop=True)
+    ctx_test = full_target_base.iloc[n_train + n_val:].reset_index(drop=True)
 
     def attach_context(df_raw, ctx):
         df_raw = df_raw.copy()
@@ -166,11 +176,9 @@ def main() -> None:
         ctx = ctx.copy()
         ctx["match_id"] = range(len(ctx))
         cpi = [court_pace_index(t, s, lookup) for t, s in zip(ctx["tourney_id"], ctx["surface"])]
-        is_indoor = (ctx["indoor"].astype(str) == "I").astype(int).to_numpy()
         ctx_small = pd.DataFrame({
             "match_id": ctx["match_id"],
             "court_pace_index": cpi,
-            "is_indoor": is_indoor,
         })
         return df_raw.merge(ctx_small, on="match_id", how="left", validate="one_to_one")
 
@@ -180,8 +188,8 @@ def main() -> None:
 
     def build_split(df_raw, shuffle):
         sym = symmetrize_data(df_raw, shuffle=shuffle)
-        # Dolacz court_pace_index + is_indoor po match_id (kontekst symetryczny).
-        ctx_small = df_raw[["match_id", "court_pace_index", "is_indoor"]]
+        # Dolacz court_pace_index po match_id (kontekst symetryczny).
+        ctx_small = df_raw[["match_id", "court_pace_index"]]
         sym = sym.merge(ctx_small, on="match_id", how="left", validate="many_to_one")
         # Interakcje serve x speed (z juz zsymetryzowanych p1_/p2_ cech serwisowych).
         sym["ace_speed_diff"] = (sym["p1_ace_rate"] - sym["p2_ace_rate"]) * sym["court_pace_index"]

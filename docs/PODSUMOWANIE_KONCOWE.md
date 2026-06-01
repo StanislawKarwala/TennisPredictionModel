@@ -74,5 +74,24 @@ McNemar p=0.50 (nieistotne), dodatnie 2/4 lat. **ALE cechy Elo dominują ważno�
 
 **Powtarzający się wzorzec (ważny):** KAŻDA dobra cecha (surface_speed, Elo) daje 2024 dokładnie +0.0203 (oba lądują na 0.6305), a szkodzi w 2022/2023. Bo baseline RF w 2024 był słaby (61.02% < naiwny ranking 61.36%) — każdy rank-podobny sygnał „naprawia" tam ~2 p.p. To regresja do średniej, nie efekt cechy. Potwierdzone na dwóch niezależnych zestawach cech.
 
+## Migracja danych: pełny zbiór ATP 2001-2026
+
+Dane rozszerzone z 2018-2024 do **2001-2026**, format `atp_matches_{rok}.csv` (standard Jeff Sackmann). Prefiks `atp_` chroni przed pomyleniem z WTA w przyszłości (przełącznik `TENNIS_TOUR`).
+
+**Zmiany w kodzie (wszystkie pliki):**
+- Nazwy plików: `{rok}.csv` → `atp_matches_{rok}.csv` (helper `data_file(year)`).
+- **Rok docelowy domyślnie 2025** (pełny sezon; 2026 to pół roku, 67 turniejów — nie wszystkie nawierzchnie). Env `TENNIS_TARGET_YEAR`.
+- **Historia od 2001** (env `TENNIS_HISTORY_START`).
+- Usunięto `is_indoor` (standardowe pliki Sackmanna nie mają tej kolumny; cecha i tak była bezużyteczna rank 44/44).
+- Walk-forward/elo/salvage: domyślnie 6 sezonów testowych [2020-2025] (env `TENNIS_WF_YEARS`).
+
+**Efekt na baseline (target 2025, historia 2001-2024):** match accuracy **65.66%** (vs 61.02% na 2024), Brier 0.2174 (lepszy). Wzrost z bogatszej historii (lepsze cechy formy/H2H/serwisu) + 2025 jako rocznik. surface_speed na 2025: delta +0.0000 (potwierdza brak robust sygnału).
+
+### ⚠️ KLUCZOWE: architektura trenuje TYLKO na roku docelowym
+Historia (2001-2024) służy do liczenia CECH dynamicznych, ale model trenuje się na 60% roku docelowego (~1770 meczów → ~3500 próbek). Czyli:
+- Więcej historii → lepsze cechy (stąd wzrost baseline), ALE
+- **zbiór treningowy boostingu nadal ~3500 próbek** → samo podpięcie danych 2001+ NIE rehabilituje XGBoost/HGB.
+- Żeby boosting dostał szansę: trzeba **wielo-sezonowego treningu** (trenuj 2001-2023 ≈ 130k próbek, waliduj 2024, testuj 2025). To osobna, większa zmiana architektury — TODO.
+
 ## Pliki eksperymentów (zostają jako dowód, NIE importowane do main)
 `main_48_cech_hgb.py` (Sprint 2), `main_48_cech_surface_speed.py` / `main_48_cech_fatigue.py` / `main_48_cech_enriched.py` / `main_48_cech_ewma_ablation.py` (Sprint 3), `main_48_cech_walkforward.py` / `main_48_cech_salvage.py` (Sprint 4).

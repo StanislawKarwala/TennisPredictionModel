@@ -70,8 +70,17 @@ class PlayerHistoryIndex:
 BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
+TOUR = os.environ.get("TENNIS_TOUR", "atp")
+TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2025"))
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
+
+
+def data_file(year: int) -> Path:
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
+
+
 TOURNEY_ID_PATTERN = re.compile(r"^\d{4}-")
-HISTORY_FILES = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
+HISTORY_FILES = [data_file(y) for y in range(HISTORY_START_YEAR, TARGET_YEAR)]
 PRESSURE_ROUNDS = {"QF", "SF", "BR", "F"}
 LATE_ROUNDS = PRESSURE_ROUNDS
 EXTRA_CONTEXT_COLUMNS = [
@@ -222,7 +231,7 @@ def load_context_data(
     val_len: int,
     test_len: int,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    df_2024 = load_context_frame(DATA_DIR / "2024.csv", base_cols)
+    df_2024 = load_context_frame(data_file(TARGET_YEAR), base_cols)
     expected_len = train_len + val_len + test_len
     if len(df_2024) != expected_len:
         raise ValueError(

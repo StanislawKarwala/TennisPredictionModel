@@ -33,8 +33,16 @@ from main_48_cech_fatigue import compute_fatigue_for_2024
 BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
+TOUR = os.environ.get("TENNIS_TOUR", "atp")
+TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2025"))
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
 
-# Pomijamy is_indoor (rank 44/44, bezuzyteczne wg Sprint 3a).
+
+def data_file(year: int) -> Path:
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
+
+
+# is_indoor pominiete (rank 44/44 bezuzyteczne + brak kolumny w atp_matches_*).
 SPEED_FEATURES = ["court_pace_index", "ace_speed_diff", "first_won_speed_diff"]
 FATIGUE_FEATURES = [
     "p1_rest_days", "p2_rest_days", "rest_days_diff",
@@ -71,24 +79,24 @@ def main() -> None:
     baseline_test_acc = float(ns["test_acc"])
     baseline_match_acc = float(ns["match_accuracy"])
 
-    # Wspolny "kontekst" 2024 (tourney_id, surface, indoor, minutes), te same wiersze co baseline.
-    full_2024 = pd.read_csv(DATA_DIR / "2024.csv")
-    full_2024["tourney_date"] = pd.to_datetime(full_2024["tourney_date"], format="%Y%m%d")
-    full_2024 = full_2024.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
-    full_2024_base = full_2024[cols_base + ["tourney_id", "indoor", "minutes"]].dropna(subset=cols_base).reset_index(drop=True)
+    # Wspolny "kontekst" roku docelowego (tourney_id, surface, minutes), te same wiersze co baseline.
+    full_target = pd.read_csv(data_file(TARGET_YEAR))
+    full_target["tourney_date"] = pd.to_datetime(full_target["tourney_date"], format="%Y%m%d")
+    full_target = full_target.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
+    full_target_base = full_target[cols_base + ["tourney_id", "minutes"]].dropna(subset=cols_base).reset_index(drop=True)
 
     n_train, n_val, n_test = len(df_train_raw), len(df_val_raw), len(df_test_raw)
-    assert len(full_2024_base) == n_train + n_val + n_test
+    assert len(full_target_base) == n_train + n_val + n_test
 
     # --- surface speed ---
     print("Buduje court_pace_index...")
     lookup = build_court_pace_lookup()
     cpi = np.array([court_pace_index(t, s, lookup)
-                    for t, s in zip(full_2024_base["tourney_id"], full_2024_base["surface"])])
+                    for t, s in zip(full_target_base["tourney_id"], full_target_base["surface"])])
 
     # --- fatigue ---
     print("Licze cechy zmeczenia...")
-    fatigue = compute_fatigue_for_2024(full_2024_base)
+    fatigue = compute_fatigue_for_2024(full_target_base)
 
     # Sklej kontekst per match (wyrownany 1:1 do full_2024_base).
     context = pd.DataFrame({

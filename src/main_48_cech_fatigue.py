@@ -34,7 +34,16 @@ from sklearn.metrics import accuracy_score
 BASE_SCRIPT = Path(__file__).with_name("main_48_cech.py")
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data" / "sample_data"
-HISTORY_FILES = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
+TOUR = os.environ.get("TENNIS_TOUR", "atp")
+TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2025"))
+HISTORY_START_YEAR = int(os.environ.get("TENNIS_HISTORY_START", "2001"))
+
+
+def data_file(year: int) -> Path:
+    return DATA_DIR / f"{TOUR}_matches_{year}.csv"
+
+
+HISTORY_FILES = [data_file(y) for y in range(HISTORY_START_YEAR, TARGET_YEAR)]
 
 MAX_REST = 60.0       # dni; powyzej tego "wypoczety" sie nasyca
 DEFAULT_REST = 60.0   # gdy brak wczesniejszego meczu (np. pierwszy mecz w danych)
@@ -152,19 +161,19 @@ def main() -> None:
     baseline_test_acc = float(ns["test_acc"])
     baseline_match_acc = float(ns["match_accuracy"])
 
-    # Odtworz pelne 2024 (z tourney_id + minutes), te same wiersze i kolejnosc co baseline.
-    print("Licze cechy zmeczenia (rest_days, tourney_minutes) z historii + 2024...")
-    full_2024 = pd.read_csv(DATA_DIR / "2024.csv")
-    full_2024["tourney_date"] = pd.to_datetime(full_2024["tourney_date"], format="%Y%m%d")
-    full_2024 = full_2024.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
-    full_2024_base = full_2024[cols_base + ["tourney_id", "minutes"]].dropna(subset=cols_base).reset_index(drop=True)
+    # Odtworz pelny rok docelowy (z tourney_id + minutes), te same wiersze i kolejnosc co baseline.
+    print(f"Licze cechy zmeczenia (rest_days, tourney_minutes) z historii + {TARGET_YEAR}...")
+    full_target = pd.read_csv(data_file(TARGET_YEAR))
+    full_target["tourney_date"] = pd.to_datetime(full_target["tourney_date"], format="%Y%m%d")
+    full_target = full_target.sort_values(["tourney_date", "match_num"]).reset_index(drop=True)
+    full_target_base = full_target[cols_base + ["tourney_id", "minutes"]].dropna(subset=cols_base).reset_index(drop=True)
 
     n_train, n_val, n_test = len(df_train_raw), len(df_val_raw), len(df_test_raw)
-    assert len(full_2024_base) == n_train + n_val + n_test, (
-        f"Niespojnosc dlugosci 2024: {len(full_2024_base)} vs {n_train + n_val + n_test}"
+    assert len(full_target_base) == n_train + n_val + n_test, (
+        f"Niespojnosc dlugosci {TARGET_YEAR}: {len(full_target_base)} vs {n_train + n_val + n_test}"
     )
 
-    fatigue = compute_fatigue_for_2024(full_2024_base)
+    fatigue = compute_fatigue_for_2024(full_target_base)
     fat_train = fatigue.iloc[:n_train].reset_index(drop=True)
     fat_val = fatigue.iloc[n_train:n_train + n_val].reset_index(drop=True)
     fat_test = fatigue.iloc[n_train + n_val:].reset_index(drop=True)
