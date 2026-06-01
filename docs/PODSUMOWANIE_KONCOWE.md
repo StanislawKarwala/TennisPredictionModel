@@ -93,5 +93,25 @@ Historia (2001-2024) służy do liczenia CECH dynamicznych, ale model trenuje si
 - **zbiór treningowy boostingu nadal ~3500 próbek** → samo podpięcie danych 2001+ NIE rehabilituje XGBoost/HGB.
 - Żeby boosting dostał szansę: trzeba **wielo-sezonowego treningu** (trenuj 2001-2023 ≈ 130k próbek, waliduj 2024, testuj 2025). To osobna, większa zmiana architektury — TODO.
 
+## Sprint 6: wielo-sezonowy trening + boosting na dużych danych — ROZSTRZYGAJĄCE
+Plik `src/main_48_cech_multiseason.py`. Trening 2010-2023 (**72 582 próbki**, ~20× więcej), walidacja 2024, test = cały sezon 2025 (2647 meczów, CI ~±2 p.p.). Te same 40 cech, RandomizedSearchCV neg_log_loss.
+
+| model | test_match 2025 | Brier | log-loss | ECE |
+|---|---|---|---|---|
+| **RandomForest** | **0.6494** | 0.2187 | 0.6260 | 0.0163 |
+| HistGradBoost | 0.6460 | 0.2195 | 0.6283 | 0.0224 |
+| **XGBoost** | **0.6494** | **0.2179** | **0.6244** | 0.0212 |
+
+**Werdykt: boosting NIE pobił RF nawet na 20× większych danych.** XGBoost = RF co do accuracy (oba 64.94%), HGB −0.34 p.p. Hipoteza „więcej danych → boosting wygrywa" — OBALONA dla tego problemu.
+
+**Dlaczego (kluczowy wniosek całego projektu):** 3 różne algorytmy × zakres danych od 3.5k do 72k próbek → wszystkie lądują na **~65%**. To dowodzi, że ściana jest **w cechach/problemie, nie w algorytmie ani ilości danych**. Z cechami ranking/forma/serwis ~65% to twardy sufit dla pełnego sezonu ATP. (Modele wciąż wybierają zachowawcze HP — XGBoost max_depth=4, lr=0.03 — bo sygnał/szum w tenisie jest z natury niski: upsety się zdarzają.)
+
+**Jedyna różnica:** XGBoost ma odrobinę lepszą jakość prawdopodobieństw (Brier 0.2179, log-loss 0.6244) — gdyby celem był betting/kalibracja, XGBoost jest minimalnie lepszy. Dla accuracy: identycznie.
+
+Caveat: tuning był umiarkowany (n_iter 8-12, cv=3) z powodów obliczeniowych. Dokładniejszy tuning XGBoost mógłby wycisnąć ~0.5 p.p., ale skoro wszystkie 3 modele są na tym samym suficie, nie zmieni to wniosku.
+
+## OSTATECZNY WNIOSEK PROJEKTU
+Sufit ~65% match accuracy (pełny sezon ATP) jest **odporny na**: zmianę algorytmu (RF/HGB/XGBoost), 20× więcej danych, nowe cechy (surface_speed/fatigue/Elo). Wszystkie te dźwignie zostały przetestowane uczciwie (walk-forward / wielo-sezonowo) i żadna nie przebiła sufitu. Zgodne z literaturą: bez kursów bukmacherskich ~65-70% to realny zakres dla modeli feature-based. **Realna wartość projektu to rygor metodologiczny** (naprawiona metryka, walk-forward, uczciwe wyniki negatywne), nie pogoń za accuracy.
+
 ## Pliki eksperymentów (zostają jako dowód, NIE importowane do main)
 `main_48_cech_hgb.py` (Sprint 2), `main_48_cech_surface_speed.py` / `main_48_cech_fatigue.py` / `main_48_cech_enriched.py` / `main_48_cech_ewma_ablation.py` (Sprint 3), `main_48_cech_walkforward.py` / `main_48_cech_salvage.py` (Sprint 4).
