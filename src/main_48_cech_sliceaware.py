@@ -729,6 +729,35 @@ def attach_targeted_features(
     )
 
 
+def compute_symmetric_match_evaluation(test_data, threshold=0.5):
+    """Match-level evaluation laczaca OBIE perspektywy symetryzowanego meczu.
+
+    Kazdy mecz ma dwa wiersze o tym samym match_id: y==1 (p1=zwyciezca) i y==0
+    (p1=przegrany). Prawdopodobienstwo wygranej RZECZYWISTEGO zwyciezcy usredniamy:
+        z y==1: P_a = p1_win_probability       (p1 to zwyciezca)
+        z y==0: P_b = 1 - p1_win_probability   (zwyciezca jest jako p2)
+    winner_prob = (P_a + P_b) / 2; trafienie gdy winner_prob > threshold.
+    Spojne z baseline -- metryka odporna na arbitralny labeling p1/p2.
+    """
+    winner_view = test_data[test_data["y"] == 1][
+        ["match_id", "p1_name", "p2_name", "actual_winner", "p1_win_probability"]
+    ].copy()
+    loser_view = test_data[test_data["y"] == 0][["match_id", "p1_win_probability"]].rename(
+        columns={"p1_win_probability": "loser_view_p1_prob"}
+    )
+    merged = winner_view.merge(loser_view, on="match_id", validate="one_to_one")
+    merged["p1_win_probability"] = (
+        merged["p1_win_probability"] + (1.0 - merged["loser_view_p1_prob"])
+    ) / 2.0
+    merged = merged.drop(columns=["loser_view_p1_prob"])
+    merged["predicted_winner"] = np.where(
+        merged["p1_win_probability"] > threshold, merged["p1_name"], merged["p2_name"]
+    )
+    merged["correct_prediction"] = merged["p1_win_probability"] > threshold
+    accuracy = float(merged["correct_prediction"].mean())
+    return merged, accuracy
+
+
 def print_metric_delta(name: str, baseline_value: float, new_value: float) -> None:
     delta = new_value - baseline_value
     print(
@@ -837,13 +866,7 @@ def run_sliceaware_model() -> None:
     print()
 
     test_data["p1_win_probability"] = test_pred_proba[:, 1]
-    winner_perspective = test_data[test_data["y"] == 1].copy()
-    winner_perspective["predicted_winner"] = winner_perspective.apply(
-        lambda row: row["p1_name"] if row["p1_win_probability"] > 0.5 else row["p2_name"],
-        axis=1,
-    )
-    winner_perspective["correct_prediction"] = winner_perspective["p1_win_probability"] > 0.5
-    match_accuracy = float(winner_perspective["correct_prediction"].mean())
+    winner_perspective, match_accuracy = compute_symmetric_match_evaluation(test_data)
 
     print("=== MATCH-LEVEL ===")
     print(f"Accuracy przewidywania zwyciezcow: {match_accuracy:.4f} ({match_accuracy * 100:.2f}%)")

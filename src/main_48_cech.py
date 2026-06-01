@@ -60,7 +60,10 @@ cols_serve = ['w_ace', 'w_df', 'w_svpt', 'w_1stIn', 'w_1stWon', 'w_2ndWon',
               'l_ace', 'l_df', 'l_svpt', 'l_1stIn', 'l_1stWon', 'l_2ndWon',
               'l_SvGms', 'l_bpSaved', 'l_bpFaced']
 
-cols_base = ['surface', 'tourney_level', 'best_of', 'round',
+# tourney_date jest przenoszone jako METADANA (nie trafia do listy `features`),
+# zeby cechy dynamiczne (forma, serwis) mogly stosowac okno czasowe -- patrz
+# FORM_RECENCY_DAYS i add_dynamic_features.
+cols_base = ['tourney_date', 'surface', 'tourney_level', 'best_of', 'round',
              'winner_rank', 'winner_age', 'winner_ht', 'winner_hand', 'winner_rank_points',
              'loser_rank', 'loser_age', 'loser_ht', 'loser_hand', 'loser_rank_points',
              'winner_name', 'loser_name'] + cols_serve
@@ -264,6 +267,14 @@ SERVE_DEFAULTS = {
     'first_won_pct': 0.70, 'second_won_pct': 0.50,
     'bp_save_pct': 0.60, 'bp_faced_per_game': 0.40, 'return_pts_won': 0.35
 }
+
+# Okno czasowe dla cech "biezacych" (forma, forma nawierzchniowa, statystyki
+# serwisowe). Wczesniej tail(10) bralo 10 ostatnich meczow bez wzgledu na czas --
+# dla gracza po dlugiej kontuzji mecz sprzed kilku lat byl traktowany jak wczorajszy.
+# Po zmianie liczymy forme/serwis tylko z meczow rozegranych w ostatnich
+# FORM_RECENCY_DAYS dniach (a nastepnie tail(10) w obrebie tego okna).
+# H2H NIE jest ograniczane czasowo -- bilans bezposredni jest sensowny przez lata.
+FORM_RECENCY_DAYS = 365
 
 
 def calculate_serve_stats(player_name, history, window=10):
@@ -512,13 +523,19 @@ def add_dynamic_features(df_subset, historical_data):
         p_win_history = full_sequence.iloc[win_all[:win_end]]
         p_los_history = full_sequence.iloc[los_all[:los_end]]
 
+        # Okno czasowe: forma/serwis tylko z meczow z ostatnich FORM_RECENCY_DAYS
+        # dni (potem tail(10) w obrebie okna). H2H zostaje na pelnej historii.
+        recency_start = row['tourney_date'] - pd.Timedelta(days=FORM_RECENCY_DAYS)
+        p_win_recent = p_win_history[p_win_history['tourney_date'] >= recency_start]
+        p_los_recent = p_los_history[p_los_history['tourney_date'] >= recency_start]
+
         h2h_list.append(_h2h_from_p1_history(p_win, p_los, p_win_history))
-        w_form_list.append(_form_from_player_history(p_win, p_win_history))
-        l_form_list.append(_form_from_player_history(p_los, p_los_history))
-        w_sf_list.append(_surface_form_from_player_history(p_win, surface, p_win_history))
-        l_sf_list.append(_surface_form_from_player_history(p_los, surface, p_los_history))
-        w_serve_stats_list.append(_serve_stats_from_player_history(p_win, p_win_history))
-        l_serve_stats_list.append(_serve_stats_from_player_history(p_los, p_los_history))
+        w_form_list.append(_form_from_player_history(p_win, p_win_recent))
+        l_form_list.append(_form_from_player_history(p_los, p_los_recent))
+        w_sf_list.append(_surface_form_from_player_history(p_win, surface, p_win_recent))
+        l_sf_list.append(_surface_form_from_player_history(p_los, surface, p_los_recent))
+        w_serve_stats_list.append(_serve_stats_from_player_history(p_win, p_win_recent))
+        l_serve_stats_list.append(_serve_stats_from_player_history(p_los, p_los_recent))
 
     df_subset = df_subset.copy()
     df_subset['h2h_diff'] = h2h_list
@@ -780,12 +797,19 @@ param_dist = {
 rf = RandomForestClassifier(n_jobs=1, random_state=RANDOM_STATE)
 tscv = TimeSeriesSplit(n_splits=5)
 
+# Dobor hiperparametrow wg neg_log_loss zamiast accuracy. Zadanie jest
+# probabilistyczne (model zwraca prawdopodobienstwa, liczymy Brier/log-loss/ECE),
+# a accuracy jest progowa i szumowa przy wyborze HP -- dwa zestawy o tym samym
+# accuracy moga miec rozna jakosc prawdopodobienstw. log_loss premiuje modele
+# dobrze skalibrowane. Liczymy tez accuracy i roc_auc dla raportu (multi-metric),
+# ale refit (wybor finalnego modelu) idzie po neg_log_loss.
 search = RandomizedSearchCV(
     rf,
     param_dist,
     n_iter=50,
     cv=tscv,
-    scoring='accuracy',
+    scoring={'neg_log_loss': 'neg_log_loss', 'accuracy': 'accuracy', 'roc_auc': 'roc_auc'},
+    refit='neg_log_loss',
     n_jobs=-1,
     verbose=1,
     random_state=RANDOM_STATE
@@ -793,8 +817,15 @@ search = RandomizedSearchCV(
 
 search.fit(X_train_cv, y_train_cv)
 
+# best_score_ jest teraz w jednostkach neg_log_loss (wartosc ujemna, blizej 0 = lepiej).
+# CV accuracy wybranego modelu odczytujemy z cv_results_ pod best_index_.
+cv_neg_log_loss = float(search.best_score_)
+cv_accuracy = float(search.cv_results_['mean_test_accuracy'][search.best_index_])
+cv_roc_auc = float(search.cv_results_['mean_test_roc_auc'][search.best_index_])
+
 print(f"\nNajlepsze hiperparametry: {search.best_params_}")
-print(f"Najlepszy wynik CV (chronologiczny): {search.best_score_:.4f}")
+print(f"Najlepszy wynik CV: neg_log_loss={cv_neg_log_loss:.4f} | "
+      f"accuracy={cv_accuracy:.4f} | roc_auc={cv_roc_auc:.4f}")
 
 best_rf = search.best_estimator_
 best_rf.n_jobs = -1  # Przywrócenie pełnej równoległości dla finalnego treningu
@@ -849,8 +880,49 @@ print(confusion_matrix(y_test, test_pred))
 # ETAP 10. PREDYKCJA NA POZIOMIE MECZÓW
 # =============================================================================
 # Symetryzacja powoduje, że każdy mecz ma dwa wiersze w zbiorze testowym.
-# Aby uzyskać jedną predykcję na mecz, wybieramy unikalne mecze (po match_id)
-# i sprawdzamy, czy przewidziany zwycięzca zgadza się z rzeczywistym.
+# Aby uzyskać jedną predykcję na mecz, łączymy OBIE perspektywy symetryczne
+# tego samego meczu (po match_id) i uśredniamy prawdopodobieństwo wygranej
+# rzeczywistego zwycięzcy.
+
+def compute_symmetric_match_evaluation(test_data, threshold=0.5):
+    """Match-level evaluation laczaca OBIE perspektywy symetryzowanego meczu.
+
+    Kazdy mecz ma dwa wiersze o tym samym match_id: y==1 (p1=zwyciezca) oraz
+    y==0 (p1=przegrany). Prawdopodobienstwo wygranej RZECZYWISTEGO zwyciezcy
+    usredniamy z obu perspektyw:
+        z y==1: P_a = p1_win_probability       (p1 to zwyciezca)
+        z y==0: P_b = 1 - p1_win_probability   (zwyciezca jest jako p2)
+    winner_prob = (P_a + P_b) / 2; trafienie gdy winner_prob > threshold.
+
+    Wczesniejsza wersja liczyla accuracy tylko z perspektywy y==1, przez co
+    ignorowala lustrzany wiersz y==0 i mogla raportowac niespojny/zawyzony
+    wynik (to dlatego threshold tuning dawal nonsensowne ~93%). Ta metryka jest
+    odporna na arbitralny labeling p1/p2 i na niespojnosc modelu miedzy
+    perspektywami.
+
+    Zwraca (winner_perspective, accuracy); winner_perspective ma jeden wiersz
+    na mecz z kolumnami: match_id, p1_name (=zwyciezca), p2_name (=przegrany),
+    actual_winner, p1_win_probability (=usredniona proba zwyciezcy),
+    predicted_winner, correct_prediction.
+    """
+    winner_view = test_data[test_data["y"] == 1][
+        ["match_id", "p1_name", "p2_name", "actual_winner", "p1_win_probability"]
+    ].copy()
+    loser_view = test_data[test_data["y"] == 0][["match_id", "p1_win_probability"]].rename(
+        columns={"p1_win_probability": "loser_view_p1_prob"}
+    )
+    merged = winner_view.merge(loser_view, on="match_id", validate="one_to_one")
+    merged["p1_win_probability"] = (
+        merged["p1_win_probability"] + (1.0 - merged["loser_view_p1_prob"])
+    ) / 2.0
+    merged = merged.drop(columns=["loser_view_p1_prob"])
+    merged["predicted_winner"] = np.where(
+        merged["p1_win_probability"] > threshold, merged["p1_name"], merged["p2_name"]
+    )
+    merged["correct_prediction"] = merged["p1_win_probability"] > threshold
+    accuracy = float(merged["correct_prediction"].mean())
+    return merged, accuracy
+
 
 print("\n" + "="*50)
 print("=== PRZEWIDYWANIE ZWYCIĘZCÓW MECZÓW ===")
@@ -858,17 +930,8 @@ print("="*50)
 
 test_data['p1_win_probability'] = test_pred_proba[:, 1]
 
-# Ewaluacja na poziomie meczów: z każdej pary symetrycznej bierzemy perspektywę
-# zwycięzcy (y=1, gdzie p1 = rzeczywisty zwycięzca). Sprawdzamy, czy model
-# przypisał zwycięzcy prawdopodobieństwo > 0.5.
-# Ta metoda jest deterministyczna (nie zależy od kolejności po shuffle).
-winner_perspective = test_data[test_data['y'] == 1].copy()
-winner_perspective['predicted_winner'] = winner_perspective.apply(
-    lambda row: row['p1_name'] if row['p1_win_probability'] > 0.5 else row['p2_name'],
-    axis=1
-)
-winner_perspective['correct_prediction'] = winner_perspective['p1_win_probability'] > 0.5
-match_accuracy = winner_perspective['correct_prediction'].mean()
+# Ewaluacja na poziomie meczów -- symetryczna (obie perspektywy, deterministyczna).
+winner_perspective, match_accuracy = compute_symmetric_match_evaluation(test_data)
 
 print(f"\nACCURACY PRZEWIDYWANIA ZWYCIEZCOW: {match_accuracy:.4f} ({match_accuracy*100:.2f}%)")
 print(f"Poprawnie przewidziane: {int(winner_perspective['correct_prediction'].sum())} / {len(winner_perspective)} meczow")
@@ -935,7 +998,7 @@ print("\n" + "="*50)
 print("=== PODSUMOWANIE ===")
 print("="*50)
 print(f"Statystyki modelu:")
-print(f"CV Accuracy:         {search.best_score_:.4f}")
+print(f"CV Accuracy:         {cv_accuracy:.4f}  (CV neg_log_loss={cv_neg_log_loss:.4f})")
 print(f"Validation Accuracy: {val_acc:.4f}")
 print(f"Test Accuracy:       {test_acc:.4f}")
 print(f"Match Prediction:    {match_accuracy:.4f}")
@@ -982,12 +1045,11 @@ def select_match_level_threshold(val_data_with_probas, threshold_grid=THRESHOLD_
     trywialnie podbijalo "trafienia". To gaming evaluation, nie real prediction.
 
     Funkcja zwraca staly prog = 0.5 i match accuracy na walidacji dla porzadku
-    (zeby seed_stability_summary mial spojny dictionary).
+    (zeby seed_stability_summary mial spojny dictionary). Accuracy liczona
+    symetrycznie (obie perspektywy) -- spojnie z glowna metryka match_accuracy.
     """
-    winner_rows = val_data_with_probas[val_data_with_probas["y"] == 1]
-    probas = winner_rows["p1_win_probability"].to_numpy()
     threshold = 0.5
-    accuracy = float((probas > threshold).mean())
+    _, accuracy = compute_symmetric_match_evaluation(val_data_with_probas, threshold)
     return threshold, accuracy
 
 
@@ -1078,20 +1140,13 @@ def evaluate_calibration_quality(y_true, y_proba):
 
 
 def apply_match_level_threshold(test_data, threshold):
-    """Stosuje threshold do test setu i liczy match-level accuracy z perspektywy zwyciezcy.
+    """Stosuje threshold do test setu i liczy SYMETRYCZNA match-level accuracy.
 
-    Per docstring select_match_level_threshold, threshold dla symetryzowanych danych
-    musi wynosic 0.5 -- ale dopuszczamy parametr, zeby zewnetrzny caller mogl
-    eksperymentowac (np. symetryczna agregacja prob z obu perspektyw).
+    Deleguje do compute_symmetric_match_evaluation, dzieki czemu threshold tuning
+    operuje na tej samej (usrednionej z obu perspektyw) probie zwyciezcy co glowna
+    metryka match_accuracy.
     """
-    winner_perspective = test_data[test_data["y"] == 1].copy()
-    winner_perspective["predicted_winner"] = winner_perspective.apply(
-        lambda row: row["p1_name"] if row["p1_win_probability"] > threshold else row["p2_name"],
-        axis=1,
-    )
-    winner_perspective["correct_prediction"] = winner_perspective["p1_win_probability"] > threshold
-    accuracy = float(winner_perspective["correct_prediction"].mean())
-    return winner_perspective, accuracy
+    return compute_symmetric_match_evaluation(test_data, threshold)
 
 print("\n" + "="*70)
 print("=== KALIBRACJA, THRESHOLD TUNING I RELIABILITY DIAGRAM ===")

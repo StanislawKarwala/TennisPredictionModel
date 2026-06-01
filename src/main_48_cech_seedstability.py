@@ -56,9 +56,14 @@ def run_one_seed(seed: int) -> dict[str, float]:
         else:
             os.environ["TENNIS_RANDOM_STATE"] = original_seed
 
+    # cv_accuracy jest teraz eksportowane osobno przez main_48_cech.py, bo
+    # search.best_score_ to neg_log_loss (refit po log-loss, nie accuracy).
+    cv_accuracy = namespace.get("cv_accuracy")
+    if cv_accuracy is None:
+        cv_accuracy = float(namespace["search"].best_score_)
     result = {
         "seed": seed,
-        "cv_accuracy": float(namespace["search"].best_score_),
+        "cv_accuracy": float(cv_accuracy),
         "val_accuracy": float(namespace["val_acc"]),
         "test_accuracy": float(namespace["test_acc"]),
         "match_accuracy": float(namespace["match_accuracy"]),
