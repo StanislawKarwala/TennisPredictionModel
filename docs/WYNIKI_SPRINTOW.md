@@ -122,4 +122,70 @@ Plik `src/main_48_cech_ewma_ablation.py` (α=0.18, half-life ~3.5 meczu). Inkrem
 
 Model produkcyjny do walidacji w Sprint 4: **baseline + surface_speed + fatigue** (`main_48_cech_enriched.py`), match 63.05%.
 
-## Sprint 4 — walk-forward + ensemble (oczekuje)
+## Sprint 4 — walk-forward + ensemble ✅ (wynik KRYTYCZNY)
+
+### Walidacja walk-forward: pozorny zysk +2.03 p.p. NIE GENERALIZUJE
+Plik `src/main_48_cech_walkforward.py`. Baseline sparametryzowany przez `TENNIS_TARGET_YEAR`. Dla 4 lat docelowych: baseline vs enriched (surface_speed + fatigue) na tych samych meczach + test parowany McNemar.
+
+| Rok | n | baseline | enriched | delta |
+|---|---|---|---|---|
+| 2021 | 522 | 0.6724 | 0.6667 | **−0.57** |
+| 2022 | 547 | 0.6709 | 0.6728 | +0.18 |
+| 2023 | 561 | 0.6399 | 0.6257 | **−1.43** |
+| 2024 | 590 | 0.6102 | 0.6305 | +2.03 |
+| **POOLED** | **2220** | **0.6473** | **0.6482** | **+0.09** |
+
+**McNemar: b=59, c=61, z=0.09, p=0.93 → ZERO istotności.** Delta dodatnia tylko w 2/4 lat.
+
+**Walidacja maszynerii:** walk-forward dla 2024 daje +0.0203 — identycznie jak samodzielny eksperyment enriched. To dowód, że pipeline jest poprawny; +2.03 p.p. było realne DLA 2024, ale to był **szum jednego sezonu**.
+
+### ⚠️ NAJWAŻNIEJSZY WNIOSEK CAŁEGO CYKLU
+**Pozorny zysk +2.03 p.p. (surface speed + fatigue) okazał się szumem.** Na pojedynczym teście 2024 wyglądał świetnie i spójnie (val/test/match wszystkie w górę), ale walk-forward przez 4 sezony pokazał pooled +0.09 p.p. (zero) i p=0.93.
+
+To jest dokładnie powód, dla którego Sprint 4 był konieczny — i jest to **cenny wynik metodologiczny do pracy**: na małych zbiorach (~600 meczów/sezon, CI ±4 p.p.) pojedynczy test set potrafi pokazać przekonujący, ale nieprawdziwy zysk. Walk-forward / wieloletnia walidacja jest niezbędna.
+
+Baseline RF (~64.7% pooled match accuracy) jest prawdopodobnie blisko sufitu dla cech feature-based bez danych zewnętrznych (kursy, point-by-point).
+
+### Walidacja adwersaryjna (workflow, 4 agentów + sceptyk)
+Audyt metodologii: **walk-forward jest poprawny, 0 bugów** — agent uruchomił pipeline end-to-end i odtworzył wszystkie liczby co do cyfry (pooled delta = (c−b)/N = 2/2220 = +0.0009, McNemar z=0.09). Wniosek „cechy nie generalizują" w pełni uprawniony.
+
+### ⚠️ Naiwny baseline „wygrywa wyżej notowany" (kluczowy kontekst)
+| Rok | naive (rank) | RF baseline | przewaga RF |
+|---|---|---|---|
+| 2021 | 65.52% | 67.24% | +1.72 |
+| 2022 | 65.45% | 67.09% | +1.64 |
+| 2023 | 63.10% | 63.99% | +0.89 |
+| 2024 | 61.36% | 61.02% | **−0.34** |
+| **POOLED** | **63.78%** | **64.73%** | **+0.95** |
+
+Cały RF bije naiwny ranking o tylko **+0.95 p.p.** pooled — a w 2024 jest *gorszy* od rankingu. To tłumaczy „sukces" surface_speed w 2024 (odzyskiwał sygnał, który RF tracił względem rankingu). **Zmienność accuracy między latami (61-67%) wynika ze składu meczów (faworyci vs upsety), nie z cech** — co potwierdza analiza literaturowa.
+
+### Sufit literaturowy (zweryfikowany research)
+- Akademickie modele feature-based: **64-67%** (jesteśmy w paśmie).
+- Sufit bez kursów: **~70%** (surface-adjusted Elo, FiveThirtyEight).
+- Z kursami bukmacherskimi: **~72-76%** (implied probability).
+- Ponad ~65% podnoszą **TYLKO**: (a) implied prob z kursów, (b) surface-adjusted Elo. Kolejne cechy serwis/forma to ślepa uliczka — nasz p=0.93 zgadza się z konsensusem.
+- Liczby 75%+ z blogów dotyczą pojedynczych Grand Slamów (więcej faworytów), NIE pełnego sezonu.
+
+### Decyzja: co scalić do `main_48_cech.py`
+| Zmiana | typ | rekomendacja |
+|---|---|---|
+| A1 fix tournament_path | bugfix poprawności | **MERGE** (już scalone) |
+| A2 symetryczna metryka | bugfix poprawności | **MERGE** (już scalone) |
+| A3 okno 365 dni | korekta poprawności | **MERGE** (już scalone) |
+| C2 neg_log_loss refit | poprawne kryterium probabilistyczne | **MERGE z caveatem** (już scalone) |
+| Sprint 3 (surface/fatigue/EWMA) | nowe cechy, brak robust zysku | **zostaw jako eksperyment** (NIE importowane do main) |
+
+### Salvage (wąskie warianty) ✅ DEFINITYWNIE: brak sygnału
+Plik `src/main_48_cech_salvage.py`, log `logs/salvage_run.log`. Test 4 wariantów na identycznych meczach (parowanie) przez 4 lata.
+
+| Wariant | pooled delta | McNemar p | lata dodatnie |
+|---|---|---|---|
+| full (9 cech) | +0.0009 | 0.93 | 2/4 |
+| speed3 (3) | +0.0032 | 0.51 | 2/4 |
+| narrow2 (2) | **+0.0041** | 0.37 | 3/4 |
+| single1 (1) | +0.0023 | 0.64 | 2/4 |
+
+**Żaden wariant nie jest istotny statystycznie** (p > 0.37). Wąskie zestawy minimalnie lepsze od pełnego (potwierdza hipotezę „za dużo cech rozcieńcza"), ale nawet najlepszy (narrow2 = 2 interakcje serve×speed) daje +0.41 p.p. z p=0.37. Wszystkie warianty: ujemna korelacja delta-vs-baseline (−0.50 do −0.97) → „pomagają gdy baseline słaby", ale to regresja do średniej / artefakt 4 punktów, nie mechanizm (nie wiadomo z góry, który rok będzie trudny → niewykorzystywalne bez leakage).
+
+**Werdykt końcowy:** cechy surface_speed/fatigue — w żadnej konfiguracji — nie dają robust zysku. Zgodne z sufitem literaturowym.

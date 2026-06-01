@@ -78,10 +78,16 @@ def build_player_index(seq: pd.DataFrame) -> dict[str, list[int]]:
 
 def compute_fatigue_for_2024(
     df_2024_base: pd.DataFrame,
+    history_files=None,
 ) -> pd.DataFrame:
     """Zwraca ramke z kolumnami w_rest_days/l_rest_days/w_tourney_minutes/
-    l_tourney_minutes wyrownana 1:1 do df_2024_base (po pozycji)."""
-    history = pd.concat([load_fatigue_frame(p) for p in HISTORY_FILES], ignore_index=True)
+    l_tourney_minutes wyrownana 1:1 do df_2024_base (po pozycji).
+
+    history_files: None -> domyslne 2018-2023. Dla walk-forward przekazujemy
+    historie wlasciwa dla roku docelowego."""
+    if history_files is None:
+        history_files = HISTORY_FILES
+    history = pd.concat([load_fatigue_frame(p) for p in history_files], ignore_index=True)
     full_seq = pd.concat([history, df_2024_base[FATIGUE_COLS]], ignore_index=True)
     start_idx = len(history)
 

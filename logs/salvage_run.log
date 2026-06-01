@@ -1,0 +1,68 @@
+
+===== ROK 2021 =====
+  baseline=0.6724  (n_test_meczow=522)
+    full     (9 cech): 0.6667  delta=-0.0057
+    speed3   (3 cech): 0.6762  delta=+0.0038
+    narrow2  (2 cech): 0.6686  delta=-0.0038
+    single1  (1 cech): 0.6724  delta=+0.0000
+
+===== ROK 2022 =====
+  baseline=0.6709  (n_test_meczow=547)
+    full     (9 cech): 0.6728  delta=+0.0018
+    speed3   (3 cech): 0.6709  delta=+0.0000
+    narrow2  (2 cech): 0.6764  delta=+0.0055
+    single1  (1 cech): 0.6709  delta=+0.0000
+
+===== ROK 2023 =====
+  baseline=0.6399  (n_test_meczow=561)
+    full     (9 cech): 0.6257  delta=-0.0143
+    speed3   (3 cech): 0.6310  delta=-0.0089
+    narrow2  (2 cech): 0.6417  delta=+0.0018
+    single1  (1 cech): 0.6417  delta=+0.0018
+
+===== ROK 2024 =====
+  baseline=0.6102  (n_test_meczow=590)
+    full     (9 cech): 0.6305  delta=+0.0203
+    speed3   (3 cech): 0.6271  delta=+0.0169
+    narrow2  (2 cech): 0.6220  delta=+0.0119
+    single1  (1 cech): 0.6169  delta=+0.0068
+
+==============================================================================
+PODSUMOWANIE SALVAGE
+==============================================================================
+
+--- WARIANT: full (9 nowych cech) ---
+   2021: base=0.6724 var=0.6667 delta=-0.0057
+   2022: base=0.6709 var=0.6728 delta=+0.0018
+   2023: base=0.6399 var=0.6257 delta=-0.0143
+   2024: base=0.6102 var=0.6305 delta=+0.0203
+   POOLED: delta=+0.0009 (N=2220)  dodatnie 2/4 lat
+   McNemar: b=59 c=61 z=0.09 p=0.9273
+   corr(baseline_acc, delta) = -0.577  (ujemna => pomaga gdy baseline slaby)
+
+--- WARIANT: speed3 (3 nowych cech) ---
+   2021: base=0.6724 var=0.6762 delta=+0.0038
+   2022: base=0.6709 var=0.6709 delta=+0.0000
+   2023: base=0.6399 var=0.6310 delta=-0.0089
+   2024: base=0.6102 var=0.6271 delta=+0.0169
+   POOLED: delta=+0.0032 (N=2220)  dodatnie 2/4 lat
+   McNemar: b=38 c=45 z=0.66 p=0.5102
+   corr(baseline_acc, delta) = -0.504  (ujemna => pomaga gdy baseline slaby)
+
+--- WARIANT: narrow2 (2 nowych cech) ---
+   2021: base=0.6724 var=0.6686 delta=-0.0038
+   2022: base=0.6709 var=0.6764 delta=+0.0055
+   2023: base=0.6399 var=0.6417 delta=+0.0018
+   2024: base=0.6102 var=0.6220 delta=+0.0119
+   POOLED: delta=+0.0041 (N=2220)  dodatnie 3/4 lat
+   McNemar: b=36 c=45 z=0.89 p=0.3741
+   corr(baseline_acc, delta) = -0.748  (ujemna => pomaga gdy baseline slaby)
+
+--- WARIANT: single1 (1 nowych cech) ---
+   2021: base=0.6724 var=0.6724 delta=+0.0000
+   2022: base=0.6709 var=0.6709 delta=+0.0000
+   2023: base=0.6399 var=0.6417 delta=+0.0018
+   2024: base=0.6102 var=0.6169 delta=+0.0068
+   POOLED: delta=+0.0023 (N=2220)  dodatnie 2/4 lat
+   McNemar: b=33 c=38 z=0.47 p=0.6350
+   corr(baseline_acc, delta) = -0.965  (ujemna => pomaga gdy baseline slaby)

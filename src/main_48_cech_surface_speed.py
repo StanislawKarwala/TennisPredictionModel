@@ -69,16 +69,21 @@ def tourney_base(tourney_id: object) -> str:
     return YEAR_PREFIX.sub("", str(tourney_id))
 
 
-def build_court_pace_lookup() -> tuple[dict, dict, float, float]:
-    """Buduje indeks predkosci kortu z historii 2018-2023 (BEZ 2024).
+def build_court_pace_lookup(history_files=None) -> tuple[dict, dict, float, float]:
+    """Buduje indeks predkosci kortu z historii (BEZ roku docelowego).
+
+    history_files: lista plikow historii. None -> domyslne 2018-2023 (dla 2024).
+    Dla walk-forward (Sprint 4) przekazujemy historie wlasciwa dla roku docelowego.
 
     Zwraca:
       pace_by_tourney: dict[(tourney_base, surface)] -> surowy ace rate
       pace_by_surface: dict[surface] -> sredni ace rate (fallback)
       global_mean, global_std: do centrowania/skalowania (z historii)
     """
+    if history_files is None:
+        history_files = HISTORY_FILES
     parts = []
-    for path in HISTORY_FILES:
+    for path in history_files:
         df = pd.read_csv(path, usecols=["tourney_id", "surface", "w_ace", "l_ace", "w_svpt", "l_svpt"])
         parts.append(df)
     hist = pd.concat(parts, ignore_index=True)

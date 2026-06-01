@@ -43,6 +43,12 @@ DATA_DIR = BASE_DIR / "data" / "sample_data"
 OUTPUTS_DIR = BASE_DIR / "reports" / "outputs"
 OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
+# Rok docelowy (sezon ewaluowany) -- domyslnie 2024, nadpisywalny przez env dla
+# walidacji walk-forward (Sprint 4). Historia = wszystkie sezony od 2018 do roku
+# poprzedzajacego docelowy.
+TARGET_YEAR = int(os.environ.get("TENNIS_TARGET_YEAR", "2024"))
+HISTORY_YEARS = list(range(2018, TARGET_YEAR))
+
 
 # =============================================================================
 # ETAP 1. WCZYTANIE I PRZYGOTOWANIE DANYCH
@@ -51,7 +57,7 @@ OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 # Każdy wiersz opisuje jeden mecz z perspektywy zwycięzcy i przegranego.
 # Sortowanie chronologiczne jest kluczowe — model nie może „widzieć" przyszłości.
 
-df = pd.read_csv(DATA_DIR / "2024.csv")
+df = pd.read_csv(DATA_DIR / f"{TARGET_YEAR}.csv")
 df['tourney_date'] = pd.to_datetime(df['tourney_date'], format='%Y%m%d')
 df = df.sort_values(['tourney_date', 'match_num']).reset_index(drop=True)
 
@@ -89,7 +95,7 @@ df_base['loser_is_lefty'] = (df_base['loser_hand'] == 'L').astype(int)
 ROUND_ORDER = {'R128': 1, 'R64': 2, 'R32': 3, 'RR': 3, 'R16': 4, 'QF': 5, 'SF': 6, 'BR': 6, 'F': 7}
 df_base['round_encoded'] = df_base['round'].map(ROUND_ORDER).fillna(3)
 
-print(f"Dane główne (2024): {len(df_base)} meczów")
+print(f"Dane główne ({TARGET_YEAR}): {len(df_base)} meczów")
 
 
 # =============================================================================
@@ -101,7 +107,7 @@ print(f"Dane główne (2024): {len(df_base)} meczów")
 # cech dynamicznych. Im więcej historii, tym dokładniejsze oszacowania formy
 # i bilansu bezpośrednich spotkań (H2H), szczególnie dla rzadkich par graczy.
 
-history_files = [DATA_DIR / f"{year}.csv" for year in (2018, 2019, 2020, 2021, 2022, 2023)]
+history_files = [DATA_DIR / f"{year}.csv" for year in HISTORY_YEARS]
 history_parts = []
 
 for filepath in history_files:
