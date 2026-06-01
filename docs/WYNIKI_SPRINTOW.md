@@ -88,8 +88,18 @@ Plik `src/main_48_cech_fatigue.py`. rest_days (dni od ostatniego meczu, cap 60) 
 
 Wszystkie 3 metryki w górę spójnie. `tourney_minutes_diff` rank 27/46, `rest_days_diff` rank 33/46 — obie używane.
 
-### 3c. EWMA (recency weighting) — oczekuje
+### 3d. Model zbiorczy (surface_speed + fatigue) ✅ NAJLEPSZY (+2.03 p.p.)
+Plik `src/main_48_cech_enriched.py`. Łączy 3 cechy speed + 6 fatigue (bez bezużytecznego `is_indoor`).
 
-### 3d. Model zbiorczy (surface_speed + fatigue) — w toku
+| Model | val | test | **match** | Brier |
+|---|---|---|---|---|
+| baseline | 0.6297 | 0.6153 | 0.6102 | 0.2283 |
+| **+ speed + fatigue** | **0.6415** | **0.6280** | **0.6305** | **0.2256** |
+| DELTA | +1.19 | +1.27 | **+2.03 p.p.** | najlepszy |
+
+**Cechy sumują się częściowo** (osobno +1.69 i +1.36 → razem +2.03; nie pełne 3.05, bo sygnały częściowo się pokrywają). **Brak curse of dimensionality** (9 cech, w przeciwieństwie do 33 w nieudanym sliceaware). Najlepszy Brier ze wszystkich eksperymentów. To kandydat na nowy model produkcyjny — **wymaga walidacji w Sprint 4**.
+
+### 3c. EWMA (recency weighting) — DECYZJA: odłożone/opcjonalne
+Uzasadnienie: A3 (Sprint 1) już dodał twarde okno 365 dni, które rozwiązuje główny problem (stare mecze). EWMA to gładsza wersja tego samego — wysoki koszt (reimplementacja `add_dynamic_features`), niski marginalny zysk po A3. Status zależny od decyzji użytkownika.
 
 ## Sprint 4 — walk-forward + ensemble (oczekuje)
