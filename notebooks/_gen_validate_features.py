@@ -16,41 +16,41 @@ from pathlib import Path
 sys.path.insert(0, str(Path("../src").resolve()))"""
 
 cells = [
-("md", """# Eksperyment: Walidacja walk-forward zestawow cech (nowe dane 2020-2025)
+("md", """# Eksperyment: Walidacja walk-forward zestawów cech (nowe dane 2020-2025)
 
 ## Cel
-Domknac luki dowodowe: na **nowych danych** (sezony 2020-2025) sprawdzic, czy ktorykolwiek z
-czterech kandydujacych zestawow cech **przebija baseline** w sposob istotny statystycznie. Testujemy
+Domknąć luki dowodowe: na **nowych danych** (sezony 2020-2025) sprawdzić, czy którykolwiek z
+czterech kandydujących zestawów cech **przebija baseline** w sposób istotny statystycznie. Testujemy
 cztery zestawy doklejane do baseline:
 
 | zestaw | cech | co wnosi |
 |---|---|---|
-| `surface`  | 3 | `court_pace_index` + 2 interakcje serwis x predkosc kortu |
+| `surface`  | 3 | `court_pace_index` + 2 interakcje serwis x prędkość kortu |
 | `fatigue`  | 6 | `rest_days` + `tourney_minutes` (dni odpoczynku + minuty w turnieju) |
 | `enriched` | 9 | `surface` + `fatigue` razem |
 | `elo`      | 4 | `elo_diff`, `surface_elo_diff`, `elo_win_prob`, `surface_elo_win_prob` |
 
 ## Metoda (leakage-safe, czysta ablacja)
-- **Walk-forward** przez 6 sezonow (2020-2025): dla **kazdego** roku osobno trenujemy baseline na
-  jego wlasnych meczach (te same chronologiczne splity 60/20/20), a potem doklejamy zestaw cech.
-- Cechy liczone z historii wlasciwej dla danego roku (`2001..rok-1` dla Elo, `HISTORY_START_YEAR`
-  dla surface/fatigue) -- model nigdy nie widzi przyszlosci.
-- **Te same tuned hiperparametry** co baseline (`search.best_params_`) -- zmieniamy *wylacznie* cechy.
-- Parujemy wynik **mecz-po-meczu** (kto trafil) -> pooled delta + parowany test **McNemara**, bo
-  pojedynczy sezon potrafi sklamac."""),
+- **Walk-forward** przez 6 sezonów (2020-2025): dla **każdego** roku osobno trenujemy baseline na
+  jego własnych meczach (te same chronologiczne splity 60/20/20), a potem doklejamy zestaw cech.
+- Cechy liczone z historii właściwej dla danego roku (`2001..rok-1` dla Elo, `HISTORY_START_YEAR`
+  dla surface/fatigue) -- model nigdy nie widzi przyszłości.
+- **Te same tuned hiperparametry** co baseline (`search.best_params_`) -- zmieniamy *wyłącznie* cechy.
+- Parujemy wynik **mecz-po-meczu** (kto trafił) -> pooled delta + parowany test **McNemara**, bo
+  pojedynczy sezon potrafi skłamać."""),
 
 ("code", SETUP),
 
-("md", """## 1. Reuse modulu walidacyjnego
+("md", """## 1. Reuse modułu walidacyjnego
 Importujemy gotowe funkcje z `tennis_model_validate_features.py` -- nie duplikujemy logiki, tylko
-narratujemy wokol niej. Kluczowe elementy:
+narratujemy wokół niej. Kluczowe elementy:
 - `run_baseline(year)` -- odpala (cicho, z cache) `tennis_model.py` dla danego roku i zwraca jego
   namespace (splity, tuned HP, funkcje pomocnicze, wynik baseline).
-- `build_context(ns, year)` -- liczy per-match kontekst (court pace + fatigue + Elo) wyrownany do
-  splitow baseline.
+- `build_context(ns, year)` -- liczy per-match kontekst (court pace + fatigue + Elo) wyrównany do
+  splitów baseline.
 - `eval_featureset(ns, {"ctx": ctx}, feature_list)` -- trenuje RF na `baseline + feature_list`
   i zwraca (winner-perspective `correct_prediction`, match accuracy).
-- `mcnemar(b, c)` -- parowany test istotnosci."""),
+- `mcnemar(b, c)` -- parowany test istotności."""),
 
 ("code", """import os
 import numpy as np
@@ -70,15 +70,15 @@ SETS = {
 }
 
 print(f"Sezony walk-forward: {TARGET_YEARS}")
-print(f"Historia cech zaczyna sie w: {HISTORY_START_YEAR}")
-print("\\nZestawy cech testowane na kazdym roku:")
+print(f"Historia cech zaczyna się w: {HISTORY_START_YEAR}")
+print("\\nZestawy cech testowane na każdym roku:")
 for name, feats in SETS.items():
     print(f"  {name:<10} ({len(feats)} cech): {feats}")"""),
 
 ("md", """## 2. Narracyjne demo: jeden sezon (2025)
-Zanim odpalimy pelna petle 6 sezonow, rozbierzmy jeden rok na czynniki pierwsze. Bierzemy 2025:
-liczymy baseline, budujemy kontekst (court pace + fatigue + Elo), pokazujemy probke kontekstu, a potem
-ewaluujemy kazdy zestaw cech i porownujemy match accuracy z baseline."""),
+Zanim odpalimy pełną pętlę 6 sezonów, rozbierzmy jeden rok na czynniki pierwsze. Bierzemy 2025:
+liczymy baseline, budujemy kontekst (court pace + fatigue + Elo), pokazujemy próbkę kontekstu, a potem
+ewaluujemy każdy zestaw cech i porównujemy match accuracy z baseline."""),
 
 ("code", """DEMO_YEAR = 2025
 ns_demo = run_baseline(DEMO_YEAR)                       # runpy tennis_model.py (cicho, cache)
@@ -90,15 +90,15 @@ print(f"Baseline {DEMO_YEAR}: match={base_match_demo:.4f}  |  split train/val/te
 print(f"Cech baseline: {len(ns_demo['features'])}   |   tuned HP: {ns_demo['search'].best_params_}")"""),
 
 ("md", """### 2a. Budujemy kontekst (court pace + fatigue + Elo)
-`build_context` zwraca `(full_base, ctx)`, gdzie `ctx` ma jeden wiersz per mecz wyrownany pozycyjnie
-do splitow baseline: `court_pace_index`, `w_/l_rest_days`, `w_/l_tourney_minutes` oraz cztery kolumny
-Elo (`w_elo`, `l_elo`, `w_surface_elo`, `l_surface_elo`). Pokazmy probke i podstawowe statystyki."""),
+`build_context` zwraca `(full_base, ctx)`, gdzie `ctx` ma jeden wiersz per mecz wyrównany pozycyjnie
+do splitów baseline: `court_pace_index`, `w_/l_rest_days`, `w_/l_tourney_minutes` oraz cztery kolumny
+Elo (`w_elo`, `l_elo`, `w_surface_elo`, `l_surface_elo`). Pokażmy próbkę i podstawowe statystyki."""),
 
 ("code", """full_base_demo, ctx_demo = build_context(ns_demo, DEMO_YEAR)
-assert len(ctx_demo) == n_tr + n_va + n_te, "Niespojnosc dlugosci kontekstu vs baseline"
+assert len(ctx_demo) == n_tr + n_va + n_te, "Niespójność długości kontekstu vs baseline"
 
 print(f"Kontekst: {len(ctx_demo)} wierszy  |  kolumny: {list(ctx_demo.columns)}")
-print("\\nProbka (pierwsze 5 meczow):")
+print("\\nPróbka (pierwsze 5 meczów):")
 print(ctx_demo.head().to_string(index=False, float_format=lambda x: f"{x:.2f}"))
 
 print("\\nStatystyki wybranych kolumn kontekstu:")
@@ -106,10 +106,10 @@ print(ctx_demo[["court_pace_index", "w_rest_days", "w_tourney_minutes", "w_elo"]
       .describe().loc[["mean", "std", "min", "max"]]
       .to_string(float_format=lambda x: f"{x:.2f}"))"""),
 
-("md", """### 2b. Ewaluacja kazdego zestawu cech dla 2025
-Dla kazdego zestawu trenujemy RF z **tymi samymi** HP co baseline (roznica = tylko dodane cechy) i
-porownujemy match accuracy. To pojedynczy sezon -- pokaze kierunek, ale o istotnosci zdecyduje dopiero
-pelna petla walk-forward."""),
+("md", """### 2b. Ewaluacja każdego zestawu cech dla 2025
+Dla każdego zestawu trenujemy RF z **tymi samymi** HP co baseline (różnica = tylko dodane cechy) i
+porównujemy match accuracy. To pojedynczy sezon -- pokaże kierunek, ale o istotności zdecyduje dopiero
+pełna pętla walk-forward."""),
 
 ("code", """print(f"baseline {DEMO_YEAR}: match={base_match_demo:.4f}\\n")
 for name, feats in SETS.items():
@@ -120,14 +120,14 @@ for name, feats in SETS.items():
     print(f"  {name:<10} match={match:.4f}  delta={match - base_match_demo:+.4f}  "
           f"(zmienione: baseline-only b={b}, wariant-only c={c})")"""),
 
-("md", """## 3. Pelna walidacja walk-forward 2020-2025
-Teraz uczciwy bieg przez wszystkie sezony. Dla **kazdego** roku:
+("md", """## 3. Pełna walidacja walk-forward 2020-2025
+Teraz uczciwy bieg przez wszystkie sezony. Dla **każdego** roku:
 1. liczymy baseline (`run_baseline`) i jego per-mecz trafienia,
 2. budujemy kontekst (`build_context`),
-3. dla kazdego z czterech zestawow trenujemy `baseline + zestaw` i parujemy mecz-po-meczu z baseline.
+3. dla każdego z czterech zestawów trenujemy `baseline + zestaw` i parujemy mecz-po-meczu z baseline.
 
-To dlugi bieg -- 6x pelny baseline + 4 modele per rok. Zbieramy per-rok delty oraz globalne pary
-(baseline trafil / wariant trafil) do pozniejszego McNemara."""),
+To długi bieg -- 6x pełny baseline + 4 modele per rok. Zbieramy per-rok delty oraz globalne pary
+(baseline trafił / wariant trafił) do późniejszego McNemara."""),
 
 ("code", """pairs = {k: [] for k in SETS}
 per_year = {k: [] for k in SETS}
@@ -149,12 +149,12 @@ for year in TARGET_YEARS:
         print(f"    {name:<10} match={match:.4f}  delta={match - base_match:+.4f}", flush=True)
 
 os.environ.pop("TENNIS_TARGET_YEAR", None)
-print("\\nWalk-forward zakonczony.")"""),
+print("\\nWalk-forward zakończony.")"""),
 
 ("md", """## 4. Tabele per-rok + pooled delta + McNemar
-Dla kazdego zestawu skladamy tabele sezon-po-sezonie, liczymy **pooled** match accuracy na wszystkich
-sparowanych meczach i parowany test McNemara. `b` = mecze, ktore trafil tylko baseline; `c` = mecze,
-ktore trafil tylko wariant. Istotnosc na korzysc cechy wymaga `p<0.05` przy `c>b`."""),
+Dla każdego zestawu składamy tabele sezon-po-sezonie, liczymy **pooled** match accuracy na wszystkich
+sparowanych meczach i parowany test McNemara. `b` = mecze, które trafił tylko baseline; `c` = mecze,
+które trafił tylko wariant. Istotność na korzyść cechy wymaga `p<0.05` przy `c>b`."""),
 
 ("code", """summary = []
 for name in SETS:
@@ -164,7 +164,7 @@ for name in SETS:
     z, p = mcnemar(b, c)
     pos = int((df["delta"] > 0).sum())
     sig = ("ISTOTNE" if (p < 0.05 and c > b)
-           else ("ISTOTNE-na-niekorzysc" if p < 0.05 else "brak istotnosci"))
+           else ("ISTOTNE-na-niekorzyść" if p < 0.05 else "brak istotności"))
     print("\\n" + "=" * 74)
     print(f"--- {name} ({len(SETS[name])} cech) ---")
     print(df.to_string(index=False, float_format=lambda x: f"{x:.4f}"))
@@ -181,23 +181,16 @@ print("=" * 74)
 print(pd.DataFrame(summary).to_string(index=False, float_format=lambda x: f"{x:.4f}"))"""),
 
 ("md", """## Wnioski
-Walk-forward 2020-2025 (**N=3022** sparowanych meczow, baseline pooled = **0.6463**) daje twardy,
-spojny werdykt -- zaden zestaw cech nie przebija baseline w sposob istotny statystycznie:
+Walidacja przez 6 sezonów (2020–2025, ~3000 meczów, baseline 0,6463) daje spójny obraz — żaden zestaw cech nie przebija baseline w sposób istotny:
 
-| zestaw | pooled delta | McNemar p | werdykt |
-|---|---|---|---|
-| `surface`  | **+0.0060** | p=0.105 | nieistotne |
-| `fatigue`  | **+0.0003** | p=1.000 | nieistotne |
-| `enriched` | **+0.0020** | p=0.656 | nieistotne |
-| `elo`      | **+0.0076** | p=0.173 | nieistotne |
+| zestaw cech | poprawa | McNemar p |
+|---|---|---|
+| prędkość kortu | +0,60 p.p. | 0,105 |
+| zmęczenie | +0,03 p.p. | 1,000 |
+| prędkość + zmęczenie | +0,20 p.p. | 0,656 |
+| Elo | +0,76 p.p. | 0,173 |
 
-Wszystkie delty sa male (najwiekszy `elo` to ~+0.8 p.p.) i **nieistotne** (p>0.05). To komplet dowodow,
-ze **zadna z badanych cech nie przebija baseline** na nowych danych -- ani predkosc kortu, ani zmeczenie,
-ani ich polaczenie, ani surface-adjusted Elo.
-
-Wniosek spojny z glownym wnioskiem projektu: **~65% to sufit dla cech feature-based**, odporny na
-kolejne sygnaly tego typu. Baseline (ranking ATP + forma) juz miesci to, co nowe cechy probuja wniesc,
-wiec dokladanie ich daje sygnal **redundantny**, a nie addytywny."""),
+Wszystkie poprawy są małe i nieistotne (p > 0,05). Powód jest prosty: ranking ATP i forma, które model już ma, mieszczą w sobie większość tego, co te cechy próbują wnieść — więc dokładanie ich powtarza istniejący sygnał, zamiast dodać nowy. To znów ten sam **sufit ~65%**."""),
 ]
 
 make_and_run("TPM_Experiment_ValidateFeatures.ipynb", cells, timeout=5400)

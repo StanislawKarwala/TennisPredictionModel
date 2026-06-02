@@ -14,7 +14,7 @@ lepiej pasuje do zadania prawdopodobieństwowego.
 
 Następnie **sprawdziłem, czy inny algorytm pomoże**. Zamiast lasu losowego
 (Random Forest) przetestowałem gradient boosting — XGBoost i HistGradientBoosting.
-Nie pobiły lasu losowego ani na małych, ani później na dużych danych.
+Na małych danych wyszły mniej więcej na remis z lasem, a na dużych (~123 tys. próbek, trening 2001–2023) różnice nadal mieściły się w granicach szumu — XGBoost był minimalnie z przodu, a HistGradientBoosting najsłabszy. Żaden nie pobił lasu w sposób istotny, więc został on modelem głównym.
 
 Potem **dodałem nowe cechy**, o których teoria mówi, że powinny pomóc: prędkość
 kortu (na szybkim korcie mocny serwis daje większą przewagę), zmęczenie gracza

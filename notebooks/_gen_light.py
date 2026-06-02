@@ -32,28 +32,28 @@ assert len(full_target_base) == n_train + n_val + n_test"""
 
 # ===================== FATIGUE =====================
 fatigue_cells = [
-("md", """# Eksperyment: Cechy zmeczenia / Fatigue (Sprint 3b)
+("md", """# Eksperyment: Cechy zmęczenia / Fatigue (Sprint 3b)
 
 ## Cel
-Czy uwzglednienie zmeczenia gracza poprawia predykcje? Dwie nowe cechy (liczone bez leakage,
+Czy uwzględnienie zmęczenia gracza poprawia predykcje? Dwie nowe cechy (liczone bez leakage,
 z chronologicznego indeksu): **rest_days** (dni od ostatniego meczu, cap 60) oraz
-**tourney_minutes** (minuty zagrane w biezacym turnieju -- skumulowane przez wczesniejsze rundy).
-Symetryzowane do p1/p2 + roznice. Te same tuned HP co baseline (ablation)."""),
+**tourney_minutes** (minuty zagrane w bieżącym turnieju -- skumulowane przez wcześniejsze rundy).
+Symetryzowane do p1/p2 + różnice. Te same tuned HP co baseline (ablation)."""),
 ("code", IMPORTS + """
 from tennis_model_fatigue import compute_fatigue_for_2024, NEW_FEATURES, data_file, TARGET_YEAR, HISTORY_START_YEAR
 print("Rok docelowy:", TARGET_YEAR, "| nowe cechy:", NEW_FEATURES)"""),
 ("md", "## 1. Reuse baseline pipeline"),
 ("code", BASELINE),
-("md", """## 2. Liczenie cech zmeczenia (leakage-safe)
-`compute_fatigue_for_2024` przetwarza historie + rok docelowy chronologicznie i dla kazdego meczu
-liczy rest_days oraz tourney_minutes ze SCISLE wczesniejszych meczow (indeks + bisect)."""),
+("md", """## 2. Liczenie cech zmęczenia (leakage-safe)
+`compute_fatigue_for_2024` przetwarza historię + rok docelowy chronologicznie i dla każdego meczu
+liczy rest_days oraz tourney_minutes ze ŚCIŚLE wcześniejszych meczów (indeks + bisect)."""),
 ("code", LOAD_TARGET + """
 fatigue = compute_fatigue_for_2024(full_target_base)
 fat_train = fatigue.iloc[:n_train].reset_index(drop=True)
 fat_val = fatigue.iloc[n_train:n_train + n_val].reset_index(drop=True)
 fat_test = fatigue.iloc[n_train + n_val:].reset_index(drop=True)
 print(fatigue.describe().round(1).to_string())"""),
-("md", "## 3. Doklejenie + symetryzacja (w_/l_ -> p1_/p2_) + roznice"),
+("md", "## 3. Doklejenie + symetryzacja (w_/l_ -> p1_/p2_) + różnice"),
 ("code", """def attach(df_raw, fat):
     df_raw = df_raw.copy().reset_index(drop=True)
     for col in ("w_rest_days", "l_rest_days", "w_tourney_minutes", "l_tourney_minutes"):
@@ -90,9 +90,7 @@ print(f"+fatigue       match={match_acc:.4f}  Brier={q['brier_score']:.4f}  DELT
 for f in NEW_FEATURES:
     r = imp[imp.feature == f].iloc[0]; print(f"  {f:<22} rank {int(r['rank']):>2}/{len(features)}")"""),
 ("md", """## Wnioski
-Na pojedynczym sezonie cechy zmeczenia praktycznie nie ruszaja accuracy. **Pelna walidacja
-walk-forward (4 sezony): pooled +0.22 p.p., McNemar p = 0.65 -- nieistotne.** Cechy sa uzywane
-przez model, ale przewaga nie utrzymuje sie -- mieszci sie w szumie."""),
+Cechy zmęczenia (dni odpoczynku, minuty na korcie) praktycznie nie ruszają trafności. Na walidacji przez 6 sezonów wychodzi +0,03 p.p. (McNemar p = 1,0). Model z nich korzysta, ale przewaga się nie utrzymuje — mieści się w szumie."""),
 ]
 
 # ===================== ENRICHED =====================
@@ -100,8 +98,8 @@ enriched_cells = [
 ("md", """# Eksperyment: Model zbiorczy / Enriched (Sprint 3d)
 
 ## Cel
-Polaczyc dwa wygrywajace (na pojedynczym tescie) zestawy cech: **surface_speed (3) + fatigue (6)**.
-Pytanie: czy zyski sie sumuja, czy uderza nadmiar cech (curse of dimensionality)?"""),
+Połączyć dwa wygrywające (na pojedynczym teście) zestawy cech: **surface_speed (3) + fatigue (6)**.
+Pytanie: czy zyski się sumują, czy uderza nadmiar cech (curse of dimensionality)?"""),
 ("code", IMPORTS + """
 from tennis_model_surface_speed import build_court_pace_lookup, court_pace_index
 from tennis_model_fatigue import compute_fatigue_for_2024
@@ -109,7 +107,7 @@ from tennis_model_enriched import SPEED_FEATURES, FATIGUE_FEATURES, NEW_FEATURES
 print("Nowe cechy:", len(NEW_FEATURES), "=", len(SPEED_FEATURES), "speed +", len(FATIGUE_FEATURES), "fatigue")"""),
 ("md", "## 1. Reuse baseline pipeline"),
 ("code", BASELINE),
-("md", "## 2. Budowa kontekstu: court_pace + fatigue (wyrownane do roku docelowego)"),
+("md", "## 2. Budowa kontekstu: court_pace + fatigue (wyrównane do roku docelowego)"),
 ("code", LOAD_TARGET + """
 lookup = build_court_pace_lookup()
 cpi = np.array([court_pace_index(t, s, lookup) for t, s in zip(full_target_base["tourney_id"], full_target_base["surface"])])
@@ -149,9 +147,7 @@ _,match_acc=compute_symmetric_match_evaluation(test_data); q=evaluate_calibratio
 print(f"baseline           match={baseline_match_acc:.4f}")
 print(f"+speed+fatigue     match={match_acc:.4f}  Brier={q['brier_score']:.4f}  DELTA={match_acc-baseline_match_acc:+.4f}")"""),
 ("md", """## Wnioski
-Na pojedynczym sezonie cechy nie sumuja sie do istotnego zysku. **Pelna walidacja walk-forward
-(4 sezony): pooled +0.31 p.p., McNemar p = 0.54 -- nieistotne.** Brak efektu nadmiaru cech, ale tez
-brak robust zysku. Potwierdza sufit ~65%."""),
+Połączenie prędkości kortu i zmęczenia (9 cech naraz) nie sumuje się do realnego zysku. Na walidacji przez 6 sezonów wychodzi +0,20 p.p. (McNemar p = 0,66), czyli nieistotnie. Dobra wiadomość jest taka, że dołożenie tylu cech niczego nie psuje — ale też nic nie wnosi. Znów ten sam sufit ~65%."""),
 ]
 
 # ===================== EWMA =====================
@@ -159,8 +155,8 @@ ewma_cells = [
 ("md", """# Eksperyment: EWMA / recency weighting (Sprint 3c)
 
 ## Cel
-Zamiast prostej sredniej z 10 ostatnich meczow (SMA) uzyc **wykladniczego wazenia** -- starsze mecze
-maleja gladko (alpha=0.18, half-life ~3.5 meczu). Nadpisujemy cechy formy i serwisu (te same nazwy),
+Zamiast prostej średniej z 10 ostatnich meczów (SMA) użyć **wykładniczego ważenia** -- starsze mecze
+maleją gładko (alpha=0.18, half-life ~3.5 meczu). Nadpisujemy cechy formy i serwisu (te same nazwy),
 nie dodajemy nowych. To zmiana REPREZENTACJI cech."""),
 ("code", IMPORTS + """
 from tennis_model_ewma_ablation import compute_ewma_features, OVERWRITE_COLS, ALPHA, data_file, TARGET_YEAR, HISTORY_START_YEAR
@@ -169,8 +165,8 @@ print("alpha:", ALPHA, "| nadpisywane kolumny:", len(OVERWRITE_COLS))"""),
 ("code", BASELINE + """
 features = base_features"""),
 ("md", """## 2. Liczenie cech EWMA z chronologii (leakage-safe)
-`compute_ewma_features` przetwarza historie + rok docelowy incrementalnie, utrzymujac stan EWMA
-per gracz, i zapisuje pre-match wartosci (forma/serwis/surface_form)."""),
+`compute_ewma_features` przetwarza historię + rok docelowy incrementalnie, utrzymując stan EWMA
+per gracz, i zapisuje pre-match wartości (forma/serwis/surface_form)."""),
 ("code", """full_target = pd.read_csv(data_file(TARGET_YEAR))
 full_target["tourney_date"] = pd.to_datetime(full_target["tourney_date"], format="%Y%m%d")
 full_target = full_target.sort_values(["tourney_date","match_num"]).reset_index(drop=True)
@@ -196,9 +192,7 @@ print(f"baseline (SMA)  val={baseline_val_acc:.4f}  test={baseline_test_acc:.4f}
 print(f"EWMA            val={val_acc:.4f}  test={test_acc:.4f}  match={match_acc:.4f}  Brier={q['brier_score']:.4f}")
 print(f"DELTA match: {match_acc-baseline_match_acc:+.4f}")"""),
 ("md", """## Wnioski
-EWMA daje **niespojny** wynik: val potrafi wzrosnac, ale test/match prawie sie nie zmieniaja. Powod:
-po Sprincie 1 baseline ma juz twarde okno 365 dni, ktore wychwytuje wiekszosc zysku z recency.
-Wniosek: EWMA nie poprawia modelu w sposob istotny."""),
+EWMA dało niespójny wynik — walidacja czasem rośnie, ale na teście i match accuracy prawie nic się nie zmienia. Powód jest prosty: baseline ma już okno 365 dni, które i tak wyłapuje większość tego, co daje ważenie świeższych meczów. Czyli ważenie wykładnicze nie poprawia modelu w istotny sposób."""),
 ]
 
 # ===================== HGB =====================
@@ -206,14 +200,14 @@ hgb_cells = [
 ("md", """# Eksperyment: HistGradientBoosting vs Random Forest (Sprint 2)
 
 ## Cel
-Sprawdzic, czy gradient boosting (HistGradientBoosting z sklearn) pobije Random Forest na tych
+Sprawdzić, czy gradient boosting (HistGradientBoosting z sklearn) pobije Random Forest na tych
 samych cechach i danych. Dwa warianty HGB: numeryczny (jak RF) oraz z **natywnymi kategoriami**
-(surface/tourney_level jako nominalne -- glowna przewaga HGB)."""),
+(surface/tourney_level jako nominalne -- główna przewaga HGB)."""),
 ("code", IMPORTS + """
 from sklearn.ensemble import HistGradientBoostingClassifier
 from tennis_model_hgb import tune_and_eval_hgb, print_row"""),
-("md", """## 1. Reuse baseline pipeline (RF juz policzony)
-Baseline zwraca gotowy RF + dane CV i test. Liczymy jakosc prawdopodobienstw RF do porownania."""),
+("md", """## 1. Reuse baseline pipeline (RF już policzony)
+Baseline zwraca gotowy RF + dane CV i test. Liczymy jakość prawdopodobieństw RF do porównania."""),
 ("code", BASELINE + """
 features = base_features
 X_train_cv, y_train_cv = ns["X_train_cv"], ns["y_train_cv"]
@@ -224,7 +218,7 @@ rf_proba = best_rf.predict_proba(X_test)[:, 1]
 rf_q = evaluate_calibration_quality(y_test.to_numpy(), rf_proba)
 print(f"RF: match={baseline_match_acc:.4f}  Brier={rf_q['brier_score']:.4f}")"""),
 ("md", """## 2. Strojenie HGB (RandomizedSearchCV, neg_log_loss) -- dwa warianty
-`tune_and_eval_hgb` stroi HGB na TimeSeriesSplit i ocenia val/test/match + kalibracje."""),
+`tune_and_eval_hgb` stroi HGB na TimeSeriesSplit i ocenia val/test/match + kalibrację."""),
 ("code", """common = dict(features=features, X_train_cv=X_train_cv, y_train_cv=y_train_cv, df_train_raw=df_train_raw,
     symmetrize_data=symmetrize_data, X_val=X_val, y_val=y_val, X_test=X_test, y_test=y_test, test_data=test_data,
     compute_symmetric_match_evaluation=compute_symmetric_match_evaluation,
@@ -233,7 +227,7 @@ hgb_num = tune_and_eval_hgb(label="HGB (numeric)", categorical_features=None, **
 cat_cols = [c for c in ("surface", "tourney_level") if c in features]
 hgb_cat = tune_and_eval_hgb(label="HGB (kategorie)", categorical_features=cat_cols, **common)
 print("gotowe")"""),
-("md", "## 3. Porownanie RF vs HGB"),
+("md", "## 3. Porównanie RF vs HGB"),
 ("code", """print(f"{'model':<16}{'val':>9}{'test':>9}{'match':>9}{'Brier':>9}{'logloss':>9}")
 print(f"{'RandomForest':<16}{baseline_val_acc:>9.4f}{baseline_test_acc:>9.4f}{baseline_match_acc:>9.4f}{rf_q['brier_score']:>9.4f}{rf_q['log_loss']:>9.4f}")
 for r in (hgb_num, hgb_cat):
@@ -241,10 +235,7 @@ for r in (hgb_num, hgb_cat):
 for r in (hgb_num, hgb_cat):
     print(f"DELTA ({r['label']} - RF): match={r['match_acc']-baseline_match_acc:+.4f}")"""),
 ("md", """## Wnioski
-HGB **nie pobil** RF na accuracy (remis lub minimalnie gorzej), a kalibracja byla gorsza.
-HGB wybral mocno regularyzowane hiperparametry -- przy ~3500 probkach treningowych za malo danych,
-by boosting rozwinal przewage. Wniosek: zostajemy przy Random Forest. (Patrz tez notebook
-`multiseason`, gdzie test powtorzono na ~130k probek -- nadal ~65%.)"""),
+HistGradientBoosting wyszedł mniej więcej na równi z Random Forest — raz odrobinę gorzej, raz odrobinę lepiej, wszystko w granicach szumu — a kalibrację miał słabszą. Przy około 3500 meczach treningowych boosting nie ma z czego rozwinąć przewagi i wybiera mocno regularyzowane ustawienia. Dlatego zostaję przy Random Forest. Ten sam test powtórzyłem na dużo większym zbiorze (notebook multiseason, ~123 tys. próbek) — wynik dalej ~65%."""),
 ]
 
 for name, cells in [
@@ -256,4 +247,4 @@ for name, cells in [
     try:
         make_and_run(name, cells, timeout=1800)
     except Exception as e:
-        print(f"[BLAD] {name}: {type(e).__name__}: {e}")
+        print(f"[BŁĄD] {name}: {type(e).__name__}: {e}")

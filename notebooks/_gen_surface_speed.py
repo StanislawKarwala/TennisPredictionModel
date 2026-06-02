@@ -4,14 +4,14 @@ cells = [
 ("md", """# Eksperyment: Surface Speed Index (Sprint 3a)
 
 ## Cel
-Sprawdzic pomysl: **szybszy kort faworyzuje graczy z mocniejszym serwem.** Dodajemy
-do baseline (`tennis_model.py`) trzy nowe cechy i sprawdzamy, czy poprawiaja match accuracy.
+Sprawdzić pomysł: **szybszy kort faworyzuje graczy z mocniejszym serwem.** Dodajemy
+do baseline (`tennis_model.py`) trzy nowe cechy i sprawdzamy, czy poprawiają match accuracy.
 
 ## Metoda (leakage-safe)
-- `court_pace_index` -- proxy predkosci kortu liczony WYLACZNIE z historii (sezony przed
-  rokiem docelowym), wiec rok testowy nie wplywa na ceche.
-- Interakcje **serve x speed**: roznica sily serwisu razy predkosc kortu (na szybkim korcie
-  przewaga serwisu rosnie). To one niosa wartosc.
+- `court_pace_index` -- proxy prędkości kortu liczony WYŁĄCZNIE z historii (sezony przed
+  rokiem docelowym), więc rok testowy nie wpływa na cechę.
+- Interakcje **serve x speed**: różnica siły serwisu razy prędkość kortu (na szybkim korcie
+  przewaga serwisu rośnie). To one niosą wartość.
 - Te same tuned hiperparametry co baseline (ablation: zmieniamy tylko cechy)."""),
 
 ("code", """import sys, io, contextlib, runpy
@@ -31,7 +31,7 @@ print("Nowe cechy:", NEW_FEATURES)"""),
 
 ("md", """## 1. Reuse baseline pipeline
 Uruchamiamy `tennis_model.py` (z wyciszonym outputem) i pobieramy z niego: dane treningowe/testowe,
-funkcje (`symmetrize_data`, metryke symetryczna, ocene kalibracji), tuned hiperparametry i metryki baseline."""),
+funkcje (`symmetrize_data`, metrykę symetryczną, ocenę kalibracji), tuned hiperparametry i metryki baseline."""),
 
 ("code", """BASE = Path("../src/tennis_model.py").resolve()
 buf = io.StringIO()
@@ -53,9 +53,9 @@ print(f"Baseline: val={baseline_val_acc:.4f}  test={baseline_test_acc:.4f}  matc
 print(f"Cech baseline: {len(base_features)}")"""),
 
 ("md", """## 2. Court Pace Index z historii (bez leakage)
-`build_court_pace_lookup()` agreguje ace rate per turniej z sezonow PRZED rokiem docelowym,
-centruje i skaluje globalnie. Doczytujemy plik roku docelowego, zeby miec `tourney_id`, i liczymy
-indeks predkosci dla kazdego meczu (ten sam dla obu graczy -- to kontekst meczu)."""),
+`build_court_pace_lookup()` agreguje ace rate per turniej z sezonów PRZED rokiem docelowym,
+centruje i skaluje globalnie. Doczytujemy plik roku docelowego, żeby mieć `tourney_id`, i liczymy
+indeks prędkości dla każdego meczu (ten sam dla obu graczy -- to kontekst meczu)."""),
 
 ("code", """lookup = build_court_pace_lookup()  # tylko historia, BEZ roku docelowego
 
@@ -65,19 +65,19 @@ full_target = full_target.sort_values(["tourney_date", "match_num"]).reset_index
 full_target_base = full_target[cols_base + ["tourney_id"]].dropna(subset=cols_base).reset_index(drop=True)
 
 n_train, n_val, n_test = len(df_train_raw), len(df_val_raw), len(df_test_raw)
-assert len(full_target_base) == n_train + n_val + n_test, "Niespojnosc dlugosci"
+assert len(full_target_base) == n_train + n_val + n_test, "Niespójność długości"
 ctx_train = full_target_base.iloc[:n_train].reset_index(drop=True)
 ctx_val = full_target_base.iloc[n_train:n_train + n_val].reset_index(drop=True)
 ctx_test = full_target_base.iloc[n_train + n_val:].reset_index(drop=True)
 
-print("Przyklad court_pace_index (tourney_id, surface, z-score):")
+print("Przykład court_pace_index (tourney_id, surface, z-score):")
 for t, s in list(zip(full_target_base["tourney_id"], full_target_base["surface"]))[:6]:
     print(f"  {t:<12} {s:<6} {court_pace_index(t, s, lookup):+.3f}")"""),
 
 ("md", """## 3. Doklejenie kontekstu + symetryzacja + interakcje serve x speed
-Doklejamy `court_pace_index` po `match_id`, symetryzujemy dane (kazdy mecz -> 2 wiersze p1/p2),
-a nastepnie liczymy interakcje z juz-symetryzowanych cech serwisowych. Interakcje sa **antysymetryczne**
-(zmieniaja znak przy zamianie p1<->p2), bo court_pace jest symetrycznym kontekstem."""),
+Doklejamy `court_pace_index` po `match_id`, symetryzujemy dane (każdy mecz -> 2 wiersze p1/p2),
+a następnie liczymy interakcje z już-symetryzowanych cech serwisowych. Interakcje są **antysymetryczne**
+(zmieniają znak przy zamianie p1<->p2), bo court_pace jest symetrycznym kontekstem."""),
 
 ("code", """def attach_context(df_raw, ctx):
     df_raw = df_raw.copy(); df_raw["match_id"] = range(len(df_raw))
@@ -105,7 +105,7 @@ print(f"Cech razem: {len(features)} (baseline {len(base_features)} + nowe {len(N
 
 ("md", """## 4. Trening RF (tuned HP baseline) + ewaluacja
 Trenujemy Random Forest z tymi samymi hiperparametrami co baseline, mierzymy match accuracy (metryka
-symetryczna) i sprawdzamy, gdzie nowe cechy wladowaly sie w waznosci cech."""),
+symetryczna) i sprawdzamy, gdzie nowe cechy wladowały się w ważności cech."""),
 
 ("code", """X_train, y_train = train_data[features], train_data["y"]
 X_val, y_val = val_data[features], val_data["y"]
@@ -134,14 +134,7 @@ for f in NEW_FEATURES:
     print(f"  {f:<22} rank {int(r['rank']):>2}/{len(features)}  importance={r['importance']:.4f}")"""),
 
 ("md", """## Wnioski
-
-Na pojedynczym sezonie (tu rok docelowy) cecha **prawie nie zmienia accuracy** -- interakcje
-`ace_speed_diff` / `first_won_speed_diff` wchodzia wysoko w waznosc (model ich uzywa), ale nie
-przekladaja sie na trafnosc.
-
-**Pelna walidacja walk-forward (4 sezony) daje pooled delta = +0.49 p.p., McNemar p = 0.26 -- nieistotne.**
-Czyli pomysl jest sensowny i cechy sa uzywane, ale przewaga nie utrzymuje sie i jest w granicach szumu.
-To zgodne z ogolnym wnioskiem projektu: ~65% to sufit dla cech feature-based."""),
+Na pojedynczym sezonie prędkość kortu prawie nie zmienia trafności — interakcje serwisu z prędkością kortu wchodzą wysoko w ważność (model ich używa), ale nie przekładają się na wynik. Na pełnej walidacji przez 6 sezonów wychodzi +0,60 p.p. (McNemar p = 0,11), czyli nieistotnie. Pomysł jest sensowny i cechy są używane, ale przewaga się nie utrzymuje. To samo, co w reszcie projektu: ~65% to sufit."""),
 ]
 
 make_and_run("TPM_Experiment_SurfaceSpeed.ipynb", cells, timeout=1200)

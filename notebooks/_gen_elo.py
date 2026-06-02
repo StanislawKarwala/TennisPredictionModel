@@ -65,18 +65,18 @@ ceni najwyżej."""),
 
 ("code", """# K-factor: weterani zmieniaja rating wolniej niz nowicjusze
 for nplayed in (0, 5, 20, 100, 400):
-    print(f"  rozegranych meczow = {nplayed:>3}  ->  K = {k_factor(nplayed):5.1f}")
+    print(f"  rozegranych meczów = {nplayed:>3}  ->  K = {k_factor(nplayed):5.1f}")
 
 # Pelny sekwencyjny przebieg Elo 2001..2025 -> pre-match rating dla kazdego meczu 2025
 target_full = build_elo_for_target_full(TARGET)
-print(f"\\nMeczow w pliku {TARGET}: {len(target_full)}   |   kolumny Elo: {ELO_COLS}")
+print(f"\\nMeczów w pliku {TARGET}: {len(target_full)}   |   kolumny Elo: {ELO_COLS}")
 
 # Kogo Elo ceni najwyzej w sezonie docelowym (szczytowy pre-match rating ogolny)?
 peak = {}
 for _, r in target_full.iterrows():
     peak[r["winner_name"]] = max(peak.get(r["winner_name"], 0.0), r["w_elo"])
     peak[r["loser_name"]] = max(peak.get(r["loser_name"], 0.0), r["l_elo"])
-print("\\nNajwyzszy pre-match Elo (ogolny) w sezonie:")
+print("\\nNajwyższy pre-match Elo (ogólny) w sezonie:")
 for name, e in pd.Series(peak).sort_values(ascending=False).head(8).items():
     print(f"  {name:<26} {e:7.1f}")"""),
 
@@ -87,7 +87,7 @@ zmienia znak, a `elo_win_prob` przechodzi w `1 − p`. Na końcu sanity-check, �
 
 ("code", """target_aligned = target_full.dropna(subset=cols_base).reset_index(drop=True)
 n_tr, n_va, n_te = len(ns["df_train_raw"]), len(ns["df_val_raw"]), len(ns["df_test_raw"])
-assert len(target_aligned) == n_tr + n_va + n_te, "Niespojnosc dlugosci Elo vs baseline"
+assert len(target_aligned) == n_tr + n_va + n_te, "Niespójność długości Elo vs baseline"
 
 e_tr = target_aligned.iloc[:n_tr].reset_index(drop=True)
 e_te = target_aligned.iloc[n_tr + n_va:].reset_index(drop=True)
@@ -130,7 +130,7 @@ print(f"+elo     match = {elo_match:.4f}   (delta {elo_match - baseline_match:+.
 imp = pd.DataFrame({"feature": features, "importance": best_rf.feature_importances_}) \\
         .sort_values("importance", ascending=False).reset_index(drop=True)
 imp["rank"] = imp.index + 1
-print("\\nRanga waznosci nowych cech Elo:")
+print("\\nRanga ważności nowych cech Elo:")
 for f in ELO_FEATURES:
     r = imp[imp.feature == f].iloc[0]
     print(f"  {f:<22} rank {int(r['rank']):>2}/{len(features)}   importance={r['importance']:.4f}")"""),
@@ -162,20 +162,14 @@ print(f"\\nPOOLED ({len(P)}): baseline={P[:, 0].mean():.4f}  +elo={P[:, 1].mean(
       f"delta={P[:, 1].mean() - P[:, 0].mean():+.4f}")
 print(f"delta dodatnia w {int((df['delta'] > 0).sum())}/{len(df)} sezonach")
 print(f"McNemar: b={b} c={c} z={z:.2f} p={p:.4f}  -> "
-      f"{'ISTOTNE na korzysc Elo' if (p < 0.05 and c > b) else 'brak istotnosci (p>=0.05)'}")"""),
+      f"{'ISTOTNE na korzyść Elo' if (p < 0.05 and c > b) else 'brak istotności (p>=0.05)'}")"""),
 
 ("md", """## Wnioski
-Cechy Elo **dominują ważność** (`elo_diff` / `surface_elo_diff` w ścisłej czołówce) — model mocno na
-nich polega. Mimo to na walk-forward (2020–2025, N≈3022) **pooled delta jest mała (~+0.8 p.p.) i
-nieistotna statystycznie** (McNemar p≈0.17), a w samym 2025 wręcz ujemna.
+Cechy Elo okazały się dla modelu bardzo ważne — elo_diff i surface_elo_diff lądują w ścisłej czołówce ważności cech. Mimo to na walidacji przez 6 sezonów (2020–2025, ~3000 meczów) poprawa jest mała (około +0,8 p.p.) i nieistotna statystycznie (McNemar p ≈ 0,17), a na samym 2025 wręcz ujemna.
 
-Powód: Elo to silny, ale **redundantny** sygnał — baseline ma już ranking ATP i formę, które mierzą
-mniej więcej to samo „kto jest teraz lepszy". Literaturowe „Elo ~70%" dotyczy Elo jako *głównego*
-predyktora, a nie dodatku do modelu, który już ma ranking. Elo zapłaciłoby dopiero przy znacznie
-dłuższej rozgrzewce ratingów albo jako samodzielny rdzeń modelu — nie jako 4 dodatkowe kolumny.
+Powód jest taki, że Elo to silny, ale w dużej mierze powtarzający się sygnał. Baseline ma już ranking ATP i formę, które mierzą mniej więcej to samo — kto jest teraz lepszy. Spotykane w literaturze „Elo ~70%" dotyczy Elo jako głównego predyktora, a nie czterech dodatkowych kolumn doklejonych do modelu, który ranking już ma. Żeby Elo realnie pomogło, musiałoby być rdzeniem modelu albo mieć znacznie dłuższą rozgrzewkę ratingów.
 
-To spójne z głównym wnioskiem projektu: **~65% to sufit dla cech feature-based**, odporny na kolejne
-sygnały tego typu."""),
+To samo, co widać w całym projekcie: **~65% to sufit** dla tego typu cech."""),
 ]
 
 make_and_run("TPM_Experiment_Elo.ipynb", cells, timeout=3600)

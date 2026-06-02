@@ -110,32 +110,32 @@ Plik `src/tennis_model_multiseason.py`. Trening 2010-2023 (**72 582 próbki**, ~
 
 Caveat: tuning był umiarkowany (n_iter 8-12, cv=3) z powodów obliczeniowych. Dokładniejszy tuning XGBoost mógłby wycisnąć ~0.5 p.p., ale skoro wszystkie 3 modele są na tym samym suficie, nie zmieni to wniosku.
 
-### Test krańcowy: trening od 2000 (~128 848 próbek, ~36× więcej) — POTWIERDZENIE
+### Test krańcowy: trening 2001–2023 (~123 tys. próbek, ~36× więcej) — POTWIERDZENIE
 | model | test_match 2025 | Brier | log-loss |
 |---|---|---|---|
-| RandomForest | 0.6475 | 0.2181 | 0.6247 |
-| HistGradBoost | 0.6471 | 0.2172 | 0.6226 |
-| XGBoost | 0.6460 | **0.2167** | **0.6211** |
+| XGBoost | 0.6490 | 0.2165 | 0.6207 |
+| RandomForest | 0.6460 | 0.2182 | 0.6248 |
+| HistGradBoost | 0.6411 | 0.2172 | 0.6224 |
 
-Nawet przy MAKSIMUM danych (od 2000) boosting nie pobił RF na accuracy (HGB remis, XGBoost −0.15 p.p.) — wszystkie na ~64.7%. **Potwierdzenie sufitu na pełnym zakresie 3.5k → 72k → 128k próbek.** Jedyny efekt większych danych: lekko lepsza KALIBRACJA boostingu (XGBoost Brier vs RF: −0.0008 przy 72k → −0.0015 przy 128k) — pomaga jakości prawdopodobieństw, nie accuracy. Plik opisowy: `opis_tennis_model_multiseason.md`.
+Przy maksimum danych (~123 tys. próbek) różnice między algorytmami zostają w granicach szumu (rozpiętość 0.8 p.p., CI ±2 p.p.): XGBoost minimalnie z przodu (i na accuracy, i na kalibracji), Random Forest tuż za, HistGradientBoosting najsłabszy. Kolejność RF vs XGBoost przeskakuje między biegami — co samo w sobie pokazuje, że to szum, a nie realna przewaga. Potwierdzenie sufitu na pełnym zakresie 3.5k → 72k → 123k próbek: nie rusza go ani algorytm, ani ilość danych. Plik opisowy: `opis_tennis_model_multiseason.md`.
 
-## Pełna walidacja walk-forward (nowe dane 2022-2025) — KOMPLET
-Każdy wariant/zestaw cech sprawdzony walk-forward przez 4 sezony, parowanie per-mecz, McNemar. Pliki: `tennis_model_validate_variants.py` (warianty slice), `tennis_model_validate_features.py` (cechy).
+## Pełna walidacja walk-forward (2020-2025) — KOMPLET
+Każdy wariant/zestaw cech sprawdzony walk-forward przez 6 sezonów, parowanie per-mecz, McNemar. Pliki: `tennis_model_validate_variants.py` (warianty slice), `tennis_model_validate_features.py` (cechy).
 
 | Rozszerzenie | pooled delta | McNemar p | lata dodatnie | dawny pojedynczy test |
 |---|---|---|---|---|
-| surface_speed | +0.49 p.p. | 0.26 | 3/4 | (+1.69) |
-| fatigue | +0.22 p.p. | 0.65 | 3/4 | (+1.36) |
-| enriched (surface+fatigue) | +0.31 p.p. | 0.54 | 3/4 | (+2.03) |
-| Elo (surface-adjusted) | +0.54 p.p. | 0.41 | 2/4 | (+0.45) |
-| sliceaware | −0.27 p.p. | 0.66 | 1/4 | (−0.17) |
-| bestof5_v1 | +0.63 p.p. | 0.30 | 3/4 | (+2.37) |
-| qfserve_v3 | −0.76 p.p. | 0.19 | 2/4 | (+2.20) |
+| surface_speed | +0.60 p.p. | 0.105 | 5/6 | (+1.69) |
+| fatigue | +0.03 p.p. | 1.000 | 3/6 | (+1.36) |
+| enriched (surface+fatigue) | +0.20 p.p. | 0.656 | 3/6 | (+2.03) |
+| Elo (surface-adjusted) | +0.76 p.p. | 0.173 | 4/6 | (+0.45) |
+| sliceaware | −0.26 p.p. | 0.61 | 2/6 | (−0.17) |
+| bestof5_v1 | +0.56 p.p. | 0.31 | 5/6 | (+2.37) |
+| qfserve_v3 | −0.89 p.p. | 0.076 | 2/6 | (+2.20) |
 
-**ŻADNE rozszerzenie nie jest istotne statystycznie (wszystkie p > 0.18).** Najlepsze są directionally dodatnie (+0.4-0.6 p.p.), ale w granicach szumu. Dawne „spektakularne" pojedyncze testy (bestof5 +2.37, qfserve +2.20) na walk-forward spadły do szumu (a qfserve nawet na minus) — ostateczne potwierdzenie, że pojedynczy test set kłamie. Baseline `tennis_model.py` jest praktycznie najlepszy.
+**Żadne rozszerzenie nie jest istotne statystycznie (wszystkie p > 0.05).** Najlepsze są directionally dodatnie (+0.4-0.6 p.p.), ale w granicach szumu. Dawne „spektakularne" pojedyncze testy (bestof5 +2.37, qfserve +2.20) na walk-forward spadły do szumu (a qfserve nawet na minus) — ostateczne potwierdzenie, że pojedynczy test set kłamie. Baseline `tennis_model.py` jest praktycznie najlepszy.
 
 ## OSTATECZNY WNIOSEK PROJEKTU
-Sufit ~65% match accuracy (pełny sezon ATP) jest **odporny na**: zmianę algorytmu (RF/HGB/XGBoost), 20× więcej danych, nowe cechy (surface_speed/fatigue/Elo). Wszystkie te dźwignie zostały przetestowane uczciwie (walk-forward / wielo-sezonowo) i żadna nie przebiła sufitu. Zgodne z literaturą: bez kursów bukmacherskich ~65-70% to realny zakres dla modeli feature-based. **Realna wartość projektu to rygor metodologiczny** (naprawiona metryka, walk-forward, uczciwe wyniki negatywne), nie pogoń za accuracy.
+Sufit ~65% match accuracy (pełny sezon ATP) jest **odporny na**: zmianę algorytmu (RF/HGB/XGBoost), ~36× więcej danych, nowe cechy (surface_speed/fatigue/Elo). Wszystkie te dźwignie zostały przetestowane uczciwie (walk-forward / wielo-sezonowo) i żadna nie przebiła sufitu. Zgodne z literaturą: bez kursów bukmacherskich ~65-70% to realny zakres dla modeli feature-based. **Realna wartość projektu to rygor metodologiczny** (naprawiona metryka, walk-forward, uczciwe wyniki negatywne), nie pogoń za accuracy.
 
 ## Pliki eksperymentów (zostają jako dowód, NIE importowane do main)
 `tennis_model_hgb.py` (Sprint 2), `tennis_model_surface_speed.py` / `tennis_model_fatigue.py` / `tennis_model_enriched.py` / `tennis_model_ewma_ablation.py` (Sprint 3), `tennis_model_walkforward.py` / `tennis_model_salvage.py` (Sprint 4).
