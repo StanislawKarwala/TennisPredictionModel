@@ -7,6 +7,8 @@ add_static_features, tune_and_eval, run_baseline_quietly) -- NIE duplikujemy
 logiki ani nie wolamy main(). Cechy sa IDENTYCZNE z baseline (przez namespace),
 splity po roku PLIKU (season), seed 42 -- wszystko leakage-safe jak w module.
 
+Trening od 2001 (~128 tys. probek symetryzowanych); sezon 2000 = rozgrzewka cech.
+
 Uzycie: python _gen_multiseason.py
 """
 from _nbtools import make_and_run
@@ -22,14 +24,15 @@ cells = [
 Dotychczasowa architektura trenowala **tylko na roku docelowym** (~3500 probek). Sprint 2 pokazal,
 ze HistGradientBoosting nie bije Random Forest -- ale na tak malej probie boosting nie ma jak
 rozwinac swojej przewagi. Tutaj zmieniamy architekture: trenujemy na **wielu sezonach**
-(2010-2023), walidujemy na 2024 i testujemy na **calym sezonie 2025**. To wlasciwy test hipotezy
-*"wiecej danych => boosting wreszcie oplacalny"*.
+(2001-2023, ~128 tys. probek po symetryzacji -- praktycznie cale ATP od 2000), walidujemy na 2024 i
+testujemy na **calym sezonie 2025**. To wlasciwy test hipotezy *"wiecej danych => boosting wreszcie
+oplacalny"*.
 
 ## Metoda (leakage-safe, ten sam matrix dla wszystkich modeli)
 - **Cechy IDENTYCZNE z baseline** (40 cech) -- reuzywamy `add_dynamic_features` / `symmetrize_data` z
   `tennis_model.py` przez namespace. Jedyne zmienne to **ilosc danych treningowych** i **algorytm**.
-- **Rozgrzewka cech 2001-2009**: sezony przed treningiem licza historie (forma, H2H, surface form),
-  ale **nie wchodza** do zbioru treningowego -- gracz w 2010 ma juz pelny kontekst.
+- **Rozgrzewka cech: sezon 2000** -- liczy historie (forma, H2H, surface form) dla pierwszych meczow
+  2001, ale **nie wchodzi** do zbioru treningowego.
 - **Split po roku PLIKU** (`season`), nie po `tourney_date.dt.year`: plik sezonu 2025 zaczyna sie od
   United Cup z konca grudnia 2024, wiec sama data myli sezon.
 - **Label encoding** fitowany TYLKO na treningu (`season < 2024`) -- zero wgladu w val/test.
@@ -38,25 +41,31 @@ rozwinac swojej przewagi. Tutaj zmieniamy architekture: trenujemy na **wielu sez
   cech, porownanie match accuracy oraz jakosci kalibracji (Brier / log-loss / ECE).
 
 > UWAGA: to **pojedynczy** trening wielo-sezonowy (jeden train/val/test), a **nie** walk-forward.
-> Baseline tego notebooka (~0.649 na 2647 meczach 2025) to **inne dane** niz single-season 0.6566 --
+> Baseline tego notebooka (~0.647 na 2647 meczach 2025) to **inne dane** niz single-season 0.6566 --
 > nie porownujemy ich 1:1."""),
 
 ("code", SETUP),
 
 ("md", """## 1. Reuse baseline -- pobieramy funkcje feature-engineering
-Uruchamiamy `tennis_model.py` raz (z wyciszonym outputem) i wyciagamy z jego namespace funkcje:
-budowanie cech dynamicznych, symetryzacja, symetryczna metryka match-level oraz ocena kalibracji.
-Bierzemy tez liste **40 cech** i `cols_base` -- dzieki temu macierz jest taka sama jak w baseline,
-tylko zbudowana na wielu sezonach."""),
+Najpierw ustawiamy zakres treningu (**od 2001**, rozgrzewka 2000) przez zmienne srodowiskowe -- modul
+czyta je przy imporcie. Potem uruchamiamy `tennis_model.py` raz (z wyciszonym outputem) i wyciagamy z
+jego namespace funkcje: budowanie cech dynamicznych, symetryzacja, symetryczna metryka match-level
+oraz ocena kalibracji. Bierzemy tez liste **40 cech** i `cols_base` -- macierz jest taka sama jak w
+baseline, tylko zbudowana na wielu sezonach."""),
 
-("code", """import numpy as np
+("code", """import os
+# Trening od 2001 (~128 tys. probek), sezon 2000 jako rozgrzewka cech -- pelny zakres danych od 2000.
+# Ustawiamy PRZED importem modulu (czyta env przy imporcie).
+os.environ["TENNIS_WARMUP_START"] = "2000"
+os.environ["TENNIS_TRAIN_START"] = "2001"
+
+import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier
 from sklearn.preprocessing import LabelEncoder
 
 import tennis_model_multiseason as m
 
-# Konfiguracja eksperymentu (te same wartosci co domyslne w module)
 WARMUP_START = m.WARMUP_START
 TRAIN_START  = m.TRAIN_START
 VAL_YEAR     = m.VAL_YEAR
@@ -74,15 +83,16 @@ cols_base = list(ns["cols_base"])
 ROUND_ORDER = ns["ROUND_ORDER"]
 
 print(f"\\nTrening {TRAIN_START}-{VAL_YEAR-1} | walidacja {VAL_YEAR} | test {TEST_YEAR}")
-print(f"Rozgrzewka cech: {WARMUP_START}-{TRAIN_START-1}")
+warmup_desc = f"{WARMUP_START}-{TRAIN_START-1}" if TRAIN_START > WARMUP_START else "BRAK"
+print(f"Rozgrzewka cech: {warmup_desc}")
 print(f"Liczba cech (identyczna z baseline): {len(features)}")
 print(f"XGBoost dostepny: {m.HAS_XGB}")"""),
 
-("md", """## 2. Wczytujemy wszystkie sezony 2001-2025 i dzielimy na rozgrzewke / span
+("md", """## 2. Wczytujemy wszystkie sezony 2000-2025 i dzielimy na rozgrzewke / span
 `load_years` czyta pliki `atp_matches_<rok>.csv`, parsuje `tourney_date`, sortuje chronologicznie i
-oznacza `season` rokiem pliku. Robimy **jedno** wczytanie 2001..2025, a potem dzielimy:
-- `historical` = sezony przed 2010 (tylko rozgrzewka cech -- moga miec wiersze, ale nie trafia do treningu),
-- `span` = 2010..2025 (na nich liczymy cechy dynamiczne i ktore potem splitujemy)."""),
+oznacza `season` rokiem pliku. Robimy **jedno** wczytanie 2000..2025, a potem dzielimy:
+- `historical` = sezony przed 2001 (czyli sezon 2000 -- tylko rozgrzewka cech, nie trafia do treningu),
+- `span` = 2001..2025 (na nich liczymy cechy dynamiczne i ktore potem splitujemy)."""),
 
 ("code", """full = m.load_years(range(WARMUP_START, TEST_YEAR + 1), cols_base)
 full = m.add_static_features(full, ROUND_ORDER)
@@ -97,19 +107,19 @@ print(f"  span      (>={TRAIN_START}): {len(span)} meczow")
 print("\\nMecze per sezon (span):")
 print(span["season"].value_counts().sort_index().to_string())"""),
 
-("md", """## 3. Cechy dynamiczne na 2010-2025 (z rozgrzewka 2001-2009)
+("md", """## 3. Cechy dynamiczne na 2001-2025 (z rozgrzewka: sezon 2000)
 `add_dynamic_features(span, historical)` liczy formy, H2H, surface form, statystyki serwisu itd. dla
-kazdego meczu w `span`, korzystajac z historii (rozgrzewka + wczesniejsze mecze span). Funkcja radzi
-sobie nawet z pusta rozgrzewka. To najdluzszy krok obliczeniowy notebooka."""),
+kazdego meczu w `span`, korzystajac z historii (rozgrzewka 2000 + wczesniejsze mecze span). Funkcja
+radzi sobie nawet z mala rozgrzewka. To najdluzszy krok obliczeniowy notebooka."""),
 
 ("code", """span_feat = add_dynamic_features(span, historical)   # funkcja z baseline (ns), nie z modulu m
 print(f"Cechy dynamiczne policzone dla {len(span_feat)} meczow.")
 
-# Podglad kilku kolumn cech dla najwczesniejszych meczow 2010
+# Podglad kilku kolumn cech dla najwczesniejszych meczow treningowych
 sample_cols = [c for c in ["season", "winner_name", "loser_name",
                            "w_form", "l_form", "w_surface_form", "l_surface_form"]
                if c in span_feat.columns]
-print("\\nPrzykladowe cechy (pierwsze mecze 2010):")
+print(f"\\nPrzykladowe cechy (pierwsze mecze {TRAIN_START}):")
 print(span_feat[span_feat["season"] == TRAIN_START][sample_cols].head(5).to_string(index=False))"""),
 
 ("md", """## 4. Label encoding (fit tylko na treningu) + split po sezonie
@@ -188,7 +198,7 @@ print(f"  Brier={res_rf['brier']:.4f}  logloss={res_rf['logloss']:.4f}  ECE={res
 print(f"  best_params: {res_rf['best_params']}")"""),
 
 ("md", """## 7. [2/3] HistGradientBoosting -- ten sam matrix, wiecej danych
-Teraz boosting. Jesli "wiecej danych" mialo dac przewage boostingowi, to wlasnie tutaj (~72k probek)
+Teraz boosting. Jesli "wiecej danych" mialo dac przewage boostingowi, to wlasnie tutaj (~128k probek)
 powinno byc widac. Te same dane, ta sama metryka, inny algorytm."""),
 
 ("code", """hgb_param_dist = {
@@ -260,32 +270,35 @@ print(f"\\nUWAGA: test = caly sezon {TEST_YEAR} (~{len(test_raw)} meczow). CI ~ 
 
 ("md", """## Wnioski
 
-**Realny wynik (train 2010-2023, ~72582 probki symetryzowane, rozgrzewka cech 2001-2009, walidacja 2024,
-test = CALY sezon 2025 = 2647 meczow):**
+**Konfiguracja:** trening **2001-2023** (~123 tys. probek po symetryzacji = 61 556 meczow; sezon 2000
+= rozgrzewka cech), walidacja 2024, test = **caly sezon 2025** (2647 meczow).
 
-| model | test match acc | delta vs RF |
-|---|---|---|
-| Random Forest | **~0.6494** | -- |
-| XGBoost | **~0.6494** | **+0.0000** |
-| HistGradientBoosting | **~0.6460** | **-0.0034** |
+**Wyniki (test match accuracy -- patrz tabela w sekcji 9):**
 
-Wszystkie trzy modele lapia okolo **65%** -- praktycznie identycznie.
+| model | test match acc | delta vs RF | Brier |
+|---|---|---|---|
+| XGBoost | **0.6490** | **+0.0030** | 0.2165 |
+| Random Forest | **0.6460** | -- | 0.2182 |
+| HistGradientBoosting | **0.6411** | **-0.0049** | 0.2172 |
 
-**Boosting NIE pobil Random Forest na accuracy**, nawet majac do dyspozycji ~72k probek (20x wiecej
-niz pojedynczy sezon). Hipoteza *"wiecej danych => boosting wreszcie wygra"* sie **nie potwierdza** na
-metryce accuracy. Jedyny efekt wiekszego zbioru to **minimalnie lepsza KALIBRACJA boostingu** (nizszy
-Brier / log-loss) -- to wazne wylacznie dla **jakosci prawdopodobienstw** (np. do bettingu czy
-progowania), a **nie** dla samej trafnosci klasyfikacji.
+Rozpietosc miedzy modelami to ok. **0.8 p.p.** -- czyli **wszystkie w granicach szumu** (CI ~ +/-2 p.p.
+przy 2647 meczach). Zaden algorytm nie wygrywa w sposob wiarygodny.
 
-**Wazne zastrzezenia interpretacyjne:**
-- Ten notebook to **JEDEN duzy trening wielo-sezonowy** z testem na calym 2025 -- to **NIE** walk-forward.
-- Jego baseline (~0.649 na 2647 meczach) liczy sie na **innych danych** niz single-season 0.6566 --
-  obu liczb nie wolno porownywac 1:1 (inny zbior treningowy, inny zbior testowy).
+**Najwazniejsze:** zwiekszenie zbioru treningowego ~36x (z ~3,5 tys. do ~123 tys. probek) **NIE
+przebilo sufitu ~65% dla ZADNEGO algorytmu**. To potwierdza, ze sciana lezy w **cechach i samym
+problemie**, a nie w algorytmie ani ilosci danych.
 
-**Glowny wniosek projektu (potwierdzony po raz kolejny):** sciana ~**65%** lezy w **cechach i samym
-problemie** (przewidywalnosc meczow tenisowych z danych przedmeczowych), a **nie** w algorytmie ani w
-ilosci danych treningowych. Ani zmiana modelu na boosting, ani 20-krotne zwiekszenie zbioru nie
-przesuwaja tego sufitu."""),
+**Niuans:** na tym najwiekszym zbiorze XGBoost jest minimalnie z przodu -- i na accuracy (+0.30 p.p.),
+i na kalibracji (najnizszy Brier) -- a HistGradientBoosting najgorszy. Spojne z intuicja, ze boosting
+rozwija sie z iloscia danych (na ~72 tys. probek RF i XGBoost remisowaly po 0.6494; na ~123 tys.
+XGBoost lekko wyprzedza). Ale zysk **pozostaje w granicach szumu** -- to nie jest wiarygodna przewaga.
+
+**Random Forest jako model glowny** to wybor **praktyczny** (stabilny, bez dodatkowej zaleznosci,
+remisuje lub jest bliski najlepszemu w kazdej konfiguracji), a **nie** dlatego, ze jest mierzalnie
+najlepszy.
+
+**Zastrzezenia:** to **JEDEN** trening wielo-sezonowy (NIE walk-forward); jego baseline (~0.646 na
+2647 meczach) liczy sie na **innych danych** niz single-season 0.6566 -- nie porownywac 1:1."""),
 ]
 
 make_and_run("TPM_Experiment_MultiSeason.ipynb", cells, timeout=7200)
