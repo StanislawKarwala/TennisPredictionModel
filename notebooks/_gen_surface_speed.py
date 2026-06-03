@@ -21,6 +21,15 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 
+import os
+# --- Colab: pobiera projekt z GitHuba; lokalnie ten blok jest pomijany ---
+# PO UTWORZENIU repo podmien adres ponizej na swoj:
+_REPO = "https://github.com/StanislawKarwala/TennisPredictionModel.git"
+if "google.colab" in sys.modules and not Path("../src/tennis_model.py").exists():
+    import subprocess
+    subprocess.run(["pip", "install", "-q", "xgboost"])
+    subprocess.run(["git", "clone", "-q", _REPO, "/content/tenis"])
+    os.chdir("/content/tenis/notebooks")
 sys.path.insert(0, str(Path("../src").resolve()))
 from tennis_model_surface_speed import (
     build_court_pace_lookup, court_pace_index, data_file,

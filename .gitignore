@@ -4,3 +4,22 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Środowisko wirtualne / IDE
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+.DS_Store
+
+# Logi i raporty (nie są potrzebne do uruchomienia notebooków)
+logs/
+reports/
+
+# Duże PDF-y prac źródłowych (niepotrzebne do uruchomienia, ciężkie/objęte prawami autorskimi)
+docs/papers/
+
+# Pliki tymczasowe
+*.tmp
+*.log

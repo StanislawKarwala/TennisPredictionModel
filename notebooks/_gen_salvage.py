@@ -8,6 +8,15 @@ from _nbtools import make_and_run
 
 SETUP = """import sys
 from pathlib import Path
+import os
+# --- Colab: pobiera projekt z GitHuba; lokalnie ten blok jest pomijany ---
+# PO UTWORZENIU repo podmien adres ponizej na swoj:
+_REPO = "https://github.com/StanislawKarwala/TennisPredictionModel.git"
+if "google.colab" in sys.modules and not Path("../src/tennis_model.py").exists():
+    import subprocess
+    subprocess.run(["pip", "install", "-q", "xgboost"])
+    subprocess.run(["git", "clone", "-q", _REPO, "/content/tenis"])
+    os.chdir("/content/tenis/notebooks")
 sys.path.insert(0, str(Path("../src").resolve()))"""
 
 cells = [
