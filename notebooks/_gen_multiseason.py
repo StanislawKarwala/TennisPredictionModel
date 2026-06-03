@@ -1,4 +1,4 @@
-"""Generuje i wykonuje OD ZERA notebook wielo-sezonowy (Sprint 6) w stylu
+"""Generuje i wykonuje OD ZERA notebook wielo-sezonowy w stylu
 narracyjnym (jak TPM_Experiment_SliceAware_BestOf5_v1.ipynb) -- markdown opisuje
 krok, kod go WYKONUJE i drukuje posrednie wyniki, zamiast wolac m.main().
 
@@ -18,10 +18,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path("../src").resolve()))"""
 
 cells = [
-("md", """# Eksperyment: Wielo-sezonowy trening + uczciwy test boostingu (Sprint 6)
+("md", """# Eksperyment: Wielo-sezonowy trening + uczciwy test boostingu
 
 ## Cel
-Dotychczasowa architektura trenowała **tylko na roku docelowym** (~3500 próbek). Sprint 2 pokazał,
+Dotychczasowa architektura trenowała **tylko na roku docelowym** (~3500 próbek). Wcześniejszy test na pojedynczym sezonie (notebook HGB) pokazał,
 że HistGradientBoosting nie bije Random Forest -- ale na tak małej próbie boosting nie ma jak
 rozwinąć swojej przewagi. Tutaj zmieniamy architekturę: trenujemy na **wielu sezonach**
 (2001-2023, ~128 tys. próbek po symetryzacji -- praktycznie całe ATP od 2000), walidujemy na 2024 i

@@ -12,7 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path("../src").resolve()))"""
 
 cells = [
-("md", """# Eksperyment: Walidacja walk-forward (wiele sezonów) + test istotności (Sprint 4)
+("md", """# Eksperyment: Walidacja walk-forward (wiele sezonów) + test istotności
 
 ## Cel
 Sprawdzić UCZCIWIE, czy cechy wzbogacone (`surface_speed` + `fatigue`) faktycznie poprawiają model,

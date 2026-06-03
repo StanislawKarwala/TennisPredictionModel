@@ -1,7 +1,7 @@
 from _nbtools import make_and_run
 
 cells = [
-("md", """# Eksperyment: Surface Speed Index (Sprint 3a)
+("md", """# Eksperyment: Surface Speed Index
 
 ## Cel
 Sprawdzić pomysł: **szybszy kort faworyzuje graczy z mocniejszym serwem.** Dodajemy

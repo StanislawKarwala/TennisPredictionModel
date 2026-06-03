@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path("../src").resolve()))"""
 
 cells = [
-("md", """# Eksperyment: Surface-adjusted Elo jako cecha (Sprint 5)
+("md", """# Eksperyment: Surface-adjusted Elo jako cecha
 
 ## Cel
 Dodać do modelu rating **Elo** — przewidujący, aktualizowany po każdym meczu (inaczej niż ranking

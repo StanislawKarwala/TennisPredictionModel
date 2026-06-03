@@ -32,7 +32,7 @@ assert len(full_target_base) == n_train + n_val + n_test"""
 
 # ===================== FATIGUE =====================
 fatigue_cells = [
-("md", """# Eksperyment: Cechy zmęczenia / Fatigue (Sprint 3b)
+("md", """# Eksperyment: Cechy zmęczenia / Fatigue
 
 ## Cel
 Czy uwzględnienie zmęczenia gracza poprawia predykcje? Dwie nowe cechy (liczone bez leakage,
@@ -95,7 +95,7 @@ Cechy zmęczenia (dni odpoczynku, minuty na korcie) praktycznie nie ruszają tra
 
 # ===================== ENRICHED =====================
 enriched_cells = [
-("md", """# Eksperyment: Model zbiorczy / Enriched (Sprint 3d)
+("md", """# Eksperyment: Model zbiorczy / Enriched
 
 ## Cel
 Połączyć dwa wygrywające (na pojedynczym teście) zestawy cech: **surface_speed (3) + fatigue (6)**.
@@ -152,7 +152,7 @@ Połączenie prędkości kortu i zmęczenia (9 cech naraz) nie sumuje się do re
 
 # ===================== EWMA =====================
 ewma_cells = [
-("md", """# Eksperyment: EWMA / recency weighting (Sprint 3c)
+("md", """# Eksperyment: EWMA / recency weighting
 
 ## Cel
 Zamiast prostej średniej z 10 ostatnich meczów (SMA) użyć **wykładniczego ważenia** -- starsze mecze
@@ -197,7 +197,7 @@ EWMA dało niespójny wynik — walidacja czasem rośnie, ale na teście i match
 
 # ===================== HGB =====================
 hgb_cells = [
-("md", """# Eksperyment: HistGradientBoosting vs Random Forest (Sprint 2)
+("md", """# Eksperyment: HistGradientBoosting vs Random Forest
 
 ## Cel
 Sprawdzić, czy gradient boosting (HistGradientBoosting z sklearn) pobije Random Forest na tych

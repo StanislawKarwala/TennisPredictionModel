@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path("../src").resolve()))"""
 
 cells = [
-("md", """# Eksperyment: SALVAGE -- czy walk-forward ratuje robust sygnał? (Sprint 5)
+("md", """# Eksperyment: SALVAGE -- czy walk-forward ratuje robust sygnał?
 
 ## Cel
 We wcześniejszych sprintach cechy **surface-speed** (court pace + interakcje serwisowe) oraz
