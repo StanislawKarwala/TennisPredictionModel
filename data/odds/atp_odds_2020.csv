@@ -1,0 +1,1267 @@
+match_key,tourney_id,match_num,tourney_date,winner_name,loser_name,td_date,td_tournament,rank_agreement,B365_winner,B365_loser,PS_winner,PS_loser,EnglishAvg_winner,EnglishAvg_loser,PolishAvg_winner,AllAvg_winner,PolishAvg_loser,AllAvg_loser
+2020-451_1,2020-451,1,20200106,Fernando Verdasco,Pablo Andujar,2020-01-06,Qatar Exxon Mobil Open,2,1.25,3.75,1.31,3.74,1.29,3.53,,1.28,,3.74
+2020-451_2,2020-451,2,20200106,Corentin Moutet,Tennys Sandgren,2020-01-06,Qatar Exxon Mobil Open,2,1.57,2.25,1.6,2.47,1.59,2.34,,1.58,,2.36
+2020-451_3,2020-451,3,20200106,Mikhail Kukushkin,Malek Jaziri,2020-01-07,Qatar Exxon Mobil Open,2,1.28,3.5,1.31,3.74,1.29,3.54,,1.3,,3.62
+2020-451_4,2020-451,4,20200106,Miomir Kecmanovic,Jordan Thompson,2020-01-06,Qatar Exxon Mobil Open,2,1.66,2.1,1.74,2.21,1.72,2.11,,1.7,,2.16
+2020-451_5,2020-451,5,20200106,Cem Ilkel,Ricardas Berankis,2020-01-07,Qatar Exxon Mobil Open,2,3.5,1.28,3.34,1.37,3.72,1.27,,3.42,,1.33
+2020-451_6,2020-451,6,20200106,Pierre-Hugues Herbert,Marco Cecchinato,2020-01-07,Qatar Exxon Mobil Open,2,1.53,2.37,1.57,2.55,1.54,2.44,,1.55,,2.46
+2020-451_7,2020-451,7,20200106,Jeremy Chardy,Gregoire Barrere,2020-01-06,Qatar Exxon Mobil Open,2,1.5,2.5,1.54,2.62,1.53,2.47,,1.52,,2.56
+2020-451_8,2020-451,8,20200106,Aljaz Bedene,Mikael Ymer,2020-01-06,Qatar Exxon Mobil Open,2,1.83,1.83,1.97,1.92,1.87,1.92,,1.9,,1.88
+2020-451_9,2020-451,9,20200106,Marton Fucsovics,Frances Tiafoe,2020-01-07,Qatar Exxon Mobil Open,2,2.0,1.72,2.03,1.86,2.01,1.78,,2.01,,1.79
+2020-451_10,2020-451,10,20200106,Alexander Bublik,Adrian Mannarino,2020-01-06,Qatar Exxon Mobil Open,2,2.0,1.72,2.21,1.74,2.11,1.72,,2.1,,1.73
+2020-451_11,2020-451,11,20200106,Filip Krajinovic,Kyle Edmund,2020-01-06,Qatar Exxon Mobil Open,2,1.83,1.83,1.9,1.99,1.88,1.92,,1.86,,1.91
+2020-451_12,2020-451,12,20200106,Laslo Djere,Lorenzo Sonego,2020-01-07,Qatar Exxon Mobil Open,2,3.0,1.36,3.18,1.4,3.03,1.37,,3.09,,1.38
+2020-451_13,2020-451,13,20200106,Marton Fucsovics,Cem Ilkel,2020-01-08,Qatar Exxon Mobil Open,2,1.16,5.0,1.26,4.34,1.18,4.82,,1.21,,4.67
+2020-451_14,2020-451,14,20200106,Aljaz Bedene,Alexander Bublik,2020-01-07,Qatar Exxon Mobil Open,2,1.66,2.1,1.83,2.09,1.75,2.06,,1.74,,2.09
+2020-451_15,2020-451,15,20200106,Fernando Verdasco,Filip Krajinovic,2020-01-08,Qatar Exxon Mobil Open,2,2.25,1.57,2.4,1.65,2.32,1.6,,2.33,,1.61
+2020-451_16,2020-451,16,20200106,Pierre-Hugues Herbert,Laslo Djere,2020-01-08,Qatar Exxon Mobil Open,2,1.44,2.62,1.45,2.99,1.49,2.59,,1.44,,2.8
+2020-451_17,2020-451,17,20200106,Corentin Moutet,Milos Raonic,2020-01-08,Qatar Exxon Mobil Open,2,2.75,1.4,2.9,1.47,2.72,1.45,,2.82,,1.44
+2020-451_18,2020-451,18,20200106,Miomir Kecmanovic,Jo-Wilfried Tsonga,2020-01-08,Qatar Exxon Mobil Open,2,2.1,1.66,2.48,1.61,2.29,1.61,,2.29,,1.64
+2020-451_19,2020-451,19,20200106,Andrey Rublev,Mikhail Kukushkin,2020-01-08,Qatar Exxon Mobil Open,2,1.3,3.4,1.29,4.01,1.28,3.69,,1.3,,3.7
+2020-451_20,2020-451,20,20200106,Stan Wawrinka,Jeremy Chardy,2020-01-07,Qatar Exxon Mobil Open,2,1.3,3.4,1.43,3.08,1.36,3.08,,1.36,,3.24
+2020-451_21,2020-451,21,20200106,Corentin Moutet,Fernando Verdasco,2020-01-10,Qatar Exxon Mobil Open,2,2.3,1.61,2.56,1.59,2.38,1.58,,2.43,,1.6
+2020-451_22,2020-451,22,20200106,Miomir Kecmanovic,Marton Fucsovics,2020-01-09,Qatar Exxon Mobil Open,2,1.61,2.3,1.69,2.34,1.63,2.27,,1.65,,2.32
+2020-451_23,2020-451,23,20200106,Andrey Rublev,Pierre-Hugues Herbert,2020-01-10,Qatar Exxon Mobil Open,2,1.25,4.0,1.32,3.79,1.26,3.79,,1.28,,3.9
+2020-451_24,2020-451,24,20200106,Stan Wawrinka,Aljaz Bedene,2020-01-10,Qatar Exxon Mobil Open,2,1.33,3.4,1.35,3.6,1.33,3.27,,1.34,,3.5
+2020-451_25,2020-451,25,20200106,Andrey Rublev,Miomir Kecmanovic,2020-01-10,Qatar Exxon Mobil Open,2,1.66,2.2,1.63,2.44,1.67,2.2,,1.64,,2.32
+2020-451_26,2020-451,26,20200106,Corentin Moutet,Stan Wawrinka,2020-01-10,Qatar Exxon Mobil Open,2,3.5,1.3,4.3,1.26,3.79,1.26,,3.9,,1.28
+2020-451_27,2020-451,27,20200106,Andrey Rublev,Corentin Moutet,2020-01-11,Qatar Exxon Mobil Open,2,1.22,4.33,1.25,4.5,1.22,4.18,,1.23,,4.42
+2020-8998_1,2020-8998,1,20200112,Albert Ramos-Vinolas,Jordan Thompson,2020-01-14,ASB Classic,2,2.25,1.57,2.33,1.67,2.27,1.62,,2.29,,1.62
+2020-8998_2,2020-8998,2,20200112,Sam Querrey,Gregoire Barrere,2020-01-13,ASB Classic,2,1.57,2.25,1.63,2.42,1.59,2.33,,1.6,,2.34
+2020-8998_3,2020-8998,3,20200112,Tommy Paul,Aljaz Bedene,2020-01-14,ASB Classic,2,1.83,1.83,1.94,1.94,1.91,1.88,,1.88,,1.88
+2020-8998_4,2020-8998,4,20200112,Daniel Evans,Juan Ignacio Londero,2020-01-13,ASB Classic,2,1.36,3.0,1.31,3.8,1.3,3.46,,1.34,,3.4
+2020-8998_5,2020-8998,5,20200112,James Duckworth,Federico Delbonis,2020-01-13,ASB Classic,2,1.72,2.0,1.75,2.19,1.73,2.09,,1.74,,2.09
+2020-8998_6,2020-8998,6,20200112,Laslo Djere,Alexei Popyrin,2020-01-12,ASB Classic,2,3.0,1.36,3.16,1.4,3.06,1.37,,3.08,,1.38
+2020-8998_7,2020-8998,7,20200112,Jeremy Chardy,Gilles Simon,2020-01-13,ASB Classic,2,1.66,2.1,1.76,2.17,1.7,2.13,,1.71,,2.13
+2020-8998_8,2020-8998,8,20200112,Alex Bolt,Stephane Robert,2020-01-14,ASB Classic,2,,,,,1.34,3.2,,,,
+2020-8998_9,2020-8998,9,20200112,Pablo Cuevas,Reilly Opelka,2020-01-12,ASB Classic,2,3.5,1.28,3.79,1.31,3.34,1.32,,3.64,,1.3
+2020-8998_10,2020-8998,10,20200112,Jan-Lennard Struff,Salvatore Caruso,2020-01-14,ASB Classic,2,1.28,3.5,1.24,4.44,1.23,4.08,,1.26,,3.97
+2020-8998_11,2020-8998,11,20200112,Lloyd Harris,Cristian Garin,2020-01-13,ASB Classic,2,1.83,1.83,1.81,2.1,1.82,1.97,,1.82,,1.96
+2020-8998_12,2020-8998,12,20200112,Alexander Bublik,Taylor Fritz,2020-01-12,ASB Classic,2,2.25,1.57,2.48,1.6,2.36,1.57,,2.37,,1.58
+2020-8998_13,2020-8998,13,20200112,Albert Ramos-Vinolas,Jaume Munar,2020-01-15,ASB Classic,2,1.66,2.1,1.81,2.11,1.69,2.16,,1.74,,2.1
+2020-8998_14,2020-8998,14,20200112,Tommy Paul,Pablo Cuevas,2020-01-15,ASB Classic,2,1.5,2.5,1.52,2.74,1.49,2.6,,1.51,,2.62
+2020-8998_15,2020-8998,15,20200112,Lloyd Harris,Laslo Djere,2020-01-15,ASB Classic,2,1.4,2.75,1.46,2.94,1.44,2.75,,1.43,,2.84
+2020-8998_16,2020-8998,16,20200112,Daniel Evans,Alexander Bublik,2020-01-14,ASB Classic,2,1.57,2.25,1.7,2.29,1.66,2.2,,1.64,,2.27
+2020-8998_17,2020-8998,17,20200112,Alex Bolt,Jan-Lennard Struff,2020-01-15,ASB Classic,2,4.0,1.22,3.83,1.31,3.84,1.26,,3.92,,1.27
+2020-8998_18,2020-8998,18,20200112,Pablo Carreno Busta,Jeremy Chardy,2020-01-15,ASB Classic,2,1.83,1.83,1.85,2.06,1.83,1.96,,1.84,,1.94
+2020-8998_19,2020-8998,19,20200112,Andrey Rublev,Sam Querrey,2020-01-15,ASB Classic,2,1.66,2.1,1.64,2.42,1.62,2.28,,1.65,,2.26
+2020-8998_20,2020-8998,20,20200112,Felix Auger-Aliassime,James Duckworth,2020-01-15,ASB Classic,2,1.57,2.25,1.6,2.5,1.57,2.37,,1.58,,2.38
+2020-8998_21,2020-8998,21,20200112,Tommy Paul,Albert Ramos-Vinolas,2020-01-16,ASB Classic,2,1.57,2.37,1.56,2.65,1.54,2.47,,1.56,,2.51
+2020-8998_22,2020-8998,22,20200112,Lloyd Harris,Pablo Carreno Busta,2020-01-16,ASB Classic,2,2.62,1.5,2.83,1.5,2.65,1.48,,2.72,,1.5
+2020-8998_23,2020-8998,23,20200112,Andrey Rublev,Daniel Evans,2020-01-16,ASB Classic,2,1.44,2.75,1.49,2.87,1.47,2.67,,1.46,,2.81
+2020-8998_24,2020-8998,24,20200112,Felix Auger-Aliassime,Alex Bolt,2020-01-16,ASB Classic,2,1.44,2.75,1.47,2.97,1.46,2.7,,1.46,,2.86
+2020-8998_25,2020-8998,25,20200112,Lloyd Harris,Tommy Paul,2020-01-17,ASB Classic,2,2.2,1.66,2.15,1.81,2.12,1.71,,2.17,,1.74
+2020-8998_26,2020-8998,26,20200112,Andrey Rublev,Felix Auger-Aliassime,2020-01-17,ASB Classic,2,1.44,2.75,1.46,3.0,1.47,2.67,,1.45,,2.88
+2020-8998_27,2020-8998,27,20200112,Andrey Rublev,Lloyd Harris,2020-01-18,ASB Classic,2,1.33,3.4,1.32,3.8,1.3,3.45,,1.33,,3.6
+2020-301_1,2020-301,1,20200113,Mikael Ymer,Frances Tiafoe,2020-01-13,Adelaide International,2,2.0,1.72,2.07,1.83,2.01,1.78,,2.04,,1.78
+2020-301_2,2020-301,2,20200113,Tennys Sandgren,Michael Venus,2020-01-13,Adelaide International,1,1.2,4.33,1.21,4.99,1.2,4.5,,1.2,,4.66
+2020-301_3,2020-301,3,20200113,Vasek Pospisil,Joao Sousa,2020-01-14,Adelaide International,2,1.4,2.75,1.45,2.93,1.41,2.88,,1.42,,2.84
+2020-301_4,2020-301,4,20200113,Thiago Monteiro,Cameron Norrie,2020-01-13,Adelaide International,2,2.0,1.72,2.35,1.65,2.21,1.66,,2.17,,1.68
+2020-301_5,2020-301,5,20200113,John Millman,Michael Mmoh,2020-01-14,Adelaide International,2,1.61,2.2,1.64,2.36,1.65,2.24,,1.62,,2.28
+2020-301_6,2020-301,6,20200113,Feliciano Lopez,Pablo Andujar,2020-01-15,Adelaide International,2,1.53,2.37,1.52,2.7,1.53,2.48,,1.52,,2.54
+2020-301_7,2020-301,7,20200113,Ugo Humbert,Casper Ruud,2020-01-13,Adelaide International,2,1.83,1.83,2.03,1.86,1.96,1.83,,1.93,,1.85
+2020-301_8,2020-301,8,20200113,Kyle Edmund,Alejandro Davidovich Fokina,2020-01-14,Adelaide International,2,1.5,2.5,1.45,2.93,1.46,2.68,,1.48,,2.72
+2020-301_9,2020-301,9,20200113,Marco Cecchinato,Leonardo Mayer,2020-01-15,Adelaide International,2,2.37,1.53,2.46,1.6,2.42,1.56,,2.42,,1.56
+2020-301_10,2020-301,10,20200113,Andreas Seppi,Adrian Mannarino,2020-01-15,Adelaide International,2,2.37,1.53,2.45,1.61,2.37,1.58,,2.41,,1.57
+2020-301_11,2020-301,11,20200113,Hubert Hurkacz,Lorenzo Sonego,2020-01-13,Adelaide International,2,1.33,3.25,1.31,3.74,1.32,3.35,,1.32,,3.5
+2020-301_12,2020-301,12,20200113,Benoit Paire,Jannik Sinner,2020-01-13,Adelaide International,2,2.1,1.66,2.27,1.7,2.1,1.73,,2.18,,1.68
+2020-301_13,2020-301,13,20200113,Ugo Humbert,Marco Cecchinato,2020-01-15,Adelaide International,2,1.5,2.5,1.39,3.25,1.36,3.11,,1.44,,2.88
+2020-301_14,2020-301,14,20200113,Kyle Edmund,Andreas Seppi,2020-01-15,Adelaide International,2,1.44,2.62,1.39,3.22,1.33,3.3,,1.42,,2.92
+2020-301_15,2020-301,15,20200113,Hubert Hurkacz,Mikael Ymer,2020-01-15,Adelaide International,2,1.5,2.5,1.49,2.84,1.46,2.68,,1.5,,2.67
+2020-301_16,2020-301,16,20200113,Benoit Paire,Thiago Monteiro,2020-01-15,Adelaide International,2,1.5,2.5,1.57,2.57,1.55,2.44,,1.54,,2.54
+2020-301_17,2020-301,17,20200113,John Isner,Tennys Sandgren,2020-01-15,Adelaide International,2,1.57,2.25,1.53,2.71,1.55,2.42,,1.55,,2.48
+2020-301_18,2020-301,18,20200113,John Millman,Karen Khachanov,2020-01-15,Adelaide International,2,2.5,1.5,2.62,1.56,2.44,1.55,,2.56,,1.53
+2020-301_19,2020-301,19,20200113,Denis Shapovalov,Vasek Pospisil,2020-01-15,Adelaide International,2,1.53,2.37,1.51,2.76,1.49,2.6,,1.52,,2.56
+2020-301_20,2020-301,20,20200113,Feliciano Lopez,Fabio Fognini,2020-01-15,Adelaide International,2,2.75,1.4,3.19,1.4,2.89,1.41,,2.97,,1.4
+2020-301_21,2020-301,21,20200113,Hubert Hurkacz,Feliciano Lopez,2020-01-16,Adelaide International,2,1.33,3.4,1.35,3.61,1.32,3.36,,1.34,,3.5
+2020-301_22,2020-301,22,20200113,Benoit Paire,John Millman,2020-01-16,Adelaide International,2,2.1,1.72,2.33,1.69,2.11,1.72,,2.22,,1.7
+2020-301_23,2020-301,23,20200113,John Isner,Kyle Edmund,2020-01-16,Adelaide International,2,1.9,1.9,1.92,2.0,1.87,1.92,,1.91,,1.95
+2020-301_24,2020-301,24,20200113,Ugo Humbert,Denis Shapovalov,2020-01-16,Adelaide International,2,3.2,1.36,3.26,1.4,3.12,1.35,,3.23,,1.38
+2020-301_25,2020-301,25,20200113,Benoit Paire,Hubert Hurkacz,2020-01-17,Adelaide International,2,2.37,1.57,2.73,1.53,2.54,1.51,,2.55,,1.55
+2020-301_26,2020-301,26,20200113,Ugo Humbert,John Isner,2020-01-17,Adelaide International,2,1.9,1.9,2.01,1.92,1.89,1.89,,1.95,,1.91
+2020-301_27,2020-301,27,20200113,Ugo Humbert,Benoit Paire,2020-01-18,Adelaide International,2,1.72,2.1,1.71,2.29,1.72,2.11,,1.72,,2.2
+2020-580_1,2020-580,1,20200120,Mikael Ymer,Yasutaka Uchiyama,2020-01-21,Australian Open,2,1.36,3.2,1.34,3.57,1.34,3.3,,1.35,,3.38
+2020-580_2,2020-580,2,20200120,Fernando Verdasco,Evgeny Donskoy,2020-01-21,Australian Open,2,1.4,3.0,1.35,3.55,1.33,3.29,,1.38,,3.28
+2020-580_3,2020-580,3,20200120,Jordan Thompson,Alexander Bublik,2020-01-21,Australian Open,2,1.9,1.9,1.92,1.99,1.86,1.95,,1.91,,1.94
+2020-580_4,2020-580,4,20200120,Alejandro Tabilo,Daniel Elahi Galan,2020-01-21,Australian Open,0,2.5,1.53,2.66,1.54,2.54,1.52,,2.58,,1.54
+2020-580_5,2020-580,5,20200120,Yuichi Sugita,Elliot Benchetrit,2020-01-21,Australian Open,1,1.44,2.75,1.5,2.8,1.44,2.78,,1.47,,2.78
+2020-580_6,2020-580,6,20200120,Jannik Sinner,Max Purcell,2020-01-21,Australian Open,1,1.33,3.4,1.34,3.57,1.31,3.44,,1.34,,3.48
+2020-580_7,2020-580,7,20200120,Gilles Simon,Pablo Cuevas,2020-01-21,Australian Open,2,1.44,2.75,1.4,3.2,1.38,2.99,,1.42,,2.98
+2020-580_8,2020-580,8,20200120,Andreas Seppi,Miomir Kecmanovic,2020-01-21,Australian Open,2,2.75,1.44,2.82,1.49,2.7,1.47,,2.78,,1.46
+2020-580_9,2020-580,9,20200120,Tennys Sandgren,Marco Trungelliti,2020-01-21,Australian Open,1,1.53,2.5,1.55,2.65,1.5,2.58,,1.54,,2.58
+2020-580_10,2020-580,10,20200120,Marc Polmans,Mikhail Kukushkin,2020-01-21,Australian Open,2,3.0,1.4,3.05,1.43,2.86,1.42,,3.02,,1.42
+2020-580_11,2020-580,11,20200120,Tommy Paul,Leonardo Mayer,2020-01-21,Australian Open,2,1.33,3.4,1.39,3.29,1.34,3.25,,1.36,,3.34
+2020-580_12,2020-580,12,20200120,Yoshihito Nishioka,Laslo Djere,2020-01-20,Australian Open,2,1.57,2.37,1.55,2.64,1.53,2.51,,1.56,,2.5
+2020-580_13,2020-580,13,20200120,Jaume Munar,Hugo Gaston,2020-01-21,Australian Open,1,1.3,3.5,1.3,3.89,1.28,3.63,,1.3,,3.7
+2020-580_14,2020-580,14,20200120,Michael Mmoh,Pablo Andujar,2020-01-21,Australian Open,1,1.53,2.5,1.52,2.74,1.5,2.6,,1.52,,2.62
+2020-580_15,2020-580,15,20200120,John Millman,Ugo Humbert,2020-01-21,Australian Open,2,2.0,1.8,2.04,1.87,2.05,1.77,,2.02,,1.84
+2020-580_16,2020-580,16,20200120,Pedro Martinez,Dominik Koepfer,2020-01-21,Australian Open,2,2.5,1.53,2.39,1.65,2.43,1.56,,2.45,,1.59
+2020-580_17,2020-580,17,20200120,Filip Krajinovic,Quentin Halys,2020-01-21,Australian Open,1,1.25,4.0,1.25,4.48,1.24,4.06,,1.25,,4.24
+2020-580_18,2020-580,18,20200120,Philipp Kohlschreiber,Marcos Giron,2020-01-20,Australian Open,2,1.28,3.75,1.31,3.85,1.29,3.57,,1.3,,3.8
+2020-580_19,2020-580,19,20200120,Ivo Karlovic,Vasek Pospisil,2020-01-21,Australian Open,2,4.0,1.25,4.07,1.28,3.93,1.25,,4.04,,1.27
+2020-580_20,2020-580,20,20200120,Tatsuma Ito,Prajnesh Gunneswaran,2020-01-21,Australian Open,2,2.37,1.57,2.55,1.58,2.38,1.58,,2.46,,1.58
+2020-580_21,2020-580,21,20200120,Pierre-Hugues Herbert,Cameron Norrie,2020-01-21,Australian Open,2,1.66,2.2,1.64,2.42,1.63,2.29,,1.65,,2.31
+2020-580_22,2020-580,22,20200120,Peter Gojowczyk,Christopher Eubanks,2020-01-21,Australian Open,1,1.53,2.5,1.62,2.46,1.54,2.47,,1.58,,2.48
+2020-580_23,2020-580,23,20200120,Egor Gerasimov,Casper Ruud,2020-01-21,Australian Open,2,3.0,1.4,3.11,1.42,3.03,1.38,,3.06,,1.41
+2020-580_24,2020-580,24,20200120,Cristian Garin,Stefano Travaglia,2020-01-21,Australian Open,2,1.72,2.1,1.78,2.16,1.74,2.09,,1.75,,2.13
+2020-580_25,2020-580,25,20200120,Federico Delbonis,Joao Sousa,2020-01-21,Australian Open,2,1.9,1.9,1.81,2.12,1.8,2.01,,1.86,,2.01
+2020-580_26,2020-580,26,20200120,Alejandro Davidovich Fokina,Norbert Gombos,2020-01-21,Australian Open,2,1.72,2.1,1.81,2.11,1.78,2.04,,1.76,,2.1
+2020-580_27,2020-580,27,20200120,Marin Cilic,Corentin Moutet,2020-01-21,Australian Open,2,1.5,2.62,1.44,3.02,1.47,2.7,,1.47,,2.82
+2020-580_28,2020-580,28,20200120,Alex Bolt,Albert Ramos-Vinolas,2020-01-21,Australian Open,2,2.3,1.61,2.36,1.67,2.33,1.6,,2.33,,1.64
+2020-580_29,2020-580,29,20200120,Ricardas Berankis,Roberto Carballes Baena,2020-01-20,Australian Open,2,1.66,2.2,1.76,2.2,1.73,2.1,,1.71,,2.2
+2020-580_30,2020-580,30,20200120,Aljaz Bedene,James Duckworth,2020-01-21,Australian Open,2,1.72,2.1,1.71,2.28,1.7,2.16,,1.72,,2.19
+2020-580_31,2020-580,31,20200120,Gregoire Barrere,Mohamed Safwat,2020-01-20,Australian Open,2,1.44,2.75,1.48,2.87,1.4,2.94,,1.46,,2.81
+2020-580_32,2020-580,32,20200120,Kevin Anderson,Ilya Ivashka,2020-01-21,Australian Open,2,1.22,4.33,1.27,4.18,1.23,4.17,,1.25,,4.26
+2020-580_33,2020-580,33,20200120,Milos Raonic,Lorenzo Giustino,2020-01-21,Australian Open,2,1.1,7.0,1.08,10.03,1.07,8.38,,1.09,,8.52
+2020-580_34,2020-580,34,20200120,Hubert Hurkacz,Dennis Novak,2020-01-21,Australian Open,2,1.36,3.2,1.45,3.0,1.39,2.98,,1.4,,3.1
+2020-580_35,2020-580,35,20200120,Daniel Evans,Mackenzie McDonald,2020-01-20,Australian Open,2,1.16,5.0,1.26,4.34,1.2,4.57,,1.21,,4.67
+2020-580_36,2020-580,36,20200120,Taylor Fritz,Tallon Griekspoor,2020-01-21,Australian Open,2,1.2,4.5,1.26,4.38,1.22,4.36,,1.23,,4.44
+2020-580_37,2020-580,37,20200120,Alexei Popyrin,Jo-Wilfried Tsonga,2020-01-21,Australian Open,2,2.62,1.5,2.57,1.57,2.48,1.54,,2.6,,1.54
+2020-580_38,2020-580,38,20200120,Pablo Carreno Busta,Jozef Kovalik,2020-01-21,Australian Open,2,1.11,6.5,1.13,7.2,1.11,6.58,,1.12,,6.85
+2020-580_39,2020-580,39,20200120,Nikoloz Basilashvili,Soonwoo Kwon,2020-01-21,Australian Open,2,1.8,2.0,2.05,1.86,1.88,1.93,,1.92,,1.93
+2020-580_40,2020-580,40,20200120,Sam Querrey,Borna Coric,2020-01-20,Australian Open,2,2.2,1.66,2.17,1.78,2.23,1.66,,2.18,,1.72
+2020-580_41,2020-580,41,20200120,Dusan Lajovic,Kyle Edmund,2020-01-21,Australian Open,2,2.5,1.53,2.71,1.53,2.61,1.5,,2.6,,1.53
+2020-580_42,2020-580,42,20200120,Nick Kyrgios,Lorenzo Sonego,2020-01-21,Australian Open,2,1.12,6.0,1.09,9.0,1.1,7.09,,1.1,,7.5
+2020-580_43,2020-580,43,20200120,Guido Pella,John-Patrick Smith,2020-01-20,Australian Open,1,1.25,4.0,1.32,3.78,1.26,3.85,,1.28,,3.89
+2020-580_44,2020-580,44,20200120,Benoit Paire,Cedrik-Marcel Stebe,2020-01-21,Australian Open,2,1.36,3.2,1.44,3.02,1.38,3.08,,1.4,,3.11
+2020-580_45,2020-580,45,20200120,Ernests Gulbis,Felix Auger-Aliassime,2020-01-21,Australian Open,1,4.33,1.22,4.69,1.23,4.33,1.22,,4.51,,1.23
+2020-580_46,2020-580,46,20200120,John Isner,Thiago Monteiro,2020-01-21,Australian Open,2,1.3,3.5,1.25,4.42,1.24,4.03,,1.27,,3.96
+2020-580_47,2020-580,47,20200120,Grigor Dimitrov,Juan Ignacio Londero,2020-01-20,Australian Open,2,1.2,4.5,1.19,5.42,1.18,4.82,,1.19,,4.96
+2020-580_48,2020-580,48,20200120,Andrey Rublev,Christopher O'Connell,2020-01-21,Australian Open,2,1.06,10.0,1.05,14.82,1.04,11.29,,1.06,,12.41
+2020-580_49,2020-580,49,20200120,Karen Khachanov,Mario Vilella Martinez,2020-01-21,Australian Open,1,1.05,11.0,1.06,12.54,1.04,10.98,,1.06,,11.77
+2020-580_50,2020-580,50,20200120,Stan Wawrinka,Damir Dzumhur,2020-01-21,Australian Open,2,1.14,5.5,1.14,6.93,1.13,5.91,,1.14,,6.22
+2020-580_51,2020-580,51,20200120,Diego Schwartzman,Lloyd Harris,2020-01-21,Australian Open,2,1.33,3.4,1.41,3.17,1.34,3.28,,1.37,,3.28
+2020-580_52,2020-580,52,20200120,Marton Fucsovics,Denis Shapovalov,2020-01-20,Australian Open,2,5.0,1.16,5.62,1.18,5.15,1.16,,5.31,,1.17
+2020-580_53,2020-580,53,20200120,Fabio Fognini,Reilly Opelka,2020-01-21,Australian Open,2,2.0,1.8,2.19,1.76,2.08,1.75,,2.09,,1.78
+2020-580_54,2020-580,54,20200120,David Goffin,Jeremy Chardy,2020-01-21,Australian Open,2,1.2,4.5,1.24,4.6,1.2,4.55,,1.22,,4.55
+2020-580_55,2020-580,55,20200120,Gael Monfils,Yen-Hsun Lu,2020-01-21,Australian Open,1,1.01,21.0,1.02,24.4,1.02,18.31,,1.02,,22.7
+2020-580_56,2020-580,56,20200120,Roberto Bautista Agut,Feliciano Lopez,2020-01-21,Australian Open,2,1.12,6.0,1.17,5.92,1.14,5.67,,1.14,,5.96
+2020-580_57,2020-580,57,20200120,Matteo Berrettini,Andrew Harris,2020-01-20,Australian Open,2,1.1,7.0,1.12,7.51,1.11,6.68,,1.11,,7.26
+2020-580_58,2020-580,58,20200120,Alexander Zverev,Marco Cecchinato,2020-01-21,Australian Open,2,1.08,8.0,1.12,7.51,1.1,7.15,,1.1,,7.76
+2020-580_59,2020-580,59,20200120,Stefanos Tsitsipas,Salvatore Caruso,2020-01-20,Australian Open,2,1.02,19.0,1.01,27.9,1.01,18.09,,1.02,,23.45
+2020-580_60,2020-580,60,20200120,Dominic Thiem,Adrian Mannarino,2020-01-21,Australian Open,2,1.12,6.0,1.13,7.05,1.13,5.91,,1.12,,6.52
+2020-580_61,2020-580,61,20200120,Daniil Medvedev,Frances Tiafoe,2020-01-21,Australian Open,2,1.07,9.0,1.06,11.99,1.06,9.65,,1.06,,10.5
+2020-580_62,2020-580,62,20200120,Roger Federer,Steve Johnson,2020-01-20,Australian Open,2,1.03,15.0,1.03,17.9,1.03,13.43,,1.03,,16.45
+2020-580_63,2020-580,63,20200120,Novak Djokovic,Jan-Lennard Struff,2020-01-20,Australian Open,2,1.01,23.0,1.01,26.08,1.01,20.0,,1.01,,24.54
+2020-580_64,2020-580,64,20200120,Rafael Nadal,Hugo Dellien,2020-01-21,Australian Open,2,1.005,29.0,1.01,32.09,1.01,24.16,,1.01,,30.54
+2020-580_65,2020-580,65,20200120,Sam Querrey,Ricardas Berankis,2020-01-22,Australian Open,2,1.33,3.4,1.37,3.42,1.34,3.27,,1.35,,3.41
+2020-580_66,2020-580,66,20200120,Alexei Popyrin,Jaume Munar,2020-01-23,Australian Open,2,1.44,2.75,1.43,3.09,1.42,2.9,,1.44,,2.92
+2020-580_67,2020-580,67,20200120,Ernests Gulbis,Aljaz Bedene,2020-01-23,Australian Open,1,3.0,1.4,3.04,1.44,2.84,1.43,,3.02,,1.42
+2020-580_68,2020-580,68,20200120,Marton Fucsovics,Jannik Sinner,2020-01-22,Australian Open,2,2.1,1.72,2.12,1.81,2.06,1.77,,2.11,,1.76
+2020-580_69,2020-580,69,20200120,Milos Raonic,Cristian Garin,2020-01-22,Australian Open,2,1.28,3.75,1.31,3.79,1.3,3.54,,1.3,,3.77
+2020-580_70,2020-580,70,20200120,John Millman,Hubert Hurkacz,2020-01-22,Australian Open,2,2.0,1.8,2.1,1.83,2.07,1.76,,2.05,,1.82
+2020-580_71,2020-580,71,20200120,Yoshihito Nishioka,Daniel Evans,2020-01-22,Australian Open,2,2.3,1.61,2.41,1.64,2.27,1.64,,2.36,,1.62
+2020-580_72,2020-580,72,20200120,Taylor Fritz,Kevin Anderson,2020-01-23,Australian Open,2,1.8,2.0,1.86,2.05,1.8,2.02,,1.83,,2.02
+2020-580_73,2020-580,73,20200120,Pablo Carreno Busta,Peter Gojowczyk,2020-01-23,Australian Open,2,1.22,4.33,1.24,4.55,1.23,4.19,,1.23,,4.44
+2020-580_74,2020-580,74,20200120,Fernando Verdasco,Nikoloz Basilashvili,2020-01-23,Australian Open,2,1.61,2.3,1.56,2.6,1.58,2.39,,1.58,,2.45
+2020-580_75,2020-580,75,20200120,Dusan Lajovic,Marc Polmans,2020-01-22,Australian Open,2,1.22,4.33,1.24,4.62,1.21,4.38,,1.23,,4.47
+2020-580_76,2020-580,76,20200120,Nick Kyrgios,Gilles Simon,2020-01-23,Australian Open,2,1.2,4.5,1.21,5.02,1.19,4.71,,1.2,,4.76
+2020-580_77,2020-580,77,20200120,Guido Pella,Gregoire Barrere,2020-01-22,Australian Open,2,1.4,3.0,1.44,3.02,1.43,2.82,,1.42,,3.01
+2020-580_78,2020-580,78,20200120,Marin Cilic,Benoit Paire,2020-01-22,Australian Open,2,1.4,3.0,1.39,3.3,1.37,3.09,,1.4,,3.15
+2020-580_79,2020-580,79,20200120,John Isner,Alejandro Tabilo,2020-01-23,Australian Open,1,1.11,6.5,1.13,7.1,1.11,6.52,,1.12,,6.8
+2020-580_80,2020-580,80,20200120,Tommy Paul,Grigor Dimitrov,2020-01-22,Australian Open,2,3.2,1.36,3.37,1.37,3.17,1.36,,3.28,,1.37
+2020-580_81,2020-580,81,20200120,Andrey Rublev,Yuichi Sugita,2020-01-23,Australian Open,2,1.12,6.0,1.14,6.9,1.12,6.24,,1.13,,6.45
+2020-580_82,2020-580,82,20200120,Karen Khachanov,Mikael Ymer,2020-01-23,Australian Open,2,1.36,3.2,1.42,3.14,1.38,3.03,,1.39,,3.17
+2020-580_83,2020-580,83,20200120,Stan Wawrinka,Andreas Seppi,2020-01-23,Australian Open,2,1.22,4.33,1.21,5.09,1.21,4.48,,1.21,,4.71
+2020-580_84,2020-580,84,20200120,Diego Schwartzman,Alejandro Davidovich Fokina,2020-01-22,Australian Open,2,1.12,6.0,1.17,5.84,1.15,5.47,,1.14,,5.92
+2020-580_85,2020-580,85,20200120,Fabio Fognini,Jordan Thompson,2020-01-22,Australian Open,2,1.66,2.2,1.74,2.22,1.67,2.2,,1.7,,2.21
+2020-580_86,2020-580,86,20200120,David Goffin,Pierre-Hugues Herbert,2020-01-23,Australian Open,2,1.14,5.5,1.15,6.61,1.13,5.92,,1.14,,6.06
+2020-580_87,2020-580,87,20200120,Gael Monfils,Ivo Karlovic,2020-01-23,Australian Open,2,1.28,3.75,1.29,4.04,1.26,3.84,,1.28,,3.9
+2020-580_88,2020-580,88,20200120,Roberto Bautista Agut,Michael Mmoh,2020-01-22,Australian Open,1,1.08,8.0,1.09,9.17,1.08,7.88,,1.08,,8.59
+2020-580_89,2020-580,89,20200120,Tennys Sandgren,Matteo Berrettini,2020-01-22,Australian Open,2,4.5,1.2,5.03,1.21,4.54,1.2,,4.77,,1.2
+2020-580_90,2020-580,90,20200120,Alexander Zverev,Egor Gerasimov,2020-01-23,Australian Open,2,1.2,4.5,1.19,5.42,1.18,4.87,,1.19,,4.96
+2020-580_91,2020-580,91,20200120,Stefanos Tsitsipas,Philipp Kohlschreiber,2020-01-22,Australian Open,2,1.14,5.5,1.18,5.76,1.15,5.44,,1.16,,5.63
+2020-580_92,2020-580,92,20200120,Dominic Thiem,Alex Bolt,2020-01-23,Australian Open,2,1.07,9.0,1.11,8.18,1.07,8.43,,1.09,,8.59
+2020-580_93,2020-580,93,20200120,Daniil Medvedev,Pedro Martinez,2020-01-23,Australian Open,2,1.01,21.0,1.01,27.94,1.01,19.48,,1.01,,24.47
+2020-580_94,2020-580,94,20200120,Roger Federer,Filip Krajinovic,2020-01-22,Australian Open,2,1.02,17.0,1.03,17.74,1.03,14.08,,1.02,,17.37
+2020-580_95,2020-580,95,20200120,Novak Djokovic,Tatsuma Ito,2020-01-22,Australian Open,2,1.005,29.0,1.005,37.07,1.01,25.7,,1.0,,33.03
+2020-580_96,2020-580,96,20200120,Rafael Nadal,Federico Delbonis,2020-01-23,Australian Open,2,29.0,0.967,1.01,29.89,1.01,21.52,,15.0,,15.43
+2020-580_97,2020-580,97,20200120,Tennys Sandgren,Sam Querrey,2020-01-24,Australian Open,2,2.37,1.57,2.77,1.51,2.47,1.55,,2.57,,1.54
+2020-580_98,2020-580,98,20200120,Marton Fucsovics,Tommy Paul,2020-01-24,Australian Open,2,1.72,2.1,1.78,2.17,1.73,2.12,,1.75,,2.13
+2020-580_99,2020-580,99,20200120,Nick Kyrgios,Karen Khachanov,2020-01-25,Australian Open,2,1.36,3.2,1.4,3.23,1.37,3.11,,1.38,,3.22
+2020-580_100,2020-580,100,20200120,Stan Wawrinka,John Isner,2020-01-25,Australian Open,2,1.66,2.2,1.61,2.49,1.64,2.26,,1.64,,2.35
+2020-580_101,2020-580,101,20200120,Diego Schwartzman,Dusan Lajovic,2020-01-24,Australian Open,2,1.36,3.2,1.37,3.39,1.36,3.16,,1.37,,3.3
+2020-580_102,2020-580,102,20200120,Fabio Fognini,Guido Pella,2020-01-24,Australian Open,2,2.1,1.72,2.13,1.8,2.13,1.72,,2.12,,1.76
+2020-580_103,2020-580,103,20200120,Andrey Rublev,David Goffin,2020-01-25,Australian Open,2,1.5,2.62,1.47,2.91,1.46,2.73,,1.48,,2.76
+2020-580_104,2020-580,104,20200120,Gael Monfils,Ernests Gulbis,2020-01-25,Australian Open,1,1.53,2.5,1.44,3.01,1.48,2.67,,1.48,,2.76
+2020-580_105,2020-580,105,20200120,Marin Cilic,Roberto Bautista Agut,2020-01-24,Australian Open,2,3.2,1.36,3.56,1.34,3.28,1.34,,3.38,,1.35
+2020-580_106,2020-580,106,20200120,Alexander Zverev,Fernando Verdasco,2020-01-25,Australian Open,2,1.44,2.75,1.43,3.07,1.42,2.86,,1.44,,2.91
+2020-580_107,2020-580,107,20200120,Milos Raonic,Stefanos Tsitsipas,2020-01-24,Australian Open,2,3.2,1.36,3.22,1.4,3.16,1.36,,3.21,,1.38
+2020-580_108,2020-580,108,20200120,Dominic Thiem,Taylor Fritz,2020-01-25,Australian Open,2,1.4,3.0,1.39,3.27,1.39,2.98,,1.4,,3.14
+2020-580_109,2020-580,109,20200120,Daniil Medvedev,Alexei Popyrin,2020-01-25,Australian Open,2,1.1,7.0,1.11,8.13,1.1,7.21,,1.1,,7.56
+2020-580_110,2020-580,110,20200120,Roger Federer,John Millman,2020-01-24,Australian Open,2,1.04,13.0,1.07,11.39,1.05,10.53,,1.06,,12.2
+2020-580_111,2020-580,111,20200120,Novak Djokovic,Yoshihito Nishioka,2020-01-24,Australian Open,2,1.01,23.0,1.01,27.33,1.01,19.65,,1.01,,25.16
+2020-580_112,2020-580,112,20200120,Rafael Nadal,Pablo Carreno Busta,2020-01-25,Australian Open,2,1.03,15.0,1.05,14.64,1.02,14.33,,1.04,,14.82
+2020-580_113,2020-580,113,20200120,Milos Raonic,Marin Cilic,2020-01-26,Australian Open,2,1.53,2.5,1.56,2.64,1.52,2.53,,1.54,,2.57
+2020-580_114,2020-580,114,20200120,Tennys Sandgren,Fabio Fognini,2020-01-26,Australian Open,2,2.37,1.57,2.49,1.62,2.38,1.59,,2.43,,1.6
+2020-580_115,2020-580,115,20200120,Alexander Zverev,Andrey Rublev,2020-01-27,Australian Open,2,2.0,1.8,2.16,1.79,2.02,1.81,,2.08,,1.8
+2020-580_116,2020-580,116,20200120,Dominic Thiem,Gael Monfils,2020-01-27,Australian Open,2,1.3,3.5,1.34,3.64,1.32,3.38,,1.32,,3.57
+2020-580_117,2020-580,117,20200120,Stan Wawrinka,Daniil Medvedev,2020-01-27,Australian Open,2,3.75,1.28,4.03,1.3,3.79,1.27,,3.89,,1.29
+2020-580_118,2020-580,118,20200120,Roger Federer,Marton Fucsovics,2020-01-26,Australian Open,2,1.14,5.5,1.16,6.35,1.15,5.53,,1.15,,5.92
+2020-580_119,2020-580,119,20200120,Novak Djokovic,Diego Schwartzman,2020-01-26,Australian Open,2,1.04,13.0,1.05,14.57,1.04,11.88,,1.04,,13.78
+2020-580_120,2020-580,120,20200120,Rafael Nadal,Nick Kyrgios,2020-01-27,Australian Open,2,1.16,5.0,1.18,5.84,1.15,5.38,,1.17,,5.42
+2020-580_121,2020-580,121,20200120,Alexander Zverev,Stan Wawrinka,2020-01-29,Australian Open,2,1.66,2.2,1.7,2.31,1.68,2.21,,1.68,,2.26
+2020-580_122,2020-580,122,20200120,Roger Federer,Tennys Sandgren,2020-01-28,Australian Open,2,1.08,8.0,1.11,8.71,1.08,7.94,,1.1,,8.36
+2020-580_123,2020-580,123,20200120,Novak Djokovic,Milos Raonic,2020-01-28,Australian Open,2,1.12,6.0,1.13,7.35,1.12,6.28,,1.12,,6.68
+2020-580_124,2020-580,124,20200120,Dominic Thiem,Rafael Nadal,2020-01-29,Australian Open,2,3.2,1.36,3.73,1.33,3.42,1.32,,3.46,,1.35
+2020-580_125,2020-580,125,20200120,Dominic Thiem,Alexander Zverev,2020-01-31,Australian Open,2,1.5,2.62,1.53,2.73,1.48,2.69,,1.52,,2.68
+2020-580_126,2020-580,126,20200120,Novak Djokovic,Roger Federer,2020-01-30,Australian Open,2,1.11,6.5,1.14,6.84,1.13,6.25,,1.12,,6.67
+2020-580_127,2020-580,127,20200120,Novak Djokovic,Dominic Thiem,2020-02-02,Australian Open,2,1.25,4.0,1.27,4.27,1.27,3.89,,1.26,,4.14
+2020-375_1,2020-375,1,20200203,Mikael Ymer,Jannik Sinner,2020-02-04,Open Sud de France,2,2.2,1.61,2.18,1.75,2.15,1.68,,2.19,,1.68
+2020-375_2,2020-375,2,20200203,Emil Ruusuvuori,Dennis Novak,2020-02-04,Open Sud de France,2,1.66,2.1,1.65,2.37,1.63,2.24,,1.65,,2.24
+2020-375_3,2020-375,3,20200203,Vasek Pospisil,Aljaz Bedene,2020-02-03,Open Sud de France,2,1.8,1.9,1.78,2.15,1.77,2.02,,1.79,,2.02
+2020-375_4,2020-375,4,20200203,Adrian Mannarino,Alexei Popyrin,2020-02-05,Open Sud de France,2,1.72,2.0,1.75,2.19,1.73,2.08,,1.74,,2.09
+2020-375_5,2020-375,5,20200203,Pierre-Hugues Herbert,Sergiy Stakhovsky,2020-02-04,Open Sud de France,2,1.36,3.0,1.35,3.47,1.33,3.22,,1.36,,3.24
+2020-375_6,2020-375,6,20200203,Richard Gasquet,Gilles Simon,2020-02-05,Open Sud de France,2,3.0,1.36,3.0,1.44,2.85,1.41,,3.0,,1.4
+2020-375_7,2020-375,7,20200203,Alexander Bublik,Henri Laaksonen,2020-02-04,Open Sud de France,2,1.4,2.75,1.42,3.07,1.39,2.94,,1.41,,2.91
+2020-375_8,2020-375,8,20200203,Gregoire Barrere,Joao Sousa,2020-02-03,Open Sud de France,2,1.57,2.25,1.66,2.34,1.63,2.25,,1.62,,2.3
+2020-375_9,2020-375,9,20200203,Feliciano Lopez,Ugo Humbert,2020-02-05,Open Sud de France,2,2.62,1.44,2.83,1.48,2.72,1.44,,2.72,,1.46
+2020-375_10,2020-375,10,20200203,Filip Krajinovic,Enzo Couacaud,2020-02-04,Open Sud de France,2,1.36,3.0,1.48,2.82,1.41,2.87,,1.42,,2.91
+2020-375_11,2020-375,11,20200203,Norbert Gombos,Pablo Carreno Busta,2020-02-03,Open Sud de France,2,2.62,1.44,2.85,1.47,2.65,1.47,,2.74,,1.46
+2020-375_12,2020-375,12,20200203,Felix Auger-Aliassime,Damir Dzumhur,2020-02-04,Open Sud de France,2,1.53,2.37,1.57,2.55,1.55,2.42,,1.55,,2.46
+2020-375_13,2020-375,13,20200203,Norbert Gombos,Emil Ruusuvuori,2020-02-06,Open Sud de France,2,2.2,1.61,2.41,1.64,2.3,1.6,,2.31,,1.62
+2020-375_14,2020-375,14,20200203,Richard Gasquet,Feliciano Lopez,2020-02-06,Open Sud de France,2,1.9,1.8,1.85,2.06,1.86,1.92,,1.88,,1.93
+2020-375_15,2020-375,15,20200203,Filip Krajinovic,Mikael Ymer,2020-02-06,Open Sud de France,2,1.72,2.0,1.83,2.09,1.78,2.01,,1.78,,2.04
+2020-375_16,2020-375,16,20200203,Pierre-Hugues Herbert,Felix Auger-Aliassime,2020-02-06,Open Sud de France,2,2.25,1.57,2.2,1.75,2.17,1.67,,2.22,,1.66
+2020-375_17,2020-375,17,20200203,Gregoire Barrere,Grigor Dimitrov,2020-02-05,Open Sud de France,2,2.62,1.44,2.98,1.45,2.77,1.43,,2.8,,1.44
+2020-375_18,2020-375,18,20200203,Vasek Pospisil,Denis Shapovalov,2020-02-05,Open Sud de France,2,2.62,1.44,2.85,1.48,2.6,1.48,,2.74,,1.46
+2020-375_19,2020-375,19,20200203,David Goffin,Alexander Bublik,2020-02-06,Open Sud de France,2,1.33,3.25,1.36,3.45,1.34,3.17,,1.35,,3.35
+2020-375_20,2020-375,20,20200203,Gael Monfils,Adrian Mannarino,2020-02-06,Open Sud de France,2,1.57,2.25,1.6,2.51,1.57,2.37,,1.58,,2.38
+2020-375_21,2020-375,21,20200203,Vasek Pospisil,Richard Gasquet,2020-02-07,Open Sud de France,2,1.5,2.62,1.48,2.9,1.46,2.68,,1.49,,2.76
+2020-375_22,2020-375,22,20200203,Filip Krajinovic,Gregoire Barrere,2020-02-07,Open Sud de France,2,1.53,2.5,1.62,2.49,1.53,2.48,,1.58,,2.5
+2020-375_23,2020-375,23,20200203,David Goffin,Pierre-Hugues Herbert,2020-02-07,Open Sud de France,2,1.5,2.62,1.61,2.52,1.49,2.59,,1.56,,2.57
+2020-375_24,2020-375,24,20200203,Gael Monfils,Norbert Gombos,2020-02-07,Open Sud de France,2,1.28,3.75,1.33,3.73,1.28,3.58,,1.31,,3.74
+2020-375_25,2020-375,25,20200203,Vasek Pospisil,David Goffin,2020-02-08,Open Sud de France,2,2.5,1.53,2.65,1.56,2.5,1.52,,2.58,,1.54
+2020-375_26,2020-375,26,20200203,Gael Monfils,Filip Krajinovic,2020-02-08,Open Sud de France,2,1.72,2.1,1.71,2.3,1.69,2.14,,1.72,,2.2
+2020-375_27,2020-375,27,20200203,Gael Monfils,Vasek Pospisil,2020-02-09,Open Sud de France,2,1.44,2.75,1.49,2.89,1.45,2.72,,1.46,,2.82
+2020-891_1,2020-891,1,20200203,Jiri Vesely,Arjun Kadhe,2020-02-04,Maharashtra Open,2,1.08,8.0,1.1,8.4,1.08,7.68,,1.09,,8.2
+2020-891_2,2020-891,2,20200203,Viktor Troicki,Sumit Nagal,2020-02-03,Maharashtra Open,2,1.4,2.75,1.47,2.85,1.43,2.78,,1.44,,2.8
+2020-891_3,2020-891,3,20200203,Cedrik-Marcel Stebe,Ivo Karlovic,2020-02-03,Maharashtra Open,2,2.1,1.66,2.3,1.68,2.19,1.67,,2.2,,1.67
+2020-891_4,2020-891,4,20200203,Nikola Milojevic,Antoine Hoang,2020-02-04,Maharashtra Open,2,1.57,2.25,1.71,2.24,1.66,2.19,,1.64,,2.24
+2020-891_5,2020-891,5,20200203,Roberto Marcora,Lukas Rosol,2020-02-04,Maharashtra Open,2,2.37,1.53,2.3,1.68,2.32,1.6,,2.34,,1.6
+2020-891_6,2020-891,6,20200203,Ilya Ivashka,Evgeny Donskoy,2020-02-04,Maharashtra Open,2,1.53,2.37,1.58,2.53,1.57,2.37,,1.56,,2.45
+2020-891_7,2020-891,7,20200203,Prajnesh Gunneswaran,Yannick Maden,2020-02-04,Maharashtra Open,2,1.57,2.25,1.64,2.38,1.61,2.29,,1.6,,2.32
+2020-891_8,2020-891,8,20200203,Taro Daniel,Mukund Sasikumar,2020-02-05,Maharashtra Open,2,1.36,3.0,1.4,3.18,1.37,3.05,,1.38,,3.09
+2020-891_9,2020-891,9,20200203,Egor Gerasimov,Paolo Lorenzi,2020-02-04,Maharashtra Open,2,1.33,3.25,1.41,3.14,1.34,3.17,,1.37,,3.2
+2020-891_10,2020-891,10,20200203,Salvatore Caruso,Ramkumar Ramanathan,2020-02-03,Maharashtra Open,2,1.83,1.83,2.02,1.88,1.84,1.94,,1.92,,1.86
+2020-891_11,2020-891,11,20200203,James Duckworth,Peter Gojowczyk,2020-02-04,Maharashtra Open,2,1.72,2.0,1.8,2.11,1.74,2.07,,1.76,,2.05
+2020-891_12,2020-891,12,20200203,Yuichi Sugita,Thomas Fabbiano,2020-02-03,Maharashtra Open,2,1.4,2.75,1.45,2.95,1.4,2.9,,1.42,,2.85
+2020-891_13,2020-891,13,20200203,Egor Gerasimov,Nikola Milojevic,2020-02-06,Maharashtra Open,2,1.53,2.37,1.63,2.44,1.55,2.42,,1.58,,2.41
+2020-891_14,2020-891,14,20200203,Jiri Vesely,Salvatore Caruso,2020-02-05,Maharashtra Open,2,1.61,2.2,1.71,2.27,1.67,2.18,,1.66,,2.24
+2020-891_15,2020-891,15,20200203,James Duckworth,Taro Daniel,2020-02-06,Maharashtra Open,2,1.61,2.2,1.7,2.29,1.63,2.25,,1.66,,2.24
+2020-891_16,2020-891,16,20200203,Yuichi Sugita,Viktor Troicki,2020-02-05,Maharashtra Open,2,1.53,2.37,1.59,2.52,1.56,2.39,,1.56,,2.45
+2020-891_17,2020-891,17,20200203,Soonwoo Kwon,Prajnesh Gunneswaran,2020-02-06,Maharashtra Open,2,1.72,2.0,1.72,2.26,1.7,2.13,,1.72,,2.13
+2020-891_18,2020-891,18,20200203,Ilya Ivashka,Stefano Travaglia,2020-02-05,Maharashtra Open,2,1.61,2.2,1.63,2.44,1.63,2.26,,1.62,,2.32
+2020-891_19,2020-891,19,20200203,Ricardas Berankis,Cedrik-Marcel Stebe,2020-02-05,Maharashtra Open,2,1.83,1.83,1.83,2.09,1.83,1.95,,1.83,,1.96
+2020-891_20,2020-891,20,20200203,Roberto Marcora,Benoit Paire,2020-02-06,Maharashtra Open,2,3.0,1.36,3.51,1.35,3.14,1.35,,3.26,,1.36
+2020-891_21,2020-891,21,20200203,Jiri Vesely,Ilya Ivashka,2020-02-07,Maharashtra Open,2,2.2,1.66,2.21,1.76,2.18,1.67,,2.2,,1.71
+2020-891_22,2020-891,22,20200203,James Duckworth,Roberto Marcora,2020-02-07,Maharashtra Open,2,1.53,2.5,1.65,2.41,1.6,2.33,,1.59,,2.46
+2020-891_23,2020-891,23,20200203,Egor Gerasimov,Soonwoo Kwon,2020-02-07,Maharashtra Open,2,1.9,1.9,2.02,1.9,1.94,1.86,,1.96,,1.9
+2020-891_24,2020-891,24,20200203,Ricardas Berankis,Yuichi Sugita,2020-02-07,Maharashtra Open,2,1.8,2.0,1.77,2.2,1.76,2.05,,1.78,,2.1
+2020-891_25,2020-891,25,20200203,Egor Gerasimov,James Duckworth,2020-02-08,Maharashtra Open,2,1.66,2.2,1.75,2.23,1.68,2.16,,1.7,,2.22
+2020-891_26,2020-891,26,20200203,Jiri Vesely,Ricardas Berankis,2020-02-08,Maharashtra Open,2,2.0,1.8,2.02,1.91,1.99,1.81,,2.01,,1.86
+2020-891_27,2020-891,27,20200203,Jiri Vesely,Egor Gerasimov,2020-02-09,Maharashtra Open,2,2.37,1.57,2.51,1.61,2.37,1.57,,2.44,,1.59
+2020-9158_1,2020-9158,1,20200203,Jaume Munar,Leonardo Mayer,2020-02-05,Cordoba Open,2,1.8,1.9,1.74,2.2,1.77,2.03,,1.77,,2.05
+2020-9158_2,2020-9158,2,20200203,Corentin Moutet,Thiago Monteiro,2020-02-04,Cordoba Open,2,2.0,1.72,2.27,1.7,2.02,1.77,,2.13,,1.71
+2020-9158_3,2020-9158,3,20200203,Pedro Martinez,Federico Gaio,2020-02-04,Cordoba Open,2,,,,,1.76,2.08,,,,
+2020-9158_4,2020-9158,4,20200203,Andrej Martin,Federico Coria,2020-02-04,Cordoba Open,2,1.8,1.9,1.83,2.07,1.83,1.95,,1.82,,1.98
+2020-9158_5,2020-9158,5,20200203,Gianluca Mager,Juan Pablo Ficovich,2020-02-03,Cordoba Open,2,1.83,1.83,1.94,1.94,1.87,1.91,,1.88,,1.88
+2020-9158_6,2020-9158,6,20200203,Pedro Cachin,Hugo Dellien,2020-02-04,Cordoba Open,2,3.25,1.33,3.13,1.41,2.86,1.41,,3.19,,1.37
+2020-9158_7,2020-9158,7,20200203,Attila Balazs,Lorenzo Sonego,2020-02-03,Cordoba Open,2,2.5,1.5,2.41,1.63,2.45,1.54,,2.46,,1.56
+2020-9158_8,2020-9158,8,20200203,Pablo Andujar,Filip Horansky,2020-02-04,Cordoba Open,2,,,,,1.16,5.37,,,,
+2020-9158_9,2020-9158,9,20200203,Juan Ignacio Londero,Marco Cecchinato,2020-02-04,Cordoba Open,2,1.57,2.25,1.65,2.36,1.63,2.24,,1.61,,2.3
+2020-9158_10,2020-9158,10,20200203,Carlos Taberner,Fernando Verdasco,2020-02-04,Cordoba Open,1,2.5,1.5,2.97,1.44,2.7,1.46,,2.74,,1.47
+2020-9158_11,2020-9158,11,20200203,Pablo Cuevas,Federico Delbonis,2020-02-03,Cordoba Open,1,2.1,1.66,2.44,1.61,2.25,1.63,,2.27,,1.64
+2020-9158_12,2020-9158,12,20200203,Albert Ramos-Vinolas,Facundo Bagnis,2020-02-04,Cordoba Open,2,1.5,2.5,1.61,2.44,1.54,2.45,,1.56,,2.47
+2020-9158_13,2020-9158,13,20200203,Andrej Martin,Carlos Taberner,2020-02-05,Cordoba Open,2,2.0,1.72,2.16,1.78,1.99,1.8,,2.08,,1.75
+2020-9158_14,2020-9158,14,20200203,Juan Ignacio Londero,Pedro Cachin,2020-02-07,Cordoba Open,2,1.22,4.0,1.26,4.34,1.23,4.01,,1.24,,4.17
+2020-9158_15,2020-9158,15,20200203,Pablo Cuevas,Gianluca Mager,2020-02-05,Cordoba Open,1,1.4,2.75,1.47,2.93,1.41,2.88,,1.44,,2.84
+2020-9158_16,2020-9158,16,20200203,Albert Ramos-Vinolas,Pablo Andujar,2020-02-06,Cordoba Open,2,1.72,2.0,1.83,2.09,1.73,2.07,,1.78,,2.04
+2020-9158_17,2020-9158,17,20200203,Laslo Djere,Pedro Martinez,2020-02-06,Cordoba Open,2,1.57,2.25,1.71,2.27,1.65,2.2,,1.64,,2.26
+2020-9158_18,2020-9158,18,20200203,Cristian Garin,Attila Balazs,2020-02-06,Cordoba Open,2,1.44,2.62,1.43,3.06,1.44,2.75,,1.44,,2.84
+2020-9158_19,2020-9158,19,20200203,Corentin Moutet,Guido Pella,2020-02-05,Cordoba Open,2,2.1,1.66,2.69,1.53,2.52,1.52,,2.4,,1.6
+2020-9158_20,2020-9158,20,20200203,Diego Schwartzman,Jaume Munar,2020-02-07,Cordoba Open,2,1.28,3.5,1.31,3.81,1.27,3.65,,1.3,,3.66
+2020-9158_21,2020-9158,21,20200203,Andrej Martin,Corentin Moutet,2020-02-07,Cordoba Open,2,2.37,1.57,2.37,1.67,2.36,1.58,,2.37,,1.62
+2020-9158_22,2020-9158,22,20200203,Laslo Djere,Juan Ignacio Londero,2020-02-08,Cordoba Open,2,2.2,1.66,2.33,1.69,2.19,1.66,,2.26,,1.67
+2020-9158_23,2020-9158,23,20200203,Cristian Garin,Pablo Cuevas,2020-02-07,Cordoba Open,1,1.53,2.5,1.57,2.6,1.52,2.52,,1.55,,2.55
+2020-9158_24,2020-9158,24,20200203,Diego Schwartzman,Albert Ramos-Vinolas,2020-02-07,Cordoba Open,2,1.25,4.0,1.2,5.32,1.23,4.07,,1.23,,4.66
+2020-9158_25,2020-9158,25,20200203,Cristian Garin,Andrej Martin,2020-02-08,Cordoba Open,2,1.5,2.62,1.61,2.52,1.49,2.6,,1.56,,2.57
+2020-9158_26,2020-9158,26,20200203,Diego Schwartzman,Laslo Djere,2020-02-09,Cordoba Open,2,1.16,5.0,1.18,5.78,1.17,4.92,,1.17,,5.39
+2020-9158_27,2020-9158,27,20200203,Cristian Garin,Diego Schwartzman,2020-02-09,Cordoba Open,2,3.0,1.4,3.28,1.4,3.02,1.38,,3.14,,1.4
+2020-407_1,2020-407,1,20200210,Jannik Sinner,Radu Albot,2020-02-12,ABN AMRO World Tennis Tournament,2,1.33,3.25,1.4,3.18,1.36,3.08,,1.36,,3.22
+2020-407_2,2020-407,2,20200210,Gilles Simon,Mikhail Kukushkin,2020-02-12,ABN AMRO World Tennis Tournament,2,1.9,1.8,2.16,1.76,2.02,1.78,,2.03,,1.78
+2020-407_3,2020-407,3,20200210,Filip Krajinovic,Tallon Griekspoor,2020-02-11,ABN AMRO World Tennis Tournament,2,1.22,4.0,1.31,3.74,1.28,3.59,,1.27,,3.87
+2020-407_4,2020-407,4,20200210,Daniel Evans,Philipp Kohlschreiber,2020-02-10,ABN AMRO World Tennis Tournament,2,2.0,1.72,2.27,1.7,2.1,1.72,,2.13,,1.71
+2020-407_5,2020-407,5,20200210,Pablo Carreno Busta,Adrian Mannarino,2020-02-10,ABN AMRO World Tennis Tournament,2,1.72,2.0,1.72,2.23,1.73,2.09,,1.72,,2.12
+2020-407_6,2020-407,6,20200210,Alexander Bublik,Gregoire Barrere,2020-02-11,ABN AMRO World Tennis Tournament,2,2.1,1.66,2.06,1.84,2.04,1.76,,2.08,,1.75
+2020-407_7,2020-407,7,20200210,Aljaz Bedene,Benoit Paire,2020-02-11,ABN AMRO World Tennis Tournament,2,1.8,1.9,1.93,1.95,1.88,1.9,,1.86,,1.92
+2020-407_8,2020-407,8,20200210,Felix Auger-Aliassime,Jan-Lennard Struff,2020-02-11,ABN AMRO World Tennis Tournament,2,2.1,1.66,2.16,1.76,2.14,1.69,,2.13,,1.71
+2020-407_9,2020-407,9,20200210,Grigor Dimitrov,Denis Shapovalov,2020-02-10,ABN AMRO World Tennis Tournament,2,1.83,1.83,1.85,2.04,1.91,1.87,,1.84,,1.94
+2020-407_10,2020-407,10,20200210,Andrey Rublev,Nikoloz Basilashvili,2020-02-11,ABN AMRO World Tennis Tournament,2,1.33,3.25,1.33,3.62,1.33,3.29,,1.33,,3.44
+2020-407_11,2020-407,11,20200210,Roberto Bautista Agut,Marton Fucsovics,2020-02-10,ABN AMRO World Tennis Tournament,2,1.53,2.37,1.58,2.53,1.55,2.42,,1.56,,2.45
+2020-407_12,2020-407,12,20200210,Karen Khachanov,Fabio Fognini,2020-02-11,ABN AMRO World Tennis Tournament,2,1.5,2.5,1.57,2.55,1.52,2.48,,1.54,,2.52
+2020-407_13,2020-407,13,20200210,David Goffin,Robin Haase,2020-02-12,ABN AMRO World Tennis Tournament,2,1.14,5.5,1.16,6.11,1.14,5.59,,1.15,,5.8
+2020-407_14,2020-407,14,20200210,Gael Monfils,Joao Sousa,2020-02-12,ABN AMRO World Tennis Tournament,2,1.16,5.0,1.17,5.85,1.16,5.07,,1.16,,5.42
+2020-407_15,2020-407,15,20200210,Stefanos Tsitsipas,Hubert Hurkacz,2020-02-11,ABN AMRO World Tennis Tournament,2,1.36,3.0,1.32,3.66,1.33,3.27,,1.34,,3.33
+2020-407_16,2020-407,16,20200210,Vasek Pospisil,Daniil Medvedev,2020-02-12,ABN AMRO World Tennis Tournament,2,4.33,1.2,5.15,1.2,4.78,1.18,,4.74,,1.2
+2020-407_17,2020-407,17,20200210,Filip Krajinovic,Vasek Pospisil,2020-02-13,ABN AMRO World Tennis Tournament,2,1.83,1.83,2.05,1.86,1.92,1.86,,1.94,,1.85
+2020-407_18,2020-407,18,20200210,Daniel Evans,Karen Khachanov,2020-02-12,ABN AMRO World Tennis Tournament,2,2.37,1.53,2.57,1.57,2.42,1.55,,2.47,,1.55
+2020-407_19,2020-407,19,20200210,Felix Auger-Aliassime,Grigor Dimitrov,2020-02-12,ABN AMRO World Tennis Tournament,2,2.37,1.53,2.51,1.6,2.36,1.58,,2.44,,1.56
+2020-407_20,2020-407,20,20200210,Andrey Rublev,Alexander Bublik,2020-02-13,ABN AMRO World Tennis Tournament,2,1.16,5.0,1.19,5.38,1.18,4.74,,1.17,,5.19
+2020-407_21,2020-407,21,20200210,Pablo Carreno Busta,Roberto Bautista Agut,2020-02-12,ABN AMRO World Tennis Tournament,2,3.0,1.36,3.32,1.38,3.07,1.37,,3.16,,1.37
+2020-407_22,2020-407,22,20200210,Jannik Sinner,David Goffin,2020-02-13,ABN AMRO World Tennis Tournament,2,3.0,1.36,3.53,1.35,3.27,1.33,,3.26,,1.36
+2020-407_23,2020-407,23,20200210,Gael Monfils,Gilles Simon,2020-02-13,ABN AMRO World Tennis Tournament,2,1.33,3.25,1.41,3.19,1.33,3.28,,1.37,,3.22
+2020-407_24,2020-407,24,20200210,Aljaz Bedene,Stefanos Tsitsipas,2020-02-13,ABN AMRO World Tennis Tournament,2,4.0,1.22,5.04,1.21,4.47,1.2,,4.52,,1.21
+2020-407_25,2020-407,25,20200210,Pablo Carreno Busta,Jannik Sinner,2020-02-14,ABN AMRO World Tennis Tournament,2,1.8,2.0,1.85,2.09,1.79,2.01,,1.83,,2.04
+2020-407_26,2020-407,26,20200210,Felix Auger-Aliassime,Aljaz Bedene,2020-02-14,ABN AMRO World Tennis Tournament,2,1.5,2.62,1.51,2.81,1.5,2.57,,1.5,,2.72
+2020-407_27,2020-407,27,20200210,Filip Krajinovic,Andrey Rublev,2020-02-14,ABN AMRO World Tennis Tournament,2,3.4,1.33,3.41,1.38,3.37,1.32,,3.4,,1.36
+2020-407_28,2020-407,28,20200210,Gael Monfils,Daniel Evans,2020-02-14,ABN AMRO World Tennis Tournament,2,1.44,2.75,1.53,2.74,1.48,2.62,,1.48,,2.74
+2020-407_29,2020-407,29,20200210,Felix Auger-Aliassime,Pablo Carreno Busta,2020-02-15,ABN AMRO World Tennis Tournament,2,1.53,2.5,1.56,2.64,1.55,2.42,,1.54,,2.57
+2020-407_30,2020-407,30,20200210,Gael Monfils,Filip Krajinovic,2020-02-15,ABN AMRO World Tennis Tournament,2,1.61,2.3,1.58,2.58,1.59,2.34,,1.6,,2.44
+2020-407_31,2020-407,31,20200210,Gael Monfils,Felix Auger-Aliassime,2020-02-16,ABN AMRO World Tennis Tournament,2,1.57,2.37,1.62,2.49,1.56,2.41,,1.6,,2.43
+2020-424_1,2020-424,1,20200210,Jordan Thompson,Ivo Karlovic,2020-02-11,New York Open,2,1.72,2.0,1.86,2.03,1.78,2.02,,1.79,,2.01
+2020-424_2,2020-424,2,20200210,Andreas Seppi,Damir Dzumhur,2020-02-10,New York Open,2,2.0,1.72,2.05,1.85,2.03,1.77,,2.02,,1.78
+2020-424_3,2020-424,3,20200210,Yoshihito Nishioka,Henri Laaksonen,2020-02-11,New York Open,2,1.25,3.75,1.25,4.31,1.27,3.7,,1.25,,4.03
+2020-424_4,2020-424,4,20200210,Paolo Lorenzi,Danilo Petrovic,2020-02-11,New York Open,2,1.83,1.83,2.06,1.83,1.96,1.82,,1.94,,1.83
+2020-424_5,2020-424,5,20200210,Soonwoo Kwon,Go Soeda,2020-02-11,New York Open,2,1.61,2.2,1.62,2.43,1.6,2.3,,1.62,,2.32
+2020-424_6,2020-424,6,20200210,Dominik Koepfer,Brayden Schnur,2020-02-11,New York Open,2,1.5,2.5,1.71,2.25,1.62,2.27,,1.6,,2.38
+2020-424_7,2020-424,7,20200210,Jason Jung,Kevin Anderson,2020-02-12,New York Open,2,3.4,1.3,3.69,1.32,3.46,1.3,,3.54,,1.31
+2020-424_8,2020-424,8,20200210,Marcos Giron,Jack Sock,2020-02-11,New York Open,1,1.72,2.0,1.83,2.07,1.75,2.05,,1.78,,2.04
+2020-424_9,2020-424,9,20200210,Kyle Edmund,Yasutaka Uchiyama,2020-02-11,New York Open,2,1.3,3.4,1.33,3.59,1.31,3.38,,1.32,,3.5
+2020-424_10,2020-424,10,20200210,Cameron Norrie,Brian Shi,2020-02-12,New York Open,1,1.03,15.0,1.03,18.1,1.02,14.56,,1.03,,16.55
+2020-424_11,2020-424,11,20200210,Miomir Kecmanovic,Tommy Paul,2020-02-10,New York Open,2,2.2,1.61,2.21,1.74,2.18,1.67,,2.2,,1.68
+2020-424_12,2020-424,12,20200210,Steve Johnson,Tennys Sandgren,2020-02-11,New York Open,2,2.0,1.72,2.24,1.71,2.08,1.73,,2.12,,1.72
+2020-424_13,2020-424,13,20200210,Andreas Seppi,Steve Johnson,2020-02-12,New York Open,2,2.37,1.53,2.56,1.58,2.41,1.55,,2.46,,1.56
+2020-424_14,2020-424,14,20200210,Kyle Edmund,Dominik Koepfer,2020-02-13,New York Open,2,1.4,2.75,1.43,3.06,1.43,2.77,,1.42,,2.9
+2020-424_15,2020-424,15,20200210,Jason Jung,Cameron Norrie,2020-02-13,New York Open,2,1.9,1.8,2.23,1.74,2.04,1.77,,2.06,,1.77
+2020-424_16,2020-424,16,20200210,Miomir Kecmanovic,Paolo Lorenzi,2020-02-12,New York Open,2,1.28,3.5,1.29,4.01,1.28,3.63,,1.28,,3.76
+2020-424_17,2020-424,17,20200210,Ugo Humbert,Marcos Giron,2020-02-13,New York Open,2,1.28,3.5,1.33,3.68,1.31,3.44,,1.31,,3.59
+2020-424_18,2020-424,18,20200210,Reilly Opelka,Yoshihito Nishioka,2020-02-13,New York Open,2,1.53,2.37,1.55,2.63,1.55,2.41,,1.54,,2.5
+2020-424_19,2020-424,19,20200210,Soonwoo Kwon,Milos Raonic,2020-02-13,New York Open,2,4.5,1.18,5.3,1.2,4.55,1.19,,4.9,,1.19
+2020-424_20,2020-424,20,20200210,Jordan Thompson,John Isner,2020-02-14,New York Open,2,2.5,1.5,2.66,1.54,2.53,1.51,,2.58,,1.52
+2020-424_21,2020-424,21,20200210,Andreas Seppi,Jordan Thompson,2020-02-15,New York Open,2,2.1,1.72,2.0,1.93,2.02,1.78,,2.05,,1.82
+2020-424_22,2020-424,22,20200210,Kyle Edmund,Soonwoo Kwon,2020-02-14,New York Open,2,1.61,2.3,1.6,2.55,1.59,2.34,,1.6,,2.42
+2020-424_23,2020-424,23,20200210,Miomir Kecmanovic,Ugo Humbert,2020-02-14,New York Open,2,2.1,1.72,2.18,1.78,2.11,1.72,,2.14,,1.75
+2020-424_24,2020-424,24,20200210,Jason Jung,Reilly Opelka,2020-02-15,New York Open,2,3.4,1.33,3.42,1.38,3.25,1.34,,3.41,,1.36
+2020-424_25,2020-424,25,20200210,Andreas Seppi,Jason Jung,2020-02-16,New York Open,2,1.72,2.1,1.73,2.26,1.68,2.16,,1.72,,2.18
+2020-424_26,2020-424,26,20200210,Kyle Edmund,Miomir Kecmanovic,2020-02-15,New York Open,2,1.8,2.0,1.85,2.08,1.81,1.98,,1.83,,2.04
+2020-424_27,2020-424,27,20200210,Kyle Edmund,Andreas Seppi,2020-02-16,New York Open,2,1.36,3.2,1.41,3.22,1.36,3.08,,1.38,,3.21
+2020-506_1,2020-506,1,20200210,Pedro Sousa,Facundo Diaz Acosta,2020-02-11,Argentina Open,2,1.36,3.0,,,1.36,3.02,,1.36,,3.0
+2020-506_2,2020-506,2,20200210,Thiago Monteiro,Jaume Munar,2020-02-10,Argentina Open,2,1.9,1.8,1.93,1.96,1.89,1.89,,1.92,,1.88
+2020-506_3,2020-506,3,20200210,Pedro Martinez,Joao Domingues,2020-02-11,Argentina Open,2,,,,,1.42,2.78,,,,
+2020-506_4,2020-506,4,20200210,Juan Ignacio Londero,Filip Horansky,2020-02-11,Argentina Open,2,1.28,3.5,1.31,3.77,1.29,3.54,,1.3,,3.64
+2020-506_5,2020-506,5,20200210,Jozef Kovalik,Corentin Moutet,2020-02-11,Argentina Open,2,2.1,1.66,2.1,1.81,2.13,1.7,,2.1,,1.74
+2020-506_6,2020-506,6,20200210,Federico Delbonis,Hugo Dellien,2020-02-11,Argentina Open,2,1.36,3.0,1.43,3.04,1.39,2.93,,1.4,,3.02
+2020-506_7,2020-506,7,20200210,Pablo Cuevas,Lorenzo Sonego,2020-02-10,Argentina Open,2,1.53,2.37,1.61,2.44,1.57,2.39,,1.57,,2.41
+2020-506_8,2020-506,8,20200210,Roberto Carballes Baena,Marco Cecchinato,2020-02-11,Argentina Open,2,3.0,1.36,3.23,1.39,2.92,1.4,,3.12,,1.38
+2020-506_9,2020-506,9,20200210,Facundo Bagnis,Andrej Martin,2020-02-11,Argentina Open,2,2.1,1.66,2.08,1.82,2.12,1.71,,2.09,,1.74
+2020-506_10,2020-506,10,20200210,Casper Ruud,Pablo Andujar,2020-02-10,Argentina Open,2,1.61,2.2,1.74,2.2,1.69,2.15,,1.68,,2.2
+2020-506_11,2020-506,11,20200210,Albert Ramos-Vinolas,Leonardo Mayer,2020-02-12,Argentina Open,2,1.53,2.37,1.7,2.26,1.61,2.29,,1.62,,2.32
+2020-506_12,2020-506,12,20200210,Laslo Djere,Francisco Cerundolo,2020-02-11,Argentina Open,2,1.4,2.75,1.54,2.64,1.42,2.82,,1.47,,2.7
+2020-506_13,2020-506,13,20200210,Pedro Sousa,Jozef Kovalik,2020-02-12,Argentina Open,2,3.25,1.33,3.14,1.42,3.09,1.36,,3.2,,1.38
+2020-506_14,2020-506,14,20200210,Casper Ruud,Roberto Carballes Baena,2020-02-12,Argentina Open,2,1.3,3.4,1.35,3.49,1.33,3.28,,1.33,,3.44
+2020-506_15,2020-506,15,20200210,Pablo Cuevas,Albert Ramos-Vinolas,2020-02-13,Argentina Open,2,1.57,2.25,1.71,2.27,1.66,2.21,,1.64,,2.26
+2020-506_16,2020-506,16,20200210,Juan Ignacio Londero,Laslo Djere,2020-02-13,Argentina Open,2,1.72,2.0,1.91,2.0,1.82,1.97,,1.82,,2.0
+2020-506_17,2020-506,17,20200210,Thiago Monteiro,Borna Coric,2020-02-13,Argentina Open,2,1.72,2.0,1.72,2.26,1.74,2.07,,1.72,,2.13
+2020-506_18,2020-506,18,20200210,Dusan Lajovic,Pedro Martinez,2020-02-12,Argentina Open,2,1.44,2.62,1.6,2.51,1.5,2.56,,1.52,,2.56
+2020-506_19,2020-506,19,20200210,Guido Pella,Facundo Bagnis,2020-02-13,Argentina Open,2,1.44,2.62,1.5,2.8,1.45,2.73,,1.47,,2.71
+2020-506_20,2020-506,20,20200210,Diego Schwartzman,Federico Delbonis,2020-02-14,Argentina Open,2,1.2,4.33,1.25,4.44,1.22,4.17,,1.23,,4.38
+2020-506_21,2020-506,21,20200210,Pedro Sousa,Thiago Monteiro,2020-02-15,Argentina Open,2,3.5,1.3,3.54,1.36,3.41,1.31,,3.52,,1.33
+2020-506_22,2020-506,22,20200210,Casper Ruud,Dusan Lajovic,2020-02-14,Argentina Open,2,1.5,2.62,1.55,2.66,1.5,2.58,,1.52,,2.64
+2020-506_23,2020-506,23,20200210,Juan Ignacio Londero,Guido Pella,2020-02-14,Argentina Open,2,1.9,1.9,2.11,1.83,1.85,1.94,,2.0,,1.86
+2020-506_24,2020-506,24,20200210,Diego Schwartzman,Pablo Cuevas,2020-02-14,Argentina Open,2,1.33,3.4,1.34,3.67,1.34,3.23,,1.34,,3.54
+2020-506_25,2020-506,25,20200210,Casper Ruud,Juan Ignacio Londero,2020-02-15,Argentina Open,2,1.57,2.37,1.54,2.69,1.52,2.51,,1.56,,2.53
+2020-506_26,2020-506,26,20200210,Pedro Sousa,Diego Schwartzman,2020-02-15,Argentina Open,2,2.5,1.53,2.59,1.58,2.48,1.53,,2.54,,1.56
+2020-506_27,2020-506,27,20200210,Casper Ruud,Pedro Sousa,2020-02-16,Argentina Open,2,1.14,5.5,1.15,6.51,1.14,5.6,,1.14,,6.0
+2020-496_1,2020-496,1,20200217,Mikael Ymer,Richard Gasquet,2020-02-17,Open 13,2,1.72,2.0,1.77,2.16,1.71,2.11,,1.74,,2.08
+2020-496_2,2020-496,2,20200217,Jannik Sinner,Norbert Gombos,2020-02-18,Open 13,2,1.4,2.75,1.45,2.94,1.43,2.77,,1.42,,2.84
+2020-496_3,2020-496,3,20200217,Gilles Simon,Harold Mayot,2020-02-18,Open 13,2,1.3,3.4,1.23,4.63,1.24,3.93,,1.27,,4.01
+2020-496_4,2020-496,4,20200217,Vasek Pospisil,Emil Ruusuvuori,2020-02-18,Open 13,2,1.4,2.75,1.52,2.71,1.45,2.7,,1.46,,2.73
+2020-496_5,2020-496,5,20200217,Pierre-Hugues Herbert,Mikhail Kukushkin,2020-02-19,Open 13,2,1.57,2.25,1.6,2.47,1.59,2.33,,1.58,,2.36
+2020-496_6,2020-496,6,20200217,Egor Gerasimov,Dennis Novak,2020-02-19,Open 13,2,1.66,2.1,1.68,2.32,1.66,2.19,,1.67,,2.21
+2020-496_7,2020-496,7,20200217,Marin Cilic,Ilya Ivashka,2020-02-18,Open 13,2,1.36,3.0,1.38,3.29,1.35,3.16,,1.37,,3.14
+2020-496_8,2020-496,8,20200217,Alexander Bublik,Marton Fucsovics,2020-02-17,Open 13,2,2.5,1.5,2.75,1.5,2.59,1.49,,2.62,,1.5
+2020-496_9,2020-496,9,20200217,Hubert Hurkacz,Antoine Hoang,2020-02-18,Open 13,2,1.33,3.25,1.25,4.4,1.25,3.9,,1.29,,3.82
+2020-496_10,2020-496,10,20200217,Felix Auger-Aliassime,Stefano Travaglia,2020-02-19,Open 13,2,1.28,3.5,1.27,4.19,1.27,3.67,,1.27,,3.84
+2020-496_11,2020-496,11,20200217,Benoit Paire,Gregoire Barrere,2020-02-17,Open 13,2,1.61,2.2,1.74,2.21,1.68,2.16,,1.68,,2.2
+2020-496_12,2020-496,12,20200217,Aljaz Bedene,Karen Khachanov,2020-02-18,Open 13,2,2.62,1.44,3.18,1.4,2.93,1.39,,2.9,,1.42
+2020-496_13,2020-496,13,20200217,Gilles Simon,Aljaz Bedene,2020-02-20,Open 13,2,2.37,1.53,2.44,1.63,2.42,1.55,,2.41,,1.58
+2020-496_14,2020-496,14,20200217,Vasek Pospisil,Hubert Hurkacz,2020-02-19,Open 13,2,2.2,1.61,2.17,1.77,2.25,1.63,,2.18,,1.69
+2020-496_15,2020-496,15,20200217,Felix Auger-Aliassime,Pierre-Hugues Herbert,2020-02-20,Open 13,2,1.9,1.8,2.02,1.89,1.97,1.82,,1.96,,1.84
+2020-496_16,2020-496,16,20200217,Alexander Bublik,Benoit Paire,2020-02-19,Open 13,2,2.25,1.57,2.31,1.69,2.24,1.64,,2.28,,1.63
+2020-496_17,2020-496,17,20200217,Denis Shapovalov,Marin Cilic,2020-02-20,Open 13,2,1.72,2.0,1.83,2.09,1.82,1.97,,1.78,,2.04
+2020-496_18,2020-496,18,20200217,Egor Gerasimov,David Goffin,2020-02-20,Open 13,2,2.62,1.44,2.95,1.46,2.74,1.44,,2.78,,1.45
+2020-496_19,2020-496,19,20200217,Stefanos Tsitsipas,Mikael Ymer,2020-02-19,Open 13,2,1.22,4.0,1.25,4.42,1.23,4.09,,1.23,,4.21
+2020-496_20,2020-496,20,20200217,Daniil Medvedev,Jannik Sinner,2020-02-20,Open 13,2,1.25,3.75,1.3,3.96,1.26,3.77,,1.27,,3.86
+2020-496_21,2020-496,21,20200217,Felix Auger-Aliassime,Egor Gerasimov,2020-02-21,Open 13,2,1.53,2.5,1.62,2.5,1.54,2.47,,1.58,,2.5
+2020-496_22,2020-496,22,20200217,Alexander Bublik,Denis Shapovalov,2020-02-21,Open 13,2,2.75,1.44,3.36,1.38,2.91,1.4,,3.06,,1.41
+2020-496_23,2020-496,23,20200217,Stefanos Tsitsipas,Vasek Pospisil,2020-02-21,Open 13,2,1.44,2.75,1.47,2.94,1.43,2.78,,1.46,,2.84
+2020-496_24,2020-496,24,20200217,Gilles Simon,Daniil Medvedev,2020-02-21,Open 13,2,4.5,1.2,5.25,1.21,4.66,1.19,,4.88,,1.2
+2020-496_25,2020-496,25,20200217,Felix Auger-Aliassime,Gilles Simon,2020-02-22,Open 13,2,1.57,2.37,1.69,2.33,1.58,2.36,,1.63,,2.35
+2020-496_26,2020-496,26,20200217,Stefanos Tsitsipas,Alexander Bublik,2020-02-22,Open 13,2,1.22,4.33,1.22,5.01,1.21,4.31,,1.22,,4.67
+2020-496_27,2020-496,27,20200217,Stefanos Tsitsipas,Felix Auger-Aliassime,2020-02-23,Open 13,2,1.44,2.75,1.41,3.22,1.41,2.88,,1.42,,2.99
+2020-499_1,2020-499,1,20200217,Frances Tiafoe,Emilio Gomez,2020-02-18,Delray Beach Open,2,1.28,3.5,1.28,4.07,1.28,3.63,,1.28,,3.78
+2020-499_2,2020-499,2,20200217,Cedrik-Marcel Stebe,Bernard Tomic,2020-02-18,Delray Beach Open,2,1.3,3.4,1.35,3.49,1.31,3.38,,1.33,,3.44
+2020-499_3,2020-499,3,20200217,Noah Rubin,Jason Jung,2020-02-18,Delray Beach Open,2,2.0,1.72,2.2,1.74,2.08,1.73,,2.1,,1.73
+2020-499_4,2020-499,4,20200217,Tommy Paul,Daniel Elahi Galan,2020-02-19,Delray Beach Open,2,1.28,3.5,1.28,3.94,1.29,3.5,,1.28,,3.72
+2020-499_5,2020-499,5,20200217,Brandon Nakashima,Jiri Vesely,2020-02-17,Delray Beach Open,2,2.0,1.72,2.05,1.85,2.04,1.76,,2.02,,1.78
+2020-499_6,2020-499,6,20200217,Mackenzie McDonald,Yasutaka Uchiyama,2020-02-17,Delray Beach Open,2,1.61,2.2,1.62,2.43,1.58,2.35,,1.62,,2.32
+2020-499_7,2020-499,7,20200217,Miomir Kecmanovic,Jordan Thompson,2020-02-18,Delray Beach Open,2,1.5,2.5,1.53,2.67,1.5,2.56,,1.52,,2.58
+2020-499_8,2020-499,8,20200217,Steve Johnson,Henri Laaksonen,2020-02-18,Delray Beach Open,2,1.36,3.0,1.36,3.42,1.34,3.23,,1.36,,3.21
+2020-499_9,2020-499,9,20200217,Ryan Harrison,Damir Dzumhur,2020-02-17,Delray Beach Open,2,3.25,1.33,3.58,1.33,3.24,1.34,,3.42,,1.33
+2020-499_10,2020-499,10,20200217,Jack Sock,Radu Albot,2020-02-18,Delray Beach Open,1,2.5,1.5,2.56,1.56,2.54,1.51,,2.53,,1.53
+2020-499_11,2020-499,11,20200217,Soonwoo Kwon,Adrian Mannarino,2020-02-17,Delray Beach Open,2,1.8,1.9,2.0,1.89,1.88,1.91,,1.9,,1.9
+2020-499_12,2020-499,12,20200217,Ugo Humbert,Stefan Kozlov,2020-02-18,Delray Beach Open,2,1.2,4.33,1.22,4.69,1.2,4.48,,1.21,,4.51
+2020-499_13,2020-499,13,20200217,Yoshihito Nishioka,John Millman,2020-02-17,Delray Beach Open,2,1.83,1.83,2.02,1.88,1.88,1.9,,1.92,,1.86
+2020-499_14,2020-499,14,20200217,Reilly Opelka,Ernests Gulbis,2020-02-18,Delray Beach Open,2,1.61,2.2,1.66,2.34,1.64,2.24,,1.64,,2.27
+2020-499_15,2020-499,15,20200217,Cameron Norrie,Taylor Fritz,2020-02-18,Delray Beach Open,2,2.75,1.4,2.81,1.48,2.7,1.45,,2.78,,1.44
+2020-499_16,2020-499,16,20200217,Milos Raonic,Denis Istomin,2020-02-18,Delray Beach Open,2,1.18,4.5,1.16,6.12,1.14,5.57,,1.17,,5.31
+2020-499_17,2020-499,17,20200217,Frances Tiafoe,Tommy Paul,2020-02-20,Delray Beach Open,2,1.8,1.9,1.91,2.0,1.84,1.94,,1.86,,1.95
+2020-499_18,2020-499,18,20200217,Yoshihito Nishioka,Noah Rubin,2020-02-19,Delray Beach Open,2,1.22,4.0,1.28,4.11,1.26,3.8,,1.25,,4.06
+2020-499_19,2020-499,19,20200217,Brandon Nakashima,Cameron Norrie,2020-02-19,Delray Beach Open,2,1.8,1.9,1.85,2.07,1.87,1.91,,1.83,,1.98
+2020-499_20,2020-499,20,20200217,Soonwoo Kwon,Ryan Harrison,2020-02-19,Delray Beach Open,2,1.33,3.25,1.45,2.96,1.37,3.06,,1.39,,3.1
+2020-499_21,2020-499,21,20200217,Steve Johnson,Jack Sock,2020-02-20,Delray Beach Open,1,1.36,3.0,1.43,3.1,1.39,2.96,,1.4,,3.05
+2020-499_22,2020-499,22,20200217,Ugo Humbert,Miomir Kecmanovic,2020-02-20,Delray Beach Open,2,2.0,1.72,2.11,1.81,2.09,1.72,,2.05,,1.76
+2020-499_23,2020-499,23,20200217,Reilly Opelka,Mackenzie McDonald,2020-02-19,Delray Beach Open,2,1.5,2.5,1.51,2.75,1.47,2.65,,1.5,,2.62
+2020-499_24,2020-499,24,20200217,Milos Raonic,Cedrik-Marcel Stebe,2020-02-21,Delray Beach Open,2,1.12,6.0,1.14,6.89,1.12,6.16,,1.13,,6.44
+2020-499_25,2020-499,25,20200217,Yoshihito Nishioka,Brandon Nakashima,2020-02-21,Delray Beach Open,2,1.53,2.5,1.56,2.64,1.53,2.49,,1.54,,2.57
+2020-499_26,2020-499,26,20200217,Ugo Humbert,Frances Tiafoe,2020-02-21,Delray Beach Open,2,1.8,2.0,1.87,2.06,1.82,1.98,,1.84,,2.03
+2020-499_27,2020-499,27,20200217,Reilly Opelka,Soonwoo Kwon,2020-02-21,Delray Beach Open,2,1.61,2.3,1.67,2.38,1.63,2.26,,1.64,,2.34
+2020-499_28,2020-499,28,20200217,Milos Raonic,Steve Johnson,2020-02-22,Delray Beach Open,2,1.3,3.5,1.32,3.79,1.29,3.55,,1.31,,3.64
+2020-499_29,2020-499,29,20200217,Yoshihito Nishioka,Ugo Humbert,2020-02-22,Delray Beach Open,2,2.37,1.57,2.49,1.62,2.35,1.58,,2.43,,1.6
+2020-499_30,2020-499,30,20200217,Reilly Opelka,Milos Raonic,2020-02-23,Delray Beach Open,2,2.75,1.44,2.87,1.49,2.71,1.45,,2.81,,1.46
+2020-499_31,2020-499,31,20200217,Reilly Opelka,Yoshihito Nishioka,2020-02-23,Delray Beach Open,2,1.5,2.62,1.58,2.55,1.53,2.49,,1.54,,2.58
+2020-6932_1,2020-6932,1,20200217,Lorenzo Sonego,Leonardo Mayer,2020-02-18,Rio Open,2,1.8,1.9,1.94,1.94,1.87,1.91,,1.87,,1.92
+2020-6932_2,2020-6932,2,20200217,Thiago Seyboth Wild,Alejandro Davidovich Fokina,2020-02-17,Rio Open,2,2.25,1.57,2.34,1.66,2.31,1.6,,2.3,,1.62
+2020-6932_3,2020-6932,3,20200217,Jaume Munar,Salvatore Caruso,2020-02-18,Rio Open,2,1.5,2.5,1.6,2.47,1.56,2.39,,1.55,,2.49
+2020-6932_4,2020-6932,4,20200217,Pedro Martinez,Hugo Dellien,2020-02-17,Rio Open,2,1.72,2.0,1.85,2.05,1.74,2.05,,1.78,,2.02
+2020-6932_5,2020-6932,5,20200217,Joao Domingues,Federico Gaio,2020-02-18,Rio Open,2,1.72,2.0,,,1.79,1.94,,1.72,,2.0
+2020-6932_6,2020-6932,6,20200217,Federico Delbonis,Roberto Carballes Baena,2020-02-17,Rio Open,2,1.57,2.25,1.65,2.36,1.61,2.28,,1.61,,2.3
+2020-6932_7,2020-6932,7,20200217,Federico Coria,Corentin Moutet,2020-02-17,Rio Open,2,2.25,1.57,2.27,1.7,2.22,1.64,,2.26,,1.64
+2020-6932_8,2020-6932,8,20200217,Attila Balazs,Pablo Cuevas,2020-02-18,Rio Open,2,3.75,1.25,3.57,1.33,3.7,1.27,,3.66,,1.29
+2020-6932_9,2020-6932,9,20200217,Pablo Andujar,Fernando Verdasco,2020-02-17,Rio Open,2,2.25,1.57,2.24,1.71,2.21,1.65,,2.24,,1.64
+2020-6932_10,2020-6932,10,20200217,Gianluca Mager,Casper Ruud,2020-02-18,Rio Open,2,3.75,1.25,4.59,1.23,4.08,1.23,,4.17,,1.24
+2020-6932_11,2020-6932,11,20200217,Carlos Alcaraz,Albert Ramos-Vinolas,2020-02-18,Rio Open,2,4.33,1.2,4.1,1.27,4.17,1.22,,4.22,,1.23
+2020-6932_12,2020-6932,12,20200217,Borna Coric,Juan Ignacio Londero,2020-02-18,Rio Open,2,1.9,1.8,2.1,1.81,2.04,1.76,,2.0,,1.81
+2020-6932_13,2020-6932,13,20200217,Thiago Monteiro,Guido Pella,2020-02-19,Rio Open,2,2.1,1.66,2.03,1.86,2.04,1.76,,2.06,,1.76
+2020-6932_14,2020-6932,14,20200217,Cristian Garin,Andrej Martin,2020-02-17,Rio Open,2,1.25,3.75,1.32,3.66,1.27,3.66,,1.28,,3.7
+2020-6932_15,2020-6932,15,20200217,Dusan Lajovic,Marco Cecchinato,2020-02-18,Rio Open,2,1.61,2.2,1.66,2.35,1.63,2.25,,1.64,,2.28
+2020-6932_17,2020-6932,17,20200217,Pedro Martinez,Pablo Andujar,2020-02-19,Rio Open,2,2.5,1.5,2.46,1.62,2.37,1.57,,2.48,,1.56
+2020-6932_18,2020-6932,18,20200217,Gianluca Mager,Joao Domingues,2020-02-20,Rio Open,2,1.4,2.75,1.47,2.91,1.44,2.75,,1.44,,2.83
+2020-6932_19,2020-6932,19,20200217,Federico Coria,Carlos Alcaraz,2020-02-20,Rio Open,2,1.83,1.83,1.88,2.02,1.82,1.96,,1.86,,1.92
+2020-6932_20,2020-6932,20,20200217,Attila Balazs,Thiago Monteiro,2020-02-19,Rio Open,2,2.62,1.44,2.81,1.5,2.62,1.48,,2.72,,1.47
+2020-6932_21,2020-6932,21,20200217,Borna Coric,Thiago Seyboth Wild,2020-02-20,Rio Open,2,1.36,3.0,1.34,3.6,1.34,3.23,,1.35,,3.3
+2020-6932_22,2020-6932,22,20200217,Cristian Garin,Federico Delbonis,2020-02-19,Rio Open,2,1.5,2.5,1.56,2.62,1.52,2.5,,1.53,,2.56
+2020-6932_23,2020-6932,23,20200217,Lorenzo Sonego,Dusan Lajovic,2020-02-20,Rio Open,2,2.62,1.44,2.84,1.49,2.68,1.46,,2.73,,1.46
+2020-6932_24,2020-6932,24,20200217,Dominic Thiem,Jaume Munar,2020-02-21,Rio Open,2,1.18,4.5,1.17,5.92,1.17,4.99,,1.17,,5.21
+2020-6932_25,2020-6932,25,20200217,Attila Balazs,Pedro Martinez,2020-02-22,Rio Open,2,2.3,1.61,2.29,1.72,2.27,1.63,,2.3,,1.66
+2020-6932_26,2020-6932,26,20200217,Borna Coric,Lorenzo Sonego,2020-02-22,Rio Open,2,1.72,2.1,1.71,2.29,1.67,2.18,,1.72,,2.2
+2020-6932_27,2020-6932,27,20200217,Cristian Garin,Federico Coria,2020-02-21,Rio Open,2,1.2,4.5,1.19,5.62,1.18,4.89,,1.19,,5.06
+2020-6932_28,2020-6932,28,20200217,Gianluca Mager,Dominic Thiem,2020-02-22,Rio Open,2,6.5,1.11,7.03,1.14,6.51,1.11,,6.76,,1.12
+2020-6932_29,2020-6932,29,20200217,Gianluca Mager,Attila Balazs,2020-02-23,Rio Open,2,1.4,3.0,1.42,3.1,1.39,2.94,,1.41,,3.05
+2020-6932_30,2020-6932,30,20200217,Cristian Garin,Borna Coric,2020-02-23,Rio Open,2,1.66,2.2,1.61,2.52,1.64,2.25,,1.64,,2.36
+2020-6932_31,2020-6932,31,20200217,Cristian Garin,Gianluca Mager,2020-02-23,Rio Open,2,1.25,4.0,1.3,3.93,1.26,3.82,,1.27,,3.96
+2020-495_1,2020-495,1,20200224,Yasutaka Uchiyama,Yen-Hsun Lu,2020-02-25,Dubai Tennis Championships,2,1.18,4.5,1.21,4.95,1.18,4.76,,1.19,,4.72
+2020-495_2,2020-495,2,20200224,Dennis Novak,Prajnesh Gunneswaran,2020-02-25,Dubai Tennis Championships,2,1.4,2.75,1.41,3.1,1.4,2.92,,1.4,,2.92
+2020-495_3,2020-495,3,20200224,Filip Krajinovic,Joao Sousa,2020-02-25,Dubai Tennis Championships,2,1.2,4.33,1.23,4.63,1.21,4.34,,1.21,,4.48
+2020-495_4,2020-495,4,20200224,Philipp Kohlschreiber,Mohamed Safwat,2020-02-24,Dubai Tennis Championships,2,1.25,3.75,1.29,3.92,1.26,3.74,,1.27,,3.84
+2020-495_5,2020-495,5,20200224,Pierre-Hugues Herbert,Yoshihito Nishioka,2020-02-25,Dubai Tennis Championships,2,1.5,2.5,1.63,2.4,1.49,2.6,,1.56,,2.45
+2020-495_6,2020-495,6,20200224,Richard Gasquet,Lloyd Harris,2020-02-24,Dubai Tennis Championships,2,1.72,2.0,1.88,2.01,1.79,2.01,,1.8,,2.0
+2020-495_7,2020-495,7,20200224,Alexander Bublik,Hubert Hurkacz,2020-02-25,Dubai Tennis Championships,2,2.5,1.5,2.62,1.54,2.52,1.51,,2.56,,1.52
+2020-495_8,2020-495,8,20200224,Nikoloz Basilashvili,Ricardas Berankis,2020-02-25,Dubai Tennis Championships,2,1.66,2.1,1.66,2.34,1.63,2.26,,1.66,,2.22
+2020-495_9,2020-495,9,20200224,Benoit Paire,Marin Cilic,2020-02-25,Dubai Tennis Championships,2,2.62,1.44,2.77,1.5,2.6,1.49,,2.7,,1.47
+2020-495_10,2020-495,10,20200224,Karen Khachanov,Mikhail Kukushkin,2020-02-24,Dubai Tennis Championships,2,1.36,3.0,1.39,3.23,1.36,3.08,,1.38,,3.12
+2020-495_11,2020-495,11,20200224,Andrey Rublev,Lorenzo Musetti,2020-02-24,Dubai Tennis Championships,2,1.11,6.5,1.11,7.97,1.1,6.88,,1.11,,7.24
+2020-495_12,2020-495,12,20200224,Jan-Lennard Struff,Roberto Bautista Agut,2020-02-25,Dubai Tennis Championships,2,3.5,1.28,4.18,1.27,3.7,1.27,,3.84,,1.27
+2020-495_13,2020-495,13,20200224,Daniel Evans,Fabio Fognini,2020-02-25,Dubai Tennis Championships,2,1.61,2.2,1.68,2.31,1.64,2.22,,1.64,,2.26
+2020-495_14,2020-495,14,20200224,Gael Monfils,Marton Fucsovics,2020-02-24,Dubai Tennis Championships,2,1.36,3.0,1.36,3.38,1.34,3.18,,1.36,,3.19
+2020-495_15,2020-495,15,20200224,Stefanos Tsitsipas,Pablo Carreno Busta,2020-02-25,Dubai Tennis Championships,2,1.3,3.4,1.33,3.58,1.32,3.3,,1.32,,3.49
+2020-495_16,2020-495,16,20200224,Novak Djokovic,Malek Jaziri,2020-02-24,Dubai Tennis Championships,2,1.0,51.0,1.01,28.6,1.01,21.87,,1.0,,39.8
+2020-495_17,2020-495,17,20200224,Jan-Lennard Struff,Nikoloz Basilashvili,2020-02-26,Dubai Tennis Championships,2,1.4,2.75,1.48,2.87,1.42,2.81,,1.44,,2.81
+2020-495_18,2020-495,18,20200224,Daniel Evans,Pierre-Hugues Herbert,2020-02-26,Dubai Tennis Championships,2,1.53,2.37,1.63,2.44,1.56,2.4,,1.58,,2.41
+2020-495_19,2020-495,19,20200224,Richard Gasquet,Benoit Paire,2020-02-26,Dubai Tennis Championships,2,1.8,1.9,1.96,1.94,1.86,1.92,,1.88,,1.92
+2020-495_20,2020-495,20,20200224,Karen Khachanov,Dennis Novak,2020-02-26,Dubai Tennis Championships,2,1.25,3.75,1.31,3.86,1.27,3.68,,1.28,,3.8
+2020-495_21,2020-495,21,20200224,Andrey Rublev,Filip Krajinovic,2020-02-26,Dubai Tennis Championships,2,1.4,2.75,1.4,3.22,1.39,2.93,,1.4,,2.99
+2020-495_22,2020-495,22,20200224,Gael Monfils,Yasutaka Uchiyama,2020-02-26,Dubai Tennis Championships,2,1.11,6.5,1.08,9.75,1.1,6.99,,1.1,,8.12
+2020-495_23,2020-495,23,20200224,Stefanos Tsitsipas,Alexander Bublik,2020-02-26,Dubai Tennis Championships,2,1.16,5.0,1.18,5.65,1.18,4.78,,1.17,,5.32
+2020-495_24,2020-495,24,20200224,Novak Djokovic,Philipp Kohlschreiber,2020-02-26,Dubai Tennis Championships,2,1.02,19.0,1.03,19.66,1.02,15.07,,1.02,,19.33
+2020-495_25,2020-495,25,20200224,Daniel Evans,Andrey Rublev,2020-02-27,Dubai Tennis Championships,2,4.0,1.25,4.37,1.26,3.98,1.24,,4.19,,1.25
+2020-495_26,2020-495,26,20200224,Gael Monfils,Richard Gasquet,2020-02-27,Dubai Tennis Championships,2,1.22,4.33,1.26,4.43,1.21,4.31,,1.24,,4.38
+2020-495_27,2020-495,27,20200224,Stefanos Tsitsipas,Jan-Lennard Struff,2020-02-27,Dubai Tennis Championships,2,1.4,3.0,1.41,3.2,1.4,2.92,,1.4,,3.1
+2020-495_28,2020-495,28,20200224,Novak Djokovic,Karen Khachanov,2020-02-27,Dubai Tennis Championships,2,1.07,9.0,1.08,10.54,1.07,8.69,,1.08,,9.77
+2020-495_29,2020-495,29,20200224,Stefanos Tsitsipas,Daniel Evans,2020-02-28,Dubai Tennis Championships,2,1.22,4.33,1.25,4.49,1.23,4.15,,1.23,,4.41
+2020-495_30,2020-495,30,20200224,Novak Djokovic,Gael Monfils,2020-02-28,Dubai Tennis Championships,2,1.11,6.5,1.13,7.56,1.1,6.76,,1.12,,7.03
+2020-495_31,2020-495,31,20200224,Novak Djokovic,Stefanos Tsitsipas,2020-02-29,Dubai Tennis Championships,2,1.3,3.5,1.36,3.49,1.33,3.3,,1.33,,3.5
+2020-807_1,2020-807,1,20200224,Tommy Paul,Mackenzie McDonald,2020-02-25,Abierto Mexicano,2,1.44,2.62,1.43,3.02,1.42,2.84,,1.44,,2.82
+2020-807_2,2020-807,2,20200224,Pedro Martinez,Radu Albot,2020-02-25,Abierto Mexicano,2,2.0,1.72,2.18,1.75,2.13,1.71,,2.09,,1.74
+2020-807_3,2020-807,3,20200224,Adrian Mannarino,Cameron Norrie,2020-02-24,Abierto Mexicano,2,1.83,1.83,1.88,2.02,1.84,1.95,,1.86,,1.92
+2020-807_4,2020-807,4,20200224,Soonwoo Kwon,Taro Daniel,2020-02-25,Abierto Mexicano,2,1.44,2.62,1.56,2.57,1.5,2.58,,1.5,,2.6
+2020-807_5,2020-807,5,20200224,Miomir Kecmanovic,Alex de Minaur,2020-02-25,Abierto Mexicano,2,2.0,1.72,1.99,1.89,1.97,1.82,,2.0,,1.8
+2020-807_6,2020-807,6,20200224,Marcos Giron,Gerardo Lopez Villasenor,2020-02-25,Abierto Mexicano,2,1.12,6.0,1.12,7.25,1.11,6.52,,1.12,,6.62
+2020-807_7,2020-807,7,20200224,Taylor Fritz,John Millman,2020-02-26,Abierto Mexicano,2,1.83,1.83,1.87,2.03,1.86,1.93,,1.85,,1.93
+2020-807_8,2020-807,8,20200224,Kyle Edmund,Feliciano Lopez,2020-02-25,Abierto Mexicano,2,1.3,3.4,1.32,3.67,1.31,3.44,,1.31,,3.54
+2020-807_9,2020-807,9,20200224,Dusan Lajovic,Steve Johnson,2020-02-26,Abierto Mexicano,2,2.0,1.72,2.14,1.78,2.08,1.74,,2.07,,1.75
+2020-807_10,2020-807,10,20200224,Grigor Dimitrov,Damir Dzumhur,2020-02-25,Abierto Mexicano,2,1.33,3.25,1.35,3.48,1.32,3.37,,1.34,,3.36
+2020-807_11,2020-807,11,20200224,Ugo Humbert,Nick Kyrgios,2020-02-26,Abierto Mexicano,2,2.75,1.4,2.68,1.52,2.66,1.47,,2.72,,1.46
+2020-807_12,2020-807,12,20200224,John Isner,Mischa Zverev,2020-02-26,Abierto Mexicano,2,1.36,3.0,1.38,3.27,1.35,3.17,,1.37,,3.14
+2020-807_13,2020-807,13,20200224,Felix Auger-Aliassime,Alex Bolt,2020-02-25,Abierto Mexicano,2,1.4,2.75,1.37,3.35,1.4,2.91,,1.38,,3.05
+2020-807_14,2020-807,14,20200224,Stan Wawrinka,Frances Tiafoe,2020-02-25,Abierto Mexicano,2,1.36,3.0,1.41,3.15,1.4,2.91,,1.38,,3.08
+2020-807_15,2020-807,15,20200224,Alexander Zverev,Jason Jung,2020-02-26,Abierto Mexicano,2,1.16,5.0,1.16,5.97,1.15,5.3,,1.16,,5.48
+2020-807_16,2020-807,16,20200224,Rafael Nadal,Pablo Andujar,2020-02-26,Abierto Mexicano,2,1.03,15.0,1.02,18.91,1.03,13.64,,1.02,,16.95
+2020-807_17,2020-807,17,20200224,Taylor Fritz,Ugo Humbert,2020-02-27,Abierto Mexicano,2,2.0,1.72,2.21,1.75,2.11,1.71,,2.1,,1.74
+2020-807_18,2020-807,18,20200224,Soonwoo Kwon,Dusan Lajovic,2020-02-26,Abierto Mexicano,2,1.83,1.83,1.93,1.98,1.89,1.9,,1.88,,1.9
+2020-807_19,2020-807,19,20200224,Grigor Dimitrov,Adrian Mannarino,2020-02-27,Abierto Mexicano,2,1.33,3.25,1.39,3.3,1.35,3.15,,1.36,,3.28
+2020-807_20,2020-807,20,20200224,John Isner,Marcos Giron,2020-02-26,Abierto Mexicano,2,1.28,3.5,1.32,3.74,1.27,3.67,,1.3,,3.62
+2020-807_21,2020-807,21,20200224,Kyle Edmund,Felix Auger-Aliassime,2020-02-26,Abierto Mexicano,2,1.66,2.1,1.71,2.27,1.67,2.19,,1.68,,2.18
+2020-807_22,2020-807,22,20200224,Stan Wawrinka,Pedro Martinez,2020-02-27,Abierto Mexicano,2,1.12,6.0,1.16,6.25,1.14,5.68,,1.14,,6.12
+2020-807_23,2020-807,23,20200224,Tommy Paul,Alexander Zverev,2020-02-27,Abierto Mexicano,2,4.33,1.2,4.53,1.24,4.14,1.23,,4.43,,1.22
+2020-807_24,2020-807,24,20200224,Rafael Nadal,Miomir Kecmanovic,2020-02-27,Abierto Mexicano,2,1.07,9.0,1.08,10.19,1.07,8.34,,1.08,,9.59
+2020-807_25,2020-807,25,20200224,Taylor Fritz,Kyle Edmund,2020-02-28,Abierto Mexicano,2,2.3,1.61,2.37,1.67,2.3,1.61,,2.34,,1.64
+2020-807_26,2020-807,26,20200224,John Isner,Tommy Paul,2020-02-27,Abierto Mexicano,2,1.72,2.1,1.77,2.2,1.73,2.1,,1.74,,2.15
+2020-807_27,2020-807,27,20200224,Grigor Dimitrov,Stan Wawrinka,2020-02-28,Abierto Mexicano,2,2.37,1.57,2.72,1.53,2.46,1.54,,2.54,,1.55
+2020-807_28,2020-807,28,20200224,Rafael Nadal,Soonwoo Kwon,2020-02-28,Abierto Mexicano,2,1.05,11.0,1.04,17.14,1.04,10.94,,1.04,,14.07
+2020-807_29,2020-807,29,20200224,Taylor Fritz,John Isner,2020-02-29,Abierto Mexicano,2,1.9,1.9,1.87,2.06,1.83,1.97,,1.88,,1.98
+2020-807_30,2020-807,30,20200224,Rafael Nadal,Grigor Dimitrov,2020-02-29,Abierto Mexicano,2,1.11,6.5,1.15,6.83,1.12,6.29,,1.13,,6.66
+2020-807_31,2020-807,31,20200224,Rafael Nadal,Taylor Fritz,2020-03-01,Abierto Mexicano,2,1.06,10.0,1.07,11.47,1.06,9.01,,1.06,,10.74
+2020-8996_1,2020-8996,1,20200224,Juan Pablo Varillas,Filip Horansky,2020-02-25,Chile Open,2,1.8,1.9,1.99,1.89,1.9,1.88,,1.9,,1.9
+2020-8996_2,2020-8996,2,20200224,Alejandro Tabilo,Paolo Lorenzi,2020-02-25,Chile Open,2,1.66,2.1,1.68,2.3,1.68,2.15,,1.67,,2.2
+2020-8996_3,2020-8996,3,20200224,Thiago Seyboth Wild,Facundo Bagnis,2020-02-24,Chile Open,2,1.9,1.8,2.28,1.69,2.04,1.76,,2.09,,1.74
+2020-8996_4,2020-8996,4,20200224,Renzo Olivo,Pedro Sousa,2020-02-25,Chile Open,2,2.1,1.66,2.4,1.63,2.21,1.65,,2.25,,1.64
+2020-8996_5,2020-8996,5,20200224,Alejandro Davidovich Fokina,Andrej Martin,2020-02-25,Chile Open,2,1.9,1.8,2.12,1.79,1.95,1.82,,2.01,,1.8
+2020-8996_6,2020-8996,6,20200224,Salvatore Caruso,Jozef Kovalik,2020-02-25,Chile Open,2,2.2,1.61,2.25,1.71,2.15,1.68,,2.22,,1.66
+2020-8996_7,2020-8996,7,20200224,Roberto Carballes Baena,Jaume Munar,2020-02-24,Chile Open,2,2.37,1.53,2.59,1.56,2.46,1.53,,2.48,,1.54
+2020-8996_8,2020-8996,8,20200224,Tomas Barrios Vera,Carlos Taberner,2020-02-24,Chile Open,2,3.25,1.33,3.4,1.36,3.12,1.35,,3.32,,1.35
+2020-8996_9,2020-8996,9,20200224,Thiago Monteiro,Leonardo Mayer,2020-02-25,Chile Open,2,1.57,2.25,1.68,2.31,1.63,2.23,,1.62,,2.28
+2020-8996_10,2020-8996,10,20200224,Federico Delbonis,Martin Klizan,2020-02-25,Chile Open,2,1.57,2.25,1.57,2.53,1.58,2.33,,1.57,,2.39
+2020-8996_11,2020-8996,11,20200224,Hugo Dellien,Marco Cecchinato,2020-02-24,Chile Open,2,2.5,1.5,2.51,1.59,2.46,1.53,,2.5,,1.54
+2020-8996_12,2020-8996,12,20200224,Juan Ignacio Londero,Federico Coria,2020-02-25,Chile Open,2,1.4,2.75,1.47,2.88,1.42,2.78,,1.44,,2.82
+2020-8996_13,2020-8996,13,20200224,Thiago Monteiro,Roberto Carballes Baena,2020-02-27,Chile Open,2,1.5,2.5,1.62,2.46,1.56,2.4,,1.56,,2.48
+2020-8996_14,2020-8996,14,20200224,Federico Delbonis,Salvatore Caruso,2020-02-26,Chile Open,2,1.5,2.5,1.48,2.88,1.5,2.54,,1.49,,2.69
+2020-8996_15,2020-8996,15,20200224,Hugo Dellien,Tomas Barrios Vera,2020-02-26,Chile Open,2,1.4,2.75,1.38,3.32,1.38,3.0,,1.39,,3.04
+2020-8996_16,2020-8996,16,20200224,Thiago Seyboth Wild,Juan Ignacio Londero,2020-02-27,Chile Open,2,2.75,1.4,3.05,1.44,2.84,1.41,,2.9,,1.42
+2020-8996_17,2020-8996,17,20200224,Renzo Olivo,Pablo Cuevas,2020-02-26,Chile Open,2,4.33,1.2,5.05,1.21,4.44,1.2,,4.69,,1.2
+2020-8996_18,2020-8996,18,20200224,Albert Ramos-Vinolas,Juan Pablo Varillas,2020-02-27,Chile Open,2,1.33,3.25,1.39,3.27,1.36,3.08,,1.36,,3.26
+2020-8996_19,2020-8996,19,20200224,Casper Ruud,Alejandro Tabilo,2020-02-26,Chile Open,2,1.18,4.5,1.21,5.04,1.19,4.56,,1.19,,4.77
+2020-8996_20,2020-8996,20,20200224,Cristian Garin,Alejandro Davidovich Fokina,2020-02-27,Chile Open,2,1.33,3.25,1.32,3.74,1.3,3.45,,1.33,,3.5
+2020-8996_21,2020-8996,21,20200224,Renzo Olivo,Hugo Dellien,2020-02-28,Chile Open,2,2.75,1.44,3.13,1.43,2.85,1.42,,2.94,,1.44
+2020-8996_22,2020-8996,22,20200224,Albert Ramos-Vinolas,Thiago Monteiro,2020-02-28,Chile Open,2,2.1,1.72,2.11,1.83,2.0,1.8,,2.1,,1.78
+2020-8996_23,2020-8996,23,20200224,Casper Ruud,Federico Delbonis,2020-02-28,Chile Open,2,1.44,2.75,1.54,2.69,1.49,2.61,,1.49,,2.72
+2020-8996_24,2020-8996,24,20200224,Thiago Seyboth Wild,Cristian Garin,2020-02-29,Chile Open,2,2.62,1.5,2.77,1.52,2.65,1.47,,2.7,,1.51
+2020-8996_25,2020-8996,25,20200224,Thiago Seyboth Wild,Renzo Olivo,2020-02-29,Chile Open,2,1.3,3.5,1.33,3.71,1.29,3.55,,1.32,,3.6
+2020-8996_26,2020-8996,26,20200224,Casper Ruud,Albert Ramos-Vinolas,2020-02-29,Chile Open,2,1.57,2.37,1.6,2.54,1.57,2.39,,1.58,,2.46
+2020-8996_27,2020-8996,27,20200224,Thiago Seyboth Wild,Casper Ruud,2020-03-01,Chile Open,2,3.4,1.33,3.37,1.35,3.36,1.32,,3.38,,1.34
+2020-422_1,2020-422,1,20200822,Jan-Lennard Struff,Alex de Minaur,2020-08-22,Western & Southern Financial Group Masters,2,2.37,1.53,2.85,1.48,2.61,1.49,,2.61,,1.5
+2020-422_2,2020-422,2,20200822,Tennys Sandgren,Lorenzo Sonego,2020-08-23,Western & Southern Financial Group Masters,2,1.5,2.5,1.55,2.63,1.52,2.54,,1.52,,2.56
+2020-422_3,2020-422,3,20200822,Emil Ruusuvuori,Sebastian Korda,2020-08-24,Western & Southern Financial Group Masters,0,1.36,3.0,1.44,3.2,1.41,2.92,,1.4,,3.1
+2020-422_4,2020-422,4,20200822,Milos Raonic,Sam Querrey,2020-08-23,Western & Southern Financial Group Masters,2,1.7,2.05,1.65,2.4,1.67,2.19,,1.67,,2.22
+2020-422_5,2020-422,5,20200822,Reilly Opelka,Cameron Norrie,2020-08-22,Western & Southern Financial Group Masters,2,1.66,2.1,1.61,2.5,1.59,2.36,,1.64,,2.3
+2020-422_6,2020-422,6,20200822,Andy Murray,Frances Tiafoe,2020-08-22,Western & Southern Financial Group Masters,1,1.57,2.25,1.62,2.67,1.61,2.31,,1.6,,2.46
+2020-422_7,2020-422,7,20200822,John Millman,Adrian Mannarino,2020-08-23,Western & Southern Financial Group Masters,2,1.66,2.1,1.92,2.25,1.81,1.99,,1.79,,2.17
+2020-422_8,2020-422,8,20200822,Filip Krajinovic,Salvatore Caruso,2020-08-22,Western & Southern Financial Group Masters,1,1.33,3.25,1.39,3.29,1.35,3.18,,1.36,,3.27
+2020-422_9,2020-422,9,20200822,Marcos Giron,Mackenzie McDonald,2020-08-23,Western & Southern Financial Group Masters,0,1.95,1.8,2.05,1.9,1.96,1.83,,2.0,,1.85
+2020-422_10,2020-422,10,20200822,Richard Gasquet,J.J. Wolf,2020-08-23,Western & Southern Financial Group Masters,1,1.57,2.25,1.57,2.61,1.54,2.47,,1.57,,2.43
+2020-422_11,2020-422,11,20200822,Marton Fucsovics,Norbert Gombos,2020-08-23,Western & Southern Financial Group Masters,2,1.28,3.5,1.26,4.31,1.3,3.54,,1.27,,3.9
+2020-422_12,2020-422,12,20200822,Taylor Fritz,Lloyd Harris,2020-08-22,Western & Southern Financial Group Masters,1,1.44,2.62,1.48,2.9,1.45,2.75,,1.46,,2.76
+2020-422_13,2020-422,13,20200822,Borna Coric,Benoit Paire,2020-08-22,Western & Southern Financial Group Masters,2,1.61,2.2,1.6,2.51,1.58,2.36,,1.6,,2.36
+2020-422_14,2020-422,14,20200822,Pablo Carreno Busta,Dusan Lajovic,2020-08-22,Western & Southern Financial Group Masters,2,1.4,2.75,1.36,3.45,1.37,3.06,,1.38,,3.1
+2020-422_15,2020-422,15,20200822,Ricardas Berankis,Tommy Paul,2020-08-22,Western & Southern Financial Group Masters,2,2.05,1.7,2.2,1.75,2.13,1.71,,2.12,,1.72
+2020-422_16,2020-422,16,20200822,Kevin Anderson,Kyle Edmund,2020-08-22,Western & Southern Financial Group Masters,1,2.62,1.44,2.63,1.55,2.64,1.48,,2.62,,1.5
+2020-422_17,2020-422,17,20200822,John Isner,Hubert Hurkacz,2020-08-23,Western & Southern Financial Group Masters,2,1.61,2.2,1.65,2.39,1.62,2.29,,1.63,,2.3
+2020-422_18,2020-422,18,20200822,Felix Auger-Aliassime,Nikoloz Basilashvili,2020-08-22,Western & Southern Financial Group Masters,2,1.28,3.5,1.25,4.5,1.25,3.98,,1.27,,4.0
+2020-422_19,2020-422,19,20200822,Grigor Dimitrov,Ugo Humbert,2020-08-23,Western & Southern Financial Group Masters,2,1.9,1.8,1.83,2.1,1.92,1.89,,1.86,,1.95
+2020-422_20,2020-422,20,20200822,Aljaz Bedene,Cristian Garin,2020-08-23,Western & Southern Financial Group Masters,2,1.53,2.37,1.56,2.6,1.56,2.42,,1.54,,2.49
+2020-422_21,2020-422,21,20200822,Denis Shapovalov,Marin Cilic,2020-08-23,Western & Southern Financial Group Masters,1,1.61,2.2,1.65,2.39,1.63,2.28,,1.63,,2.3
+2020-422_22,2020-422,22,20200822,Karen Khachanov,Alexander Bublik,2020-08-23,Western & Southern Financial Group Masters,1,1.4,2.75,1.41,3.16,1.43,2.8,,1.4,,2.96
+2020-422_23,2020-422,23,20200822,Daniel Evans,Andrey Rublev,2020-08-23,Western & Southern Financial Group Masters,2,2.62,1.44,2.76,1.51,2.67,1.47,,2.69,,1.48
+2020-422_24,2020-422,24,20200822,Diego Schwartzman,Casper Ruud,2020-08-23,Western & Southern Financial Group Masters,2,1.44,2.62,1.53,2.8,1.48,2.65,,1.48,,2.71
+2020-422_25,2020-422,25,20200822,Milos Raonic,Daniel Evans,2020-08-24,Western & Southern Financial Group Masters,2,1.53,2.37,1.61,2.48,1.58,2.38,,1.57,,2.42
+2020-422_26,2020-422,26,20200822,Aljaz Bedene,Taylor Fritz,2020-08-24,Western & Southern Financial Group Masters,2,3.25,1.33,3.23,1.4,3.19,1.35,,3.24,,1.36
+2020-422_27,2020-422,27,20200822,John Isner,John Millman,2020-08-24,Western & Southern Financial Group Masters,2,1.44,2.62,1.41,3.15,1.44,2.78,,1.42,,2.88
+2020-422_28,2020-422,28,20200822,Tennys Sandgren,Felix Auger-Aliassime,2020-08-24,Western & Southern Financial Group Masters,2,3.0,1.36,3.11,1.42,2.94,1.4,,3.06,,1.39
+2020-422_29,2020-422,29,20200822,Marton Fucsovics,Grigor Dimitrov,2020-08-25,Western & Southern Financial Group Masters,2,1.8,1.95,2.0,1.95,1.94,1.86,,1.9,,1.95
+2020-422_30,2020-422,30,20200822,Jan-Lennard Struff,Denis Shapovalov,2020-08-24,Western & Southern Financial Group Masters,1,2.37,1.53,2.55,1.66,2.39,1.58,,2.46,,1.6
+2020-422_31,2020-422,31,20200822,Karen Khachanov,Pablo Carreno Busta,2020-08-24,Western & Southern Financial Group Masters,1,1.61,2.2,1.8,2.13,1.71,2.13,,1.7,,2.16
+2020-422_32,2020-422,32,20200822,Reilly Opelka,Diego Schwartzman,2020-08-24,Western & Southern Financial Group Masters,2,1.95,1.8,2.07,1.85,2.0,1.8,,2.01,,1.83
+2020-422_33,2020-422,33,20200822,Roberto Bautista Agut,Richard Gasquet,2020-08-24,Western & Southern Financial Group Masters,2,1.5,2.5,1.57,2.65,1.53,2.51,,1.54,,2.58
+2020-422_34,2020-422,34,20200822,David Goffin,Borna Coric,2020-08-24,Western & Southern Financial Group Masters,2,1.44,2.62,1.53,2.73,1.51,2.55,,1.48,,2.68
+2020-422_35,2020-422,35,20200822,Matteo Berrettini,Emil Ruusuvuori,2020-08-25,Western & Southern Financial Group Masters,1,1.25,3.75,1.31,3.86,1.27,3.69,,1.28,,3.8
+2020-422_36,2020-422,36,20200822,Andy Murray,Alexander Zverev,2020-08-24,Western & Southern Financial Group Masters,1,2.62,1.44,2.94,1.5,2.78,1.44,,2.78,,1.47
+2020-422_37,2020-422,37,20200822,Stefanos Tsitsipas,Kevin Anderson,2020-08-24,Western & Southern Financial Group Masters,1,1.22,4.0,1.31,4.6,1.25,3.95,,1.27,,4.3
+2020-422_38,2020-422,38,20200822,Daniil Medvedev,Marcos Giron,2020-08-24,Western & Southern Financial Group Masters,1,1.14,5.5,1.17,5.87,1.15,5.34,,1.15,,5.68
+2020-422_39,2020-422,39,20200822,Filip Krajinovic,Dominic Thiem,2020-08-25,Western & Southern Financial Group Masters,2,5.0,1.16,5.59,1.18,5.16,1.16,,5.3,,1.17
+2020-422_40,2020-422,40,20200822,Novak Djokovic,Ricardas Berankis,2020-08-25,Western & Southern Financial Group Masters,2,1.07,9.0,1.07,10.78,1.06,9.41,,1.07,,9.89
+2020-422_41,2020-422,41,20200822,Milos Raonic,Andy Murray,2020-08-26,Western & Southern Financial Group Masters,1,1.53,2.37,1.62,2.52,1.57,2.4,,1.58,,2.45
+2020-422_42,2020-422,42,20200822,Filip Krajinovic,Marton Fucsovics,2020-08-26,Western & Southern Financial Group Masters,2,1.53,2.5,1.65,2.53,1.57,2.4,,1.59,,2.51
+2020-422_43,2020-422,43,20200822,Roberto Bautista Agut,Karen Khachanov,2020-08-25,Western & Southern Financial Group Masters,1,1.57,2.25,1.57,2.6,1.59,2.36,,1.57,,2.42
+2020-422_44,2020-422,44,20200822,Jan-Lennard Struff,David Goffin,2020-08-25,Western & Southern Financial Group Masters,2,2.2,1.61,2.45,1.64,2.3,1.62,,2.33,,1.62
+2020-422_45,2020-422,45,20200822,Reilly Opelka,Matteo Berrettini,2020-08-25,Western & Southern Financial Group Masters,2,2.37,1.53,2.34,1.69,2.36,1.59,,2.36,,1.61
+2020-422_46,2020-422,46,20200822,Stefanos Tsitsipas,John Isner,2020-08-26,Western & Southern Financial Group Masters,2,1.28,3.5,1.38,3.65,1.33,3.33,,1.33,,3.58
+2020-422_47,2020-422,47,20200822,Daniil Medvedev,Aljaz Bedene,2020-08-25,Western & Southern Financial Group Masters,2,1.2,4.33,1.23,4.81,1.21,4.38,,1.21,,4.57
+2020-422_48,2020-422,48,20200822,Novak Djokovic,Tennys Sandgren,2020-08-25,Western & Southern Financial Group Masters,2,1.16,5.0,1.17,6.02,1.16,5.3,,1.16,,5.51
+2020-422_49,2020-422,49,20200822,Milos Raonic,Filip Krajinovic,2020-08-27,Western & Southern Financial Group Masters,2,1.44,2.75,1.5,2.84,1.49,2.64,,1.47,,2.8
+2020-422_50,2020-422,50,20200822,Stefanos Tsitsipas,Reilly Opelka,2020-08-27,Western & Southern Financial Group Masters,2,1.4,3.0,1.47,3.12,1.41,2.91,,1.44,,3.06
+2020-422_51,2020-422,51,20200822,Roberto Bautista Agut,Daniil Medvedev,2020-08-26,Western & Southern Financial Group Masters,2,3.0,1.4,3.13,1.44,2.93,1.4,,3.06,,1.42
+2020-422_52,2020-422,52,20200822,Novak Djokovic,Jan-Lennard Struff,2020-08-26,Western & Southern Financial Group Masters,2,1.14,5.5,1.16,6.46,1.16,5.36,,1.15,,5.98
+2020-422_53,2020-422,53,20200822,Milos Raonic,Stefanos Tsitsipas,2020-08-28,Western & Southern Financial Group Masters,2,2.37,1.57,2.4,1.66,2.36,1.59,,2.38,,1.62
+2020-422_54,2020-422,54,20200822,Novak Djokovic,Roberto Bautista Agut,2020-08-28,Western & Southern Financial Group Masters,2,1.2,4.5,1.16,6.4,1.16,5.28,,1.18,,5.45
+2020-422_55,2020-422,55,20200822,Novak Djokovic,Milos Raonic,2020-08-29,Western & Southern Financial Group Masters,2,1.36,3.2,1.37,3.44,1.33,3.3,,1.37,,3.32
+2020-560_1,2020-560,1,20200831,Novak Djokovic,Damir Dzumhur,2020-09-01,US Open,2,1.01,26.0,1.01,28.01,1.01,21.84,,1.01,,27.01
+2020-560_2,2020-560,2,20200831,Dominic Thiem,Jaume Munar,2020-09-01,US Open,2,1.05,11.0,1.05,13.44,1.05,10.48,,1.05,,12.22
+2020-560_3,2020-560,3,20200831,Daniil Medvedev,Federico Delbonis,2020-09-02,US Open,2,1.02,17.0,1.01,27.58,1.01,19.56,,1.02,,22.29
+2020-560_4,2020-560,4,20200831,Stefanos Tsitsipas,Albert Ramos-Vinolas,2020-08-31,US Open,2,1.02,19.0,1.02,25.2,1.02,17.2,,1.02,,22.1
+2020-560_5,2020-560,5,20200831,Alexander Zverev,Kevin Anderson,2020-08-31,US Open,2,1.33,3.4,1.31,3.83,1.29,3.61,,1.32,,3.62
+2020-560_6,2020-560,6,20200831,Matteo Berrettini,Go Soeda,2020-09-02,US Open,2,1.03,15.0,1.04,15.22,1.02,14.69,,1.04,,15.11
+2020-560_7,2020-560,7,20200831,David Goffin,Reilly Opelka,2020-09-01,US Open,2,1.57,2.37,1.6,2.52,1.56,2.43,,1.58,,2.45
+2020-560_8,2020-560,8,20200831,Roberto Bautista Agut,Tennys Sandgren,2020-09-01,US Open,2,1.16,5.0,1.2,5.3,1.16,5.18,,1.18,,5.15
+2020-560_9,2020-560,9,20200831,Cameron Norrie,Diego Schwartzman,2020-08-31,US Open,2,3.5,1.3,3.53,1.35,3.43,1.31,,3.51,,1.33
+2020-560_10,2020-560,10,20200831,Andrey Rublev,Jeremy Chardy,2020-09-01,US Open,2,1.12,6.0,1.13,7.16,1.12,6.31,,1.12,,6.58
+2020-560_11,2020-560,11,20200831,Karen Khachanov,Jannik Sinner,2020-09-01,US Open,2,1.57,2.37,1.55,2.64,1.54,2.48,,1.56,,2.5
+2020-560_12,2020-560,12,20200831,Denis Shapovalov,Sebastian Korda,2020-08-31,US Open,2,1.11,6.5,1.13,7.17,1.12,6.5,,1.12,,6.84
+2020-560_13,2020-560,13,20200831,Cristian Garin,Ulises Blanch,2020-09-01,US Open,2,1.36,3.2,1.38,3.34,1.36,3.16,,1.37,,3.27
+2020-560_14,2020-560,14,20200831,Grigor Dimitrov,Tommy Paul,2020-09-02,US Open,2,1.53,2.5,1.57,2.57,1.55,2.45,,1.55,,2.54
+2020-560_15,2020-560,15,20200831,Felix Auger-Aliassime,Thiago Monteiro,2020-09-01,US Open,2,1.08,8.0,1.12,7.57,1.1,7.05,,1.1,,7.78
+2020-560_16,2020-560,16,20200831,Steve Johnson,John Isner,2020-09-01,US Open,2,3.4,1.33,3.19,1.41,3.1,1.37,,3.3,,1.37
+2020-560_17,2020-560,17,20200831,Egor Gerasimov,Dusan Lajovic,2020-08-31,US Open,2,2.2,1.66,2.18,1.77,2.17,1.69,,2.19,,1.72
+2020-560_18,2020-560,18,20200831,Taylor Fritz,Dominik Koepfer,2020-08-31,US Open,2,1.2,4.5,1.21,5.04,1.2,4.61,,1.2,,4.77
+2020-560_19,2020-560,19,20200831,Pablo Carreno Busta,Yasutaka Uchiyama,2020-08-31,US Open,2,1.16,5.0,1.12,7.48,1.11,6.72,,1.14,,6.24
+2020-560_20,2020-560,20,20200831,Alex de Minaur,Andrej Martin,2020-09-02,US Open,2,1.06,10.0,1.06,13.07,1.05,10.55,,1.06,,11.54
+2020-560_21,2020-560,21,20200831,John Millman,Nikoloz Basilashvili,2020-09-02,US Open,2,1.3,3.5,1.34,3.61,1.3,3.51,,1.32,,3.56
+2020-560_22,2020-560,22,20200831,Daniel Evans,Thiago Seyboth Wild,2020-09-01,US Open,2,1.12,6.0,1.17,5.86,1.14,5.73,,1.14,,5.93
+2020-560_23,2020-560,23,20200831,Hubert Hurkacz,Peter Gojowczyk,2020-08-31,US Open,2,1.22,4.33,1.21,5.05,1.2,4.57,,1.21,,4.69
+2020-560_24,2020-560,24,20200831,Milos Raonic,Leonardo Mayer,2020-09-02,US Open,2,1.05,11.0,1.04,16.99,1.04,12.17,,1.04,,14.0
+2020-560_25,2020-560,25,20200831,Filip Krajinovic,Mikael Ymer,2020-09-01,US Open,2,1.12,6.0,1.16,6.09,1.14,5.66,,1.14,,6.04
+2020-560_26,2020-560,26,20200831,Borna Coric,Pablo Andujar,2020-08-31,US Open,2,1.11,6.5,1.13,7.25,1.11,6.57,,1.12,,6.88
+2020-560_27,2020-560,27,20200831,Jan-Lennard Struff,Pedro Martinez,2020-09-01,US Open,2,1.12,6.0,1.16,6.08,1.14,5.64,,1.14,,6.04
+2020-560_28,2020-560,28,20200831,J.J. Wolf,Guido Pella,2020-09-01,US Open,2,1.57,2.37,1.66,2.37,1.59,2.35,,1.62,,2.37
+2020-560_29,2020-560,29,20200831,Casper Ruud,Mackenzie McDonald,2020-09-01,US Open,2,1.57,2.37,1.64,2.41,1.58,2.39,,1.6,,2.39
+2020-560_30,2020-560,30,20200831,Marin Cilic,Denis Kudla,2020-09-01,US Open,2,1.3,3.5,1.33,3.69,1.3,3.54,,1.32,,3.6
+2020-560_31,2020-560,31,20200831,Adrian Mannarino,Lorenzo Sonego,2020-08-31,US Open,2,1.66,2.2,1.62,2.45,1.6,2.34,,1.64,,2.33
+2020-560_32,2020-560,32,20200831,Gregoire Barrere,Taro Daniel,2020-09-01,US Open,2,1.44,2.75,1.47,2.9,1.44,2.8,,1.46,,2.82
+2020-560_33,2020-560,33,20200831,Ricardas Berankis,Federico Gaio,2020-09-01,US Open,2,1.2,4.5,1.18,5.69,1.17,5.05,,1.19,,5.1
+2020-560_34,2020-560,34,20200831,Roberto Carballes Baena,Feliciano Lopez,2020-09-01,US Open,2,2.75,1.44,2.86,1.48,2.79,1.44,,2.8,,1.46
+2020-560_35,2020-560,35,20200831,Salvatore Caruso,James Duckworth,2020-09-02,US Open,2,1.5,2.62,1.58,2.54,1.53,2.5,,1.54,,2.58
+2020-560_36,2020-560,36,20200831,Federico Coria,Jason Jung,2020-08-31,US Open,2,3.75,1.28,3.71,1.32,3.61,1.29,,3.73,,1.3
+2020-560_37,2020-560,37,20200831,Maxime Cressy,Jozef Kovalik,2020-08-31,US Open,2,1.57,2.37,1.59,2.54,1.55,2.45,,1.58,,2.46
+2020-560_38,2020-560,38,20200831,Alejandro Davidovich Fokina,Dennis Novak,2020-08-31,US Open,2,2.62,1.5,2.41,1.64,2.46,1.55,,2.52,,1.57
+2020-560_39,2020-560,39,20200831,Kyle Edmund,Alexander Bublik,2020-09-01,US Open,2,1.3,3.5,1.32,3.75,1.32,3.37,,1.31,,3.62
+2020-560_40,2020-560,40,20200831,Ernesto Escobedo,Kamil Majchrzak,2020-09-02,US Open,2,2.75,1.44,2.73,1.51,2.69,1.47,,2.74,,1.48
+2020-560_41,2020-560,41,20200831,Marton Fucsovics,Hugo Dellien,2020-09-02,US Open,2,1.05,11.0,1.04,14.89,1.04,12.18,,1.04,,12.94
+2020-560_42,2020-560,42,20200831,Richard Gasquet,Ivo Karlovic,2020-09-02,US Open,2,1.12,6.0,1.16,6.2,1.13,6.04,,1.14,,6.1
+2020-560_43,2020-560,43,20200831,Marcos Giron,Marc Polmans,2020-08-31,US Open,2,1.28,3.75,1.33,3.7,1.3,3.5,,1.31,,3.72
+2020-560_44,2020-560,44,20200831,Norbert Gombos,Radu Albot,2020-09-01,US Open,2,1.4,3.0,1.51,2.76,1.46,2.72,,1.46,,2.88
+2020-560_45,2020-560,45,20200831,Lloyd Harris,Marco Cecchinato,2020-09-01,US Open,2,1.2,4.5,1.25,4.48,1.22,4.26,,1.23,,4.49
+2020-560_46,2020-560,46,20200831,Ugo Humbert,Yuichi Sugita,2020-09-02,US Open,2,1.25,4.0,1.24,4.65,1.22,4.26,,1.25,,4.32
+2020-560_47,2020-560,47,20200831,Miomir Kecmanovic,Gianluca Mager,2020-09-02,US Open,2,1.16,5.0,1.2,5.23,1.18,4.94,,1.18,,5.12
+2020-560_48,2020-560,48,20200831,Mitchell Krueger,Pedro Sousa,2020-08-31,US Open,2,1.16,5.0,1.18,5.57,1.17,5.17,,1.17,,5.28
+2020-560_49,2020-560,49,20200831,Mikhail Kukushkin,Attila Balazs,2020-08-31,US Open,2,1.4,3.0,1.38,3.35,1.34,3.25,,1.39,,3.18
+2020-560_50,2020-560,50,20200831,Andrey Kuznetsov,Sam Querrey,2020-09-01,US Open,1,6.0,1.12,7.7,1.12,6.45,1.12,,6.85,,1.12
+2020-560_51,2020-560,51,20200831,Soonwoo Kwon,Thai-Son Kwiatkowski,2020-09-01,US Open,2,1.36,3.2,1.36,3.44,1.32,3.38,,1.36,,3.32
+2020-560_52,2020-560,52,20200831,Juan Ignacio Londero,Evgeny Donskoy,2020-08-31,US Open,2,1.57,2.37,1.63,2.43,1.59,2.36,,1.6,,2.4
+2020-560_53,2020-560,53,20200831,Michael Mmoh,Joao Sousa,2020-09-01,US Open,2,1.72,2.1,1.8,2.13,1.77,2.05,,1.76,,2.12
+2020-560_54,2020-560,54,20200831,Corentin Moutet,Jiri Vesely,2020-09-02,US Open,2,1.72,2.1,1.72,2.25,1.67,2.2,,1.72,,2.17
+2020-560_55,2020-560,55,20200831,Andy Murray,Yoshihito Nishioka,2020-09-01,US Open,2,1.4,3.0,1.4,3.2,1.38,3.07,,1.4,,3.1
+2020-560_56,2020-560,56,20200831,Sumit Nagal,Bradley Klahn,2020-09-01,US Open,2,2.62,1.5,2.53,1.59,2.61,1.5,,2.58,,1.54
+2020-560_57,2020-560,57,20200831,Brandon Nakashima,Paolo Lorenzi,2020-08-31,US Open,2,1.2,4.5,1.18,5.59,1.2,4.65,,1.19,,5.04
+2020-560_58,2020-560,58,20200831,Christopher O'Connell,Laslo Djere,2020-09-02,US Open,2,1.57,2.37,1.71,2.27,1.63,2.29,,1.64,,2.32
+2020-560_59,2020-560,59,20200831,Vasek Pospisil,Philipp Kohlschreiber,2020-09-01,US Open,2,1.61,2.3,1.74,2.23,1.67,2.21,,1.68,,2.26
+2020-560_60,2020-560,60,20200831,Emil Ruusuvuori,Aljaz Bedene,2020-09-01,US Open,2,2.0,1.8,2.16,1.78,2.1,1.74,,2.08,,1.79
+2020-560_61,2020-560,61,20200831,Gilles Simon,Mohamed Safwat,2020-08-31,US Open,2,1.2,4.5,1.21,5.06,1.18,4.82,,1.2,,4.78
+2020-560_62,2020-560,62,20200831,Jack Sock,Pablo Cuevas,2020-08-31,US Open,2,1.57,2.37,1.64,2.41,1.61,2.32,,1.6,,2.39
+2020-560_63,2020-560,63,20200831,Jordan Thompson,Stefano Travaglia,2020-08-31,US Open,2,1.53,2.5,1.71,2.28,1.6,2.33,,1.62,,2.39
+2020-560_64,2020-560,64,20200831,Frances Tiafoe,Andreas Seppi,2020-09-02,US Open,2,1.57,2.37,1.6,2.52,1.57,2.41,,1.58,,2.45
+2020-560_65,2020-560,65,20200831,Novak Djokovic,Kyle Edmund,2020-09-02,US Open,2,1.03,15.0,1.04,15.79,1.03,14.11,,1.04,,15.4
+2020-560_66,2020-560,66,20200831,Dominic Thiem,Sumit Nagal,2020-09-03,US Open,2,1.04,13.0,1.05,13.8,1.04,12.42,,1.04,,13.4
+2020-560_67,2020-560,67,20200831,Daniil Medvedev,Christopher O'Connell,2020-09-04,US Open,2,1.01,23.0,1.02,20.98,1.01,17.92,,1.02,,21.99
+2020-560_68,2020-560,68,20200831,Stefanos Tsitsipas,Maxime Cressy,2020-09-03,US Open,2,1.01,23.0,1.02,25.07,1.01,19.03,,1.02,,24.04
+2020-560_69,2020-560,69,20200831,Alexander Zverev,Brandon Nakashima,2020-09-02,US Open,2,1.2,4.5,1.19,5.49,1.17,5.03,,1.19,,5.0
+2020-560_70,2020-560,70,20200831,Matteo Berrettini,Ugo Humbert,2020-09-03,US Open,2,1.4,3.0,1.34,3.56,1.34,3.27,,1.37,,3.28
+2020-560_71,2020-560,71,20200831,Karen Khachanov,Andrey Kuznetsov,2020-09-03,US Open,1,1.25,4.0,1.24,4.62,1.22,4.32,,1.25,,4.31
+2020-560_72,2020-560,72,20200831,David Goffin,Lloyd Harris,2020-09-02,US Open,2,1.16,5.0,1.16,6.26,1.14,5.62,,1.16,,5.63
+2020-560_73,2020-560,73,20200831,Roberto Bautista Agut,Miomir Kecmanovic,2020-09-03,US Open,2,1.12,6.0,1.12,7.62,1.11,6.7,,1.12,,6.81
+2020-560_74,2020-560,74,20200831,Andrey Rublev,Gregoire Barrere,2020-09-03,US Open,2,1.1,7.0,1.1,8.99,1.08,7.77,,1.1,,8.0
+2020-560_75,2020-560,75,20200831,Denis Shapovalov,Soonwoo Kwon,2020-09-03,US Open,2,1.22,4.33,1.18,5.59,1.2,4.62,,1.2,,4.96
+2020-560_76,2020-560,76,20200831,Mikhail Kukushkin,Cristian Garin,2020-09-02,US Open,2,2.0,1.8,2.13,1.8,2.06,1.77,,2.06,,1.8
+2020-560_77,2020-560,77,20200831,Marton Fucsovics,Grigor Dimitrov,2020-09-03,US Open,2,2.37,1.57,2.42,1.64,2.33,1.61,,2.4,,1.6
+2020-560_78,2020-560,78,20200831,Felix Auger-Aliassime,Andy Murray,2020-09-04,US Open,2,1.53,2.5,1.58,2.56,1.53,2.52,,1.56,,2.53
+2020-560_79,2020-560,79,20200831,Taylor Fritz,Gilles Simon,2020-09-03,US Open,2,1.5,2.62,1.44,3.02,1.44,2.8,,1.47,,2.82
+2020-560_80,2020-560,80,20200831,Pablo Carreno Busta,Mitchell Krueger,2020-09-03,US Open,2,1.12,6.0,1.13,7.35,1.12,6.28,,1.12,,6.68
+2020-560_81,2020-560,81,20200831,Alex de Minaur,Richard Gasquet,2020-09-03,US Open,2,1.3,3.5,1.38,3.33,1.34,3.28,,1.34,,3.42
+2020-560_82,2020-560,82,20200831,Corentin Moutet,Daniel Evans,2020-09-04,US Open,2,2.62,1.5,3.93,1.3,3.67,1.28,,3.28,,1.4
+2020-560_83,2020-560,83,20200831,Alejandro Davidovich Fokina,Hubert Hurkacz,2020-09-02,US Open,2,5.0,1.16,4.87,1.22,4.52,1.2,,4.94,,1.19
+2020-560_84,2020-560,84,20200831,Vasek Pospisil,Milos Raonic,2020-09-03,US Open,2,5.5,1.14,5.83,1.17,5.15,1.16,,5.66,,1.15
+2020-560_85,2020-560,85,20200831,Filip Krajinovic,Marcos Giron,2020-09-02,US Open,2,1.1,7.0,1.11,8.15,1.1,7.24,,1.1,,7.58
+2020-560_86,2020-560,86,20200831,Borna Coric,Juan Ignacio Londero,2020-09-03,US Open,2,1.22,4.33,1.26,4.3,1.22,4.28,,1.24,,4.31
+2020-560_87,2020-560,87,20200831,Jan-Lennard Struff,Michael Mmoh,2020-09-02,US Open,2,1.16,5.0,1.15,6.52,1.15,5.58,,1.15,,5.76
+2020-560_88,2020-560,88,20200831,Casper Ruud,Emil Ruusuvuori,2020-09-03,US Open,2,2.5,1.53,2.52,1.6,2.48,1.54,,2.51,,1.56
+2020-560_89,2020-560,89,20200831,Marin Cilic,Norbert Gombos,2020-09-03,US Open,2,1.3,3.5,1.36,3.44,1.34,3.29,,1.33,,3.47
+2020-560_90,2020-560,90,20200831,Adrian Mannarino,Jack Sock,2020-09-02,US Open,2,1.44,2.75,1.48,2.86,1.45,2.78,,1.46,,2.8
+2020-560_91,2020-560,91,20200831,Ricardas Berankis,Steve Johnson,2020-09-03,US Open,2,2.1,1.72,2.1,1.83,2.07,1.76,,2.1,,1.78
+2020-560_92,2020-560,92,20200831,Salvatore Caruso,Ernesto Escobedo,2020-09-03,US Open,2,1.9,1.9,1.93,1.97,1.9,1.9,,1.92,,1.94
+2020-560_93,2020-560,93,20200831,Cameron Norrie,Federico Coria,2020-09-03,US Open,2,1.05,11.0,1.08,10.13,1.07,8.71,,1.06,,10.57
+2020-560_94,2020-560,94,20200831,Jordan Thompson,Egor Gerasimov,2020-09-02,US Open,2,1.72,2.1,1.68,2.32,1.73,2.11,,1.7,,2.21
+2020-560_95,2020-560,95,20200831,Frances Tiafoe,John Millman,2020-09-03,US Open,2,2.5,1.53,2.44,1.63,2.44,1.56,,2.47,,1.58
+2020-560_96,2020-560,96,20200831,J.J. Wolf,Roberto Carballes Baena,2020-09-03,US Open,2,1.28,3.75,1.35,3.52,1.32,3.41,,1.32,,3.64
+2020-560_97,2020-560,97,20200831,Novak Djokovic,Jan-Lennard Struff,2020-09-05,US Open,2,1.05,11.0,1.04,14.91,1.03,13.0,,1.04,,12.96
+2020-560_98,2020-560,98,20200831,Dominic Thiem,Marin Cilic,2020-09-06,US Open,2,1.25,4.0,1.2,5.19,1.21,4.41,,1.23,,4.6
+2020-560_99,2020-560,99,20200831,Daniil Medvedev,J.J. Wolf,2020-09-05,US Open,2,1.06,10.0,1.05,13.68,1.04,10.9,,1.06,,11.84
+2020-560_100,2020-560,100,20200831,Borna Coric,Stefanos Tsitsipas,2020-09-05,US Open,2,6.5,1.11,8.12,1.11,7.07,1.1,,7.31,,1.11
+2020-560_101,2020-560,101,20200831,Alexander Zverev,Adrian Mannarino,2020-09-05,US Open,2,1.14,5.5,1.17,5.81,1.16,5.19,,1.15,,5.65
+2020-560_102,2020-560,102,20200831,Matteo Berrettini,Casper Ruud,2020-09-05,US Open,2,1.14,5.5,1.16,6.28,1.15,5.62,,1.15,,5.89
+2020-560_103,2020-560,103,20200831,David Goffin,Filip Krajinovic,2020-09-04,US Open,2,2.5,1.53,2.44,1.63,2.47,1.55,,2.47,,1.58
+2020-560_104,2020-560,104,20200831,Vasek Pospisil,Roberto Bautista Agut,2020-09-05,US Open,2,3.2,1.36,3.92,1.3,3.46,1.31,,3.56,,1.33
+2020-560_105,2020-560,105,20200831,Andrey Rublev,Salvatore Caruso,2020-09-05,US Open,2,1.07,9.0,1.07,11.02,1.06,9.34,,1.07,,10.01
+2020-560_106,2020-560,106,20200831,Alex de Minaur,Karen Khachanov,2020-09-05,US Open,2,1.57,2.37,1.69,2.3,1.63,2.27,,1.63,,2.34
+2020-560_107,2020-560,107,20200831,Denis Shapovalov,Taylor Fritz,2020-09-04,US Open,2,1.53,2.5,1.67,2.35,1.58,2.39,,1.6,,2.42
+2020-560_108,2020-560,108,20200831,Felix Auger-Aliassime,Corentin Moutet,2020-09-05,US Open,2,1.2,4.5,1.2,5.25,1.21,4.45,,1.2,,4.88
+2020-560_109,2020-560,109,20200831,Pablo Carreno Busta,Ricardas Berankis,2020-09-04,US Open,2,1.33,3.4,1.29,4.05,1.3,3.52,,1.31,,3.72
+2020-560_110,2020-560,110,20200831,Alejandro Davidovich Fokina,Cameron Norrie,2020-09-04,US Open,2,2.75,1.44,2.84,1.49,2.71,1.47,,2.8,,1.46
+2020-560_111,2020-560,111,20200831,Jordan Thompson,Mikhail Kukushkin,2020-09-04,US Open,2,1.36,3.2,1.36,3.46,1.36,3.17,,1.36,,3.33
+2020-560_112,2020-560,112,20200831,Frances Tiafoe,Marton Fucsovics,2020-09-05,US Open,2,2.37,1.57,2.65,1.55,2.47,1.55,,2.51,,1.56
+2020-560_113,2020-560,113,20200831,Pablo Carreno Busta,Novak Djokovic,2020-09-06,US Open,2,11.0,1.05,19.18,1.03,13.87,1.03,,15.09,,1.04
+2020-560_114,2020-560,114,20200831,Dominic Thiem,Felix Auger-Aliassime,2020-09-07,US Open,2,1.4,3.0,1.41,3.24,1.39,3.05,,1.4,,3.12
+2020-560_115,2020-560,115,20200831,Daniil Medvedev,Frances Tiafoe,2020-09-08,US Open,2,1.12,6.0,1.11,8.64,1.1,7.11,,1.12,,7.32
+2020-560_116,2020-560,116,20200831,Alexander Zverev,Alejandro Davidovich Fokina,2020-09-06,US Open,2,1.11,6.5,1.13,7.29,1.12,6.52,,1.12,,6.9
+2020-560_117,2020-560,117,20200831,Andrey Rublev,Matteo Berrettini,2020-09-08,US Open,2,2.0,1.8,2.0,1.93,1.99,1.83,,2.0,,1.86
+2020-560_118,2020-560,118,20200831,Denis Shapovalov,David Goffin,2020-09-07,US Open,2,2.1,1.72,2.17,1.79,2.14,1.72,,2.13,,1.76
+2020-560_119,2020-560,119,20200831,Alex de Minaur,Vasek Pospisil,2020-09-07,US Open,2,1.44,2.75,1.46,3.0,1.46,2.73,,1.45,,2.88
+2020-560_120,2020-560,120,20200831,Borna Coric,Jordan Thompson,2020-09-07,US Open,2,1.5,2.62,1.53,2.73,1.53,2.52,,1.52,,2.68
+2020-560_121,2020-560,121,20200831,Dominic Thiem,Alex de Minaur,2020-09-10,US Open,2,1.16,5.0,1.22,5.0,1.18,5.04,,1.19,,5.0
+2020-560_122,2020-560,122,20200831,Daniil Medvedev,Andrey Rublev,2020-09-09,US Open,2,1.25,4.0,1.28,4.14,1.25,3.98,,1.27,,4.07
+2020-560_123,2020-560,123,20200831,Alexander Zverev,Borna Coric,2020-09-08,US Open,2,1.36,3.2,1.37,3.45,1.35,3.22,,1.37,,3.32
+2020-560_124,2020-560,124,20200831,Pablo Carreno Busta,Denis Shapovalov,2020-09-09,US Open,2,2.2,1.66,2.31,1.7,2.23,1.67,,2.26,,1.68
+2020-560_125,2020-560,125,20200831,Dominic Thiem,Daniil Medvedev,2020-09-12,US Open,2,2.0,1.8,2.04,1.88,1.98,1.86,,2.02,,1.84
+2020-560_126,2020-560,126,20200831,Alexander Zverev,Pablo Carreno Busta,2020-09-11,US Open,2,1.36,3.2,1.37,3.43,1.35,3.28,,1.37,,3.32
+2020-560_127,2020-560,127,20200831,Dominic Thiem,Alexander Zverev,2020-09-13,US Open,2,1.25,4.0,1.3,4.0,1.27,3.84,,1.27,,4.0
+2020-319_1,2020-319,1,20200907,Hubert Hurkacz,Joao Sousa,2020-09-08,Generali Open,2,1.53,2.37,1.54,2.62,1.52,2.49,,1.54,,2.5
+2020-319_2,2020-319,2,20200907,Miomir Kecmanovic,Kei Nishikori,2020-09-08,Generali Open,2,2.0,1.75,2.35,1.66,2.17,1.68,,2.17,,1.7
+2020-319_3,2020-319,3,20200907,Guido Pella,Yoshihito Nishioka,2020-09-08,Generali Open,2,1.53,2.37,1.59,2.5,1.53,2.46,,1.56,,2.44
+2020-319_4,2020-319,4,20200907,Laslo Djere,Albert Ramos-Vinolas,2020-09-09,Generali Open,2,1.61,2.2,1.66,2.34,1.64,2.23,,1.64,,2.27
+2020-319_5,2020-319,5,20200907,Federico Delbonis,Juan Ignacio Londero,2020-09-09,Generali Open,2,2.25,1.57,2.17,1.76,2.15,1.68,,2.21,,1.66
+2020-319_6,2020-319,6,20200907,Yannick Hanfmann,Alexander Bublik,2020-09-09,Generali Open,2,1.33,3.25,1.29,3.92,1.28,3.62,,1.31,,3.58
+2020-319_7,2020-319,7,20200907,Marc-Andrea Huesler,Emil Ruusuvuori,2020-09-09,Generali Open,2,2.37,1.53,2.52,1.58,2.39,1.56,,2.45,,1.56
+2020-319_8,2020-319,8,20200907,Feliciano Lopez,Pierre-Hugues Herbert,2020-09-09,Generali Open,2,3.25,1.33,3.19,1.4,3.14,1.35,,3.22,,1.36
+2020-319_9,2020-319,9,20200907,Maximilian Marterer,Dennis Novak,2020-09-09,Generali Open,2,1.66,2.1,1.83,2.07,1.79,2.01,,1.74,,2.08
+2020-319_10,2020-319,10,20200907,Sebastian Ofner,Radu Albot,2020-09-08,Generali Open,2,1.5,2.5,1.49,2.81,1.46,2.69,,1.5,,2.66
+2020-319_11,2020-319,11,20200907,Jannik Sinner,Philipp Kohlschreiber,2020-09-09,Generali Open,2,1.9,1.9,1.85,2.05,1.84,1.94,,1.88,,1.98
+2020-319_12,2020-319,12,20200907,Jordan Thompson,John Millman,2020-09-09,Generali Open,2,3.0,1.36,3.19,1.4,2.99,1.38,,3.1,,1.38
+2020-319_13,2020-319,13,20200907,Marc-Andrea Huesler,Fabio Fognini,2020-09-10,Generali Open,2,3.0,1.36,3.26,1.39,3.03,1.37,,3.13,,1.38
+2020-319_14,2020-319,14,20200907,Diego Schwartzman,Sebastian Ofner,2020-09-10,Generali Open,2,1.14,5.5,1.15,6.31,1.14,5.59,,1.14,,5.9
+2020-319_15,2020-319,15,20200907,Yannick Hanfmann,Dusan Lajovic,2020-09-10,Generali Open,2,1.61,2.2,1.76,2.19,1.69,2.15,,1.68,,2.2
+2020-319_16,2020-319,16,20200907,Federico Delbonis,Nikoloz Basilashvili,2020-09-10,Generali Open,2,1.33,3.25,1.42,3.13,1.41,2.88,,1.38,,3.19
+2020-319_17,2020-319,17,20200907,Maximilian Marterer,Hubert Hurkacz,2020-09-10,Generali Open,2,2.2,1.61,2.48,1.61,2.31,1.6,,2.34,,1.61
+2020-319_18,2020-319,18,20200907,Feliciano Lopez,Guido Pella,2020-09-10,Generali Open,2,3.5,1.28,3.53,1.35,3.38,1.31,,3.51,,1.32
+2020-319_19,2020-319,19,20200907,Laslo Djere,Jannik Sinner,2020-09-10,Generali Open,2,3.0,1.36,2.73,1.52,2.86,1.41,,2.86,,1.44
+2020-319_20,2020-319,20,20200907,Miomir Kecmanovic,Jordan Thompson,2020-09-10,Generali Open,2,1.3,3.4,1.44,3.03,1.35,3.15,,1.37,,3.22
+2020-319_21,2020-319,21,20200907,Laslo Djere,Diego Schwartzman,2020-09-11,Generali Open,2,2.37,1.53,2.62,1.56,2.46,1.54,,2.5,,1.54
+2020-319_22,2020-319,22,20200907,Yannick Hanfmann,Maximilian Marterer,2020-09-11,Generali Open,2,1.75,2.0,1.82,2.1,1.78,2.02,,1.78,,2.05
+2020-319_23,2020-319,23,20200907,Marc-Andrea Huesler,Feliciano Lopez,2020-09-11,Generali Open,2,2.2,1.61,2.36,1.67,2.25,1.64,,2.28,,1.64
+2020-319_24,2020-319,24,20200907,Miomir Kecmanovic,Federico Delbonis,2020-09-11,Generali Open,2,1.66,2.1,1.88,2.02,1.78,2.02,,1.77,,2.06
+2020-319_25,2020-319,25,20200907,Yannick Hanfmann,Laslo Djere,2020-09-12,Generali Open,2,2.0,1.75,1.98,1.93,2.01,1.79,,1.99,,1.84
+2020-319_26,2020-319,26,20200907,Miomir Kecmanovic,Marc-Andrea Huesler,2020-09-12,Generali Open,2,1.28,3.5,1.32,3.74,1.31,3.36,,1.3,,3.62
+2020-319_27,2020-319,27,20200907,Miomir Kecmanovic,Yannick Hanfmann,2020-09-13,Generali Open,2,1.75,2.0,1.87,2.04,1.83,1.96,,1.81,,2.02
+2020-416_1,2020-416,1,20200914,Salvatore Caruso,Tennys Sandgren,2020-09-15,Internazionali BNL d'Italia,2,2.25,1.57,2.11,1.81,2.12,1.73,,2.18,,1.69
+2020-416_2,2020-416,2,20200914,Marco Cecchinato,Kyle Edmund,2020-09-15,Internazionali BNL d'Italia,2,1.95,1.8,2.14,1.79,1.93,1.87,,2.04,,1.8
+2020-416_3,2020-416,3,20200914,Filip Krajinovic,Felix Auger-Aliassime,2020-09-14,Internazionali BNL d'Italia,2,1.53,2.37,1.69,2.3,1.62,2.31,,1.61,,2.34
+2020-416_4,2020-416,4,20200914,Lorenzo Musetti,Stan Wawrinka,2020-09-15,Internazionali BNL d'Italia,2,3.5,1.28,3.77,1.32,3.61,1.29,,3.64,,1.3
+2020-416_5,2020-416,5,20200914,Kei Nishikori,Albert Ramos-Vinolas,2020-09-14,Internazionali BNL d'Italia,2,1.44,2.62,1.58,2.55,1.52,2.53,,1.51,,2.58
+2020-416_6,2020-416,6,20200914,Dominik Koepfer,Alex de Minaur,2020-09-15,Internazionali BNL d'Italia,2,3.0,1.36,3.31,1.38,3.1,1.37,,3.16,,1.37
+2020-416_7,2020-416,7,20200914,Federico Coria,Jan-Lennard Struff,2020-09-15,Internazionali BNL d'Italia,2,3.5,1.28,3.41,1.37,3.32,1.33,,3.46,,1.33
+2020-416_8,2020-416,8,20200914,Stefano Travaglia,Taylor Fritz,2020-09-14,Internazionali BNL d'Italia,2,2.25,1.57,2.38,1.65,2.27,1.63,,2.32,,1.61
+2020-416_9,2020-416,9,20200914,Borna Coric,Cristian Garin,2020-09-14,Internazionali BNL d'Italia,2,2.05,1.7,2.04,1.87,2.01,1.8,,2.04,,1.78
+2020-416_10,2020-416,10,20200914,Casper Ruud,Karen Khachanov,2020-09-14,Internazionali BNL d'Italia,2,1.9,1.9,2.06,1.85,1.99,1.81,,1.98,,1.88
+2020-416_11,2020-416,11,20200914,Lorenzo Sonego,Nikoloz Basilashvili,2020-09-14,Internazionali BNL d'Italia,2,1.36,3.0,1.38,3.31,1.35,3.21,,1.37,,3.16
+2020-416_12,2020-416,12,20200914,Marin Cilic,Alexander Bublik,2020-09-14,Internazionali BNL d'Italia,2,1.3,3.4,1.36,3.46,1.34,3.26,,1.33,,3.43
+2020-416_13,2020-416,13,20200914,Ugo Humbert,Kevin Anderson,2020-09-14,Internazionali BNL d'Italia,2,2.37,1.53,2.33,1.68,2.28,1.63,,2.35,,1.6
+2020-416_14,2020-416,14,20200914,Pedro Martinez,Sam Querrey,2020-09-15,Internazionali BNL d'Italia,2,1.33,3.25,1.36,3.45,1.35,3.18,,1.35,,3.35
+2020-416_15,2020-416,15,20200914,Denis Shapovalov,Guido Pella,2020-09-15,Internazionali BNL d'Italia,2,1.9,1.9,1.88,2.02,1.94,1.87,,1.89,,1.96
+2020-416_16,2020-416,16,20200914,Grigor Dimitrov,Gianluca Mager,2020-09-14,Internazionali BNL d'Italia,2,1.4,2.75,1.47,2.93,1.52,2.53,,1.44,,2.84
+2020-416_17,2020-416,17,20200914,Yoshihito Nishioka,Miomir Kecmanovic,2020-09-15,Internazionali BNL d'Italia,2,2.75,1.4,3.17,1.41,2.88,1.41,,2.96,,1.4
+2020-416_18,2020-416,18,20200914,Jannik Sinner,Benoit Paire,2020-09-14,Internazionali BNL d'Italia,2,1.25,3.75,1.29,4.05,1.28,3.67,,1.27,,3.9
+2020-416_19,2020-416,19,20200914,John Millman,Joao Sousa,2020-09-15,Internazionali BNL d'Italia,2,1.5,2.5,1.52,2.72,1.49,2.62,,1.51,,2.61
+2020-416_20,2020-416,20,20200914,Hubert Hurkacz,Daniel Evans,2020-09-14,Internazionali BNL d'Italia,2,1.66,2.1,1.76,2.19,1.65,2.24,,1.71,,2.14
+2020-416_21,2020-416,21,20200914,Andrey Rublev,Facundo Bagnis,2020-09-15,Internazionali BNL d'Italia,2,1.18,4.5,1.23,4.77,1.19,4.63,,1.2,,4.64
+2020-416_22,2020-416,22,20200914,Milos Raonic,Adrian Mannarino,2020-09-15,Internazionali BNL d'Italia,2,1.18,4.5,1.18,5.67,1.19,4.83,,1.18,,5.08
+2020-416_23,2020-416,23,20200914,Dusan Lajovic,Alejandro Davidovich Fokina,2020-09-15,Internazionali BNL d'Italia,2,2.75,1.4,3.05,1.43,3.01,1.38,,2.9,,1.42
+2020-416_24,2020-416,24,20200914,Novak Djokovic,Salvatore Caruso,2020-09-16,Internazionali BNL d'Italia,2,1.04,13.0,1.04,16.13,1.03,13.26,,1.04,,14.56
+2020-416_25,2020-416,25,20200914,Filip Krajinovic,Marco Cecchinato,2020-09-16,Internazionali BNL d'Italia,2,1.36,3.0,1.36,3.44,1.34,3.24,,1.36,,3.22
+2020-416_26,2020-416,26,20200914,Lorenzo Musetti,Kei Nishikori,2020-09-17,Internazionali BNL d'Italia,2,1.8,1.95,2.08,1.84,1.96,1.84,,1.94,,1.9
+2020-416_27,2020-416,27,20200914,Dominik Koepfer,Gael Monfils,2020-09-17,Internazionali BNL d'Italia,2,2.75,1.4,3.02,1.44,2.89,1.41,,2.88,,1.42
+2020-416_28,2020-416,28,20200914,Matteo Berrettini,Federico Coria,2020-09-16,Internazionali BNL d'Italia,2,1.18,4.5,1.21,4.97,1.19,4.73,,1.19,,4.73
+2020-416_29,2020-416,29,20200914,Stefano Travaglia,Borna Coric,2020-09-16,Internazionali BNL d'Italia,2,2.62,1.44,3.2,1.4,2.81,1.43,,2.91,,1.42
+2020-416_30,2020-416,30,20200914,Casper Ruud,Lorenzo Sonego,2020-09-17,Internazionali BNL d'Italia,2,1.36,3.0,1.49,2.83,1.44,2.8,,1.42,,2.92
+2020-416_31,2020-416,31,20200914,Marin Cilic,David Goffin,2020-09-16,Internazionali BNL d'Italia,2,2.75,1.4,2.77,1.51,2.82,1.43,,2.76,,1.46
+2020-416_32,2020-416,32,20200914,Ugo Humbert,Fabio Fognini,2020-09-17,Internazionali BNL d'Italia,2,1.72,2.0,1.81,2.11,1.79,2.02,,1.76,,2.05
+2020-416_33,2020-416,33,20200914,Denis Shapovalov,Pedro Martinez,2020-09-17,Internazionali BNL d'Italia,2,1.25,3.75,1.37,3.4,1.31,3.48,,1.31,,3.58
+2020-416_34,2020-416,34,20200914,Grigor Dimitrov,Yoshihito Nishioka,2020-09-16,Internazionali BNL d'Italia,2,1.44,2.62,1.5,2.79,1.5,2.56,,1.47,,2.7
+2020-416_35,2020-416,35,20200914,Jannik Sinner,Stefanos Tsitsipas,2020-09-16,Internazionali BNL d'Italia,2,3.5,1.28,3.87,1.31,3.68,1.28,,3.68,,1.3
+2020-416_36,2020-416,36,20200914,Diego Schwartzman,John Millman,2020-09-17,Internazionali BNL d'Italia,2,1.3,3.4,1.32,3.79,1.3,3.53,,1.31,,3.6
+2020-416_37,2020-416,37,20200914,Hubert Hurkacz,Andrey Rublev,2020-09-17,Internazionali BNL d'Italia,2,4.33,1.2,5.81,1.17,4.85,1.18,,5.07,,1.18
+2020-416_38,2020-416,38,20200914,Dusan Lajovic,Milos Raonic,2020-09-17,Internazionali BNL d'Italia,2,3.0,1.36,3.4,1.37,3.17,1.36,,3.2,,1.37
+2020-416_39,2020-416,39,20200914,Rafael Nadal,Pablo Carreno Busta,2020-09-16,Internazionali BNL d'Italia,2,1.05,11.0,1.06,13.01,1.05,10.54,,1.06,,12.0
+2020-416_40,2020-416,40,20200914,Novak Djokovic,Filip Krajinovic,2020-09-18,Internazionali BNL d'Italia,2,1.16,5.0,1.2,5.27,1.18,4.95,,1.18,,5.14
+2020-416_41,2020-416,41,20200914,Dominik Koepfer,Lorenzo Musetti,2020-09-18,Internazionali BNL d'Italia,2,3.0,1.36,3.06,1.44,3.02,1.38,,3.03,,1.4
+2020-416_42,2020-416,42,20200914,Matteo Berrettini,Stefano Travaglia,2020-09-18,Internazionali BNL d'Italia,2,1.25,3.75,1.26,4.4,1.24,4.03,,1.25,,4.08
+2020-416_43,2020-416,43,20200914,Casper Ruud,Marin Cilic,2020-09-18,Internazionali BNL d'Italia,2,1.66,2.1,1.69,2.34,1.66,2.23,,1.67,,2.22
+2020-416_44,2020-416,44,20200914,Denis Shapovalov,Ugo Humbert,2020-09-18,Internazionali BNL d'Italia,2,1.33,3.25,1.35,3.56,1.33,3.36,,1.34,,3.4
+2020-416_45,2020-416,45,20200914,Grigor Dimitrov,Jannik Sinner,2020-09-18,Internazionali BNL d'Italia,2,1.95,1.8,2.05,1.88,1.99,1.82,,2.0,,1.84
+2020-416_46,2020-416,46,20200914,Diego Schwartzman,Hubert Hurkacz,2020-09-18,Internazionali BNL d'Italia,2,1.5,2.5,1.57,2.62,1.53,2.52,,1.54,,2.56
+2020-416_47,2020-416,47,20200914,Rafael Nadal,Dusan Lajovic,2020-09-18,Internazionali BNL d'Italia,2,1.02,17.0,1.02,24.1,1.02,16.38,,1.02,,20.55
+2020-416_48,2020-416,48,20200914,Novak Djokovic,Dominik Koepfer,2020-09-19,Internazionali BNL d'Italia,2,1.03,15.0,1.03,18.76,1.02,13.71,,1.03,,16.88
+2020-416_49,2020-416,49,20200914,Casper Ruud,Matteo Berrettini,2020-09-19,Internazionali BNL d'Italia,2,2.37,1.57,2.36,1.68,2.28,1.63,,2.37,,1.62
+2020-416_50,2020-416,50,20200914,Denis Shapovalov,Grigor Dimitrov,2020-09-19,Internazionali BNL d'Italia,2,2.0,1.8,2.03,1.9,2.0,1.81,,2.01,,1.85
+2020-416_51,2020-416,51,20200914,Diego Schwartzman,Rafael Nadal,2020-09-19,Internazionali BNL d'Italia,2,15.0,1.03,15.29,1.05,14.71,1.03,,15.14,,1.04
+2020-416_52,2020-416,52,20200914,Novak Djokovic,Casper Ruud,2020-09-20,Internazionali BNL d'Italia,2,1.16,5.0,1.19,5.49,17.0,5.05,,1.17,,5.24
+2020-416_53,2020-416,53,20200914,Diego Schwartzman,Denis Shapovalov,2020-09-20,Internazionali BNL d'Italia,2,1.61,2.3,1.7,2.31,1.63,2.28,,1.66,,2.3
+2020-416_54,2020-416,54,20200914,Novak Djokovic,Diego Schwartzman,2020-09-21,Internazionali BNL d'Italia,2,1.16,5.0,1.16,6.31,1.16,5.26,,1.16,,5.65
+2020-414_1,2020-414,1,20200921,Ugo Humbert,Daniil Medvedev,2020-09-22,German Tennis Championships,2,4.5,1.18,5.88,1.16,4.61,1.2,,5.19,,1.17
+2020-414_2,2020-414,2,20200921,Stefanos Tsitsipas,Daniel Evans,2020-09-23,German Tennis Championships,2,1.14,5.5,1.17,5.74,1.16,5.16,,1.15,,5.62
+2020-414_3,2020-414,3,20200921,Yannick Hanfmann,Gael Monfils,2020-09-22,German Tennis Championships,2,1.95,1.8,1.85,2.04,1.88,1.91,,1.9,,1.92
+2020-414_4,2020-414,4,20200921,Roberto Bautista Agut,Nikoloz Basilashvili,2020-09-22,German Tennis Championships,2,1.16,5.0,1.2,5.2,1.17,5.0,,1.18,,5.1
+2020-414_5,2020-414,5,20200921,Andrey Rublev,Tennys Sandgren,2020-09-21,German Tennis Championships,2,1.28,3.5,1.3,3.83,1.29,3.58,,1.29,,3.66
+2020-414_6,2020-414,6,20200921,Fabio Fognini,Philipp Kohlschreiber,2020-09-22,German Tennis Championships,2,2.2,1.61,2.28,1.69,2.15,1.7,,2.24,,1.65
+2020-414_7,2020-414,7,20200921,Karen Khachanov,Jan-Lennard Struff,2020-09-22,German Tennis Championships,2,1.66,2.1,1.87,2.02,1.79,2.02,,1.76,,2.06
+2020-414_8,2020-414,8,20200921,Felix Auger-Aliassime,Lorenzo Sonego,2020-09-22,German Tennis Championships,2,1.4,2.75,1.39,3.21,1.42,2.88,,1.4,,2.98
+2020-414_9,2020-414,9,20200921,Alexander Bublik,Albert Ramos-Vinolas,2020-09-22,German Tennis Championships,2,2.25,1.57,2.51,1.58,2.39,1.57,,2.38,,1.58
+2020-414_10,2020-414,10,20200921,Pablo Cuevas,Taylor Fritz,2020-09-21,German Tennis Championships,1,2.0,1.75,2.01,1.88,2.01,1.8,,2.0,,1.82
+2020-414_11,2020-414,11,20200921,Cristian Garin,Kei Nishikori,2020-09-22,German Tennis Championships,2,1.75,2.0,1.89,2.0,1.82,1.98,,1.82,,2.0
+2020-414_12,2020-414,12,20200921,Dominik Koepfer,Yoshihito Nishioka,2020-09-22,German Tennis Championships,1,1.53,2.37,1.68,2.3,1.62,2.3,,1.6,,2.34
+2020-414_13,2020-414,13,20200921,Dusan Lajovic,Adrian Mannarino,2020-09-22,German Tennis Championships,2,1.28,3.5,1.28,4.02,1.28,3.68,,1.28,,3.76
+2020-414_14,2020-414,14,20200921,Tommy Paul,Kevin Anderson,2020-09-21,German Tennis Championships,2,1.57,2.25,1.66,2.34,1.6,2.34,,1.62,,2.3
+2020-414_15,2020-414,15,20200921,Casper Ruud,Benoit Paire,2020-09-23,German Tennis Championships,2,1.16,5.0,1.21,4.96,1.17,4.94,,1.18,,4.98
+2020-414_16,2020-414,16,20200921,Jiri Vesely,Gilles Simon,2020-09-21,German Tennis Championships,1,1.8,1.95,1.81,2.1,1.81,2.0,,1.81,,2.02
+2020-414_17,2020-414,17,20200921,Stefanos Tsitsipas,Pablo Cuevas,2020-09-24,German Tennis Championships,1,1.2,4.33,1.22,4.81,1.19,4.74,,1.21,,4.57
+2020-414_18,2020-414,18,20200921,Roberto Bautista Agut,Dominik Koepfer,2020-09-23,German Tennis Championships,2,1.25,3.75,1.32,3.71,1.29,3.58,,1.28,,3.73
+2020-414_19,2020-414,19,20200921,Andrey Rublev,Tommy Paul,2020-09-23,German Tennis Championships,2,1.16,5.0,1.15,6.46,1.15,5.49,,1.15,,5.73
+2020-414_20,2020-414,20,20200921,Casper Ruud,Fabio Fognini,2020-09-24,German Tennis Championships,2,1.44,2.62,1.37,3.39,1.39,2.97,,1.4,,3.0
+2020-414_21,2020-414,21,20200921,Dusan Lajovic,Karen Khachanov,2020-09-24,German Tennis Championships,2,1.95,1.8,2.04,1.87,1.95,1.85,,2.0,,1.84
+2020-414_22,2020-414,22,20200921,Alexander Bublik,Felix Auger-Aliassime,2020-09-23,German Tennis Championships,2,4.33,1.2,4.83,1.22,4.47,1.2,,4.58,,1.21
+2020-414_23,2020-414,23,20200921,Cristian Garin,Yannick Hanfmann,2020-09-23,German Tennis Championships,2,1.61,2.2,1.73,2.24,1.65,2.22,,1.67,,2.22
+2020-414_24,2020-414,24,20200921,Ugo Humbert,Jiri Vesely,2020-09-24,German Tennis Championships,2,1.53,2.37,1.58,2.56,1.55,2.45,,1.56,,2.46
+2020-414_25,2020-414,25,20200921,Stefanos Tsitsipas,Dusan Lajovic,2020-09-25,German Tennis Championships,2,1.4,2.75,1.39,3.26,1.42,2.87,,1.4,,3.0
+2020-414_26,2020-414,26,20200921,Andrey Rublev,Roberto Bautista Agut,2020-09-25,German Tennis Championships,2,1.66,2.1,1.65,2.4,1.63,2.27,,1.65,,2.25
+2020-414_27,2020-414,27,20200921,Cristian Garin,Alexander Bublik,2020-09-25,German Tennis Championships,2,1.28,3.5,1.34,3.62,1.31,3.48,,1.31,,3.56
+2020-414_28,2020-414,28,20200921,Casper Ruud,Ugo Humbert,2020-09-25,German Tennis Championships,2,1.36,3.0,1.34,3.58,1.37,3.09,,1.35,,3.29
+2020-414_29,2020-414,29,20200921,Stefanos Tsitsipas,Cristian Garin,2020-09-26,German Tennis Championships,2,1.33,3.25,1.31,3.79,1.3,3.57,,1.32,,3.52
+2020-414_30,2020-414,30,20200921,Andrey Rublev,Casper Ruud,2020-09-26,German Tennis Championships,2,1.44,2.62,1.5,2.81,1.46,2.71,,1.47,,2.72
+2020-414_31,2020-414,31,20200921,Andrey Rublev,Stefanos Tsitsipas,2020-09-27,German Tennis Championships,2,1.7,2.05,1.84,2.1,1.77,2.06,,1.77,,2.08
+2020-520_1,2020-520,1,20200928,Novak Djokovic,Mikael Ymer,2020-09-29,French Open,2,1.01,23.0,1.01,30.79,1.01,21.63,,1.01,,26.9
+2020-520_2,2020-520,2,20200928,Ricardas Berankis,Hugo Dellien,2020-09-29,French Open,2,2.62,1.5,2.61,1.56,2.56,1.51,,2.62,,1.53
+2020-520_3,2020-520,3,20200928,Daniel Elahi Galan,Cameron Norrie,2020-09-28,French Open,2,1.72,2.1,1.77,2.18,1.71,2.15,,1.74,,2.14
+2020-520_4,2020-520,4,20200928,Tennys Sandgren,Hubert Hurkacz,2020-09-28,French Open,2,3.0,1.4,3.12,1.42,2.98,1.4,,3.06,,1.41
+2020-520_5,2020-520,5,20200928,Cristian Garin,Philipp Kohlschreiber,2020-09-29,French Open,2,1.14,5.5,1.17,5.87,1.15,5.43,,1.15,,5.68
+2020-520_6,2020-520,6,20200928,Marc Polmans,Ugo Humbert,2020-09-29,French Open,2,6.5,1.11,6.62,1.14,6.32,1.12,,6.56,,1.12
+2020-520_7,2020-520,7,20200928,Jiri Vesely,Liam Broady,2020-09-28,French Open,2,1.3,3.5,1.4,3.22,1.34,3.32,,1.35,,3.36
+2020-520_8,2020-520,8,20200928,Karen Khachanov,Kamil Majchrzak,2020-09-28,French Open,2,1.3,3.5,1.35,3.5,1.32,3.37,,1.33,,3.5
+2020-520_9,2020-520,9,20200928,Roberto Bautista Agut,Richard Gasquet,2020-09-29,French Open,2,1.16,5.0,1.17,5.95,1.17,5.16,,1.16,,5.48
+2020-520_10,2020-520,10,20200928,Attila Balazs,Yasutaka Uchiyama,2020-09-29,French Open,2,1.33,3.4,1.41,3.16,1.35,3.22,,1.37,,3.28
+2020-520_11,2020-520,11,20200928,Guido Pella,Salvatore Caruso,2020-09-28,French Open,2,1.72,2.1,1.71,2.28,1.75,2.08,,1.72,,2.19
+2020-520_12,2020-520,12,20200928,Pablo Carreno Busta,John Millman,2020-09-28,French Open,2,1.28,3.75,1.27,4.19,1.26,3.87,,1.27,,3.97
+2020-520_13,2020-520,13,20200928,Jan-Lennard Struff,Frances Tiafoe,2020-09-28,French Open,2,1.5,2.62,1.5,2.8,1.49,2.63,,1.5,,2.71
+2020-520_14,2020-520,14,20200928,Daniel Altmaier,Feliciano Lopez,2020-09-28,French Open,2,1.44,2.75,1.47,2.9,1.46,2.72,,1.46,,2.82
+2020-520_15,2020-520,15,20200928,Lloyd Harris,Alexei Popyrin,2020-09-29,French Open,2,1.9,1.9,2.03,1.88,1.93,1.88,,1.96,,1.89
+2020-520_16,2020-520,16,20200928,Matteo Berrettini,Vasek Pospisil,2020-09-29,French Open,2,1.11,6.5,1.11,8.1,1.1,7.02,,1.11,,7.3
+2020-520_17,2020-520,17,20200928,Marton Fucsovics,Daniil Medvedev,2020-09-28,French Open,2,4.33,1.22,4.89,1.22,4.43,1.21,,4.61,,1.22
+2020-520_18,2020-520,18,20200928,Albert Ramos-Vinolas,Adrian Mannarino,2020-09-28,French Open,2,1.44,2.75,1.45,2.97,1.43,2.85,,1.44,,2.86
+2020-520_19,2020-520,19,20200928,Marcos Giron,Quentin Halys,2020-09-29,French Open,2,1.72,2.1,1.88,2.03,1.83,1.98,,1.8,,2.06
+2020-520_20,2020-520,20,20200928,Thiago Monteiro,Nikoloz Basilashvili,2020-09-29,French Open,2,1.4,3.0,1.44,3.02,1.4,2.95,,1.42,,3.01
+2020-520_21,2020-520,21,20200928,Dusan Lajovic,Gianluca Mager,2020-09-29,French Open,2,1.12,6.0,1.15,6.35,1.12,6.24,,1.14,,6.18
+2020-520_22,2020-520,22,20200928,Kevin Anderson,Laslo Djere,2020-09-29,French Open,2,2.75,1.44,2.82,1.49,2.78,1.44,,2.78,,1.46
+2020-520_23,2020-520,23,20200928,Alejandro Davidovich Fokina,Harold Mayot,2020-09-29,French Open,2,1.14,5.5,1.14,6.65,1.13,5.97,,1.14,,6.08
+2020-520_24,2020-520,24,20200928,Andrey Rublev,Sam Querrey,2020-09-29,French Open,2,1.06,10.0,1.06,12.92,1.05,11.62,,1.06,,11.46
+2020-520_25,2020-520,25,20200928,Denis Shapovalov,Gilles Simon,2020-09-29,French Open,2,1.12,6.0,1.13,7.11,1.12,6.36,,1.12,,6.56
+2020-520_26,2020-520,26,20200928,Roberto Carballes Baena,Steve Johnson,2020-09-29,French Open,2,1.53,2.5,1.59,2.52,1.54,2.5,,1.56,,2.51
+2020-520_27,2020-520,27,20200928,Andrej Martin,Joao Sousa,2020-09-29,French Open,2,1.5,2.62,1.53,2.71,1.5,2.61,,1.52,,2.66
+2020-520_28,2020-520,28,20200928,Grigor Dimitrov,Gregoire Barrere,2020-09-29,French Open,2,1.12,6.0,1.14,6.92,1.13,6.13,,1.13,,6.46
+2020-520_29,2020-520,29,20200928,Nikola Milojevic,Filip Krajinovic,2020-09-28,French Open,2,8.0,1.08,10.03,1.08,8.35,1.07,,9.02,,1.08
+2020-520_30,2020-520,30,20200928,Aljaz Bedene,Arthur Rinderknech,2020-09-28,French Open,2,1.33,3.4,1.42,3.11,1.37,3.12,,1.38,,3.26
+2020-520_31,2020-520,31,20200928,Pablo Cuevas,Henri Laaksonen,2020-09-29,French Open,2,1.44,2.75,1.49,2.84,1.47,2.71,,1.46,,2.8
+2020-520_32,2020-520,32,20200928,Stefanos Tsitsipas,Jaume Munar,2020-09-29,French Open,2,1.08,8.0,1.12,7.61,1.1,6.91,,1.1,,7.8
+2020-520_33,2020-520,33,20200928,Alexander Bublik,Gael Monfils,2020-09-28,French Open,2,2.1,1.72,2.3,1.69,2.14,1.71,,2.2,,1.7
+2020-520_34,2020-520,34,20200928,Lorenzo Sonego,Emilio Gomez,2020-09-28,French Open,2,1.28,3.75,1.35,3.53,1.31,3.44,,1.32,,3.64
+2020-520_35,2020-520,35,20200928,Radu Albot,Jordan Thompson,2020-09-27,French Open,2,2.5,1.53,2.73,1.52,2.58,1.51,,2.62,,1.52
+2020-520_36,2020-520,36,20200928,Taylor Fritz,Tomas Machac,2020-09-27,French Open,2,1.4,3.0,1.43,3.05,1.39,3.03,,1.42,,3.02
+2020-520_37,2020-520,37,20200928,Norbert Gombos,Borna Coric,2020-09-27,French Open,2,6.0,1.12,7.61,1.12,6.6,1.11,,6.8,,1.12
+2020-520_38,2020-520,38,20200928,Jurij Rodionov,Jeremy Chardy,2020-09-27,French Open,2,2.0,1.8,2.0,1.91,1.94,1.87,,2.0,,1.86
+2020-520_39,2020-520,39,20200928,Lorenzo Giustino,Corentin Moutet,2020-09-28,French Open,2,2.2,1.66,5.21,1.2,4.77,1.19,,3.7,,1.43
+2020-520_40,2020-520,40,20200928,Diego Schwartzman,Miomir Kecmanovic,2020-09-27,French Open,2,1.2,4.5,1.22,4.81,1.2,4.56,,1.21,,4.65
+2020-520_41,2020-520,41,20200928,Stan Wawrinka,Andy Murray,2020-09-27,French Open,2,1.33,3.4,1.39,3.28,1.34,3.29,,1.36,,3.34
+2020-520_42,2020-520,42,20200928,Dominik Koepfer,Antoine Hoang,2020-09-27,French Open,2,1.28,3.75,1.34,3.56,1.3,3.54,,1.31,,3.66
+2020-520_43,2020-520,43,20200928,Hugo Gaston,Maxime Janvier,2020-09-28,French Open,2,1.33,3.4,1.38,3.35,1.37,3.11,,1.36,,3.38
+2020-520_44,2020-520,44,20200928,Yoshihito Nishioka,Felix Auger-Aliassime,2020-09-28,French Open,2,4.5,1.2,5.16,1.2,4.58,1.2,,4.83,,1.2
+2020-520_45,2020-520,45,20200928,Casper Ruud,Yuichi Sugita,2020-09-28,French Open,2,1.03,15.0,1.06,12.22,1.04,11.83,,1.04,,13.61
+2020-520_46,2020-520,46,20200928,Tommy Paul,James Duckworth,2020-09-28,French Open,2,1.22,4.33,1.2,5.17,1.19,4.8,,1.21,,4.75
+2020-520_47,2020-520,47,20200928,Jack Sock,Reilly Opelka,2020-09-28,French Open,2,1.53,2.5,1.53,2.68,1.51,2.56,,1.53,,2.59
+2020-520_48,2020-520,48,20200928,Dominic Thiem,Marin Cilic,2020-09-28,French Open,2,1.1,7.0,1.1,8.87,1.1,7.2,,1.1,,7.94
+2020-520_49,2020-520,49,20200928,Alexander Zverev,Dennis Novak,2020-09-27,French Open,2,1.08,8.0,1.07,10.95,1.07,9.2,,1.08,,9.48
+2020-520_50,2020-520,50,20200928,Pierre-Hugues Herbert,Michael Mmoh,2020-09-28,French Open,2,1.57,2.37,1.59,2.52,1.58,2.4,,1.58,,2.45
+2020-520_51,2020-520,51,20200928,Juan Ignacio Londero,Federico Delbonis,2020-09-27,French Open,2,2.2,1.66,2.34,1.68,2.27,1.64,,2.27,,1.67
+2020-520_52,2020-520,52,20200928,Marco Cecchinato,Alex de Minaur,2020-09-27,French Open,2,1.72,2.1,1.71,2.27,1.71,2.15,,1.72,,2.18
+2020-520_53,2020-520,53,20200928,Benoit Paire,Soonwoo Kwon,2020-09-27,French Open,2,2.1,1.72,2.27,1.71,2.19,1.68,,2.18,,1.72
+2020-520_54,2020-520,54,20200928,Federico Coria,Jason Jung,2020-09-27,French Open,2,1.28,3.75,1.35,3.51,1.31,3.44,,1.32,,3.63
+2020-520_55,2020-520,55,20200928,Benjamin Bonzi,Emil Ruusuvuori,2020-09-27,French Open,2,3.0,1.4,3.03,1.44,2.89,1.42,,3.01,,1.42
+2020-520_56,2020-520,56,20200928,Jannik Sinner,David Goffin,2020-09-27,French Open,2,1.9,1.9,2.16,1.78,1.97,1.84,,2.03,,1.84
+2020-520_57,2020-520,57,20200928,Mikhail Kukushkin,Fabio Fognini,2020-09-28,French Open,2,3.2,1.36,3.33,1.38,3.13,1.36,,3.26,,1.37
+2020-520_58,2020-520,58,20200928,Pedro Martinez,Aleksandar Vukic,2020-09-28,French Open,2,1.25,4.0,1.27,4.18,1.25,4.01,,1.26,,4.09
+2020-520_59,2020-520,59,20200928,Sebastian Korda,Andreas Seppi,2020-09-27,French Open,2,1.44,2.75,1.45,3.0,1.43,2.83,,1.44,,2.88
+2020-520_60,2020-520,60,20200928,John Isner,Elliot Benchetrit,2020-09-27,French Open,2,1.25,4.0,1.29,4.0,1.25,4.01,,1.27,,4.0
+2020-520_61,2020-520,61,20200928,Kei Nishikori,Daniel Evans,2020-09-27,French Open,2,1.57,2.37,1.6,2.5,1.52,2.56,,1.58,,2.44
+2020-520_62,2020-520,62,20200928,Stefano Travaglia,Pablo Andujar,2020-09-27,French Open,2,2.2,1.66,2.24,1.73,2.15,1.71,,2.22,,1.69
+2020-520_63,2020-520,63,20200928,Mackenzie McDonald,Steven Diez,2020-09-28,French Open,2,2.75,1.44,3.05,1.43,2.82,1.44,,2.9,,1.44
+2020-520_64,2020-520,64,20200928,Rafael Nadal,Egor Gerasimov,2020-09-28,French Open,2,0.971,34.0,1.01,30.08,1.01,22.68,,0.99,,32.04
+2020-520_65,2020-520,65,20200928,Novak Djokovic,Ricardas Berankis,2020-10-01,French Open,2,34.0,0.971,1.01,28.0,1.01,21.54,,17.5,,14.49
+2020-520_66,2020-520,66,20200928,Daniel Elahi Galan,Tennys Sandgren,2020-10-01,French Open,2,3.2,1.36,3.04,1.44,3.09,1.38,,3.12,,1.4
+2020-520_67,2020-520,67,20200928,Cristian Garin,Marc Polmans,2020-10-01,French Open,2,1.16,5.0,1.1,8.82,1.09,7.51,,1.13,,6.91
+2020-520_68,2020-520,68,20200928,Karen Khachanov,Jiri Vesely,2020-10-01,French Open,2,1.25,4.0,1.31,3.84,1.27,3.79,,1.28,,3.92
+2020-520_69,2020-520,69,20200928,Roberto Bautista Agut,Attila Balazs,2020-10-01,French Open,2,1.05,11.0,1.05,13.98,1.06,10.03,,1.05,,12.49
+2020-520_70,2020-520,70,20200928,Pablo Carreno Busta,Guido Pella,2020-10-01,French Open,2,1.28,3.75,1.34,3.61,1.29,3.65,,1.31,,3.68
+2020-520_71,2020-520,71,20200928,Daniel Altmaier,Jan-Lennard Struff,2020-10-01,French Open,2,3.2,1.36,3.21,1.4,3.11,1.37,,3.2,,1.38
+2020-520_72,2020-520,72,20200928,Matteo Berrettini,Lloyd Harris,2020-10-01,French Open,2,1.1,7.0,1.08,9.89,1.08,8.29,,1.09,,8.44
+2020-520_73,2020-520,73,20200928,Marton Fucsovics,Albert Ramos-Vinolas,2020-10-01,French Open,2,1.44,2.75,1.48,2.86,1.44,2.79,,1.46,,2.8
+2020-520_74,2020-520,74,20200928,Thiago Monteiro,Marcos Giron,2020-10-01,French Open,2,1.2,4.5,1.24,4.54,1.23,4.24,,1.22,,4.52
+2020-520_75,2020-520,75,20200928,Kevin Anderson,Dusan Lajovic,2020-10-01,French Open,2,2.62,1.5,2.46,1.62,2.56,1.51,,2.54,,1.56
+2020-520_76,2020-520,76,20200928,Andrey Rublev,Alejandro Davidovich Fokina,2020-10-01,French Open,2,1.22,4.33,1.2,5.17,1.2,4.68,,1.21,,4.75
+2020-520_77,2020-520,77,20200928,Roberto Carballes Baena,Denis Shapovalov,2020-10-01,French Open,2,5.0,1.16,4.64,1.24,4.52,1.2,,4.82,,1.2
+2020-520_78,2020-520,78,20200928,Grigor Dimitrov,Andrej Martin,2020-10-01,French Open,2,1.12,6.0,1.15,6.53,1.14,5.93,,1.14,,6.26
+2020-520_79,2020-520,79,20200928,Aljaz Bedene,Nikola Milojevic,2020-10-01,French Open,2,1.8,2.0,1.92,1.99,1.86,1.95,,1.86,,2.0
+2020-520_80,2020-520,80,20200928,Stefanos Tsitsipas,Pablo Cuevas,2020-10-01,French Open,2,1.22,4.33,1.18,5.7,1.18,4.99,,1.2,,5.02
+2020-520_81,2020-520,81,20200928,Lorenzo Sonego,Alexander Bublik,2020-09-30,French Open,2,2.37,1.57,2.34,1.68,2.28,1.63,,2.36,,1.62
+2020-520_82,2020-520,82,20200928,Taylor Fritz,Radu Albot,2020-09-30,French Open,2,1.5,2.62,1.56,2.6,1.52,2.54,,1.53,,2.61
+2020-520_83,2020-520,83,20200928,Norbert Gombos,Jurij Rodionov,2020-09-30,French Open,2,1.4,3.0,1.47,2.93,1.44,2.82,,1.44,,2.96
+2020-520_84,2020-520,84,20200928,Diego Schwartzman,Lorenzo Giustino,2020-09-30,French Open,2,1.02,19.0,1.01,29.04,1.01,19.32,,1.02,,24.02
+2020-520_85,2020-520,85,20200928,Stan Wawrinka,Dominik Koepfer,2020-09-30,French Open,2,1.28,3.75,1.29,3.97,1.27,3.78,,1.28,,3.86
+2020-520_86,2020-520,86,20200928,Hugo Gaston,Yoshihito Nishioka,2020-09-30,French Open,2,3.5,1.3,3.82,1.31,3.54,1.3,,3.66,,1.31
+2020-520_87,2020-520,87,20200928,Casper Ruud,Tommy Paul,2020-09-30,French Open,2,1.2,4.5,1.19,5.4,1.18,4.88,,1.19,,4.95
+2020-520_88,2020-520,88,20200928,Dominic Thiem,Jack Sock,2020-09-30,French Open,2,1.05,11.0,1.05,14.7,1.04,12.09,,1.05,,12.85
+2020-520_89,2020-520,89,20200928,Alexander Zverev,Pierre-Hugues Herbert,2020-09-30,French Open,2,1.1,7.0,1.13,7.21,1.11,6.8,,1.12,,7.1
+2020-520_90,2020-520,90,20200928,Marco Cecchinato,Juan Ignacio Londero,2020-09-30,French Open,2,1.25,4.0,1.34,3.6,1.32,3.41,,1.3,,3.8
+2020-520_91,2020-520,91,20200928,Federico Coria,Benoit Paire,2020-09-30,French Open,2,2.0,1.8,1.99,1.92,1.97,1.84,,2.0,,1.86
+2020-520_92,2020-520,92,20200928,Jannik Sinner,Benjamin Bonzi,2020-09-30,French Open,2,1.08,8.0,1.11,8.06,1.09,7.75,,1.1,,8.03
+2020-520_93,2020-520,93,20200928,Pedro Martinez,Mikhail Kukushkin,2020-09-30,French Open,2,1.44,2.75,1.48,2.88,1.46,2.73,,1.46,,2.82
+2020-520_94,2020-520,94,20200928,Sebastian Korda,John Isner,2020-09-30,French Open,2,2.62,1.5,2.52,1.59,2.49,1.54,,2.57,,1.54
+2020-520_95,2020-520,95,20200928,Stefano Travaglia,Kei Nishikori,2020-09-30,French Open,2,1.66,2.2,1.73,2.24,1.68,2.2,,1.69,,2.22
+2020-520_96,2020-520,96,20200928,Rafael Nadal,Mackenzie McDonald,2020-09-30,French Open,2,1.01,26.0,0.974,36.86,1.01,22.51,,0.99,,31.43
+2020-520_97,2020-520,97,20200928,Novak Djokovic,Daniel Elahi Galan,2020-10-03,French Open,2,1.005,34.0,1.01,28.85,1.01,22.41,,1.01,,31.42
+2020-520_98,2020-520,98,20200928,Karen Khachanov,Cristian Garin,2020-10-03,French Open,2,2.1,1.72,2.71,1.53,2.15,1.71,,2.41,,1.62
+2020-520_99,2020-520,99,20200928,Pablo Carreno Busta,Roberto Bautista Agut,2020-10-03,French Open,2,2.1,1.72,2.05,1.86,2.09,1.75,,2.08,,1.79
+2020-520_100,2020-520,100,20200928,Daniel Altmaier,Matteo Berrettini,2020-10-03,French Open,2,5.0,1.16,5.52,1.19,5.08,1.17,,5.26,,1.17
+2020-520_101,2020-520,101,20200928,Marton Fucsovics,Thiago Monteiro,2020-10-03,French Open,2,1.57,2.37,1.56,2.62,1.52,2.54,,1.56,,2.5
+2020-520_102,2020-520,102,20200928,Andrey Rublev,Kevin Anderson,2020-10-03,French Open,2,1.2,4.5,1.25,4.48,1.21,4.42,,1.23,,4.49
+2020-520_103,2020-520,103,20200928,Grigor Dimitrov,Roberto Carballes Baena,2020-10-03,French Open,2,1.2,4.5,1.22,4.85,1.21,4.51,,1.21,,4.68
+2020-520_104,2020-520,104,20200928,Stefanos Tsitsipas,Aljaz Bedene,2020-10-03,French Open,2,1.11,6.5,1.11,8.22,1.1,7.22,,1.11,,7.36
+2020-520_105,2020-520,105,20200928,Lorenzo Sonego,Taylor Fritz,2020-10-02,French Open,2,2.0,1.8,2.01,1.89,1.98,1.83,,2.0,,1.84
+2020-520_106,2020-520,106,20200928,Diego Schwartzman,Norbert Gombos,2020-10-02,French Open,2,1.06,10.0,1.06,12.05,1.06,10.33,,1.06,,11.02
+2020-520_107,2020-520,107,20200928,Hugo Gaston,Stan Wawrinka,2020-10-02,French Open,2,11.0,1.05,13.26,1.05,11.69,1.04,,12.13,,1.05
+2020-520_108,2020-520,108,20200928,Dominic Thiem,Casper Ruud,2020-10-02,French Open,2,1.14,5.5,1.14,6.74,1.13,6.13,,1.14,,6.12
+2020-520_109,2020-520,109,20200928,Alexander Zverev,Marco Cecchinato,2020-10-02,French Open,2,1.44,2.75,1.47,2.89,1.42,2.9,,1.46,,2.82
+2020-520_110,2020-520,110,20200928,Jannik Sinner,Federico Coria,2020-10-02,French Open,2,1.14,5.5,1.18,5.63,1.16,5.41,,1.16,,5.56
+2020-520_111,2020-520,111,20200928,Sebastian Korda,Pedro Martinez,2020-10-02,French Open,2,3.0,1.4,2.85,1.49,2.85,1.43,,2.92,,1.44
+2020-520_112,2020-520,112,20200928,Rafael Nadal,Stefano Travaglia,2020-10-02,French Open,2,1.005,34.0,1.01,32.66,1.01,22.92,,1.01,,33.33
+2020-520_113,2020-520,113,20200928,Novak Djokovic,Karen Khachanov,2020-10-05,French Open,2,1.04,13.0,1.04,18.11,1.03,13.89,,1.04,,15.56
+2020-520_114,2020-520,114,20200928,Pablo Carreno Busta,Daniel Altmaier,2020-10-05,French Open,2,1.22,4.33,1.24,4.7,1.22,4.32,,1.23,,4.52
+2020-520_115,2020-520,115,20200928,Andrey Rublev,Marton Fucsovics,2020-10-05,French Open,2,1.25,4.0,1.25,4.62,1.23,4.26,,1.25,,4.31
+2020-520_116,2020-520,116,20200928,Stefanos Tsitsipas,Grigor Dimitrov,2020-10-05,French Open,2,1.3,3.5,1.33,3.71,1.31,3.49,,1.32,,3.6
+2020-520_117,2020-520,117,20200928,Diego Schwartzman,Lorenzo Sonego,2020-10-04,French Open,2,1.16,5.0,1.19,5.58,1.16,5.26,,1.17,,5.29
+2020-520_118,2020-520,118,20200928,Dominic Thiem,Hugo Gaston,2020-10-04,French Open,2,1.03,15.0,1.03,20.83,1.02,16.67,,1.03,,17.92
+2020-520_119,2020-520,119,20200928,Jannik Sinner,Alexander Zverev,2020-10-04,French Open,2,2.75,1.44,2.9,1.48,2.74,1.46,,2.82,,1.46
+2020-520_120,2020-520,120,20200928,Rafael Nadal,Sebastian Korda,2020-10-04,French Open,2,1.01,26.0,1.01,34.13,1.01,22.01,,1.01,,30.06
+2020-520_121,2020-520,121,20200928,Novak Djokovic,Pablo Carreno Busta,2020-10-07,French Open,2,1.06,10.0,1.07,12.01,1.06,10.15,,1.06,,11.0
+2020-520_122,2020-520,122,20200928,Stefanos Tsitsipas,Andrey Rublev,2020-10-07,French Open,2,1.53,2.5,1.52,2.77,1.52,2.57,,1.52,,2.64
+2020-520_123,2020-520,123,20200928,Diego Schwartzman,Dominic Thiem,2020-10-06,French Open,2,2.75,1.44,3.41,1.38,3.01,1.4,,3.08,,1.41
+2020-520_124,2020-520,124,20200928,Rafael Nadal,Jannik Sinner,2020-10-06,French Open,2,1.08,8.0,1.08,10.52,1.08,8.31,,1.08,,9.26
+2020-520_125,2020-520,125,20200928,Novak Djokovic,Stefanos Tsitsipas,2020-10-09,French Open,2,1.33,3.4,1.3,3.98,1.31,3.53,,1.32,,3.69
+2020-520_126,2020-520,126,20200928,Rafael Nadal,Diego Schwartzman,2020-10-09,French Open,2,1.14,5.5,1.15,6.7,1.16,5.51,,1.14,,6.1
+2020-520_127,2020-520,127,20200928,Rafael Nadal,Novak Djokovic,2020-10-11,French Open,2,1.72,2.1,1.71,2.29,1.68,2.24,,1.72,,2.2
+2020-568_1,2020-568,1,20201012,Daniil Medvedev,Richard Gasquet,2020-10-14,St. Petersburg Open,2,1.12,6.0,1.13,7.13,1.12,6.12,,1.12,,6.56
+2020-568_2,2020-568,2,20201012,Denis Shapovalov,Viktor Troicki,2020-10-14,St. Petersburg Open,2,1.11,6.5,1.13,7.04,1.11,6.55,,1.12,,6.77
+2020-568_3,2020-568,3,20201012,Andrey Rublev,Vasek Pospisil,2020-10-13,St. Petersburg Open,2,1.4,2.75,1.38,3.27,1.4,2.92,,1.39,,3.01
+2020-568_4,2020-568,4,20201012,Karen Khachanov,James Duckworth,2020-10-13,St. Petersburg Open,2,1.08,8.0,1.1,8.16,1.1,7.13,,1.09,,8.08
+2020-568_5,2020-568,5,20201012,Stan Wawrinka,Daniel Evans,2020-10-12,St. Petersburg Open,2,1.53,2.37,1.47,2.85,1.52,2.52,,1.5,,2.61
+2020-568_6,2020-568,6,20201012,Milos Raonic,J.J. Wolf,2020-10-13,St. Petersburg Open,2,1.3,3.4,1.3,3.82,1.29,3.6,,1.3,,3.61
+2020-568_7,2020-568,7,20201012,Borna Coric,Feliciano Lopez,2020-10-13,St. Petersburg Open,2,1.4,2.75,1.41,3.14,1.38,3.03,,1.4,,2.94
+2020-568_8,2020-568,8,20201012,Cameron Norrie,Taylor Fritz,2020-10-12,St. Petersburg Open,2,3.0,1.36,3.13,1.41,3.03,1.38,,3.06,,1.38
+2020-568_9,2020-568,9,20201012,Alexander Bublik,Mackenzie McDonald,2020-10-12,St. Petersburg Open,2,1.4,2.75,1.47,2.85,1.45,2.72,,1.44,,2.8
+2020-568_10,2020-568,10,20201012,Evgeny Donskoy,Egor Gerasimov,2020-10-12,St. Petersburg Open,2,3.25,1.33,3.35,1.37,3.25,1.34,,3.3,,1.35
+2020-568_11,2020-568,11,20201012,Ugo Humbert,Pavel Kotov,2020-10-14,St. Petersburg Open,2,1.2,4.33,1.19,5.3,1.2,4.49,,1.19,,4.81
+2020-568_12,2020-568,12,20201012,Ilya Ivashka,Adrian Mannarino,2020-10-13,St. Petersburg Open,2,2.0,1.75,2.16,1.76,2.09,1.73,,2.08,,1.76
+2020-568_13,2020-568,13,20201012,Aslan Karatsev,Tennys Sandgren,2020-10-12,St. Petersburg Open,2,2.37,1.53,2.34,1.66,2.28,1.61,,2.36,,1.6
+2020-568_14,2020-568,14,20201012,Miomir Kecmanovic,Mikhail Kukushkin,2020-10-13,St. Petersburg Open,2,1.57,2.25,1.59,2.5,1.58,2.37,,1.58,,2.38
+2020-568_15,2020-568,15,20201012,Reilly Opelka,Nino Serdarusic,2020-10-14,St. Petersburg Open,2,1.16,5.0,1.23,4.69,1.2,4.5,,1.19,,4.85
+2020-568_16,2020-568,16,20201012,Roman Safiullin,Emilio Gomez,2020-10-14,St. Petersburg Open,2,1.44,2.62,1.57,2.55,1.54,2.46,,1.5,,2.58
+2020-568_17,2020-568,17,20201012,Reilly Opelka,Daniil Medvedev,2020-10-15,St. Petersburg Open,2,4.33,1.2,5.71,1.18,4.78,1.19,,5.02,,1.19
+2020-568_18,2020-568,18,20201012,Denis Shapovalov,Ilya Ivashka,2020-10-15,St. Petersburg Open,2,1.18,4.5,1.16,6.16,1.18,4.74,,1.17,,5.33
+2020-568_19,2020-568,19,20201012,Andrey Rublev,Ugo Humbert,2020-10-15,St. Petersburg Open,2,1.18,4.5,1.16,6.06,1.16,5.18,,1.17,,5.28
+2020-568_20,2020-568,20,20201012,Karen Khachanov,Aslan Karatsev,2020-10-15,St. Petersburg Open,2,1.25,3.75,1.23,4.73,1.23,4.09,,1.24,,4.24
+2020-568_21,2020-568,21,20201012,Stan Wawrinka,Evgeny Donskoy,2020-10-14,St. Petersburg Open,2,1.2,4.33,1.2,5.26,1.19,4.66,,1.2,,4.8
+2020-568_22,2020-568,22,20201012,Milos Raonic,Alexander Bublik,2020-10-15,St. Petersburg Open,2,1.4,2.75,1.43,3.06,1.39,2.98,,1.42,,2.9
+2020-568_23,2020-568,23,20201012,Borna Coric,Roman Safiullin,2020-10-15,St. Petersburg Open,2,1.16,5.0,1.22,4.83,1.2,4.59,,1.19,,4.92
+2020-568_24,2020-568,24,20201012,Cameron Norrie,Miomir Kecmanovic,2020-10-14,St. Petersburg Open,2,2.37,1.53,2.37,1.66,2.33,1.6,,2.37,,1.6
+2020-568_25,2020-568,25,20201012,Denis Shapovalov,Stan Wawrinka,2020-10-16,St. Petersburg Open,2,1.44,2.62,1.51,2.77,1.48,2.66,,1.48,,2.7
+2020-568_26,2020-568,26,20201012,Andrey Rublev,Cameron Norrie,2020-10-16,St. Petersburg Open,2,1.05,11.0,1.13,7.13,1.11,6.61,,1.09,,9.06
+2020-568_27,2020-568,27,20201012,Milos Raonic,Karen Khachanov,2020-10-16,St. Petersburg Open,2,1.5,2.5,1.48,2.87,1.47,2.68,,1.49,,2.68
+2020-568_28,2020-568,28,20201012,Borna Coric,Reilly Opelka,2020-10-16,St. Petersburg Open,2,1.95,1.8,1.91,2.0,1.88,1.93,,1.93,,1.9
+2020-568_29,2020-568,29,20201012,Andrey Rublev,Denis Shapovalov,2020-10-17,St. Petersburg Open,2,1.66,2.1,1.65,2.39,1.63,2.27,,1.65,,2.24
+2020-568_30,2020-568,30,20201012,Borna Coric,Milos Raonic,2020-10-17,St. Petersburg Open,2,3.0,1.36,3.24,1.4,3.23,1.35,,3.12,,1.38
+2020-568_31,2020-568,31,20201012,Andrey Rublev,Borna Coric,2020-10-18,St. Petersburg Open,2,1.22,4.0,1.29,4.12,1.25,3.93,,1.25,,4.06
+2020-9404_1,2020-9404,1,20201012,Steve Johnson,Filip Krajinovic,2020-10-12,bett1HULKS Indoors,2,4.33,1.2,5.2,1.19,4.39,1.2,,4.77,,1.19
+2020-9404_2,2020-9404,2,20201012,Hubert Hurkacz,Marc Polmans,2020-10-12,bett1HULKS Indoors,2,1.36,3.0,1.35,3.48,1.33,3.26,,1.36,,3.24
+2020-9404_3,2020-9404,3,20201012,Oscar Otte,Jan-Lennard Struff,2020-10-12,bett1HULKS Indoors,2,2.62,1.44,3.17,1.4,2.81,1.43,,2.9,,1.42
+2020-9404_4,2020-9404,4,20201012,Marin Cilic,Marcos Giron,2020-10-13,bett1HULKS Indoors,2,1.25,3.75,1.27,4.09,1.28,3.65,,1.26,,3.92
+2020-9404_5,2020-9404,5,20201012,Radu Albot,Pierre-Hugues Herbert,2020-10-12,bett1HULKS Indoors,2,2.37,1.53,2.47,1.6,2.37,1.58,,2.42,,1.56
+2020-9404_6,2020-9404,6,20201012,Alejandro Davidovich Fokina,Emil Ruusuvuori,2020-10-13,bett1HULKS Indoors,2,3.5,1.28,3.23,1.39,3.21,1.34,,3.36,,1.34
+2020-9404_7,2020-9404,7,20201012,Lloyd Harris,Kyle Edmund,2020-10-13,bett1HULKS Indoors,2,2.2,1.61,2.34,1.66,2.23,1.64,,2.27,,1.64
+2020-9404_8,2020-9404,8,20201012,Henri Laaksonen,Daniel Altmaier,2020-10-13,bett1HULKS Indoors,2,2.1,1.66,2.29,1.69,2.21,1.65,,2.2,,1.67
+2020-9404_9,2020-9404,9,20201012,Dennis Novak,Jordan Thompson,2020-10-12,bett1HULKS Indoors,2,2.05,1.7,2.25,1.71,2.12,1.71,,2.15,,1.7
+2020-9404_10,2020-9404,10,20201012,Gilles Simon,Marton Fucsovics,2020-10-13,bett1HULKS Indoors,2,3.0,1.36,3.01,1.43,2.95,1.39,,3.0,,1.4
+2020-9404_11,2020-9404,11,20201012,Fernando Verdasco,Andy Murray,2020-10-13,bett1HULKS Indoors,1,3.25,1.33,3.56,1.34,3.27,1.33,,3.4,,1.34
+2020-9404_12,2020-9404,12,20201012,Mischa Zverev,John Millman,2020-10-12,bett1HULKS Indoors,2,3.75,1.25,4.41,1.25,4.11,1.23,,4.08,,1.25
+2020-9404_13,2020-9404,13,20201012,Alexander Zverev,Fernando Verdasco,2020-10-15,bett1HULKS Indoors,1,1.2,4.33,1.21,4.98,1.2,4.5,,1.2,,4.66
+2020-9404_14,2020-9404,14,20201012,Roberto Bautista Agut,Gilles Simon,2020-10-15,bett1HULKS Indoors,2,1.36,3.0,1.38,3.35,1.35,3.13,,1.37,,3.18
+2020-9404_15,2020-9404,15,20201012,Felix Auger-Aliassime,Henri Laaksonen,2020-10-15,bett1HULKS Indoors,2,1.28,3.5,1.27,4.23,1.25,3.9,,1.27,,3.86
+2020-9404_16,2020-9404,16,20201012,Dennis Novak,Benoit Paire,2020-10-14,bett1HULKS Indoors,2,1.53,2.37,1.65,2.4,1.58,2.35,,1.59,,2.38
+2020-9404_17,2020-9404,17,20201012,Hubert Hurkacz,Mischa Zverev,2020-10-14,bett1HULKS Indoors,2,1.3,3.4,1.33,3.66,1.31,3.43,,1.32,,3.53
+2020-9404_18,2020-9404,18,20201012,Alejandro Davidovich Fokina,Marin Cilic,2020-10-15,bett1HULKS Indoors,2,2.37,1.53,2.58,1.57,2.43,1.55,,2.48,,1.55
+2020-9404_19,2020-9404,19,20201012,Radu Albot,Oscar Otte,2020-10-14,bett1HULKS Indoors,2,2.25,1.57,2.31,1.69,2.25,1.63,,2.28,,1.63
+2020-9404_20,2020-9404,20,20201012,Lloyd Harris,Steve Johnson,2020-10-14,bett1HULKS Indoors,2,1.57,2.25,1.75,2.21,1.65,2.23,,1.66,,2.23
+2020-9404_21,2020-9404,21,20201012,Alexander Zverev,Lloyd Harris,2020-10-16,bett1HULKS Indoors,2,1.14,5.5,1.12,7.6,1.12,6.19,,1.13,,6.55
+2020-9404_22,2020-9404,22,20201012,Roberto Bautista Agut,Hubert Hurkacz,2020-10-16,bett1HULKS Indoors,2,1.33,3.25,1.37,3.38,1.36,3.12,,1.35,,3.32
+2020-9404_23,2020-9404,23,20201012,Felix Auger-Aliassime,Radu Albot,2020-10-16,bett1HULKS Indoors,2,1.2,4.33,1.22,4.96,1.2,4.51,,1.21,,4.64
+2020-9404_24,2020-9404,24,20201012,Alejandro Davidovich Fokina,Dennis Novak,2020-10-16,bett1HULKS Indoors,2,1.7,2.05,1.72,2.25,1.7,2.14,,1.71,,2.15
+2020-9404_25,2020-9404,25,20201012,Alexander Zverev,Alejandro Davidovich Fokina,2020-10-17,bett1HULKS Indoors,2,1.14,5.5,1.15,6.42,1.14,5.75,,1.14,,5.96
+2020-9404_26,2020-9404,26,20201012,Felix Auger-Aliassime,Roberto Bautista Agut,2020-10-17,bett1HULKS Indoors,2,2.0,1.75,2.02,1.88,1.97,1.83,,2.01,,1.82
+2020-9404_27,2020-9404,27,20201012,Alexander Zverev,Felix Auger-Aliassime,2020-10-18,bett1HULKS Indoors,2,1.36,3.0,1.44,3.03,1.39,2.95,,1.4,,3.01
+2020-9408_1,2020-9408,1,20201012,Lorenzo Sonego,Giulio Zeppieri,2020-10-13,Forte Village Sardegna Open,2,1.3,3.4,1.29,3.9,1.27,3.69,,1.3,,3.65
+2020-9408_2,2020-9408,2,20201012,Pablo Andujar,Jozef Kovalik,2020-10-13,Forte Village Sardegna Open,2,1.57,2.25,1.67,2.33,1.62,2.29,,1.62,,2.29
+2020-9408_3,2020-9408,3,20201012,Tommy Paul,Andrej Martin,2020-10-12,Forte Village Sardegna Open,2,1.33,3.25,1.4,3.18,1.36,3.13,,1.36,,3.22
+2020-9408_4,2020-9408,4,20201012,Lorenzo Musetti,Pablo Cuevas,2020-10-12,Forte Village Sardegna Open,1,1.53,2.37,1.61,2.44,1.58,2.35,,1.57,,2.41
+2020-9408_5,2020-9408,5,20201012,Roberto Carballes Baena,Federico Coria,2020-10-13,Forte Village Sardegna Open,2,2.0,1.75,2.02,1.87,1.96,1.83,,2.01,,1.81
+2020-9408_6,2020-9408,6,20201012,Marco Cecchinato,Gianluca Mager,2020-10-13,Forte Village Sardegna Open,2,1.4,2.75,1.44,2.97,1.42,2.84,,1.42,,2.86
+2020-9408_7,2020-9408,7,20201012,Federico Delbonis,Andreas Seppi,2020-10-13,Forte Village Sardegna Open,2,1.22,4.0,1.31,3.8,1.26,3.82,,1.27,,3.9
+2020-9408_8,2020-9408,8,20201012,Laslo Djere,Sumit Nagal,2020-10-13,Forte Village Sardegna Open,2,1.5,2.5,1.63,2.4,1.56,2.4,,1.56,,2.45
+2020-9408_9,2020-9408,9,20201012,Yannick Hanfmann,Salvatore Caruso,2020-10-14,Forte Village Sardegna Open,2,1.61,2.2,1.76,2.16,1.68,2.16,,1.68,,2.18
+2020-9408_10,2020-9408,10,20201012,Corentin Moutet,Frances Tiafoe,2020-10-14,Forte Village Sardegna Open,1,2.2,1.61,2.07,1.83,2.17,1.67,,2.13,,1.72
+2020-9408_11,2020-9408,11,20201012,Andrea Pellegrino,Stefano Travaglia,2020-10-12,Forte Village Sardegna Open,2,3.25,1.33,3.05,1.43,3.02,1.37,,3.15,,1.38
+2020-9408_12,2020-9408,12,20201012,Jiri Vesely,Kamil Majchrzak,2020-10-12,Forte Village Sardegna Open,2,1.75,2.0,1.74,2.2,1.71,2.11,,1.74,,2.1
+2020-9408_13,2020-9408,13,20201012,Laslo Djere,Dusan Lajovic,2020-10-14,Forte Village Sardegna Open,2,2.0,1.75,2.18,1.77,2.11,1.71,,2.09,,1.76
+2020-9408_14,2020-9408,14,20201012,Yannick Hanfmann,Casper Ruud,2020-10-15,Forte Village Sardegna Open,2,3.0,1.36,3.05,1.43,2.91,1.4,,3.02,,1.4
+2020-9408_15,2020-9408,15,20201012,Albert Ramos-Vinolas,Corentin Moutet,2020-10-15,Forte Village Sardegna Open,2,1.83,1.83,1.95,1.95,1.9,1.88,,1.89,,1.89
+2020-9408_16,2020-9408,16,20201012,Jiri Vesely,Lorenzo Sonego,2020-10-14,Forte Village Sardegna Open,2,2.1,1.66,2.33,1.68,2.2,1.66,,2.22,,1.67
+2020-9408_17,2020-9408,17,20201012,Federico Delbonis,Pablo Andujar,2020-10-14,Forte Village Sardegna Open,2,1.66,2.1,1.69,2.31,1.67,2.18,,1.67,,2.2
+2020-9408_18,2020-9408,18,20201012,Marco Cecchinato,Tommy Paul,2020-10-15,Forte Village Sardegna Open,2,1.36,3.0,1.59,2.52,1.54,2.47,,1.48,,2.76
+2020-9408_19,2020-9408,19,20201012,Lorenzo Musetti,Andrea Pellegrino,2020-10-15,Forte Village Sardegna Open,2,1.22,4.0,1.2,5.16,1.21,4.28,,1.21,,4.58
+2020-9408_20,2020-9408,20,20201012,Danilo Petrovic,Roberto Carballes Baena,2020-10-14,Forte Village Sardegna Open,2,,,,,3.07,1.36,,,,
+2020-9408_21,2020-9408,21,20201012,Marco Cecchinato,Albert Ramos-Vinolas,2020-10-16,Forte Village Sardegna Open,2,1.7,2.05,1.84,2.08,1.77,2.05,,1.77,,2.06
+2020-9408_22,2020-9408,22,20201012,Laslo Djere,Jiri Vesely,2020-10-16,Forte Village Sardegna Open,2,1.7,2.05,1.93,1.97,1.81,1.98,,1.82,,2.01
+2020-9408_23,2020-9408,23,20201012,Lorenzo Musetti,Yannick Hanfmann,2020-10-16,Forte Village Sardegna Open,2,1.66,2.1,1.88,2.02,1.76,2.06,,1.77,,2.06
+2020-9408_24,2020-9408,24,20201012,Danilo Petrovic,Federico Delbonis,2020-10-16,Forte Village Sardegna Open,2,3.75,1.25,4.34,1.26,3.99,1.24,,4.04,,1.25
+2020-9408_25,2020-9408,25,20201012,Marco Cecchinato,Danilo Petrovic,2020-10-17,Forte Village Sardegna Open,2,1.12,6.0,1.23,4.66,1.21,4.49,,1.18,,5.33
+2020-9408_26,2020-9408,26,20201012,Laslo Djere,Lorenzo Musetti,2020-10-17,Forte Village Sardegna Open,2,2.1,1.66,2.3,1.69,2.22,1.66,,2.2,,1.67
+2020-9408_27,2020-9408,27,20201012,Laslo Djere,Marco Cecchinato,2020-10-18,Forte Village Sardegna Open,2,2.5,1.5,2.64,1.55,2.53,1.52,,2.57,,1.52
+2020-7485_1,2020-7485,1,20201019,Milos Raonic,Aljaz Bedene,2020-10-21,European Open,2,1.14,5.5,1.16,6.06,1.14,5.65,,1.15,,5.78
+2020-7485_2,2020-7485,2,20201019,Frances Tiafoe,Dusan Lajovic,2020-10-19,European Open,2,1.44,2.62,1.51,2.74,1.5,2.59,,1.48,,2.68
+2020-7485_3,2020-7485,3,20201019,Taylor Fritz,Reilly Opelka,2020-10-21,European Open,2,1.75,2.0,1.8,2.11,1.76,2.05,,1.78,,2.05
+2020-7485_4,2020-7485,4,20201019,Alex de Minaur,Richard Gasquet,2020-10-20,European Open,2,1.3,3.4,1.3,3.82,1.29,3.6,,1.3,,3.61
+2020-7485_5,2020-7485,5,20201019,Pablo Andujar,Federico Coria,2020-10-20,European Open,2,1.33,3.25,1.4,3.15,1.39,3.0,,1.36,,3.2
+2020-7485_6,2020-7485,6,20201019,Zizou Bergs,Albert Ramos-Vinolas,2020-10-20,European Open,2,3.0,1.36,3.35,1.37,3.21,1.35,,3.18,,1.37
+2020-7485_7,2020-7485,7,20201019,Daniel Evans,Salvatore Caruso,2020-10-20,European Open,2,1.28,3.5,1.28,4.03,1.26,3.84,,1.28,,3.76
+2020-7485_8,2020-7485,8,20201019,Marcos Giron,Luca Nardi,2020-10-20,European Open,2,1.12,6.0,1.09,8.64,1.1,7.1,,1.1,,7.32
+2020-7485_9,2020-7485,9,20201019,Lloyd Harris,Corentin Moutet,2020-10-20,European Open,2,1.53,2.37,1.48,2.83,1.51,2.56,,1.5,,2.6
+2020-7485_10,2020-7485,10,20201019,Ugo Humbert,Kimmer Coppejans,2020-10-19,European Open,2,1.12,6.0,1.11,7.89,1.12,6.37,,1.12,,6.94
+2020-7485_11,2020-7485,11,20201019,Feliciano Lopez,Tommy Paul,2020-10-19,European Open,2,2.2,1.61,2.34,1.66,2.36,1.59,,2.27,,1.64
+2020-7485_12,2020-7485,12,20201019,Cameron Norrie,Emil Ruusuvuori,2020-10-20,European Open,2,2.25,1.57,2.58,1.56,2.38,1.57,,2.42,,1.56
+2020-7485_13,2020-7485,13,20201019,Marcos Giron,David Goffin,2020-10-22,European Open,2,3.0,1.36,3.29,1.39,3.11,1.37,,3.14,,1.38
+2020-7485_14,2020-7485,14,20201019,Ugo Humbert,Pablo Carreno Busta,2020-10-21,European Open,2,1.95,1.8,1.93,1.97,1.97,1.83,,1.94,,1.88
+2020-7485_15,2020-7485,15,20201019,Karen Khachanov,Zizou Bergs,2020-10-22,European Open,2,1.1,7.0,1.11,8.0,1.09,7.16,,1.1,,7.5
+2020-7485_16,2020-7485,16,20201019,Grigor Dimitrov,Pablo Andujar,2020-10-21,European Open,2,1.11,6.5,1.15,6.37,1.15,5.36,,1.13,,6.44
+2020-7485_17,2020-7485,17,20201019,Milos Raonic,Cameron Norrie,2020-10-22,European Open,2,1.14,5.5,1.16,6.12,1.14,5.56,,1.15,,5.81
+2020-7485_18,2020-7485,18,20201019,Lloyd Harris,Taylor Fritz,2020-10-22,European Open,2,2.62,1.44,2.77,1.51,2.63,1.49,,2.7,,1.48
+2020-7485_19,2020-7485,19,20201019,Alex de Minaur,Feliciano Lopez,2020-10-21,European Open,2,1.25,3.75,1.25,4.51,1.25,3.98,,1.25,,4.13
+2020-7485_20,2020-7485,20,20201019,Daniel Evans,Frances Tiafoe,2020-10-21,European Open,2,1.8,1.95,1.78,2.16,1.84,1.97,,1.79,,2.06
+2020-7485_21,2020-7485,21,20201019,Daniel Evans,Karen Khachanov,2020-10-23,European Open,2,1.66,2.1,1.76,2.19,1.69,2.18,,1.71,,2.14
+2020-7485_22,2020-7485,22,20201019,Grigor Dimitrov,Milos Raonic,2020-10-23,European Open,2,2.75,1.44,2.73,1.51,2.71,1.43,,2.74,,1.48
+2020-7485_23,2020-7485,23,20201019,Alex de Minaur,Marcos Giron,2020-10-23,European Open,2,1.14,5.5,1.15,6.36,1.13,5.88,,1.14,,5.93
+2020-7485_24,2020-7485,24,20201019,Ugo Humbert,Lloyd Harris,2020-10-23,European Open,2,1.44,2.62,1.56,2.59,1.52,2.52,,1.5,,2.6
+2020-7485_25,2020-7485,25,20201019,Alex de Minaur,Grigor Dimitrov,2020-10-24,European Open,2,1.44,2.62,1.65,2.4,1.56,2.44,,1.54,,2.51
+2020-7485_26,2020-7485,26,20201019,Ugo Humbert,Daniel Evans,2020-10-24,European Open,2,1.61,2.2,1.62,2.45,1.6,2.35,,1.62,,2.33
+2020-7485_27,2020-7485,27,20201019,Ugo Humbert,Alex de Minaur,2020-10-25,European Open,2,2.5,1.5,2.8,1.5,2.58,1.51,,2.65,,1.5
+2020-9406_1,2020-9406,1,20201019,Jan-Lennard Struff,Marco Cecchinato,2020-10-21,bett1HULKS Championship,2,1.16,5.0,1.18,5.42,1.16,5.26,,1.17,,5.21
+2020-9406_2,2020-9406,2,20201019,Adrian Mannarino,Alexei Popyrin,2020-10-19,bett1HULKS Championship,2,1.75,2.0,1.67,2.32,1.63,2.27,,1.71,,2.16
+2020-9406_3,2020-9406,3,20201019,Steve Johnson,Marin Cilic,2020-10-19,bett1HULKS Championship,2,3.0,1.36,3.5,1.35,3.18,1.35,,3.25,,1.36
+2020-9406_4,2020-9406,4,20201019,Alejandro Davidovich Fokina,Damir Dzumhur,2020-10-20,bett1HULKS Championship,2,1.44,2.62,1.58,2.53,1.55,2.45,,1.51,,2.58
+2020-9406_5,2020-9406,5,20201019,Egor Gerasimov,Daniel Altmaier,2020-10-19,bett1HULKS Championship,2,1.75,2.0,1.85,2.05,1.78,2.02,,1.8,,2.02
+2020-9406_6,2020-9406,6,20201019,Pierre-Hugues Herbert,Tennys Sandgren,2020-10-20,bett1HULKS Championship,2,1.53,2.37,1.63,2.4,1.58,2.38,,1.58,,2.38
+2020-9406_7,2020-9406,7,20201019,Miomir Kecmanovic,Sumit Nagal,2020-10-19,bett1HULKS Championship,2,1.16,5.0,1.2,5.16,1.16,5.07,,1.18,,5.08
+2020-9406_8,2020-9406,8,20201019,John Millman,Fernando Verdasco,2020-10-20,bett1HULKS Championship,2,1.7,2.05,1.78,2.15,1.74,2.08,,1.74,,2.1
+2020-9406_9,2020-9406,9,20201019,Yoshihito Nishioka,Kyle Edmund,2020-10-19,bett1HULKS Championship,2,2.5,1.5,2.42,1.63,2.43,1.55,,2.46,,1.56
+2020-9406_10,2020-9406,10,20201019,Oscar Otte,Dennis Novak,2020-10-20,bett1HULKS Championship,2,3.5,1.28,3.43,1.35,3.18,1.35,,3.46,,1.32
+2020-9406_11,2020-9406,11,20201019,Gilles Simon,Jordan Thompson,2020-10-19,bett1HULKS Championship,2,1.44,2.62,1.41,3.12,1.42,2.85,,1.42,,2.87
+2020-9406_12,2020-9406,12,20201019,Jannik Sinner,James Duckworth,2020-10-20,bett1HULKS Championship,2,1.12,6.0,1.12,7.19,1.11,6.53,,1.12,,6.6
+2020-9406_13,2020-9406,13,20201019,Alexander Zverev,John Millman,2020-10-21,bett1HULKS Championship,2,1.12,6.0,1.13,7.33,1.11,6.42,,1.12,,6.66
+2020-9406_14,2020-9406,14,20201019,Diego Schwartzman,Oscar Otte,2020-10-22,bett1HULKS Championship,2,1.28,3.5,1.26,4.38,1.24,4.0,,1.27,,3.94
+2020-9406_15,2020-9406,15,20201019,Gilles Simon,Denis Shapovalov,2020-10-22,bett1HULKS Championship,2,3.75,1.25,4.3,1.26,3.91,1.25,,4.03,,1.25
+2020-9406_16,2020-9406,16,20201019,Felix Auger-Aliassime,Egor Gerasimov,2020-10-21,bett1HULKS Championship,2,1.28,3.5,1.25,4.47,1.27,3.68,,1.27,,3.98
+2020-9406_17,2020-9406,17,20201019,Yoshihito Nishioka,Jan-Lennard Struff,2020-10-22,bett1HULKS Championship,2,2.2,1.61,2.44,1.63,2.25,1.63,,2.32,,1.62
+2020-9406_18,2020-9406,18,20201019,Adrian Mannarino,Miomir Kecmanovic,2020-10-21,bett1HULKS Championship,2,1.8,1.95,2.02,1.88,1.89,1.9,,1.91,,1.92
+2020-9406_19,2020-9406,19,20201019,Alejandro Davidovich Fokina,Steve Johnson,2020-10-21,bett1HULKS Championship,2,1.53,2.37,1.56,2.6,1.54,2.46,,1.54,,2.49
+2020-9406_20,2020-9406,20,20201019,Jannik Sinner,Pierre-Hugues Herbert,2020-10-22,bett1HULKS Championship,2,1.2,4.33,1.22,4.93,1.2,4.52,,1.21,,4.63
+2020-9406_21,2020-9406,21,20201019,Alexander Zverev,Adrian Mannarino,2020-10-23,bett1HULKS Championship,2,1.12,6.0,1.14,6.88,1.14,5.74,,1.13,,6.44
+2020-9406_22,2020-9406,22,20201019,Diego Schwartzman,Alejandro Davidovich Fokina,2020-10-23,bett1HULKS Championship,2,1.3,3.4,1.34,3.56,1.31,3.4,,1.32,,3.48
+2020-9406_23,2020-9406,23,20201019,Felix Auger-Aliassime,Yoshihito Nishioka,2020-10-23,bett1HULKS Championship,2,1.44,2.62,1.46,2.93,1.46,2.69,,1.45,,2.78
+2020-9406_24,2020-9406,24,20201019,Jannik Sinner,Gilles Simon,2020-10-23,bett1HULKS Championship,2,1.2,4.33,1.28,4.14,1.23,4.07,,1.24,,4.23
+2020-9406_25,2020-9406,25,20201019,Alexander Zverev,Jannik Sinner,2020-10-24,bett1HULKS Championship,2,1.8,1.95,1.88,2.04,1.84,1.95,,1.84,,2.0
+2020-9406_26,2020-9406,26,20201019,Diego Schwartzman,Felix Auger-Aliassime,2020-10-24,bett1HULKS Championship,2,1.75,2.0,1.77,2.18,1.79,2.03,,1.76,,2.09
+2020-9406_27,2020-9406,27,20201019,Alexander Zverev,Diego Schwartzman,2020-10-25,bett1HULKS Championship,2,1.44,2.62,1.56,2.61,1.51,2.56,,1.5,,2.62
+2020-337_1,2020-337,1,20201026,Novak Djokovic,Filip Krajinovic,2020-10-27,Erste Bank Open,2,1.08,8.0,1.07,10.97,1.07,8.57,,1.08,,9.48
+2020-337_2,2020-337,2,20201026,Dominic Thiem,Vitaliy Sachko,2020-10-27,Erste Bank Open,2,1.02,19.0,1.01,25.15,1.01,17.12,,1.02,,22.08
+2020-337_3,2020-337,3,20201026,Stefanos Tsitsipas,Jan-Lennard Struff,2020-10-28,Erste Bank Open,2,1.28,3.5,1.34,3.52,1.28,3.62,,1.31,,3.51
+2020-337_4,2020-337,4,20201026,Daniil Medvedev,Jason Jung,2020-10-28,Erste Bank Open,2,1.08,8.0,1.06,11.32,1.06,9.69,,1.07,,9.66
+2020-337_5,2020-337,5,20201026,Andrey Rublev,Norbert Gombos,2020-10-26,Erste Bank Open,2,1.05,11.0,1.07,10.44,1.06,9.08,,1.06,,10.72
+2020-337_6,2020-337,6,20201026,Pablo Carreno Busta,Gael Monfils,2020-10-26,Erste Bank Open,2,1.5,2.5,1.56,2.59,1.49,2.61,,1.53,,2.54
+2020-337_7,2020-337,7,20201026,Jurij Rodionov,Denis Shapovalov,2020-10-26,Erste Bank Open,2,6.0,1.12,8.34,1.1,6.72,1.1,,7.17,,1.11
+2020-337_8,2020-337,8,20201026,Kevin Anderson,Dennis Novak,2020-10-26,Erste Bank Open,2,1.44,2.62,1.56,2.58,1.5,2.57,,1.5,,2.6
+2020-337_9,2020-337,9,20201026,Borna Coric,Taylor Fritz,2020-10-26,Erste Bank Open,2,1.4,2.75,1.54,2.64,1.48,2.64,,1.47,,2.7
+2020-337_10,2020-337,10,20201026,Grigor Dimitrov,Karen Khachanov,2020-10-27,Erste Bank Open,2,1.75,2.0,1.81,2.1,1.77,2.04,,1.78,,2.05
+2020-337_11,2020-337,11,20201026,Daniel Evans,Aljaz Bedene,2020-10-27,Erste Bank Open,2,1.57,2.25,1.79,2.12,1.66,2.21,,1.68,,2.18
+2020-337_12,2020-337,12,20201026,Cristian Garin,Stan Wawrinka,2020-10-27,Erste Bank Open,2,3.5,1.28,4.23,1.26,3.8,1.26,,3.86,,1.27
+2020-337_13,2020-337,13,20201026,Hubert Hurkacz,Attila Balazs,2020-10-27,Erste Bank Open,2,1.1,7.0,1.12,7.41,1.1,7.09,,1.11,,7.2
+2020-337_14,2020-337,14,20201026,Vasek Pospisil,Felix Auger-Aliassime,2020-10-28,Erste Bank Open,2,2.5,1.5,2.45,1.61,2.52,1.53,,2.48,,1.56
+2020-337_15,2020-337,15,20201026,Jannik Sinner,Casper Ruud,2020-10-28,Erste Bank Open,2,1.22,4.0,1.25,4.36,1.22,4.24,,1.23,,4.18
+2020-337_16,2020-337,16,20201026,Lorenzo Sonego,Dusan Lajovic,2020-10-27,Erste Bank Open,2,1.8,1.9,1.86,2.03,1.81,1.99,,1.83,,1.96
+2020-337_17,2020-337,17,20201026,Novak Djokovic,Borna Coric,2020-10-28,Erste Bank Open,2,1.12,6.0,1.1,8.55,1.1,7.11,,1.11,,7.28
+2020-337_18,2020-337,18,20201026,Dominic Thiem,Cristian Garin,2020-10-29,Erste Bank Open,2,1.14,5.5,1.13,7.34,1.12,6.14,,1.13,,6.42
+2020-337_19,2020-337,19,20201026,Grigor Dimitrov,Stefanos Tsitsipas,2020-10-29,Erste Bank Open,2,2.62,1.44,2.93,1.47,2.84,1.43,,2.78,,1.46
+2020-337_20,2020-337,20,20201026,Daniil Medvedev,Vasek Pospisil,2020-10-29,Erste Bank Open,2,1.25,3.75,1.27,4.22,1.24,4.05,,1.26,,3.98
+2020-337_21,2020-337,21,20201026,Andrey Rublev,Jannik Sinner,2020-10-29,Erste Bank Open,2,1.4,2.75,1.44,3.01,1.42,2.83,,1.42,,2.88
+2020-337_22,2020-337,22,20201026,Kevin Anderson,Pablo Carreno Busta,2020-10-28,Erste Bank Open,2,2.5,1.5,2.55,1.58,2.52,1.52,,2.52,,1.54
+2020-337_23,2020-337,23,20201026,Daniel Evans,Jurij Rodionov,2020-10-29,Erste Bank Open,2,1.28,3.5,1.31,3.85,1.29,3.6,,1.3,,3.68
+2020-337_24,2020-337,24,20201026,Lorenzo Sonego,Hubert Hurkacz,2020-10-29,Erste Bank Open,2,2.75,1.4,2.6,1.56,2.7,1.46,,2.68,,1.48
+2020-337_25,2020-337,25,20201026,Lorenzo Sonego,Novak Djokovic,2020-10-30,Erste Bank Open,2,15.0,1.03,20.0,1.03,15.25,1.02,,17.5,,1.03
+2020-337_26,2020-337,26,20201026,Andrey Rublev,Dominic Thiem,2020-10-30,Erste Bank Open,2,2.0,1.75,2.03,1.88,2.05,1.77,,2.01,,1.82
+2020-337_27,2020-337,27,20201026,Kevin Anderson,Daniil Medvedev,2020-10-30,Erste Bank Open,2,4.33,1.2,3.92,1.3,4.17,1.23,,4.12,,1.25
+2020-337_28,2020-337,28,20201026,Daniel Evans,Grigor Dimitrov,2020-10-30,Erste Bank Open,2,2.62,1.44,2.96,1.46,2.89,1.42,,2.79,,1.45
+2020-337_29,2020-337,29,20201026,Andrey Rublev,Kevin Anderson,2020-10-31,Erste Bank Open,2,1.2,4.33,1.24,4.55,1.22,4.36,,1.22,,4.44
+2020-337_30,2020-337,30,20201026,Lorenzo Sonego,Daniel Evans,2020-10-31,Erste Bank Open,2,2.25,1.57,2.6,1.56,2.51,1.53,,2.42,,1.56
+2020-337_31,2020-337,31,20201026,Andrey Rublev,Lorenzo Sonego,2020-11-01,Erste Bank Open,2,1.14,5.5,1.13,7.51,1.14,5.85,,1.13,,6.5
+2020-9410_1,2020-9410,1,20201026,Jiri Vesely,Tennys Sandgren,2020-10-27,Astana Open,2,2.2,1.61,2.44,1.62,2.34,1.59,,2.32,,1.62
+2020-9410_2,2020-9410,2,20201026,Mackenzie McDonald,Alexander Bublik,2020-10-28,Astana Open,2,2.62,1.44,2.83,1.48,2.6,1.48,,2.72,,1.46
+2020-9410_3,2020-9410,3,20201026,Tommy Paul,Stefano Travaglia,2020-10-26,Astana Open,2,1.57,2.25,1.66,2.35,1.63,2.25,,1.62,,2.3
+2020-9410_4,2020-9410,4,20201026,Jordan Thompson,Cameron Norrie,2020-10-26,Astana Open,2,2.37,1.53,2.47,1.6,2.36,1.58,,2.42,,1.56
+2020-9410_5,2020-9410,5,20201026,Radu Albot,Dmitry Popko,2020-10-26,Astana Open,2,1.66,2.1,1.68,2.3,1.69,2.14,,1.67,,2.2
+2020-9410_6,2020-9410,6,20201026,Egor Gerasimov,Lloyd Harris,2020-10-27,Astana Open,2,1.7,2.05,1.82,2.08,1.76,2.04,,1.76,,2.06
+2020-9410_7,2020-9410,7,20201026,Mikhail Kukushkin,Federico Delbonis,2020-10-28,Astana Open,2,1.33,3.25,1.44,2.99,1.36,3.1,,1.38,,3.12
+2020-9410_8,2020-9410,8,20201026,Emil Ruusuvuori,Timofey Skatov,2020-10-27,Astana Open,2,1.08,8.0,1.1,8.44,1.08,7.69,,1.09,,8.22
+2020-9410_9,2020-9410,9,20201026,Andreas Seppi,Aslan Karatsev,2020-10-27,Astana Open,2,3.5,1.28,3.07,1.42,3.32,1.32,,3.28,,1.35
+2020-9410_10,2020-9410,10,20201026,Yuichi Sugita,Damir Dzumhur,2020-10-27,Astana Open,2,3.0,1.36,3.55,1.34,3.23,1.34,,3.28,,1.35
+2020-9410_11,2020-9410,11,20201026,Frances Tiafoe,Corentin Moutet,2020-10-26,Astana Open,2,1.44,2.62,1.54,2.62,1.46,2.68,,1.49,,2.62
+2020-9410_12,2020-9410,12,20201026,Fernando Verdasco,James Duckworth,2020-10-26,Astana Open,2,1.44,2.62,1.53,2.66,1.48,2.62,,1.48,,2.64
+2020-9410_13,2020-9410,13,20201026,Mikhail Kukushkin,Benoit Paire,2020-10-29,Astana Open,2,1.36,3.0,1.43,3.06,1.39,2.96,,1.4,,3.03
+2020-9410_14,2020-9410,14,20201026,Frances Tiafoe,Miomir Kecmanovic,2020-10-28,Astana Open,2,1.57,2.25,1.68,2.32,1.6,2.3,,1.62,,2.28
+2020-9410_15,2020-9410,15,20201026,Adrian Mannarino,Yuichi Sugita,2020-10-29,Astana Open,2,1.33,3.25,1.36,3.44,1.35,3.18,,1.35,,3.34
+2020-9410_16,2020-9410,16,20201026,John Millman,Fernando Verdasco,2020-10-28,Astana Open,2,1.44,2.62,1.52,2.72,1.48,2.62,,1.48,,2.67
+2020-9410_17,2020-9410,17,20201026,Tommy Paul,Radu Albot,2020-10-28,Astana Open,2,1.4,2.75,1.41,3.16,1.4,2.91,,1.4,,2.96
+2020-9410_18,2020-9410,18,20201026,Emil Ruusuvuori,Jordan Thompson,2020-10-29,Astana Open,2,1.36,3.0,1.45,2.97,1.43,2.82,,1.4,,2.99
+2020-9410_19,2020-9410,19,20201026,Egor Gerasimov,Jiri Vesely,2020-10-28,Astana Open,2,1.61,2.2,1.68,2.32,1.61,2.3,,1.64,,2.26
+2020-9410_20,2020-9410,20,20201026,Mackenzie McDonald,Andreas Seppi,2020-10-29,Astana Open,2,1.44,2.62,1.55,2.65,1.45,2.73,,1.5,,2.64
+2020-9410_21,2020-9410,21,20201026,Adrian Mannarino,Mackenzie McDonald,2020-10-30,Astana Open,2,1.44,2.75,1.53,2.71,1.47,2.68,,1.48,,2.73
+2020-9410_22,2020-9410,22,20201026,John Millman,Tommy Paul,2020-10-30,Astana Open,2,1.8,1.95,1.98,1.93,1.91,1.88,,1.89,,1.94
+2020-9410_23,2020-9410,23,20201026,Emil Ruusuvuori,Mikhail Kukushkin,2020-10-30,Astana Open,2,1.44,2.62,1.52,2.72,1.5,2.58,,1.48,,2.67
+2020-9410_24,2020-9410,24,20201026,Frances Tiafoe,Egor Gerasimov,2020-10-30,Astana Open,2,1.61,2.2,1.71,2.28,1.65,2.23,,1.66,,2.24
+2020-9410_25,2020-9410,25,20201026,Adrian Mannarino,Emil Ruusuvuori,2020-10-31,Astana Open,2,1.8,1.95,2.01,1.89,1.92,1.88,,1.9,,1.92
+2020-9410_26,2020-9410,26,20201026,John Millman,Frances Tiafoe,2020-10-31,Astana Open,2,2.2,1.61,2.17,1.78,2.21,1.66,,2.18,,1.7
+2020-9410_27,2020-9410,27,20201026,John Millman,Adrian Mannarino,2020-11-01,Astana Open,2,2.2,1.61,2.38,1.65,2.26,1.63,,2.29,,1.63
+2020-352_1,2020-352,1,20201102,Pablo Carreno Busta,Hugo Gaston,2020-11-02,BNP Paribas Masters,2,1.28,3.5,1.29,4.05,1.26,3.89,,1.28,,3.78
+2020-352_2,2020-352,2,20201102,Milos Raonic,Aljaz Bedene,2020-11-03,BNP Paribas Masters,2,1.18,4.5,1.21,5.09,1.2,4.6,,1.19,,4.8
+2020-352_3,2020-352,3,20201102,Alejandro Davidovich Fokina,Karen Khachanov,2020-11-02,BNP Paribas Masters,2,2.37,1.53,2.43,1.63,2.37,1.59,,2.4,,1.58
+2020-352_4,2020-352,4,20201102,Stan Wawrinka,Daniel Evans,2020-11-03,BNP Paribas Masters,2,1.44,2.62,1.53,2.69,1.49,2.64,,1.48,,2.66
+2020-352_5,2020-352,5,20201102,Marin Cilic,Felix Auger-Aliassime,2020-11-02,BNP Paribas Masters,2,3.0,1.36,3.31,1.38,3.13,1.37,,3.16,,1.37
+2020-352_6,2020-352,6,20201102,Borna Coric,Marton Fucsovics,2020-11-02,BNP Paribas Masters,2,1.4,2.75,1.52,2.72,1.44,2.8,,1.46,,2.74
+2020-352_7,2020-352,7,20201102,Alex de Minaur,Stefano Travaglia,2020-11-02,BNP Paribas Masters,2,1.18,4.5,1.16,6.16,1.17,5.22,,1.17,,5.33
+2020-352_8,2020-352,8,20201102,Radu Albot,Hubert Hurkacz,2020-11-02,BNP Paribas Masters,2,3.75,1.25,3.67,1.33,3.49,1.3,,3.71,,1.29
+2020-352_9,2020-352,9,20201102,Kevin Anderson,Laslo Djere,2020-11-03,BNP Paribas Masters,2,1.22,4.0,1.27,4.18,1.25,3.96,,1.25,,4.09
+2020-352_10,2020-352,10,20201102,Benjamin Bonzi,Federico Coria,2020-11-02,BNP Paribas Masters,2,1.4,2.75,1.34,3.56,1.36,3.18,,1.37,,3.16
+2020-352_11,2020-352,11,20201102,Richard Gasquet,Taylor Fritz,2020-11-03,BNP Paribas Masters,2,2.2,1.61,2.22,1.74,2.19,1.68,,2.21,,1.68
+2020-352_12,2020-352,12,20201102,Marcos Giron,Albert Ramos-Vinolas,2020-11-02,BNP Paribas Masters,2,1.3,3.4,1.41,3.18,1.36,3.17,,1.36,,3.29
+2020-352_13,2020-352,13,20201102,Norbert Gombos,Marco Cecchinato,2020-11-02,BNP Paribas Masters,2,1.57,2.25,1.6,2.51,1.57,2.4,,1.58,,2.38
+2020-352_14,2020-352,14,20201102,Pierre-Hugues Herbert,Tennys Sandgren,2020-11-03,BNP Paribas Masters,2,1.57,2.25,1.6,2.5,1.57,2.41,,1.58,,2.38
+2020-352_15,2020-352,15,20201102,Ugo Humbert,Casper Ruud,2020-11-02,BNP Paribas Masters,2,1.33,3.25,1.37,3.39,1.35,3.21,,1.35,,3.32
+2020-352_16,2020-352,16,20201102,Miomir Kecmanovic,John Millman,2020-11-03,BNP Paribas Masters,2,1.61,2.2,1.74,2.22,1.68,2.19,,1.68,,2.21
+2020-352_17,2020-352,17,20201102,Feliciano Lopez,Filip Krajinovic,2020-11-02,BNP Paribas Masters,2,3.75,1.25,4.28,1.26,3.87,1.26,,4.02,,1.25
+2020-352_18,2020-352,18,20201102,Adrian Mannarino,Dusan Lajovic,2020-11-03,BNP Paribas Masters,2,1.8,1.95,1.79,2.14,1.78,2.03,,1.8,,2.04
+2020-352_19,2020-352,19,20201102,Corentin Moutet,Salvatore Caruso,2020-11-02,BNP Paribas Masters,2,1.8,1.95,1.84,2.08,1.82,2.0,,1.82,,2.02
+2020-352_20,2020-352,20,20201102,Yoshihito Nishioka,Pablo Andujar,2020-11-03,BNP Paribas Masters,2,1.28,3.5,1.27,4.28,1.27,3.79,,1.27,,3.89
+2020-352_21,2020-352,21,20201102,Tommy Paul,Gilles Simon,2020-11-03,BNP Paribas Masters,2,2.62,1.44,2.72,1.52,2.61,1.5,,2.67,,1.48
+2020-352_22,2020-352,22,20201102,Lorenzo Sonego,Alexander Bublik,2020-11-03,BNP Paribas Masters,2,1.61,2.2,1.72,2.26,1.7,2.15,,1.66,,2.23
+2020-352_23,2020-352,23,20201102,Jan-Lennard Struff,Nikoloz Basilashvili,2020-11-02,BNP Paribas Masters,2,1.12,6.0,1.17,6.01,1.14,5.77,,1.14,,6.0
+2020-352_24,2020-352,24,20201102,Jordan Thompson,Federico Delbonis,2020-11-02,BNP Paribas Masters,2,1.53,2.37,1.68,2.32,1.59,2.37,,1.6,,2.34
+2020-352_25,2020-352,25,20201102,Rafael Nadal,Feliciano Lopez,2020-11-04,BNP Paribas Masters,2,1.11,6.5,1.08,10.62,1.08,8.31,,1.1,,8.56
+2020-352_26,2020-352,26,20201102,Ugo Humbert,Stefanos Tsitsipas,2020-11-03,BNP Paribas Masters,2,2.5,1.5,2.7,1.53,2.73,1.46,,2.6,,1.52
+2020-352_27,2020-352,27,20201102,Daniil Medvedev,Kevin Anderson,2020-11-04,BNP Paribas Masters,2,1.36,3.0,1.4,3.22,1.38,3.04,,1.38,,3.11
+2020-352_28,2020-352,28,20201102,Alexander Zverev,Miomir Kecmanovic,2020-11-04,BNP Paribas Masters,2,1.33,3.25,1.35,3.53,1.33,3.34,,1.34,,3.39
+2020-352_29,2020-352,29,20201102,Andrey Rublev,Radu Albot,2020-11-04,BNP Paribas Masters,2,1.08,8.0,1.07,10.66,1.07,8.82,,1.08,,9.33
+2020-352_30,2020-352,30,20201102,Diego Schwartzman,Richard Gasquet,2020-11-04,BNP Paribas Masters,2,1.44,2.62,1.55,2.65,1.48,2.64,,1.5,,2.64
+2020-352_31,2020-352,31,20201102,Marcos Giron,Matteo Berrettini,2020-11-03,BNP Paribas Masters,2,3.4,1.3,3.21,1.4,3.15,1.36,,3.3,,1.35
+2020-352_32,2020-352,32,20201102,Norbert Gombos,David Goffin,2020-11-03,BNP Paribas Masters,2,2.25,1.57,2.19,1.76,2.2,1.68,,2.22,,1.66
+2020-352_33,2020-352,33,20201102,Pablo Carreno Busta,Jan-Lennard Struff,2020-11-03,BNP Paribas Masters,2,1.75,2.0,1.96,1.94,1.84,1.97,,1.86,,1.97
+2020-352_34,2020-352,34,20201102,Milos Raonic,Pierre-Hugues Herbert,2020-11-04,BNP Paribas Masters,2,1.18,4.5,1.16,6.1,1.16,5.34,,1.17,,5.3
+2020-352_35,2020-352,35,20201102,Stan Wawrinka,Tommy Paul,2020-11-04,BNP Paribas Masters,2,1.4,2.75,1.42,3.13,1.39,2.98,,1.41,,2.94
+2020-352_36,2020-352,36,20201102,Jordan Thompson,Borna Coric,2020-11-04,BNP Paribas Masters,2,5.0,1.16,4.93,1.22,5.12,1.17,,4.96,,1.19
+2020-352_37,2020-352,37,20201102,Alex de Minaur,Lorenzo Sonego,2020-11-04,BNP Paribas Masters,2,1.44,2.62,1.47,2.92,1.44,2.81,,1.46,,2.77
+2020-352_38,2020-352,38,20201102,Marin Cilic,Corentin Moutet,2020-11-03,BNP Paribas Masters,2,1.33,3.25,1.43,3.04,1.36,3.13,,1.38,,3.14
+2020-352_39,2020-352,39,20201102,Alejandro Davidovich Fokina,Benjamin Bonzi,2020-11-04,BNP Paribas Masters,2,1.2,4.33,1.26,4.3,1.23,4.15,,1.23,,4.31
+2020-352_40,2020-352,40,20201102,Adrian Mannarino,Yoshihito Nishioka,2020-11-04,BNP Paribas Masters,2,1.75,2.0,1.91,2.0,1.88,1.93,,1.83,,2.0
+2020-352_41,2020-352,41,20201102,Rafael Nadal,Jordan Thompson,2020-11-05,BNP Paribas Masters,2,1.06,10.0,1.07,11.62,1.05,10.31,,1.06,,10.81
+2020-352_42,2020-352,42,20201102,Daniil Medvedev,Alex de Minaur,2020-11-05,BNP Paribas Masters,2,1.53,2.5,1.59,2.55,1.57,2.44,,1.56,,2.52
+2020-352_43,2020-352,43,20201102,Alexander Zverev,Adrian Mannarino,2020-11-05,BNP Paribas Masters,2,1.16,5.0,1.2,5.44,1.17,5.05,,1.18,,5.22
+2020-352_44,2020-352,44,20201102,Stan Wawrinka,Andrey Rublev,2020-11-05,BNP Paribas Masters,2,4.5,1.2,5.11,1.21,4.65,1.2,,4.8,,1.2
+2020-352_45,2020-352,45,20201102,Diego Schwartzman,Alejandro Davidovich Fokina,2020-11-05,BNP Paribas Masters,2,1.44,2.75,1.49,2.87,1.45,2.75,,1.46,,2.81
+2020-352_46,2020-352,46,20201102,Pablo Carreno Busta,Norbert Gombos,2020-11-05,BNP Paribas Masters,2,1.3,3.5,1.35,3.59,1.3,3.58,,1.33,,3.54
+2020-352_47,2020-352,47,20201102,Milos Raonic,Marcos Giron,2020-11-05,BNP Paribas Masters,2,1.14,5.5,1.12,7.7,1.13,6.2,,1.13,,6.6
+2020-352_48,2020-352,48,20201102,Ugo Humbert,Marin Cilic,2020-11-05,BNP Paribas Masters,2,1.53,2.5,1.63,2.47,1.57,2.43,,1.58,,2.49
+2020-352_49,2020-352,49,20201102,Rafael Nadal,Pablo Carreno Busta,2020-11-06,BNP Paribas Masters,2,1.12,6.0,1.19,5.49,1.16,5.31,,1.16,,5.74
+2020-352_50,2020-352,50,20201102,Daniil Medvedev,Diego Schwartzman,2020-11-06,BNP Paribas Masters,2,1.44,2.75,1.47,2.97,1.44,2.81,,1.46,,2.86
+2020-352_51,2020-352,51,20201102,Alexander Zverev,Stan Wawrinka,2020-11-06,BNP Paribas Masters,2,1.44,2.75,1.49,2.87,1.45,2.78,,1.46,,2.81
+2020-352_52,2020-352,52,20201102,Milos Raonic,Ugo Humbert,2020-11-06,BNP Paribas Masters,2,1.4,3.0,1.37,3.44,1.37,3.14,,1.38,,3.22
+2020-352_53,2020-352,53,20201102,Alexander Zverev,Rafael Nadal,2020-11-07,BNP Paribas Masters,2,2.37,1.57,2.57,1.58,2.42,1.57,,2.47,,1.58
+2020-352_54,2020-352,54,20201102,Daniil Medvedev,Milos Raonic,2020-11-07,BNP Paribas Masters,2,1.44,2.75,1.56,2.66,1.48,2.66,,1.5,,2.7
+2020-352_55,2020-352,55,20201102,Daniil Medvedev,Alexander Zverev,2020-11-08,BNP Paribas Masters,2,1.9,1.9,2.01,1.92,1.91,1.9,,1.95,,1.91
+2020-7434_1,2020-7434,1,20201109,Adrian Mannarino,Martin Klizan,2020-11-09,Sofia Open,2,1.4,2.75,1.3,3.82,1.28,3.61,,1.35,,3.28
+2020-7434_2,2020-7434,2,20201109,John Millman,Adrian Andreev,2020-11-08,Sofia Open,2,1.14,5.5,1.13,6.86,1.13,5.93,,1.13,,6.18
+2020-7434_3,2020-7434,3,20201109,Marc-Andrea Huesler,Nikoloz Basilashvili,2020-11-09,Sofia Open,2,2.05,1.7,,,2.42,1.7,,2.05,,1.7
+2020-7434_4,2020-7434,4,20201109,Jonas Forejtek,Marin Cilic,2020-11-09,Sofia Open,2,6.0,1.12,7.79,1.11,6.96,1.1,,6.9,,1.12
+2020-7434_5,2020-7434,5,20201109,Radu Albot,Yuichi Sugita,2020-11-08,Sofia Open,2,1.44,2.62,1.6,2.47,1.5,2.57,,1.52,,2.54
+2020-7434_6,2020-7434,6,20201109,Salvatore Caruso,Dimitar Kuzmanov,2020-11-09,Sofia Open,2,1.28,3.5,1.38,3.26,1.34,3.23,,1.33,,3.38
+2020-7434_7,2020-7434,7,20201109,Richard Gasquet,Roberto Carballes Baena,2020-11-10,Sofia Open,2,1.22,4.0,1.24,4.43,1.21,4.37,,1.23,,4.22
+2020-7434_8,2020-7434,8,20201109,Egor Gerasimov,Viktor Troicki,2020-11-09,Sofia Open,2,1.3,3.4,1.42,3.07,1.38,3.05,,1.36,,3.24
+2020-7434_9,2020-7434,9,20201109,Aslan Karatsev,Taro Daniel,2020-11-09,Sofia Open,2,1.7,2.05,1.87,2.02,1.75,2.07,,1.78,,2.04
+2020-7434_10,2020-7434,10,20201109,Vasek Pospisil,Illya Marchenko,2020-11-09,Sofia Open,2,1.14,5.5,1.16,6.03,1.15,5.41,,1.15,,5.76
+2020-7434_11,2020-7434,11,20201109,Gilles Simon,Andrej Martin,2020-11-10,Sofia Open,2,1.12,6.0,1.12,7.51,1.11,6.73,,1.12,,6.76
+2020-7434_12,2020-7434,12,20201109,Jannik Sinner,Marton Fucsovics,2020-11-10,Sofia Open,2,1.4,2.75,1.58,2.51,1.54,2.46,,1.49,,2.63
+2020-7434_13,2020-7434,13,20201109,Radu Albot,Denis Shapovalov,2020-11-10,Sofia Open,2,4.0,1.22,4.16,1.28,3.91,1.25,,4.08,,1.25
+2020-7434_14,2020-7434,14,20201109,Salvatore Caruso,Felix Auger-Aliassime,2020-11-11,Sofia Open,2,4.0,1.22,4.3,1.26,3.95,1.24,,4.15,,1.24
+2020-7434_15,2020-7434,15,20201109,Alex de Minaur,Aslan Karatsev,2020-11-11,Sofia Open,2,1.2,4.33,1.21,5.05,1.19,4.61,,1.2,,4.69
+2020-7434_16,2020-7434,16,20201109,Vasek Pospisil,Jan-Lennard Struff,2020-11-10,Sofia Open,2,2.1,1.66,2.15,1.79,2.04,1.78,,2.12,,1.72
+2020-7434_17,2020-7434,17,20201109,Adrian Mannarino,Egor Gerasimov,2020-11-11,Sofia Open,2,1.72,2.0,1.82,2.11,1.77,2.05,,1.77,,2.05
+2020-7434_18,2020-7434,18,20201109,John Millman,Gilles Simon,2020-11-11,Sofia Open,2,2.0,1.72,2.2,1.75,2.09,1.74,,2.1,,1.74
+2020-7434_19,2020-7434,19,20201109,Richard Gasquet,Jonas Forejtek,2020-11-11,Sofia Open,2,1.25,3.75,1.26,4.33,1.24,4.01,,1.25,,4.04
+2020-7434_20,2020-7434,20,20201109,Jannik Sinner,Marc-Andrea Huesler,2020-11-11,Sofia Open,2,1.11,6.5,1.14,6.66,1.12,6.26,,1.12,,6.58
+2020-7434_21,2020-7434,21,20201109,Jannik Sinner,Alex de Minaur,2020-11-12,Sofia Open,2,1.66,2.1,1.78,2.16,1.71,2.14,,1.72,,2.13
+2020-7434_22,2020-7434,22,20201109,Adrian Mannarino,Radu Albot,2020-11-12,Sofia Open,2,1.53,2.37,1.59,2.53,1.54,2.47,,1.56,,2.45
+2020-7434_23,2020-7434,23,20201109,Vasek Pospisil,John Millman,2020-11-12,Sofia Open,2,1.57,2.25,1.65,2.39,1.62,2.3,,1.61,,2.32
+2020-7434_24,2020-7434,24,20201109,Richard Gasquet,Salvatore Caruso,2020-11-12,Sofia Open,2,1.4,2.75,1.43,3.08,1.38,3.04,,1.42,,2.92
+2020-7434_25,2020-7434,25,20201109,Jannik Sinner,Adrian Mannarino,2020-11-13,Sofia Open,2,1.22,4.0,1.28,4.08,1.25,3.92,,1.25,,4.04
+2020-7434_26,2020-7434,26,20201109,Vasek Pospisil,Richard Gasquet,2020-11-13,Sofia Open,2,1.53,2.37,1.57,2.59,1.53,2.5,,1.55,,2.48
+2020-7434_27,2020-7434,27,20201109,Jannik Sinner,Vasek Pospisil,2020-11-14,Sofia Open,2,1.4,2.75,1.45,2.97,1.43,2.82,,1.42,,2.86
+2020-605_1,2020-605,1,20201116,Daniil Medvedev,Novak Djokovic,2020-11-18,Masters Cup,2,2.75,1.4,3.07,1.43,3.06,1.38,,2.91,,1.42
+2020-605_2,2020-605,2,20201116,Novak Djokovic,Alexander Zverev,2020-11-20,Masters Cup,2,1.33,3.25,1.32,3.78,1.31,3.52,,1.33,,3.51
+2020-605_3,2020-605,3,20201116,Novak Djokovic,Diego Schwartzman,2020-11-16,Masters Cup,2,1.12,6.0,1.11,8.17,1.11,6.75,,1.12,,7.08
+2020-605_4,2020-605,4,20201116,Daniil Medvedev,Alexander Zverev,2020-11-16,Masters Cup,2,1.7,2.05,1.74,2.22,1.71,2.16,,1.72,,2.13
+2020-605_5,2020-605,5,20201116,Daniil Medvedev,Diego Schwartzman,2020-11-20,Masters Cup,2,1.25,3.75,1.3,3.96,1.29,3.6,,1.27,,3.86
+2020-605_6,2020-605,6,20201116,Alexander Zverev,Diego Schwartzman,2020-11-18,Masters Cup,2,1.28,3.5,1.36,3.49,1.31,3.5,,1.32,,3.5
+2020-605_7,2020-605,7,20201116,Dominic Thiem,Rafael Nadal,2020-11-17,Masters Cup,2,2.5,1.5,2.84,1.49,2.64,1.49,,2.67,,1.5
+2020-605_8,2020-605,8,20201116,Rafael Nadal,Stefanos Tsitsipas,2020-11-19,Masters Cup,2,1.4,2.75,1.43,3.07,1.39,3.05,,1.42,,2.91
+2020-605_9,2020-605,9,20201116,Rafael Nadal,Andrey Rublev,2020-11-15,Masters Cup,2,1.53,2.37,1.58,2.54,1.56,2.43,,1.56,,2.46
+2020-605_10,2020-605,10,20201116,Dominic Thiem,Stefanos Tsitsipas,2020-11-15,Masters Cup,2,1.95,1.8,2.06,1.85,1.94,1.87,,2.0,,1.83
+2020-605_11,2020-605,11,20201116,Andrey Rublev,Dominic Thiem,2020-11-19,Masters Cup,2,2.5,1.5,2.29,1.7,2.39,1.59,,2.4,,1.6
+2020-605_12,2020-605,12,20201116,Stefanos Tsitsipas,Andrey Rublev,2020-11-17,Masters Cup,2,1.7,2.05,1.83,2.1,1.76,2.09,,1.76,,2.08
+2020-605_13,2020-605,13,20201116,Daniil Medvedev,Rafael Nadal,2020-11-21,Masters Cup,2,1.75,2.0,1.88,2.04,1.8,2.04,,1.82,,2.02
+2020-605_14,2020-605,14,20201116,Dominic Thiem,Novak Djokovic,2020-11-21,Masters Cup,2,2.25,1.57,2.7,1.54,2.47,1.56,,2.48,,1.56
+2020-605_15,2020-605,15,20201116,Daniil Medvedev,Dominic Thiem,2020-11-22,Masters Cup,2,1.66,2.2,1.66,2.4,1.66,2.26,,1.66,,2.3
