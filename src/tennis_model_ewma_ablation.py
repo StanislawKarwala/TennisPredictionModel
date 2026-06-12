@@ -147,12 +147,14 @@ def compute_ewma_features(full_2024_base: pd.DataFrame, cols_base: list[str]) ->
                 out[f"w_{s}"].append(sw[s])
                 out[f"l_{s}"].append(sl[s])
 
+        # update surface form PRZED forma ogolna: fallback get_surf -> get_form
+        # musi widziec forme sprzed biezacego meczu, inaczej seed nowego stanu
+        # (gracz, nawierzchnia) liczylby biezacy wynik podwojnie.
+        surf_state[(w, surf)] = ALPHA * 1.0 + (1 - ALPHA) * get_surf(w, surf)
+        surf_state[(l, surf)] = ALPHA * 0.0 + (1 - ALPHA) * get_surf(l, surf)
         # update form
         form_state[w] = ALPHA * 1.0 + (1 - ALPHA) * get_form(w)
         form_state[l] = ALPHA * 0.0 + (1 - ALPHA) * get_form(l)
-        # update surface form
-        surf_state[(w, surf)] = ALPHA * 1.0 + (1 - ALPHA) * get_surf(w, surf)
-        surf_state[(l, surf)] = ALPHA * 0.0 + (1 - ALPHA) * get_surf(l, surf)
         # update serve (tylko statystyki o sensownym mianowniku)
         for name, is_win in ((w, True), (l, False)):
             cur = get_serve(name)

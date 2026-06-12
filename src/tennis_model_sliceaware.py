@@ -560,7 +560,12 @@ def attach_targeted_features(
 
     enriched["is_best_of5"] = (enriched["best_of"] == 5).astype(int)
     enriched["is_qf"] = (enriched["round"] == "QF").astype(int)
-    enriched["is_lefty_matchup"] = (enriched["winner_hand"] != enriched["loser_hand"]).astype(int)
+    # Dokladnie jeden leworeczny na korcie (XOR po 'L'). Proste porownanie
+    # winner_hand != loser_hand bledne dla hand='U' (unknown): R-vs-U nie jest
+    # matchupem z leworecznym, a bylo flagowane jako 1.
+    enriched["is_lefty_matchup"] = (
+        (enriched["winner_hand"] == "L") != (enriched["loser_hand"] == "L")
+    ).astype(int)
 
     enriched["p1_best_of5_form"] = np.where(
         winner_perspective_mask,

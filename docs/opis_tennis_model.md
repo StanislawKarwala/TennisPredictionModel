@@ -74,11 +74,11 @@ Trenuje model **Random Forest** (las stu drzew decyzyjnych głosujących wspóln
 | `cols_serve` | 18 kolumn ze statystykami serwisowymi (9 dla winnera, 9 dla losera). |
 | `SERVE_DEFAULTS` | Słownik wartości domyślnych dla statystyk serwisu — średnie tourowe ATP. Używane jako fallback gdy gracz nie ma jeszcze historii. |
 | `param_dist` | Słownik z wszystkimi wariantami hiperparametrów dla RandomizedSearchCV (liczba drzew, głębokość, min próbek do podziału itd.). |
-| `search` | Obiekt RandomizedSearchCV — sprawdza 50 losowych kombinacji hiperparametrów na 5-fold TimeSeriesSplit i wybiera najlepszą po CV Accuracy. |
+| `search` | Obiekt RandomizedSearchCV — sprawdza 50 losowych kombinacji hiperparametrów na 5-fold TimeSeriesSplit i wybiera najlepszą po CV **log-loss** (`refit='neg_log_loss'`; accuracy i ROC AUC raportowane dodatkowo). |
 | `best_rf` | Wytrenowany Random Forest z najlepszymi znalezionymi hiperparametrami. |
 | `val_acc`, `test_acc` | Validation Accuracy / Test Accuracy (na symetryzowanych danych — czyli binarna klasyfikacja, 1180 wierszy). |
 | `match_accuracy` | **KLUCZOWA METRYKA** — accuracy na poziomie meczu (% poprawnie przewidzianych zwycięzców z 590 meczów testowych). U mnie wyszło **61.02%**. |
-| `winner_perspective` | Tabela z testu, gdzie p1 jest zawsze faktycznym zwycięzcą — używana do liczenia match_accuracy. Modyfikacja: bierzemy tylko jedną z dwóch perspektyw symetryzowanych. |
+| `winner_perspective` | Tabela z testu (jeden wiersz na mecz), gdzie p1 jest zawsze faktycznym zwycięzcą — używana do liczenia match_accuracy. Prawdopodobieństwo zwycięzcy jest uśrednione z OBU perspektyw symetryzowanych (`compute_symmetric_match_evaluation`). |
 | `calibrator` | Model do kalibracji prawdopodobieństw (Platt scaling przez CalibratedClassifierCV). Dopina logistic regression do wyjścia Random Forest. |
 | `match_accuracy_tuned` | Match accuracy po kalibracji prawdopodobieństw (u mnie 60.68% — kalibracja nieznacznie pogorszyła, bo RF jest już dość dobrze skalibrowany). |
 | `feature_importance` | Tabela mówiąca, które cechy najmocniej wpływają na decyzje modelu (Gini importance z RF). Najwyżej zwykle: `rank_diff`, `p1_rank_log`, `p2_rank_log`, `form_diff`. |
@@ -106,7 +106,7 @@ A: Random Forest jest najprostszym sensownym wyborem dla danych tabelarycznych o
 A: To normalne. CV widzi mecze ze środka sezonu — model już zna te dane częściowo. Validation to świeże 20%. Test to najnowsze 20% — najbardziej różni się od treningu (nowi gracze, kontuzje, transfer formy). Spadek o 1-2 p.p. jest oczekiwany i zdrowy.
 
 **Q: „Dlaczego Match Accuracy (61.02%) jest niższe niż Test Accuracy (61.36%)?"**
-A: Bo to różne miary. Test Accuracy patrzy na 1180 wierszy (mecz × 2 perspektywy). Match Accuracy patrzy na 590 meczów. Mecz jest poprawnie przewidziany TYLKO gdy obie perspektywy zgadzają się ze sobą (P(y=1)>0.5 dla winner, P(y=1)<0.5 dla loser). Ta surowsza definicja daje niższą liczbę.
+A: Bo to różne miary. Test Accuracy patrzy na 1180 wierszy (mecz × 2 perspektywy). Match Accuracy patrzy na 590 meczów: uśredniamy prawdopodobieństwo wygranej rzeczywistego zwycięzcy z obu perspektyw — z perspektywy y=1 bierzemy P(y=1), z perspektywy y=0 bierzemy 1−P(y=1) — i mecz jest trafiony, gdy średnia > 0.5. Jeśli perspektywy są niespójne (np. jedna 0.6, druga 0.55 „w drugą stronę"), uśrednienie może przeważyć wynik w stronę błędu — stąd nieco niższa liczba.
 
 **Q: „Co to jest Brier Score 0.2284?"**
 A: To miara jakości prawdopodobieństw. Jeśli model mówi „70% szansy" i gracz wygrał, kara to (1-0.7)²=0.09. Średnia tych kar po wszystkich meczach = Brier. Im niżej tym lepiej. 0.25 = losowy model (każdy mówi 0.5), 0 = idealny. Nasze 0.2284 to lekko lepsze niż losowy — model nie jest super pewny swoich predykcji.
@@ -127,7 +127,7 @@ A: Próbowaliśmy. Dla danych symetryzowanych każdy próg inny niż 0.5 łamie 
 A: Mała regresja logistyczna wytrenowana na wyjściu Random Forest, mapująca surowe prawdopodobieństwa na lepiej skalibrowane. Wzór: `P_kal = sigmoid(a × P_raw + b)`. U nas kalibracja nie poprawiła Brier (RF już jest OK), ale jest standardową praktyką w klasyfikatorach probabilistycznych.
 
 **Q: „Co to jest FrozenEstimator?"**
-A: Nowy mechanizm z sklearn 1.8+. Mówi „nie trenuj tego modelu jeszcze raz" gdy kalibrujesz go na osobnym zbiorze walidacyjnym. Zastępuje przestarzały `cv="prefit"`.
+A: Mechanizm z sklearn 1.6+. Mówi „nie trenuj tego modelu jeszcze raz" gdy kalibrujesz go na osobnym zbiorze walidacyjnym. Zastępuje przestarzały `cv="prefit"`.
 
 **Q: „Czemu 40 cech, a nie 100?"**
 A: Eksperymentowaliśmy. Dodawanie więcej cech (variant Bo5 ma 77 cech) marginalnie poprawia accuracy ale komplikuje model. 40 to dobry kompromis dla baseline'u — wszystkie cechy mają domenowe uzasadnienie tenisowe.

@@ -34,8 +34,8 @@ Bierze gotowy model z `tennis_model.py` i sprawdza, w których konkretnych typac
 | **support** | Liczba meczów w slice'ie | Jeśli 12 meczów Bo5 na Grassie, support=12 |
 | **gap** | Różnica między accuracy slice'a a accuracy ogólnym | Slice 45%, ogólne 61% → gap=-0.16 (16 p.p. gorszy) |
 | **Wilson CI** | 95% przedział ufności dla proporcji | Slice 5/8 = 0.625, CI = [0.31, 0.86] |
-| **Wald CI** | Stary klasyczny przedział ufności | Dla 0/4 daje [-0.1, 0.1] — bez sensu |
-| **statistically_below_overall** | Flag: czy DOLNY brzeg Wilson CI > accuracy ogólne | True = naprawdę słaby, False = może być szum |
+| **Wald CI** | Stary klasyczny przedział ufności | Dla 0/4 daje [0, 0] (zerowy przedział) — bez sensu |
+| **statistically_below_overall** | Flag: czy GÓRNY brzeg Wilson CI < accuracy ogólne (`ci_upper < overall_accuracy`) | True = naprawdę słaby, False = może być szum |
 | **Brier Score** | Średni kwadrat (prawdopodobieństwo - prawda)² | Im niżej tym lepiej |
 | **log-loss** | Logarytmiczna kara za pewne błędne predykcje | Im niżej tym lepiej |
 

@@ -162,8 +162,10 @@ def mcnemar(b: int, c: int) -> tuple[float, float]:
     n = b + c
     if n == 0:
         return 0.0, 1.0
-    z = (abs(b - c) - 1) / math.sqrt(n)
-    p = math.erfc(abs(z) / math.sqrt(2))
+    # Korekta ciaglosci nie moze zejsc ponizej zera -- dla b==c byloby z<0,
+    # a abs(z) dawalby p<1 zamiast poprawnego p=1 (brak roznicy).
+    z = max(abs(b - c) - 1, 0) / math.sqrt(n)
+    p = math.erfc(z / math.sqrt(2))
     return z, p
 
 
@@ -221,7 +223,7 @@ def main() -> None:
         for (year, bm, vm, d) in rows:
             print(f"   {year}: base={bm:.4f} var={vm:.4f} delta={d:+.4f}")
         print(f"   POOLED: delta={pooled_delta:+.4f} (N={N})  "
-              f"dodatnie {pos_years}/4 lat")
+              f"dodatnie {pos_years}/{len(rows)} lat")
         print(f"   McNemar: b={b} c={c} z={z:.2f} p={pval:.4f}")
         print(f"   corr(baseline_acc, delta) = {corr:+.3f}  "
               f"(ujemna => pomaga gdy baseline slaby)")

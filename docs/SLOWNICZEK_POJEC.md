@@ -26,7 +26,7 @@ Liczba opisująca mecz, którą model widzi na wejściu. Np. `p1_rank_log` (loga
 Ustawienie modelu, którego sam się nie nauczy — trzeba je wybrać przed treningiem. Dla Random Forest np.: ile drzew (`n_estimators=100/200/300`), maksymalna głębokość drzewa (`max_depth=10/20/30`), minimalna liczba próbek w liściu (`min_samples_leaf=2/5/8`). Hiperparametry kontrolują kompromis między dopasowaniem a uogólnieniem.
 
 ### RandomizedSearchCV
-Sposób na automatyczne znalezienie najlepszego zestawu hiperparametrów. Zamiast testować wszystkie kombinacje (grid search → bardzo wolne), losowo wybiera 50 zestawów hiperparametrów, ocenia każdy przez cross-validation i wybiera ten, który dał najwyższy wynik. „Random" = losowy wybór kombinacji do testowania.
+Sposób na automatyczne znalezienie najlepszego zestawu hiperparametrów. Zamiast testować wszystkie kombinacje (grid search → bardzo wolne), losowo wybiera 50 zestawów hiperparametrów, ocenia każdy przez cross-validation i wybiera najlepszy. „Random" = losowy wybór kombinacji do testowania. U nas wybór finalnego zestawu idzie po **log-loss** (`refit='neg_log_loss'`), bo zadanie jest probabilistyczne — accuracy i ROC AUC są liczone tylko do raportu.
 
 ---
 
@@ -60,11 +60,13 @@ To najczęstsze pojęcia w raportach — każde co innego znaczy.
 ### Match Accuracy — u nas 61.02%
 **Co to:** trafność na poziomie MECZU, nie wiersza. Po symetryzacji każdy mecz daje 2 wiersze: jeden gdzie Gracz 1 = winner (y=1), drugi gdzie Gracz 1 = loser (y=0). Test Accuracy liczy oba.
 **Match Accuracy = inny widok:**
-1. Bierzemy tylko jedną perspektywę meczu (np. „prawdziwy winner jako Gracz 1")
-2. Model przewiduje P(y=1) — szansa że Gracz 1 wygra
-3. Jeśli P(y=1) > 0.5 → predykcja „Gracz 1 wygra" → POPRAWNA (bo Gracz 1 to faktyczny winner)
-4. Jeśli P(y=1) ≤ 0.5 → predykcja „Gracz 2 wygra" → BŁĘDNA
-5. Match Accuracy = % poprawnie przewidzianych meczów (z perspektywy winner)
+1. Łączymy OBIE perspektywy tego samego meczu po `match_id` (funkcja `compute_symmetric_match_evaluation`)
+2. Model przewiduje P(y=1) w każdej perspektywie; prawdopodobieństwo wygranej rzeczywistego zwycięzcy = średnia z P(y=1) perspektywy y=1 oraz 1−P(y=1) perspektywy y=0
+3. Jeśli uśrednione P > 0.5 → predykcja POPRAWNA (model wskazał faktycznego zwycięzcę)
+4. Jeśli uśrednione P ≤ 0.5 → predykcja BŁĘDNA
+5. Match Accuracy = % poprawnie przewidzianych meczów
+
+(Wcześniejsza wersja brała tylko perspektywę y=1 — jednostronna metryka była niespójna i mogła zawyżać wynik; naprawiona w Sprincie 1.)
 
 **Po co osobno Match Accuracy?** Bo to jest najprostsza, najbardziej intuicyjna liczba: „na ile meczów z 590 testowych model wskazał właściwego zwycięzcę". To jest liczba, którą warto raportować promotorowi. Test Accuracy 62.46% to liczba dla zbioru po symetryzacji (1180 wierszy), Match Accuracy 61.02% jest dla 590 meczów.
 
@@ -129,10 +131,10 @@ Random Forest słynie z bycia nadmiernie pewnym blisko 0.5 i niedostatecznie pew
 **Czy zawsze poprawia?** Nie zawsze. U nas Brier raw = 0.2284, calibrated = 0.2284 — bez różnicy. Bo RF z dobrymi hiperparametrami nie jest mocno źle kalibrowany.
 
 ### FrozenEstimator
-Klasa z sklearn ≥1.8 oznaczająca: „weź ten już-wytrenowany model i nie trenuj go ponownie". Zastępuje przestarzały parametr `cv="prefit"`. Używamy gdy chcemy kalibrować już-wytrenowany RF na osobnym zbiorze walidacyjnym.
+Klasa z sklearn ≥1.6 oznaczająca: „weź ten już-wytrenowany model i nie trenuj go ponownie". Zastępuje przestarzały parametr `cv="prefit"`. Używamy gdy chcemy kalibrować już-wytrenowany RF na osobnym zbiorze walidacyjnym.
 
 ### Threshold Tuning
-Domyślnie klasyfikator binarny mówi „y=1 gdy P > 0.5". Threshold tuning szuka czy inny próg (np. 0.45 albo 0.55) daje lepszą Match Accuracy na walidacji, i stosuje go na teście.
+Domyślnie klasyfikator binarny mówi „y=1 gdy P > 0.5". Threshold tuning szukałby progu (np. 0.45 albo 0.55) dającego lepszą Match Accuracy na walidacji. U nas celowo NIE przeszukujemy siatki progów — `select_match_level_threshold` zwraca stały 0.5, bo przy danych symetryzowanych obniżenie progu w jednej perspektywie odpowiada podwyższeniu w drugiej i efekty się kasują.
 
 **U nas:** optymalny prog = 0.50 (czyli bez zmiany). Z teoretycznych względów — w danych symetryzowanych każde inne ustawienie progu „oszukuje" ewaluację. Bezpieczna decyzja: zostać przy 0.5.
 
@@ -189,7 +191,7 @@ Sposób na obliczenie 95% przedziału ufności dla proporcji (np. accuracy). Lep
 **Dlaczego Wilson lepszy?** Bo Wald daje absurdalnie szerokie CI dla skrajnych proporcji (1/8 trafień = [-0.10, 0.35], a powinno być [0.02, 0.47]). Wilson nigdy nie wychodzi poza [0,1] i lepiej radzi sobie z małymi próbkami.
 
 ### statistically_below_overall flag
-Boolean dla każdego slice'a: czy DOLNA granica jego Wilson CI jest mniejsza od accuracy ogólnego. Jeśli tak — można twierdzić ze 95% pewnością „model jest tu istotnie gorszy", nie tylko „przypadkowo gorszy".
+Boolean dla każdego slice'a: czy GÓRNA granica jego Wilson CI jest mniejsza od accuracy ogólnego (w kodzie: `ci_upper < overall_accuracy`). Jeśli tak — można twierdzić ze 95% pewnością „model jest tu istotnie gorszy", nie tylko „przypadkowo gorszy".
 
 ---
 

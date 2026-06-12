@@ -90,8 +90,10 @@ def mcnemar(b, c):
     n = b + c
     if n == 0:
         return 0.0, 1.0
-    z = (abs(b - c) - 1) / math.sqrt(n)
-    return z, math.erfc(abs(z) / math.sqrt(2))
+    # Korekta ciaglosci nie moze zejsc ponizej zera -- dla b==c byloby z<0,
+    # a abs(z) dawalby p<1 zamiast poprawnego p=1 (brak roznicy).
+    z = max(abs(b - c) - 1, 0) / math.sqrt(n)
+    return z, math.erfc(z / math.sqrt(2))
 
 
 def build_context(ns, year):
@@ -218,7 +220,7 @@ def main():
         z, p = mcnemar(b, c)
         pos = int((df["delta"] > 0).sum())
         sig = "ISTOTNE" if (p < 0.05 and c > b) else ("ISTOTNE-na-niekorzysc" if p < 0.05 else "brak istotnosci")
-        print(f"\n--- {name} ({len(arr[0]) if False else len(SETS[name])} cech) ---")
+        print(f"\n--- {name} ({len(SETS[name])} cech) ---")
         print(df.to_string(index=False, float_format=lambda x: f"{x:.4f}"))
         print(f"  POOLED ({len(arr)}): baseline={bc.mean():.4f}  {name}={vc.mean():.4f}  "
               f"delta={vc.mean()-bc.mean():+.4f}  (dodatnie {pos}/{len(df)} lat)")

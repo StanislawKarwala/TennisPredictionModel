@@ -60,7 +60,18 @@ def run_one_seed(seed: int) -> dict[str, float]:
     # search.best_score_ to neg_log_loss (refit po log-loss, nie accuracy).
     cv_accuracy = namespace.get("cv_accuracy")
     if cv_accuracy is None:
-        cv_accuracy = float(namespace["search"].best_score_)
+        # Fallback dla starszych wersji baseline. UWAGA: best_score_ wolno uzyc
+        # tylko gdy scoring to accuracy -- przy refit='neg_log_loss' best_score_
+        # jest ujemnym log-lossem i wstawienie go do kolumny cv_accuracy
+        # falszowaloby podsumowanie (mean/std liczone z dwoch roznych metryk).
+        search = namespace["search"]
+        cv_results = getattr(search, "cv_results_", {})
+        if "mean_test_accuracy" in cv_results:
+            cv_accuracy = float(cv_results["mean_test_accuracy"][search.best_index_])
+        elif getattr(search, "scoring", None) == "accuracy":
+            cv_accuracy = float(search.best_score_)
+        else:
+            cv_accuracy = float("nan")
     result = {
         "seed": seed,
         "cv_accuracy": float(cv_accuracy),

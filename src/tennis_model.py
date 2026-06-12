@@ -4,8 +4,10 @@ Model predykcji wyników meczów tenisowych (ATP)
 Metodologia:
   - Algorytm: Random Forest Classifier z optymalizacją hiperparametrów (RandomizedSearchCV)
   - Walidacja: TimeSeriesSplit (walidacja krzyżowa z zachowaniem porządku chronologicznego)
-  - Podział danych: chronologiczny 60% trening / 20% walidacja / 20% test (rok 2024)
-  - Redukcja cold-start: dane z sezonów 2018–2023 jako kontekst historyczny dla cech dynamicznych
+  - Podział danych: chronologiczny 60% trening / 20% walidacja / 20% test
+    (sezon docelowy TARGET_YEAR, domyślnie 2025; nadpisywalny przez env TENNIS_TARGET_YEAR)
+  - Redukcja cold-start: sezony HISTORY_START_YEAR..TARGET_YEAR-1 (domyślnie 2001–2024)
+    jako kontekst historyczny dla cech dynamicznych
 
 Cechy modelu (40):
   - Kontekst meczu: nawierzchnia, poziom turnieju, best_of (3/5 setów), runda
@@ -172,7 +174,7 @@ df_base['tourney_level_encoded'] = le_level.transform(df_base['tourney_level'])
 # Proporcje: 60% trening — 20% walidacja — 20% test
 # Chronologia: trening < walidacja < test (wg daty turnieju)
 
-print("\n=== PODZIAŁ DANYCH (chronologiczny 2024) ===")
+print(f"\n=== PODZIAŁ DANYCH (chronologiczny {TARGET_YEAR}) ===")
 train_end = int(len(df_base) * 0.60)
 val_end = int(len(df_base) * 0.80)
 

@@ -6,8 +6,8 @@ Problem: pojedynczy test set 2024 (~590 meczow) ma CI ~ +/-4 p.p., wiec zyski
 +1-2 p.p. ze Sprint 3 sa w szumie. Walk-forward daje WIELE niezaleznych test
 setow -> wezsze CI + sprawdzenie spojnosci delty miedzy latami.
 
-Dla kazdego roku docelowego Y in {2021,2022,2023,2024}:
-  - historia = sezony 2018..Y-1,
+Dla kazdego roku docelowego Y (domyslnie 2020..2025, env TENNIS_WF_YEARS):
+  - historia = sezony HISTORY_START_YEAR (domyslnie 2001)..Y-1,
   - baseline (RF, 40 cech) trenowany na 60% Y, testowany na 20% Y,
   - model wzbogacony (baseline + surface_speed + fatigue) na tych samych danych,
   - zbieramy per-mecz poprawnosc OBU modeli (te same mecze) -> test parowany.
@@ -162,8 +162,10 @@ def mcnemar(b: int, c: int) -> tuple[float, float]:
     n = b + c
     if n == 0:
         return 0.0, 1.0
-    z = (abs(b - c) - 1) / math.sqrt(n) if n > 0 else 0.0
-    p = math.erfc(abs(z) / math.sqrt(2))
+    # Korekta ciaglosci nie moze zejsc ponizej zera -- dla b==c byloby z<0,
+    # a abs(z) dawalby p<1 zamiast poprawnego p=1 (brak roznicy).
+    z = max(abs(b - c) - 1, 0) / math.sqrt(n)
+    p = math.erfc(z / math.sqrt(2))
     return z, p
 
 

@@ -6,13 +6,14 @@ Pomysl uzytkownika: szybszy kort -> gracze z mocniejszym serwem bardziej
 faworyzowani. Implementacja:
 
 1) court_pace_index -- proxy predkosci kortu liczony WYLACZNIE z historii
-   2018-2023 (rozlacznie z ocenianym 2024 -> brak leakage). Dla kazdego turnieju
-   (tourney_base = tourney_id bez prefiksu roku, + surface) bierzemy historyczny
-   ace rate, centrujemy i skalujemy globalnie. Fallback dla turniejow o malym
-   wsparciu (<20 meczow) lub nieobecnych w historii: srednia danej nawierzchni.
+   (sezony HISTORY_START_YEAR..TARGET_YEAR-1, rozlacznie z ocenianym sezonem
+   -> brak leakage). Dla kazdego turnieju (tourney_base = tourney_id bez
+   prefiksu roku, + surface) bierzemy historyczny ace rate, centrujemy
+   i skalujemy globalnie. Fallback dla turniejow o malym wsparciu (<20 meczow)
+   lub nieobecnych w historii: srednia danej nawierzchni.
 
-2) is_indoor -- flaga kortu zadaszonego (korty indoor sa szybsze). Kolumna 'indoor'
-   istnieje w danych (O/I/NaN), ale baseline jej NIE uzywa.
+2) is_indoor -- USUNIETE: standardowe pliki Sackmanna (atp_matches_*) nie maja
+   kolumny 'indoor', a w testach byla bezuzyteczna (rank 44/44).
 
 3) interakcje serve x speed (kluczowe) -- przewaga serwisowa gracza pomnozona
    przez predkosc kortu. Antysymetryczne (znak zmienia sie przy p1<->p2), bo
@@ -116,8 +117,12 @@ def build_court_pace_lookup(history_files=None) -> tuple[dict, dict, float, floa
 
     # globalne statystyki do centrowania (z surowych ace rate per mecz, wazone svpt)
     global_mean = float(hist["tot_ace"].sum() / hist["tot_svpt"].sum())
-    # std liczymy na poziomie turniejow (rozrzut predkosci kortow)
-    global_std = float(supported["ace_rate"].std()) or 0.02
+    # std liczymy na poziomie turniejow (rozrzut predkosci kortow).
+    # Uwaga: `or 0.02` nie lapie NaN (NaN jest truthy) -- przy <2 turniejach
+    # z wystarczajacym wsparciem std() zwraca NaN i zatrulby caly indeks.
+    global_std = float(supported["ace_rate"].std())
+    if not np.isfinite(global_std) or global_std == 0.0:
+        global_std = 0.02
 
     return pace_by_tourney, pace_by_surface, global_mean, global_std
 

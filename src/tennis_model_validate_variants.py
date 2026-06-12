@@ -84,8 +84,10 @@ def mcnemar(b, c):
     n = b + c
     if n == 0:
         return 0.0, 1.0
-    z = (abs(b - c) - 1) / math.sqrt(n)
-    return z, math.erfc(abs(z) / math.sqrt(2))
+    # Korekta ciaglosci nie moze zejsc ponizej zera -- dla b==c byloby z<0,
+    # a abs(z) dawalby p<1 zamiast poprawnego p=1 (brak roznicy).
+    z = max(abs(b - c) - 1, 0) / math.sqrt(n)
+    return z, math.erfc(z / math.sqrt(2))
 
 
 def main():
