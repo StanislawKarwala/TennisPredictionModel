@@ -191,8 +191,8 @@ print(f"POOLED rynek: acc={float((mdf['accuracy']*mdf['n']).sum()/tn):.4f}  "
 
 ("md", """## Wnioski
 **Pierwsza cecha w całym projekcie, która przebija baseline w sposób istotny statystycznie.**
-Na walk-forward 2017–2025 (~4700 meczów) kursy dają pooled **+2,38 p.p.** (64,72% → 67,10%),
-poprawę we **wszystkich 9 sezonach na 9**, a McNemar **p < 0,0001** (b=265, c=376, z=4,34). Sufit ~65%,
+Na walk-forward 2017–2025 (~4700 meczów) kursy dają pooled **+2,25 p.p.** (64,72% → 66,97%),
+poprawę we **wszystkich 9 sezonach na 9**, a McNemar **p < 0,0001** (b=275, c=380, z=4,06). Sufit ~65%,
 o który rozbiły się Elo (+0,76, p=0,17), surface speed, fatigue i warianty slice-aware — pękł.
 
 Cechy kursowe natychmiast zdominowały model: `p1_implied_prob` jest cechą **nr 1 w każdym
@@ -201,15 +201,16 @@ To spodziewane: kurs zamknięcia agreguje wiedzę całego rynku (kontuzje, donie
 której nie ma w box-score'ach. `has_odds` ląduje na końcu ważności — neutralna imputacja 0.5/0.5
 dla meczów bez kursów wystarcza.
 
-Uczciwa interpretacja: model+kursy gra na poziomie **samego rynku** (faworyt wg kursów: 67,5%
-accuracy, Brier 0,204 na 96% meczów z kursami) — przewaga nad baseline pochodzi z informacji
-rynkowej, nie z magicznej synergii cech. Wartością dodaną modelu pozostaje (a) typowanie kilku %
+Uczciwa interpretacja: model+kursy gra na poziomie **samego rynku** (faworyt wg kursów: 67,6%
+accuracy, Brier 0,204 na 99% meczów z kursami) — przewaga nad baseline pochodzi z informacji
+rynkowej, nie z magicznej synergii cech. Wartością dodaną modelu pozostaje (a) typowanie ~1%
 meczów bez kursów, (b) skalibrowane prawdopodobieństwa na pełnym zbiorze.
 
-Uwaga operacyjna: wysokie pokrycie kursami zawdzięczamy backfill'owi polskich bukmacherów z BetExplorer
-(ATP Cup / United Cup, których nie ma w tennis-data — kaskada źródeł podejmuje je automatycznie),
-i to on podniósł wynik na 2020–2025 z +1,7 do +2,6 p.p. Dla sezonów 2017–2019 backfill jeszcze trwa —
-ich pokrycie wzrośnie z ~87–91% do ~98%, więc pooled może jeszcze drgnąć w górę."""),
+Uwaga operacyjna: ~99% pokrycie kursami (na meczach testowych) zawdzięczamy backfill'owi polskich
+bukmacherów z BetExplorer (ATP Cup / United Cup, których nie ma w tennis-data — kaskada źródeł
+podejmuje je automatycznie). Backfill objął komplet 9 sezonów; dla 2017–2019 podniósł pokrycie rynku
+z ~87–91% do ~98%, przez co model+kursy gra praktycznie na każdym meczu, nie tylko na tych z kursami
+zagranicznymi."""),
 ]
 
 make_and_run("TPM_Experiment_Odds.ipynb", cells, timeout=3600)
