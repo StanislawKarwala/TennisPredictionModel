@@ -48,9 +48,11 @@ DATA_DIR = BASE_DIR / "data" / "sample_data"
 ODDS_DIR = BASE_DIR / "data" / "odds"
 TOUR = os.environ.get("TENNIS_TOUR", "atp")
 
+# Kursy dostepne od sezonu 2017 (tennis-data + BetExplorer), wiec walk-forward
+# obejmuje tu 9 sezonow -- wiecej niz w pozostalych eksperymentach (2020-2025).
 _wf_env = os.environ.get("TENNIS_WF_YEARS")
 TARGET_YEARS = ([int(y) for y in _wf_env.split(",")] if _wf_env
-                else [2020, 2021, 2022, 2023, 2024, 2025])
+                else [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025])
 
 ODDS_FEATURES = ["p1_implied_prob", "p2_implied_prob", "implied_prob_diff", "has_odds"]
 

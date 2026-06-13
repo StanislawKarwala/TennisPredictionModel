@@ -279,7 +279,7 @@ def process_year(year: int, sleep_between: float, force_refetch: bool,
             odds_df.loc[match_key, ["match_key", "tourney_id", "match_num",
                                     "tourney_date", "winner_name", "loser_name"]] = [
                 match_key, sack_row.tourney_id, sack_row.match_num,
-                sack_row.tourney_date.strftime("%Y%m%d"),
+                sack_row.tourney_date.strftime("%Y-%m-%d"),
                 sack_row.winner_name, sack_row.loser_name,
             ]
         odds_df.at[match_key, "be_match_id"] = match_id

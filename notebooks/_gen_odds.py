@@ -42,7 +42,7 @@ join po `match_key`.
 - Kaskada źródeł per mecz: EnglishAvg → Pinnacle → B365 → PolishAvg (średnia polskich bukmacherów)
   (łapie np. United Cup, którego nie ma w tennis-data).
 - Te same tuned hiperparametry co baseline (czysta ablacja: zmieniamy **tylko** cechy).
-- **Walidacja walk-forward** przez 6 sezonów (2020–2025) + parowany test **McNemar** + benchmark
+- **Walidacja walk-forward** przez 9 sezonów (2017–2025; kursy dostępne od 2017) + parowany test **McNemar** + benchmark
   **samego rynku** (faworyt wg kursów)."""),
 
 ("code", SETUP),
@@ -191,24 +191,25 @@ print(f"POOLED rynek: acc={float((mdf['accuracy']*mdf['n']).sum()/tn):.4f}  "
 
 ("md", """## Wnioski
 **Pierwsza cecha w całym projekcie, która przebija baseline w sposób istotny statystycznie.**
-Na walk-forward 2020–2025 (~3000 meczów) kursy dają pooled **+1,72 p.p.** (64,63% → 66,35%),
-poprawę we **wszystkich 6 sezonach na 6**, a McNemar **p = 0,012** (b=180, c=232). Sufit ~65%,
+Na walk-forward 2017–2025 (~4700 meczów) kursy dają pooled **+2,38 p.p.** (64,72% → 67,10%),
+poprawę we **wszystkich 9 sezonach na 9**, a McNemar **p < 0,0001** (b=265, c=376, z=4,34). Sufit ~65%,
 o który rozbiły się Elo (+0,76, p=0,17), surface speed, fatigue i warianty slice-aware — pękł.
 
 Cechy kursowe natychmiast zdominowały model: `p1_implied_prob` jest cechą **nr 1 w każdym
-z 6 sezonów** (a `implied_prob_diff` nr 2) — powyżej `rank_diff`, formy i statystyk serwisowych.
+z 9 sezonów** (a `implied_prob_diff` nr 2) — powyżej `rank_diff`, formy i statystyk serwisowych.
 To spodziewane: kurs zamknięcia agreguje wiedzę całego rynku (kontuzje, doniesienia, motywację),
 której nie ma w box-score'ach. `has_odds` ląduje na końcu ważności — neutralna imputacja 0.5/0.5
 dla meczów bez kursów wystarcza.
 
-Uczciwa interpretacja: model+kursy gra na poziomie **samego rynku** (faworyt wg kursów: 67,3%
-accuracy, Brier 0,204 na 89% meczów z kursami) — przewaga nad baseline pochodzi z informacji
-rynkowej, nie z magicznej synergii cech. Wartością dodaną modelu pozostaje (a) typowanie ~10%
+Uczciwa interpretacja: model+kursy gra na poziomie **samego rynku** (faworyt wg kursów: 67,5%
+accuracy, Brier 0,204 na 96% meczów z kursami) — przewaga nad baseline pochodzi z informacji
+rynkowej, nie z magicznej synergii cech. Wartością dodaną modelu pozostaje (a) typowanie kilku %
 meczów bez kursów, (b) skalibrowane prawdopodobieństwa na pełnym zbiorze.
 
-Uwaga operacyjna: pokrycie kursami rośnie wraz z backfill'em polskich bukmacherów z BetExplorer
+Uwaga operacyjna: wysokie pokrycie kursami zawdzięczamy backfill'owi polskich bukmacherów z BetExplorer
 (ATP Cup / United Cup, których nie ma w tennis-data — kaskada źródeł podejmuje je automatycznie),
-więc liczby mogą się jeszcze minimalnie poprawić po jego zakończeniu."""),
+i to on podniósł wynik na 2020–2025 z +1,7 do +2,6 p.p. Dla sezonów 2017–2019 backfill jeszcze trwa —
+ich pokrycie wzrośnie z ~87–91% do ~98%, więc pooled może jeszcze drgnąć w górę."""),
 ]
 
 make_and_run("TPM_Experiment_Odds.ipynb", cells, timeout=3600)

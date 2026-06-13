@@ -131,6 +131,12 @@ def add_derived_average_columns(df: pd.DataFrame) -> pd.DataFrame:
     for int_col in ("match_num", "rank_agreement"):
         if int_col in df.columns:
             df[int_col] = pd.to_numeric(df[int_col], errors="coerce").astype("Int64")
+    # tourney_date w formacie ISO (YYYY-MM-DD); migruje tez stary zapis 20241230.
+    if "tourney_date" in df.columns:
+        raw_dates = df["tourney_date"].astype(str).str.replace(r"\.0$", "", regex=True)
+        parsed = pd.to_datetime(raw_dates, format="%Y%m%d", errors="coerce")
+        parsed = parsed.fillna(pd.to_datetime(raw_dates, format="%Y-%m-%d", errors="coerce"))
+        df["tourney_date"] = parsed.dt.strftime("%Y-%m-%d")
     for side in ("winner", "loser"):
         polish_cols = [f"{p}_{side}" for p in POLISH_BOOK_PREFIXES
                        if f"{p}_{side}" in df.columns]
@@ -352,7 +358,7 @@ def match_year(year: int, verbose: bool = True) -> pd.DataFrame:
             "match_key": f"{sack_row.tourney_id}_{sack_row.match_num}",
             "tourney_id": sack_row.tourney_id,
             "match_num": sack_row.match_num,
-            "tourney_date": sack_row.tourney_date.strftime("%Y%m%d"),
+            "tourney_date": sack_row.tourney_date.strftime("%Y-%m-%d"),
             "winner_name": sack_row.winner_name,
             "loser_name": sack_row.loser_name,
             "td_date": td_row["Date"].strftime("%Y-%m-%d"),
