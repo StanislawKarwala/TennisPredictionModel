@@ -31,7 +31,6 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 import warnings
 warnings.filterwarnings('ignore')
@@ -85,7 +84,86 @@ cols_base = ['tourney_date', 'surface', 'tourney_level', 'best_of', 'round',
              'loser_rank', 'loser_age', 'loser_ht', 'loser_hand', 'loser_rank_points',
              'winner_name', 'loser_name'] + cols_serve
 
-df_base = df[cols_base].dropna().copy()
+# =============================================================================
+# CZYSZCZENIE I KODOWANIE -- deterministyczne, niezalezne od wczytanych lat
+# =============================================================================
+# (Uwaga promotora: "czy kolumny i dane sa czyszczone na nowe lata".) Kazdy
+# sezon -- obecny i dolozony w przyszlosci (2026, 2027...) -- przechodzi przez
+# DOKLADNIE ten sam, jawny tor:
+#   1) walidacja, ze plik ma wszystkie wymagane kolumny (cols_base),
+#   2) raport ile wierszy usunal dropna (gl. mecze bez statystyk: walkowery/kreczy),
+#   3) STALE kodowanie kategorii -- te same liczby niezaleznie od tego, czy
+#      historia zawiera Carpet/igrzyska; nieznana kategoria nowego sezonu dostaje
+#      jawny kod + OSTRZEZENIE zamiast cichego przesuniecia kodu albo crasha.
+# Wartosci kodow = kolejnosc alfabetyczna pelnego slownika ATP (identyczna z
+# dotychczasowym LabelEncoder), wiec wynik kanoniczny pozostaje bez zmian.
+
+SURFACE_ENCODING = {'Carpet': 0, 'Clay': 1, 'Grass': 2, 'Hard': 3}
+TOURNEY_LEVEL_ENCODING = {'250': 0, '500': 1, 'A': 2, 'D': 3, 'F': 4, 'G': 5, 'M': 6, 'O': 7}
+UNKNOWN_CATEGORY_CODE = -1  # jawny kod dla nieznanej nawierzchni/poziomu (nowy rok)
+
+# Runda ordinalnie (im dalszy etap, tym wyzsza wartosc). ER (early rounds) oraz
+# 3rd/4th (mecz o 3. miejsce) z dawnych formatow druzynowych -- jawnie zmapowane,
+# zeby nie wpadaly po cichu w fallback. Nieznany kod -> ROUND_DEFAULT + WARN.
+ROUND_ORDER = {'R128': 1, 'R64': 2, 'R32': 3, 'RR': 3, 'ER': 3, '3rd/4th': 6,
+               'R16': 4, 'QF': 5, 'SF': 6, 'BR': 6, 'F': 7}
+ROUND_DEFAULT = 3
+
+
+def _warn_unknown_categories(series, known_keys, kind, source_label, fallback):
+    """Ostrzega o wartosciach kategorii spoza slownika (z liczba wierszy)."""
+    present = set(series.dropna().astype(str).unique())
+    unknown = sorted(present - set(map(str, known_keys)))
+    if unknown:
+        n = int(series.astype(str).isin(unknown).sum())
+        print(f"UWAGA [{source_label}]: nieznane '{kind}' {unknown} ({n} wierszy) "
+              f"-> kod {fallback}. Dodaj do slownika kodowania, jesli ma byc rozrozniane.")
+    return unknown
+
+
+def clean_match_data(df_raw, source_label, *, require_full=True):
+    """Jednolity tor czyszczenia dla KAZDEGO sezonu (target i historia).
+
+    Waliduje obecnosc wymaganych kolumn (cols_base), usuwa wiersze z brakami
+    (dropna -- gl. mecze bez statystyk serwisowych) i raportuje ile odpadlo.
+    Dla danych docelowych brak kolumny to blad (require_full=True); dla historii
+    tylko ostrzezenie -- historia jest best-effort. Zwraca czysta kopie ramki.
+    """
+    missing = [c for c in cols_base if c not in df_raw.columns]
+    if missing:
+        msg = (f"{source_label}: brak wymaganych kolumn {missing} -- plik nie ma "
+               f"formatu Sackmanna albo zmienil sie schemat danych.")
+        if require_full:
+            raise KeyError(msg)
+        print(f"UWAGA: {msg} -- pomijam.")
+        return pd.DataFrame(columns=cols_base)
+    df_clean = df_raw[cols_base].dropna().copy()
+    dropped = len(df_raw) - len(df_clean)
+    if dropped:
+        print(f"  [{source_label}] dropna usunal {dropped}/{len(df_raw)} wierszy "
+              f"({dropped / len(df_raw) * 100:.1f}% -- braki statystyk/rankingu)")
+    return df_clean
+
+
+def encode_categories(df_base, source_label):
+    """STALE kodowanie surface/level/round wg jawnych slownikow. Ostrzega o
+    nowych kategoriach zamiast po cichu je przesuwac lub wrzucac w jeden kosz."""
+    _warn_unknown_categories(df_base['surface'], SURFACE_ENCODING,
+                             'surface', source_label, UNKNOWN_CATEGORY_CODE)
+    _warn_unknown_categories(df_base['tourney_level'].astype(str), TOURNEY_LEVEL_ENCODING,
+                             'tourney_level', source_label, UNKNOWN_CATEGORY_CODE)
+    _warn_unknown_categories(df_base['round'], ROUND_ORDER,
+                             'round', source_label, ROUND_DEFAULT)
+    df_base['surface_encoded'] = (df_base['surface'].map(SURFACE_ENCODING)
+                                  .fillna(UNKNOWN_CATEGORY_CODE).astype(int))
+    df_base['tourney_level_encoded'] = (df_base['tourney_level'].astype(str)
+                                        .map(TOURNEY_LEVEL_ENCODING)
+                                        .fillna(UNKNOWN_CATEGORY_CODE).astype(int))
+    df_base['round_encoded'] = df_base['round'].map(ROUND_ORDER).fillna(ROUND_DEFAULT)
+    return df_base
+
+
+df_base = clean_match_data(df, f"target {TARGET_YEAR}")
 
 # Transformacja logarytmiczna rankingów ATP.
 # Uzasadnienie: rozkład rankingów jest silnie prawoskośny — różnica między
@@ -102,9 +180,8 @@ df_base['loser_rank_pts_log'] = np.log(df_base['loser_rank_points'])
 df_base['winner_is_lefty'] = (df_base['winner_hand'] == 'L').astype(int)
 df_base['loser_is_lefty'] = (df_base['loser_hand'] == 'L').astype(int)
 
-# Runda turnieju — ordinalnie zakodowana (im dalszy etap, tym wyższa wartość).
-ROUND_ORDER = {'R128': 1, 'R64': 2, 'R32': 3, 'RR': 3, 'R16': 4, 'QF': 5, 'SF': 6, 'BR': 6, 'F': 7}
-df_base['round_encoded'] = df_base['round'].map(ROUND_ORDER).fillna(3)
+# Kodowanie kategorii (surface/level/round) zrobione zbiorczo w ETAP 3 przez
+# encode_categories -- patrz stale slowniki i helpery wyzej.
 
 print(f"Dane główne ({TARGET_YEAR}): {len(df_base)} meczów")
 
@@ -126,7 +203,7 @@ for filepath in history_files:
         df_hist = pd.read_csv(filepath)
         df_hist['tourney_date'] = pd.to_datetime(df_hist['tourney_date'], format='%Y%m%d')
         df_hist = df_hist.sort_values(['tourney_date', 'match_num']).reset_index(drop=True)
-        df_hist_base = df_hist[cols_base].dropna().copy()
+        df_hist_base = clean_match_data(df_hist, filepath.name, require_full=False)
         history_parts.append(df_hist_base)
         print(f"Zaladowano dane historyczne ({filepath}): {len(df_hist_base)} meczow")
     except FileNotFoundError:
@@ -141,27 +218,23 @@ else:
 
 
 # =============================================================================
-# ETAP 3. KODOWANIE ZMIENNYCH KATEGORYCZNYCH (Label Encoding)
+# ETAP 3. KODOWANIE ZMIENNYCH KATEGORYCZNYCH (stale, deterministyczne)
 # =============================================================================
-# Nawierzchnia (Hard/Clay/Grass) i poziom turnieju (Grand Slam/Masters/250/...)
-# to zmienne kategoryczne. LabelEncoder przypisuje im wartości liczbowe.
-# Enkodery dopasowywane są na zbiorze 2018–2023+2024, aby uwzględnić wszystkie
-# możliwe kategorie i uniknąć błędów przy transformacji.
+# Nawierzchnia, poziom turnieju i runda -> liczby wg STALYCH slownikow
+# (SURFACE_ENCODING / TOURNEY_LEVEL_ENCODING / ROUND_ORDER zdefiniowanych wyzej).
+# W przeciwienstwie do refitowanego LabelEncodera kodowanie jest IDENTYCZNE
+# niezaleznie od tego, ktore sezony wczytano (Carpet/igrzyska w historii nie
+# przesuwaja juz kodu "Hard"), a nieznana kategoria nowego sezonu dostaje jawny
+# kod + ostrzezenie zamiast crasha. encode_categories liczy tez round_encoded.
 
-le_surface = LabelEncoder()
-le_level = LabelEncoder()
+df_base = encode_categories(df_base, f"target {TARGET_YEAR}")
 
-all_surfaces = pd.concat([df_base['surface'], df_history_base['surface']]).unique()
-all_levels = pd.concat([df_base['tourney_level'], df_history_base['tourney_level']]).unique()
-
-le_surface.fit(all_surfaces)
-le_level.fit(all_levels)
-
-print(f"Nawierzchnie:      {list(le_surface.classes_)}")
-print(f"Poziomy turniejów: {list(le_level.classes_)}")
-
-df_base['surface_encoded'] = le_surface.transform(df_base['surface'])
-df_base['tourney_level_encoded'] = le_level.transform(df_base['tourney_level'])
+surf_codes = {s: SURFACE_ENCODING[s] for s in SURFACE_ENCODING
+              if s in set(df_base['surface'])}
+lvl_codes = {l: TOURNEY_LEVEL_ENCODING[l] for l in TOURNEY_LEVEL_ENCODING
+             if l in set(df_base['tourney_level'].astype(str))}
+print(f"Nawierzchnie (kod):      {surf_codes}")
+print(f"Poziomy turniejów (kod): {lvl_codes}")
 
 # =============================================================================
 # ETAP 4. PODZIAŁ CHRONOLOGICZNY (Train / Validation / Test)
